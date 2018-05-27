@@ -25,7 +25,7 @@ public class UserDao {
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		User user = new User();
-		user.setName("xiaoluo").setCreateTime(System.currentTimeMillis())
+		user.setName("test2").setCreateTime(System.currentTimeMillis())
 		    .setPassword("123456").setReportNum(0).setRoles("").setSex("男")
 		        .setPic("").setStatus("1");
 		sess.save(user);
