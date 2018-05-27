@@ -3,13 +3,13 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>颜色转换</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -21,6 +21,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
-  </body>
+    <div id="app">
+     <!--   <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
+        <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
+        <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
+	-->  
+	
+	<a href="page/java/java.jsp"  target="_blank">java交流</a>
+	<a href="page/master/master.jsp"  target="_blank">考研交流</a>
+	<a href="page/found/found.jsp"  target="_blank">招领启事</a>
+	
+    </div>
+
+</body>
 </html>
