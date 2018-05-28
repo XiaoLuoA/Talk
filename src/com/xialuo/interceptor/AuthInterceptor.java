@@ -15,8 +15,6 @@ import com.opensymphony.xwork2.interceptor.Interceptor;
 
 public class AuthInterceptor implements Interceptor {
 
-	
-
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub

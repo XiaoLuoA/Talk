@@ -41,8 +41,6 @@ public class TalkATalkWebsocketStarter {
 //		return wsServerStarter;
 //	}
 	
-	public static void main(String[] args) throws IOException {
-		start();
-	}
+	
 
 }
