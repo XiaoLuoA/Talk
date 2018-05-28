@@ -63,6 +63,22 @@ public class UserDao {
 	}
 	
 	
+	//获取用户的所有的会话列表
+	public static List<UserItem> getUserItem(User user){
+		Configuration conf = new Configuration().configure();
+		SessionFactory sf = conf.buildSessionFactory();
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query = sess.createQuery("from user_item where user_id = ? ");
+		query.setInteger(0, user.getId());
+		List<UserItem> userItems = query.list();
+		tx.commit();
+		sess.close();
+		sf.close();
+		return userItems;
+	}
+	
+	
 	//上线后获取发给某个用户的所有消息
 	public static Map<Integer,UserMess> getMess(User user){
 		Configuration conf = new Configuration().configure();
