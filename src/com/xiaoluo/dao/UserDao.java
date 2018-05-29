@@ -31,7 +31,19 @@ public class UserDao {
 			tx.commit();
 			sess.close();
 			sf.close();
-				
+	      
+	}
+	/*查询用户*/
+	public static boolean selectUser(String name){
+		boolean a=false;
+		String hql="select*from User where name=?";
+		Configuration conf = new Configuration().configure();
+		SessionFactory sf = conf.buildSessionFactory();
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query quary=sess.createQuery(hql);
+		
+		return false;		
 	}
 	
 	

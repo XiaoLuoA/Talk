@@ -6,6 +6,12 @@
 			<result>index.jsp</result>
 		</action>
 		
+     <!-- 注册 -->		
+	<action name="registerAction" class="UserAction.RegisterAction" method="register">
+	  <result name="input">/Register/Register.jsp</result>
+	  <result name="success">/Register/RegisterSuccess.jsp</result>
+	  <result name="fail">/Register/RegisterFail.jsp</result>
+	</action>
 	</package>
 	
 	
