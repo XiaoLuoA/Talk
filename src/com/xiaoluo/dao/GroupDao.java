@@ -12,6 +12,12 @@ import com.xiaoluo.model.Group;
 
 public class GroupDao {
 	
+	public static GroupDao me = new GroupDao();
+	
+	private GroupDao(){
+		
+	}
+	
 	/**
 	 * 获取所有的Group对象
 	 * @return
@@ -28,6 +34,5 @@ public class GroupDao {
 		sf.close();
 		return allGroup;
 	}
-	
 	
 }
