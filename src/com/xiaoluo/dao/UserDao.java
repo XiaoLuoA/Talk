@@ -17,23 +17,21 @@ import com.xiaoluo.model.UserMess;
 public class UserDao {
 	
 	public static void main(String[] args) {
-		addUser();
+		//addUser();
 		System.out.println("success");
 	}
 	
-	public static void addUser(){
+	/*添加用户*/
+	public static void addUser(User user){
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		User user = new User();
-		user.setName("test2").setCreateTime(System.currentTimeMillis())
-		    .setPassword("123456").setReportNum(0).setRoles("").setSex("男")
-		        .setPic("").setStatus("1");
-		sess.save(user);
-		tx.commit();
-		sess.close();
-		sf.close();
+		Transaction tx = sess.beginTransaction();					
+			sess.save(user);		
+			tx.commit();
+			sess.close();
+			sf.close();
+				
 	}
 	
 	
