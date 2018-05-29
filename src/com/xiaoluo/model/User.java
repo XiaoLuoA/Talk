@@ -11,6 +11,8 @@ public class User {
 	private java.lang.String pic;
 	private java.lang.Long createTime;
 	private java.lang.Integer reportNum;
+	private java.lang.String tel;
+	private java.lang.String email;
 	public User setName(java.lang.String name) {
 		this.name = name;
 		return this;
@@ -90,6 +92,24 @@ public class User {
 
 	public java.lang.Integer getReportNum() {
 		return this.reportNum;
+	}
+
+	public User setTel(java.lang.String tel) {
+		this.tel = tel;
+		return this;
+	}
+
+	public java.lang.String getTel() {
+		return this.tel;
+	}
+
+	public User setEmail(java.lang.String email) {
+		this.email = email;
+		return this;
+	}
+
+	public java.lang.String getEmail() {
+		return this.email;
 	}
 
 }

@@ -16,7 +16,7 @@ public class _Generator
 		String modelPackageName = "com.xiaoluo.model";
 		
 		//model 文件保存路径
-		String modelOutputDir = "src/main/java/com/xiaoluo/model";
+		String modelOutputDir = "src/test/com/xiaoluo/model";
 		
 		// 创建生成器
 		Generator generator = new Generator(getDataSource(), modelPackageName, modelOutputDir);
