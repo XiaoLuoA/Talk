@@ -1,20 +1,23 @@
 package com.xiaoluo.model;
 
+import java.util.List;
+
 public class Menu {
 
-	private java.lang.String id;
+	private java.lang.Integer id;
 	private java.lang.String menuName;
 	private java.lang.String menuUrl;
 	private java.lang.Integer parentId;
 	private java.lang.String icon;
 	private java.lang.Integer orderNum;
 	private java.lang.Long createTime;
-	public Menu setId(java.lang.String id) {
+	private List<Menu> subMenu;
+	public Menu setId(java.lang.Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public java.lang.String getId() {
+	public java.lang.Integer getId() {
 		return this.id;
 	}
 
@@ -70,6 +73,11 @@ public class Menu {
 
 	public java.lang.Long getCreateTime() {
 		return this.createTime;
+	}
+
+	public List<Menu> getSubMenuList() {
+		// TODO Auto-generated method stub
+		return this.subMenu;
 	}
 
 }

@@ -1,0 +1,122 @@
+Table: black_list
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | int(11)      | NO   | PRI |         |         
+ user_id         | int(11)      | NO   |     |         |         
+ blank_id        | int(11)      | NO   |     |         |         
+ black_temp_name | varchar(15)  | NO   |     |         |         
+ black_temp_pic  | varchar(100) | NO   |     |         |         
+-----------------+--------------+------+-----+---------+---------
+
+Table: group
+--------------+-------------+------+-----+---------+---------
+ Field        | Type        | Null | Key | Default | Remarks 
+--------------+-------------+------+-----+---------+---------
+ id           | int(11)     | NO   | PRI |         |         
+ group_name   | varchar(10) | NO   |     |         | 群组名字    
+ group_detail | varchar(50) | YES  |     |         | 群组详情    
+ group_num    | int(11)     | YES  |     |         | 群聊人数    
+ create_time  | bigint(20)  | NO   |     |         | 创建时间    
+ group_pic    | varchar(50) | YES  |     |         | 头像      
+--------------+-------------+------+-----+---------+---------
+
+Table: group_mess
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(11)      | NO   | PRI |         |         
+ content     | varchar(50)  | NO   |     |         |         
+ time        | bigint(20)   | NO   |     |         |         
+ talker_name | varchar(15)  | NO   |     |         |         
+ talker_pic  | varchar(100) | NO   |     |         |         
+ talker_id   | int(11)      | NO   |     |         |         
+ group       | int(11)      | NO   |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: menu
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(255)     | NO   | PRI |         | 标识主键    
+ menu_name   | varchar(10)  | NO   |     |         | 菜单名     
+ menu_url    | varchar(100) | YES  |     |         | 菜单对应url 
+ parent_id   | int(11)      | NO   |     |         | 菜单的父id  
+ icon        | varchar(50)  | YES  |     |         | 菜单图标    
+ order_num   | int(11)      | NO   |     |         | 菜单所在顺序  
+ create_time | bigint(100)  | YES  |     |         | 菜单创建时间  
+-------------+--------------+------+-----+---------+---------
+
+Table: role
+-------------+-------------+------+-----+---------+---------
+ Field       | Type        | Null | Key | Default | Remarks 
+-------------+-------------+------+-----+---------+---------
+ id          | int(11)     | NO   | PRI |         | 标识主键    
+ role_name   | varchar(15) | NO   |     |         | 角色名     
+ create_time | bigint(20)  | NO   |     |         | 创建角色时间  
+-------------+-------------+------+-----+---------+---------
+
+Table: role_menu
+-------------+------------+------+-----+---------+---------
+ Field       | Type       | Null | Key | Default | Remarks 
+-------------+------------+------+-----+---------+---------
+ id          | int(11)    | NO   | PRI |         | 标识主键    
+ role_id     | int(11)    | NO   |     |         | 角色id    
+ menu_id     | int(11)    | NO   |     |         | 菜单id    
+ create_time | bigint(20) | YES  |     |         | 创建时间    
+-------------+------------+------+-----+---------+---------
+
+Table: user
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ name        | varchar(15)  | NO   |     |         | 姓名      
+ id          | int(11)      | NO   | PRI |         | 标识主键    
+ password    | varchar(100) | NO   |     |         | 密码      
+ status      | varchar(255) | NO   |     |         | 状态 0:冻结 1:正常 2:未激活
+ roles       | varchar(30)  | NO   |     |         | 角色 1:普通用户 2:管理员 3:超级管理员
+ sex         | varchar(5)   | NO   |     |         | 性别 存'男'/'女'
+ pic         | varchar(100) | YES  |     |         | 头像      
+ create_time | bigint(20)   | NO   |     |         | 用户创建时间 存时间戳
+ report_num  | smallint(6)  | NO   |     | 0       | 举报数量    
+ tel         | varchar(15)  | YES  |     |         | 手机号     
+ email       | varchar(50)  | NO   |     |         | 邮箱号     
+-------------+--------------+------+-----+---------+---------
+
+Table: user_group_item
+----------+---------+------+-----+---------+---------
+ Field    | Type    | Null | Key | Default | Remarks 
+----------+---------+------+-----+---------+---------
+ user_id  | int(11) | NO   |     |         | 用户id    
+ group_id | int(11) | NO   |     |         | 群组id    
+----------+---------+------+-----+---------+---------
+
+Table: user_item
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ userItemId   | int(11)      | NO   | PRI |         | 聊天列表项id 
+ talkerItemId | int(11)      | NO   | PRI |         | 聊天对象的列表项id
+ user_id      | int(11)      | NO   |     |         | 用户id    
+ user_name    | varchar(15)  | NO   |     |         | 用户姓名    
+ talker_id    | int(11)      | NO   |     |         | 聊天对象id  
+ talker_name  | varchar(15)  | NO   |     |         | 聊天对象姓名  
+ newNum       | int(11)      | NO   |     |         | 未读消息数量  
+ lastTime     | bigint(20)   | NO   |     |         | 最后发言时间  
+ isBlack      | smallint(6)  | NO   |     |         | 是否黑名单   
+ talker_pic   | varchar(100) | NO   |     |         | 聊天对象的头像 
+--------------+--------------+------+-----+---------+---------
+
+Table: user_mess
+--------------+-------------+------+-----+---------+---------
+ Field        | Type        | Null | Key | Default | Remarks 
+--------------+-------------+------+-----+---------+---------
+ user_mess_id | int(11)     | NO   | PRI |         |         
+ item_id      | int(11)     | NO   |     |         |         
+ from_id      | int(11)     | NO   |     |         |         
+ send_time    | bigint(20)  | NO   |     |         |         
+ to_id        | int(11)     | NO   |     |         |         
+ isRead       | tinyint(4)  | NO   |     |         |         
+ content      | varchar(50) | NO   |     |         |         
+--------------+-------------+------+-----+---------+---------
+
