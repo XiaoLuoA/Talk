@@ -25,13 +25,13 @@ public class MenuAuthInterceptor implements Interceptor {
 	@Override
 	public String intercept(ActionInvocation inv) throws Exception {
 		ActionContext action = inv.getInvocationContext();
-		Boolean authLoad = getMenuLoad(action.getSession().get("authLoad"));
+		Boolean authLoad = getMenuLoad(action.getSession().get("menuLoad"));
 		User user = (User) action.getSession().get("user");
 			// 用户菜单
 		action.getSession().put("menuList"
 				, LoginService.me.getUserMenu(user));
 		 // 加载完毕，修改标识符
-	     action.getSession().put("authLoad", false);
+	     action.getSession().put("menuLoad", false);
 	     return inv.invoke();
 	}
 	
