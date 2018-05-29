@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>注册</title>
+    <title>登录</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,31 +23,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="registerAction" method="post">
-        <table>
-          <tr>
+    <form action="loginAction" method="post">
+       <table>
+          <tr> 
             <td>
-                   用户名：<input type="text" name="name" required="required">
+            用户名：<input type="text" name="name" required="required">
             </td>
-          
           </tr>
-           <tr>
+          <tr> 
             <td>
-                 密   码： <input type="password" name="password" required="required">
-            </td>            
+            密   码：<input type="text" name="password" required="required">
+            </td>
           </tr>
-          <tr>
-      	      <td> 
-      	        性   别： <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	             
-             </td>
-      	   </tr>
-      	   <tr>
-      	      <td>
-      	           邮   箱：<input type="email" name="email" required="required">
-      	      </td>       	    
-      	   </tr>    	                  
-      	  </table>
-        <input type="submit" value="确定">
+          <input type="submit" value="登录">
+       </table>
     </form>
   </body>
 </html>
