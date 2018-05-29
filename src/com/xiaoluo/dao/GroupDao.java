@@ -22,6 +22,12 @@ public class GroupDao {
 		
 	}
 	
+	public static GroupDao me = new GroupDao();
+	
+	private GroupDao(){
+		
+	}
+	
 	/**
 	 * 获取所有的Group对象
 	 * @return
@@ -100,6 +106,7 @@ public static Group findGroup(int id){
 		tx.commit();
 		sess.close();
 		sf.close();
+
 			
    } 
     
@@ -136,8 +143,8 @@ public static Group findGroup(int id){
 		return group.getGroupName()+"已更新完成";
 		
 	
-   } 
-     
-	
+  
+	}
+
 	
 }

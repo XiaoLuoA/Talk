@@ -34,6 +34,8 @@ public class MenuDao {
 		sf.close();
 		return allMenu;
 	}
+	
+	
 
 	public List<Menu> findByUser(User user) {
 		

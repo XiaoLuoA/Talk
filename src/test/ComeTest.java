@@ -1,7 +1,10 @@
 package test;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class ComeTest {
-	//lxy已经进去
+	//lxy已经进去、、
 	//lxy test01
 	//wyh test01		
 	public static void main(String[] args) {
@@ -16,4 +19,6 @@ public class ComeTest {
 			return 100;
 		}
 	}
+	
+
 }
