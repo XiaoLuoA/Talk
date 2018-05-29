@@ -6,7 +6,7 @@ public class ComeTest {
 	//wyh test01		
 	public static void main(String[] args) {
 		;
-		System.out.println(testTryCatch(10,0));
+		System.out.println(testTryCatch(10,0));//
 	}
 	
 	public static int testTryCatch(int a,int b){
