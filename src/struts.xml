@@ -12,6 +12,29 @@
 	  <result name="success">/Register/RegisterSuccess.jsp</result>
 	  <result name="fail">/Register/RegisterFail.jsp</result>
 	</action>
+	
+	<!-- 登录 -->
+	<action name="loginAction" class="UserAction.LoginAction" method="login">
+	  <result name="input">/Login/Login.jsp</result>
+	  <result name="success">/Login/LoginSuccess.jsp</result>
+	  <result name="fail">/Login/LoginFail.jsp</result>
+	  <result name="null">/Login/Login.jsp</result>
+	</action>
+		
+	<!-- 忘记密码 -->
+	<action name="lostpassAction" class="UserAction.LostpassAction" method="lostpassword">
+	  <result name="input">/Login/LostPassword.jsp</result>
+	  <result name="success">/Login/LostPassword.jsp</result>
+	  <result name="fail">/Login/CheckError.jsp</result>
+	  <result name="null">/Login/CheckError.jsp</result>
+	</action>
+	
+	<!-- 验证码 -->
+	<action name="changepassAction" class="UserAction.ChangepassAction" method="changepassword">
+	  <result name="input">/Login/LostPassword.jsp</result>
+	  <result name="success">/Login/FillPassword.jsp</result>
+	  <result name="fail">/Login/CheckFail.jsp</result>
+	</action>
 	</package>
 	
 	

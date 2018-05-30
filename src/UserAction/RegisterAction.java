@@ -6,11 +6,9 @@ import com.xiaoluo.model.User;
 
 import service.RegisterService;;
 
-public class RegisterAction  implements ModelDriven<User>{
-	
+public class RegisterAction  implements ModelDriven<User>{	
 	private User user = new User();
-	
-	
+		
 	@Override
 	public User getModel() {
 		return user;
