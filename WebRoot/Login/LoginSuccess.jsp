@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>登录</title>
+    <title>登录成功</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,23 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="loginAction" method="post">
-       <table>
-          <tr> 
-            <td>
-            用户名：<input type="text" name="name" required="required">
-            </td>
-          </tr>
-          <tr> 
-            <td>
-            密   码：<input type="text" name="password" required="required">
-            </td>
-          </tr>
-          
-       </table>
-       <input type="submit" value="登录">
-    </form>
-    <a href="Register/register.jsp">立即注册</a>
-    <a href="Login/LostPassword">忘记密码</a>
+    登录成功！
+    
   </body>
 </html>

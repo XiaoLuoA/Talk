@@ -1,7 +1,10 @@
 package com.xiaoluo.dao;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,33 +20,182 @@ import com.xiaoluo.model.UserMess;
 public class UserDao {
 	
 	public static void main(String[] args) {
-		//addUser();
+		/*String mes;
+		mes=updateUser(6, "testsuccess", "11111", "1", "", "男", "", System.currentTimeMillis(), 10);
+		System.out.println(mes);
+		*/
+		
+		
+		
+	/*	user.setName("TestForUpdate").setCreateTime(System.currentTimeMillis())
+		    .setPassword("123456").setReportNum(0).setRoles("").setSex("女")
+		        .setPic("").setStatus("1");*/
+		
+		//String mes;
+		//addUser(user);
+		//System.out.println("添加成功");
+		
+		/*
+		mes=deleteUser(user);
+		System.out.println(mes);*/
+		FindAllUserList();
+		
+		
 		System.out.println("success");
 	}
 	
-	/*添加用户*/
+	
+	//测试成功
 	public static void addUser(User user){
+		
 		Configuration conf = new Configuration().configure();
+		
 		SessionFactory sf = conf.buildSessionFactory();
+		
 		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();					
-			sess.save(user);		
-			tx.commit();
-			sess.close();
-			sf.close();
+
+		Transaction tx = sess.beginTransaction();
+		sess.save(user);
+		tx.commit();
+		sess.close();
+		sf.close();
+
 	      
 	}
 	/*查询用户*/
-	public static boolean selectUser(String name){
-		boolean a=false;
-		String hql="select*from User where name=?";
+	public static List<User> findUser(String name){		
+		String hql="from User where name=?";
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		Query quary=sess.createQuery(hql);
+		Query query=sess.createQuery(hql);
+		query.setString(0,name);		
+		List<User> userlist = query.list();          		
+		return userlist;		
+	}
+	/*修改用户信息*/
+	public static List<User> updateUser(String name,String password){		
+		String hql="update User SET password = ? WHERE name = ? ";
+		Configuration conf = new Configuration().configure();
+		SessionFactory sf = conf.buildSessionFactory();
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query=sess.createQuery(hql);
+		query.setString(0,name);		
+		List<User> userlist = query.list();          		
+		return userlist;		
+	}
+
+	
+	
+	//测试成功
+	public static List<User> FindAllUserList(){
+		 
+        Configuration conf = new Configuration().configure();
+	    SessionFactory sf = conf.buildSessionFactory();
+	    Session session = sf.openSession();
+        User user=new User();
+        Transaction transaction = session.beginTransaction();  
+        
+
+        //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
+        Query query = session.createQuery("from User");
+        //从第一个开始查起.可以设置从第几个查起.
+        query.setFirstResult(0);
+        
+        //使用List方法.
+        List<User> userList = query.list();
+        //迭代器去迭代.
+        for(Iterator iter=userList.iterator();iter.hasNext();)
+        {
+            user =(User)iter.next();
+           System.out.println("id="+user.getId() + "name="+user.getName());
+        }
+        
+        
+                
+        transaction.commit();  
+        session.close();
+		sf.close(); 
+		return userList;
+	
+	
+	
+}
+	public static User findUser(int id){
 		
-		return false;		
+		Configuration conf = new Configuration().configure();
+	    SessionFactory sf = conf.buildSessionFactory();
+	    Session session = sf.openSession();
+	    User user=new User();
+	    Transaction transaction = session.beginTransaction();
+		
+
+		  //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
+        Query query = session.createQuery(" from User where id = "+id+"");
+        //从第一个开始查起.可以设置从第几个查起.
+        query.setFirstResult(0);
+        
+        //使用List方法.
+        List<User> userList = query.list();
+        //迭代器去迭代.
+        for(Iterator iter=userList.iterator();iter.hasNext();)
+        {
+            user =(User)iter.next();
+           System.out.println("id="+user.getId() + "name="+user.getName());
+        }
+        
+        
+                
+        transaction.commit();  
+        session.close();
+		sf.close(); 
+		
+		
+		return user;
+		
+	}
+	
+	
+	
+	
+	public static  String deleteUser(User user){
+		
+		
+		    Configuration conf = new Configuration().configure();
+		    SessionFactory sf = conf.buildSessionFactory();
+		    Session session = sf.openSession();
+	        Transaction transaction = session.beginTransaction();
+	        session.delete(user);
+	        transaction.commit(); 
+	        session.close();
+			sf.close(); 
+		
+		
+		
+		
+		return "删除"+user.getName()+"成功";
+	}
+	
+	public static String updateUser (User user){
+		
+		  
+			
+			
+			Configuration conf = new Configuration().configure();
+			SessionFactory sf = conf.buildSessionFactory();
+			Session session = sf.openSession();
+			Transaction transaction = session.beginTransaction();
+			
+			session.saveOrUpdate(user);
+			transaction.commit(); 
+	        session.close();
+			sf.close(); 
+		
+			return user.getName()+"已更新完成";
+			
+		
 	}
 	
 	
