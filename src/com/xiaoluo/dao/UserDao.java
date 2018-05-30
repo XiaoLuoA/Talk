@@ -17,6 +17,8 @@ import com.xiaoluo.model.UserMess;
 
 public class UserDao {
 	
+	public static UserDao me= new UserDao();
+	
 	public static void main(String[] args) {
 		/*String mes;
 		mes=updateUser(6, "testsuccess", "11111", "1", "", "男", "", System.currentTimeMillis(), 10);
@@ -43,20 +45,27 @@ public class UserDao {
 	}
 	
 	
-	//测试成功
-	public static void addUser(User user){
+	//@drj
+	public static String addUser(User user){
 		
 		Configuration conf = new Configuration().configure();
-		
 		SessionFactory sf = conf.buildSessionFactory();
-		
 		Session sess = sf.openSession();
-
 		Transaction tx = sess.beginTransaction();
-		sess.save(user);
+		try{
+			sess.save(user);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+		
+		
 		tx.commit();
 		sess.close();
 		sf.close();
+		
+		return "增加用户成功";
 
 	      
 	}
@@ -75,23 +84,26 @@ public class UserDao {
 	}
 	
 	
-	//测试成功
+	//@drj
 	public static List<User> FindAllUserList(){
 		 
         Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
         User user=new User();
+        List<User> userList = null;
         Transaction transaction = session.beginTransaction();  
         
 
         //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
+        
+   try{
         Query query = session.createQuery("from User");
         //从第一个开始查起.可以设置从第几个查起.
         query.setFirstResult(0);
         
         //使用List方法.
-        List<User> userList = query.list();
+        userList = query.list();
         //迭代器去迭代.
         for(Iterator iter=userList.iterator();iter.hasNext();)
         {
@@ -99,7 +111,10 @@ public class UserDao {
            System.out.println("id="+user.getId() + "name="+user.getName());
         }
         
-        
+       }
+   catch(Exception e){
+	   e.printStackTrace();
+   }
                 
         transaction.commit();  
         session.close();
@@ -108,7 +123,8 @@ public class UserDao {
 	
 	
 	
-}
+}   
+	//@drj
 	public static User findUser(int id){
 		
 		Configuration conf = new Configuration().configure();
@@ -119,6 +135,8 @@ public class UserDao {
 		
 
 		  //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
+	    
+	 try{   
         Query query = session.createQuery(" from User where id = "+id+"");
         //从第一个开始查起.可以设置从第几个查起.
         query.setFirstResult(0);
@@ -131,9 +149,10 @@ public class UserDao {
             user =(User)iter.next();
            System.out.println("id="+user.getId() + "name="+user.getName());
         }
-        
-        
-                
+	 }
+      catch(Exception e){  
+    	  e.printStackTrace();
+      }
         transaction.commit();  
         session.close();
 		sf.close(); 
@@ -145,7 +164,7 @@ public class UserDao {
 	
 	
 	
-	
+	//@drj
 	public static  String deleteUser(User user){
 		
 		
@@ -153,7 +172,13 @@ public class UserDao {
 		    SessionFactory sf = conf.buildSessionFactory();
 		    Session session = sf.openSession();
 	        Transaction transaction = session.beginTransaction();
+	    try{
 	        session.delete(user);
+	       }
+	    catch(Exception e){
+	    	e.printStackTrace();
+	    	
+	    }
 	        transaction.commit(); 
 	        session.close();
 			sf.close(); 
@@ -164,6 +189,8 @@ public class UserDao {
 		return "删除"+user.getName()+"成功";
 	}
 	
+	
+	//@drj
 	public static String updateUser (User user){
 		
 		  
@@ -173,8 +200,12 @@ public class UserDao {
 			SessionFactory sf = conf.buildSessionFactory();
 			Session session = sf.openSession();
 			Transaction transaction = session.beginTransaction();
-			
+		try{
 			session.saveOrUpdate(user);
+		   }
+		catch(Exception e){
+			
+		}
 			transaction.commit(); 
 	        session.close();
 			sf.close(); 

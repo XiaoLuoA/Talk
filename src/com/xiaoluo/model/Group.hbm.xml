@@ -8,13 +8,10 @@
 		<id name="id">
 			<generator class="identity"/>
 		</id>
-		
 		<property name="groupName" column="group_name"/>
 		<property name="groupDetail" column="group_detail"/>
 		<property name="groupNum" column="group_num"/>
 		<property name="createTime" column="create_time"/>
 		<property name="groupPic" column="group_pic"/>
-		
-		
 	</class>
 </hibernate-mapping>

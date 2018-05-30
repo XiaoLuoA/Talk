@@ -12,6 +12,14 @@
 	  <result name="success">/Register/RegisterSuccess.jsp</result>
 	  <result name="fail">/Register/RegisterFail.jsp</result>
 	</action>
+	
+	<!--  User管理//listALL -->
+	<action name="listAllUserAction" class="com.xiaoluo.admin.user.AdminUserAction" >
+	  <result name="admin">/admin/index.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	</action>
+	
+	
 	</package>
 	
 	

@@ -1,15 +1,13 @@
 package com.xiaoluo.dao;
-
 import java.util.Iterator;
 import java.util.List;
-
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.xiaoluo.model.Group;
-import com.xiaoluo.model.User;
 
 
 
@@ -72,12 +70,13 @@ public static Group findGroup(int id){
 		
 
 		  //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
-        Query query = session.createQuery(" from Group where id = "+id+"");
+        SQLQuery query = session.createSQLQuery("select * from group where id = ?");
         //从第一个开始查起.可以设置从第几个查起.
-        query.setFirstResult(0);
+        query.setInteger(0, id);
         
         //使用List方法.
         List<Group> groupList = query.list();
+        
         //迭代器去迭代.
         for(Iterator iter=groupList.iterator();iter.hasNext();)
         {
