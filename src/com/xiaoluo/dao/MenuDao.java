@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import com.xiaoluo.model.Group;
 import com.xiaoluo.model.Menu;
 import com.xiaoluo.model.User;
 

@@ -9,7 +9,7 @@ Table: black_list
  black_temp_pic  | varchar(100) | NO   |     |         |         
 -----------------+--------------+------+-----+---------+---------
 
-Table: group
+Table: groups
 --------------+-------------+------+-----+---------+---------
  Field        | Type        | Null | Key | Default | Remarks 
 --------------+-------------+------+-----+---------+---------
@@ -21,7 +21,7 @@ Table: group
  group_pic    | varchar(50) | YES  |     |         | 头像      
 --------------+-------------+------+-----+---------+---------
 
-Table: group_mess
+Table: groups_mess
 -------------+--------------+------+-----+---------+---------
  Field       | Type         | Null | Key | Default | Remarks 
 -------------+--------------+------+-----+---------+---------
@@ -31,7 +31,7 @@ Table: group_mess
  talker_name | varchar(15)  | NO   |     |         |         
  talker_pic  | varchar(100) | NO   |     |         |         
  talker_id   | int(11)      | NO   |     |         |         
- group       | int(11)      | NO   |     |         |         
+ group_id    | int(11)      | NO   |     |         |         
 -------------+--------------+------+-----+---------+---------
 
 Table: menu

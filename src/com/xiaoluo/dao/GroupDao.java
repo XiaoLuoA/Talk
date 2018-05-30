@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import com.xiaoluo.model.Group;
+import com.xiaoluo.model.Groups;
 
 
 public class GroupDao {
@@ -22,13 +22,13 @@ public class GroupDao {
 	 * 获取所有的Group对象
 	 * @return
 	 */
-	public List<Group> getAllGroup(){
+	public List<Groups> getAllGroup(){
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		Query query = sess.createQuery("from group");
-		List<Group> allGroup = query.list();
+		Query query = sess.createQuery("from groups");
+		List<Groups> allGroup = query.list();
 		tx.commit();
 		sess.close();
 		sf.close();

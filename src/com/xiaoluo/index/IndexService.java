@@ -6,30 +6,31 @@ import java.util.Map;
 
 import com.xiaoluo.common.MyQueue;
 import com.xiaoluo.dao.GroupDao;
-import com.xiaoluo.model.Group;
-import com.xiaoluo.model.GroupMess;
+import com.xiaoluo.model.Groups;
+import com.xiaoluo.model.GroupsMess;
+
 
 public class IndexService {
 	
 	public static IndexService me = new IndexService();
 	
-	public static List<Group> allGroup = GroupDao.me.getAllGroup();
+	public static List<Groups> allGroup = GroupDao.me.getAllGroup();
 
-	public static Map<Integer, MyQueue<GroupMess>> allGroupMess = new HashMap<Integer,MyQueue<GroupMess>>();
+	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = new HashMap<Integer,MyQueue<GroupsMess>>();
 	
 	private IndexService(){
 		
 	}
 	
-	public void addAMessToGroup(Integer groupId,GroupMess aGroupMess){
-		MyQueue<GroupMess> messQueue = allGroupMess.get(groupId);
+	public void addAMessToGroup(Integer groupId,GroupsMess aGroupMess){
+		MyQueue<GroupsMess> messQueue = allGroupMess.get(groupId);
 		if(messQueue==null){
-			messQueue = new MyQueue<GroupMess>(1000);
+			messQueue = new MyQueue<GroupsMess>(1000);
 		}
 		allGroupMess.put(groupId, messQueue.add(aGroupMess));
 	}
 	
-	public MyQueue<GroupMess> getMessFromGroup(Integer groupId){
+	public MyQueue<GroupsMess> getMessFromGroup(Integer groupId){
 		return allGroupMess.get(groupId);
 	}
 	
