@@ -1,6 +1,6 @@
 package com.xiaoluo.model;
 
-public class Group {
+public class Groups {
 
 	private java.lang.Integer id;
 	private java.lang.String groupName;
@@ -8,7 +8,7 @@ public class Group {
 	private java.lang.Integer groupNum;
 	private java.lang.Long createTime;
 	private java.lang.String groupPic;
-	public Group setId(java.lang.Integer id) {
+	public Groups setId(java.lang.Integer id) {
 		this.id = id;
 		return this;
 	}
@@ -17,7 +17,7 @@ public class Group {
 		return this.id;
 	}
 
-	public Group setGroupName(java.lang.String groupName) {
+	public Groups setGroupName(java.lang.String groupName) {
 		this.groupName = groupName;
 		return this;
 	}
@@ -26,7 +26,7 @@ public class Group {
 		return this.groupName;
 	}
 
-	public Group setGroupDetail(java.lang.String groupDetail) {
+	public Groups setGroupDetail(java.lang.String groupDetail) {
 		this.groupDetail = groupDetail;
 		return this;
 	}
@@ -35,7 +35,7 @@ public class Group {
 		return this.groupDetail;
 	}
 
-	public Group setGroupNum(java.lang.Integer groupNum) {
+	public Groups setGroupNum(java.lang.Integer groupNum) {
 		this.groupNum = groupNum;
 		return this;
 	}
@@ -44,7 +44,7 @@ public class Group {
 		return this.groupNum;
 	}
 
-	public Group setCreateTime(java.lang.Long createTime) {
+	public Groups setCreateTime(java.lang.Long createTime) {
 		this.createTime = createTime;
 		return this;
 	}
@@ -53,7 +53,7 @@ public class Group {
 		return this.createTime;
 	}
 
-	public Group setGroupPic(java.lang.String groupPic) {
+	public Groups setGroupPic(java.lang.String groupPic) {
 		this.groupPic = groupPic;
 		return this;
 	}

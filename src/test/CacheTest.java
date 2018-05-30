@@ -8,7 +8,7 @@ import net.sf.ehcache.Element;
 public class CacheTest {
 	public static void main(String[] args) {
 
-        // 1. 创建缓存管理器
+        // 1. 创建缓存管理器//
         CacheManager cacheManager = CacheManager.create(PathKit.getWebRootPath()+"\\src\\main\\resources\\ehcache.xml");
 
         // 2. 获取缓存对象

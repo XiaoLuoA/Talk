@@ -1,8 +1,10 @@
 package com.xiaoluo.dao;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -70,18 +72,30 @@ public class UserDao {
 	      
 	}
 	/*查询用户*/
-	public static boolean selectUser(String name){
-		boolean a=false;
-		String hql="select*from User where name=?";
+	public static List<User> findUser(String name){		
+		String hql="from User where name=?";
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		Query quary=sess.createQuery(hql);
-		
-		return false;		
-
+		Query query=sess.createQuery(hql);
+		query.setString(0,name);		
+		List<User> userlist = query.list();          		
+		return userlist;		
 	}
+	/*修改用户信息*/
+	public static List<User> updateUser(String name,String password){		
+		String hql="update User SET password = ? WHERE name = ? ";
+		Configuration conf = new Configuration().configure();
+		SessionFactory sf = conf.buildSessionFactory();
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query=sess.createQuery(hql);
+		query.setString(0,name);		
+		List<User> userlist = query.list();          		
+		return userlist;		
+	}
+
 	
 	
 	//@drj
@@ -214,9 +228,6 @@ public class UserDao {
 			
 		
 	}
-	
-	
-
 	
 	
 	//增加会话

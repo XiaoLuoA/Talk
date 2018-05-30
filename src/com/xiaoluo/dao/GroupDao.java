@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import com.xiaoluo.model.Group;
+import com.xiaoluo.model.Groups;
+
+
 
 
 
@@ -30,11 +32,14 @@ public class GroupDao {
 	 * 获取所有的Group对象
 	 * @return
 	 */
-	public static List<Group> getAllGroup(){
+
+	public List<Groups> getAllGroup(){
+
 		Configuration conf = new Configuration().configure();
+		
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
-        Group group =new Group();
+        Groups groups =new Groups();
         Transaction transaction = session.beginTransaction();  
         
 
@@ -44,12 +49,12 @@ public class GroupDao {
         query.setFirstResult(0);
         
         //使用List方法.
-        List<Group> groupList = query.list();
+        List<Groups> groupList = query.list();
         //迭代器去迭代.
         for(Iterator iter=groupList.iterator();iter.hasNext();)
         {
-            group =(Group)iter.next();
-           System.out.println("id="+group.getId() + "name="+group.getGroupName());
+            groups =(Groups)iter.next();
+           System.out.println("id="+groups.getId() + "name="+groups.getGroupName());
         }
         
         
@@ -60,12 +65,12 @@ public class GroupDao {
 		return groupList;
 	}
 	
-public static Group findGroup(int id){
+public static Groups findGroup(int id){
 		
 		Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
-	    Group group=new Group();
+	    Groups group=new Groups();
 	    Transaction transaction = session.beginTransaction();
 		
 
@@ -75,12 +80,15 @@ public static Group findGroup(int id){
         query.setInteger(0, id);
         
         //使用List方法.
-        List<Group> groupList = query.list();
+
         
+
+        List<Groups> groupList = query.list();
+
         //迭代器去迭代.
         for(Iterator iter=groupList.iterator();iter.hasNext();)
         {
-            group =(Group)iter.next();
+            group =(Groups)iter.next();
            System.out.println("id="+group.getId() + "name="+group.getGroupName());
         }
         
@@ -96,7 +104,7 @@ public static Group findGroup(int id){
 	}
 
 
-    public static void addGroup(Group group){
+    public static void addGroup(Groups group){
 	    Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session sess = sf.openSession();
@@ -109,7 +117,7 @@ public static Group findGroup(int id){
 			
    } 
     
-    public static  String deleteGroup(Group group){
+    public static  String deleteGroup(Groups group){
 		
 		
 	    Configuration conf = new Configuration().configure();
@@ -127,7 +135,7 @@ public static Group findGroup(int id){
 
     
     
-    public static String updateGroup (Group group){
+    public static String updateGroup (Groups group){
 		
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();

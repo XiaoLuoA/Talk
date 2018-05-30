@@ -5,7 +5,6 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xiaoluo.dao.GroupDao;
-import com.xiaoluo.model.Group;
 
 public class IndexAction extends ActionSupport{
 	
