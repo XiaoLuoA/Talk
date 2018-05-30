@@ -34,16 +34,20 @@ public class UserDao {
 	      
 	}
 	/*查询用户*/
-	public static boolean selectUser(String name){
+	public static boolean selectUser(User user){
 		boolean a=false;
 		String hql="select*from User where name=?";
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		Query quary=sess.createQuery(hql);
-		
-		return false;		
+		Query query=sess.createQuery(hql);
+		query.setString(0,user.getName());
+		List userlist = query.list();  
+        if (userlist.size() > 0) {  
+            a=true;  
+        }  
+		return a;		
 	}
 	
 	
