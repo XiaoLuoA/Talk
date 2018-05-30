@@ -9,11 +9,10 @@ import com.xiaoluo.model.Group;
 
 public class IndexAction extends ActionSupport{
 	
-	public static List<Group> allGroup = GroupDao.me.getAllGroup();
 	
 	@Override
 	public String execute() throws Exception {
-		ActionContext.getContext().getValueStack().set("allGroup",allGroup);;
+		ActionContext.getContext().getValueStack().set("allGroup",IndexService.me.allGroup);;
 		return "index";
 	}
 	
