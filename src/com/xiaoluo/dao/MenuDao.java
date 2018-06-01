@@ -37,7 +37,6 @@ public class MenuDao {
 	
 
 	public List<Menu> findByUser(User user) {
-		
 		// TODO Auto-generated method stub
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();

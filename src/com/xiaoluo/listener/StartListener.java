@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import websocket.TalkATalkWebsocketStarter;
 
+@WebListener
 public class StartListener implements ServletContextListener{
 
 	@Override

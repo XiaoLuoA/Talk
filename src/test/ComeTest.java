@@ -5,6 +5,12 @@ import java.util.Queue;
 
 
 public class ComeTest {
+	public static final int a ;
+	static{
+		a = 5;
+	}
+	public ComeTest(){
+	}
 	//lxy已经进去、、
 	//lxy test01
 	//wyh test01		
