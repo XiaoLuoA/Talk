@@ -28,32 +28,31 @@ public class UserDao {
 	}
 	
 	
-	//@drj
-	public static String addUser(User user){
-		
+	/**
+	 * 添加用户
+	 * @param user User对象
+	 * @return User 添加的对象 
+	 */
+	public User addUser(User user){
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		try{
-			sess.save(user);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-
-		
-		
+		sess.save(user);
 		tx.commit();
 		sess.close();
 		sf.close();
-		
-		return "增加用户成功";
-
-	      
+		return user;
 	}
-	/*查询用户*/
-	public static List<User> findUser(String name){		
+	
+	
+	/**
+	 * 根据用户名查询User对象
+	 * @param name 用户名
+	 * @return User对象
+	 */
+	public static User findUser(String name){	
+		System.out.println("findUser"+name);
 		String hql="from User where name=?";
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
@@ -61,9 +60,15 @@ public class UserDao {
 		Transaction tx = sess.beginTransaction();
 		Query query=sess.createQuery(hql);
 		query.setString(0,name);		
-		List<User> userlist = query.list();          		
-		return userlist;		
+		List<User> userlist = query.list(); 
+		System.out.println(userlist.size());
+		tx.commit();
+		sess.close();
+		sf.close();
+		return userlist.get(0);		
 	}
+	
+	
 	/*修改用户信息*/
 	public static List<User> updateUser(String name,String password){		
 		String hql="update User SET password = ? WHERE name = ? ";

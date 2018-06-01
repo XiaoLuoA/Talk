@@ -9,6 +9,7 @@ import org.tio.websocket.server.WsServerStarter;
 public class TalkATalkWebsocketStarter {
 	
 	private  WsServerStarter wsServerStarter;
+	
 	private ServerGroupContext serverGroupContext;
 	
 	public TalkATalkWebsocketStarter(int port, TalkWsMsgHandler wsMsgHandler) throws IOException {
@@ -28,7 +29,9 @@ public class TalkATalkWebsocketStarter {
 	public static void start() throws IOException {
 		TalkATalkWebsocketStarter appStarter = new TalkATalkWebsocketStarter(TalkServerConfig.SERVER_PORT, TalkWsMsgHandler.me);
 		appStarter.wsServerStarter.start();
+		
 	}
+	
 
 	/**
 	 * @return the serverGroupContext
