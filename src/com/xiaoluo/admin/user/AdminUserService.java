@@ -10,17 +10,20 @@ public class AdminUserService {
 	  public static AdminUserService me = new AdminUserService();
 	  public static List<User> allUser =  UserDao.me.FindAllUserList();
 	  
+	  public static void main(String[] args) {
+		  System.out.println(allUser.toString());
+	  }
 	  
 	  public  void  addUser(User user){
 		  UserDao.me.addUser(user);
 	  }
 	  
-	  public void  findUser(int id){
-		  UserDao.me.findUser(id);
-		  
+	  public User  findUser(int id){
+		 User user= UserDao.me.findUser(id);
+		  return user;
 	  }
-	  public  void deleteUser(User user){
-		  UserDao.me.deleteUser(user);
+	  public  void deleteUser(int id){
+		  UserDao.me.deleteUser(id);
 	  }
 	  
 	  public void updateUser(User user){

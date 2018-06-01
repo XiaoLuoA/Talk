@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <i class="left-icon fa fa-file-o">
                     
                     </i>
-                                                      内容管理
+                                                      用户管理
                     <i class="right-icon fa fa-file-o">
                     
                     </i>
@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <i class="left-icon fa fa-user-o">
                     
                     </i>
-                                                        权限管理
+                                                        分组管理
                     <i class="right-icon fa fa-lg fa-angle-down">
                     
                     </i>
@@ -101,35 +101,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
              <a> <i class="fa fa-penil" title="修改">::before</i></a>
              <a> <i class="fa fa-trash" title="删除">::before</i></a>
-             
-             
-          
-                 <table >
+             <i class="fa fa-penil" title="修改"></i>
+             <i class="fa fa-trash" title="删除"></i>
+          <div class="addUser" ><a href="admin/addUser.jsp">增加</a></div>
+                 <table border="1">
                    <tr>
                       <td>Userid</td>
-                      <td>名称</td>
-                      <td>作者</td>
-                      <td>价格</td>
-                      <td>数量</td>
-                      <td>出版社</td>
-                      <td>出版时间</td>
+                      <td>账户</td>
+                      <td>密码</td>
+                      <td>状态</td>
+                      <td>角色</td>
+                      <td>性别</td>
+                      <td>创建时间</td>
+                      <td>举报人数</td>
+                      <td>电话号码</td>
+                      <td>邮箱地址</td>
                       <td>操作1</td>
                       <td>操作2</td>
   
                   </tr>
-		<s:iterator  value="bList" var="b" >
+		<s:iterator  value="allUser" var="u" >
 	      <tr >
-	       <td><s:property value="#b.id"/></td>
-			<td><s:property value="#b.bookName"/></td>
-			<td><s:property value="#b.author"/></td>
-			<td><s:property value="#b.price"/></td>
-			<td><s:property value="#b.num"/></td>
-			<td><s:property value="#b.place"/></td>
-			<td><s:property value="#b.time"/></td>
+	       <td><s:property value="#u.id"/></td>
+	       <td><s:property value="#u.name"/></td>
+	       <td><s:property value="#u.password"/></td>
+			<td><s:property value="#u.status"/></td>
+			<td><s:property value="#u.roles"/></td>
+			<td><s:property value="#u.sex"/></td>
+			<td><s:property value="#u.createTime"/></td>
+			<td><s:property value="#u.reportNum"/></td>
+			<td><s:property value="#u.tel"/></td>
+			<td><s:property value="#u.email"/></td>
+			<td><a href="findUser?id=<s:property value="#u.id"/>">修改</a></td>
+			<td><a href="deleteUser?id=<s:property value="#u.id"/>">删除</a>
 			
-			<td><a href="delBook.action?id=<s:property value="#b.id"/>">删除</a></td>
-			<td><a href="editBookPage.action?id=<s:property value="#b.id"/>">编辑</a>
-			</td>
 				</s:iterator>
 	
 		
