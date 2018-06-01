@@ -1,19 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+
 	<package name="one" extends="struts-default" >
 		
-		<action name="*" class="com.xiaoluo.user.UserAction" method="{1}">
+		<action name="user*" class="com.xiaoluo.user.UserAction" method="{1}">
 			<result name="loginSuccess">/index.jsp</result>
 			<result name="registSuccess">/Login/login.jsp</result>
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
+
 		</action>
+
 
 		<!--  User管理//listALL -->
 		<action name="listAllUserAction" class="com.xiaoluo.admin.user.AdminUserAction" >
 		  <result name="admin">/admin/index.jsp</result>
 		  <result name="fail">/admin/fail.jsp</result>
 		</action>
+
+	<!--  User管理//listALL -->
+	
+	<action name="*" class="com.xiaoluo.admin.user.AdminUserAction" method="{1}">
+	  <result name="admin">/admin/index.jsp</result>
+	  <result name="listAllUser">/admin/fail.jsp</result>
+	  <result name="update">/admin/updateUser.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	</action>
+	
+	<!--  User管理//deleteUser -->
+	<!-- <action name="deleteUser" class="com.xiaoluo.admin.user.AdminUserAction" method="deleteUser">
+	  <result name="admin">/admin/index.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	</action> -->
+	
+	
+	
+	<!--  Groups管理//listALL -->
+	<action name="listAllGroupsAction" class="com.xiaoluo.admin.group.AdminGroupsAction" method="listAllGroups">
+	  <result name="admin">/admin/index.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	</action>
 
 	</package>
 	

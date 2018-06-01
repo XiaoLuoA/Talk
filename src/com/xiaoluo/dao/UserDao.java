@@ -22,27 +22,8 @@ public class UserDao {
 	public static UserDao me= new UserDao();
 	
 	public static void main(String[] args) {
-		/*String mes;
-		mes=updateUser(6, "testsuccess", "11111", "1", "", "男", "", System.currentTimeMillis(), 10);
-		System.out.println(mes);
-		*/
-		
-		
-		
-	/*	user.setName("TestForUpdate").setCreateTime(System.currentTimeMillis())
-		    .setPassword("123456").setReportNum(0).setRoles("").setSex("女")
-		        .setPic("").setStatus("1");*/
-		
-		//String mes;
-		//addUser(user);
-		//System.out.println("添加成功");
-		
-		/*
-		mes=deleteUser(user);
-		System.out.println(mes);*/
-		FindAllUserList();
-		
-		
+
+				
 		System.out.println("success");
 	}
 	
@@ -184,13 +165,13 @@ public class UserDao {
 	
 	
 	//@drj
-	public static  String deleteUser(User user){
-		
-		
+	public static  String deleteUser(int id){
+
 		    Configuration conf = new Configuration().configure();
 		    SessionFactory sf = conf.buildSessionFactory();
 		    Session session = sf.openSession();
 	        Transaction transaction = session.beginTransaction();
+	        User user=findUser(id);
 	    try{
 	        session.delete(user);
 	       }

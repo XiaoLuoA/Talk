@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xiaoluo.common.MyQueue;
-import com.xiaoluo.dao.GroupDao;
+import com.xiaoluo.dao.GroupsDao;
 import com.xiaoluo.model.Groups;
 import com.xiaoluo.model.GroupsMess;
 
@@ -14,7 +14,7 @@ public class IndexService {
 	
 	public static IndexService me = new IndexService();
 	
-	public static List<Groups> allGroup = GroupDao.me.getAllGroup();
+	public static List<Groups> allGroup = GroupsDao.me.getAllGroups();
 
 	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = new HashMap<Integer,MyQueue<GroupsMess>>();
 	

@@ -12,19 +12,16 @@ import com.xiaoluo.model.Groups;
 
 
 
-
-
-
-public class GroupDao {
+public class GroupsDao {
 	
 	public static void main(String[] args) {
-		findGroup(2);
+		findGroups(2);
 		
 	}
 	
-	public static GroupDao me = new GroupDao();
+	public static GroupsDao me = new GroupsDao();
 	
-	private GroupDao(){
+	private GroupsDao(){
 		
 	}
 	
@@ -33,7 +30,7 @@ public class GroupDao {
 	 * @return
 	 */
 
-	public List<Groups> getAllGroup(){
+	public List<Groups> getAllGroups(){
 
 		Configuration conf = new Configuration().configure();
 		
@@ -65,7 +62,7 @@ public class GroupDao {
 		return groupList;
 	}
 	
-public static Groups findGroup(int id){
+public static Groups findGroups(int id){
 		
 		Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
@@ -104,7 +101,7 @@ public static Groups findGroup(int id){
 	}
 
 
-    public static void addGroup(Groups group){
+    public static void addGroups(Groups group){
 	    Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session sess = sf.openSession();
@@ -117,7 +114,7 @@ public static Groups findGroup(int id){
 			
    } 
     
-    public static  String deleteGroup(Groups group){
+    public static  String deleteGroups(Groups group){
 		
 		
 	    Configuration conf = new Configuration().configure();
@@ -135,7 +132,7 @@ public static Groups findGroup(int id){
 
     
     
-    public static String updateGroup (Groups group){
+    public static String updateGroups (Groups group){
 		
 		Configuration conf = new Configuration().configure();
 		SessionFactory sf = conf.buildSessionFactory();
