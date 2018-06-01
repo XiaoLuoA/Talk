@@ -33,7 +33,7 @@
    		
    		
    		<mapping resource="com/xiaoluo/model/User.hbm.xml"/>
-   		<mapping resource="com/xiaoluo/model/Group.hbm.xml"/>
+   		<mapping resource="com/xiaoluo/model/Groups.hbm.xml"/>
    	</session-factory>
 
 </hibernate-configuration>
