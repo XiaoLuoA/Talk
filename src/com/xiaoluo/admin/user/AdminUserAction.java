@@ -6,9 +6,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
-
-
+import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.User;
 
 
@@ -29,7 +27,11 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 
 
 	
-	
+	/*@Override
+	public String execute() throws Exception {
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.allUser);
+		return "admin";
+	}*/
 	
 	
 	public String listAllUser(){
@@ -53,7 +55,7 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 		AdminUserService.me.updateUser(user);;
 		
-		return "listAllUser";
+		return "admin";
 	}
 	
 	public String findUser(){
@@ -61,7 +63,26 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		User user=AdminUserService.me.findUser(id);
 		System.out.println(user.getName());
 		ActionContext.getContext().getValueStack().set("user",user);
+		System.out.println(user.getName()+"111111111111111111111111111");
 		return "update";
+	}
+
+
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	
