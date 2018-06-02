@@ -3,7 +3,6 @@ package websocket;
 import java.io.IOException;
 
 import org.tio.server.ServerGroupContext;
-import org.tio.websocket.server.WsServerStarter;
 
 
 public class TalkATalkWebsocketStarter {
@@ -21,20 +20,23 @@ public class TalkATalkWebsocketStarter {
 		serverGroupContext.setHeartbeatTimeout(TalkServerConfig.HEARTBEAT_TIMEOUT);
 	}
 
+	 
+	
+	static TalkATalkWebsocketStarter appStarter;
 	/**
 	 * @param args
 	 * @author tanyaowu
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
-		TalkATalkWebsocketStarter appStarter = new TalkATalkWebsocketStarter(TalkServerConfig.SERVER_PORT, TalkWsMsgHandler.me);
+		appStarter =  new TalkATalkWebsocketStarter(TalkServerConfig.SERVER_PORT, TalkWsMsgHandler.me);
 		appStarter.wsServerStarter.start();
-		
 	}
 	
 
 	/**
 	 * @return the serverGroupContext
+	 * @throws IOException 
 	 */
 //	public ServerGroupContext getServerGroupContext() {
 //		return serverGroupContext;
@@ -43,6 +45,11 @@ public class TalkATalkWebsocketStarter {
 //	public WsServerStarter getWsServerStarter() {
 //		return wsServerStarter;
 //	}
+	public static void stop() throws IOException{
+		
+			appStarter.wsServerStarter.stop();
+		
+	}
 	
 	
 

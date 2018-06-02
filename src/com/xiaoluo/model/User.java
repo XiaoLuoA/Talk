@@ -13,6 +13,7 @@ public class User {
 	private java.lang.Integer reportNum;
 	private java.lang.String tel;
 	private java.lang.String email;
+	private java.lang.Integer regNum;
 	public User setName(java.lang.String name) {
 		this.name = name;
 		return this;
@@ -112,4 +113,11 @@ public class User {
 		return this.email;
 	}
 
+	public void setRegNum(Integer regNum) {
+		this.regNum = regNum;
+	}
+	
+	public Integer getRegNum(){
+		return this.regNum;
+	}
 }

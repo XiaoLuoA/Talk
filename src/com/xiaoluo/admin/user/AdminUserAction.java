@@ -23,10 +23,8 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
     
 	@Override
 	public User getModel() {
-		
 		return user;
 	}
-
 
 	
 	

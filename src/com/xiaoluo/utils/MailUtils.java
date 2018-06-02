@@ -4,6 +4,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.sun.mail.util.MailSSLSocketFactory;
+
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
@@ -18,8 +20,6 @@ public class MailUtils {
     private static String[] RECEIVERS = {   
     	
     };
-    
-    
     
     /**
      * 向指定的一人或多人发送邮件
@@ -58,16 +58,16 @@ public class MailUtils {
         //设置校验
         properties.put("mail.smtp.auth", "true");
         
-       // MailSSLSocketFactory sf;
-//		try {
-//			//sf = new MailSSLSocketFactory();
-//	       // sf.setTrustAllHosts(true);
-//	       // properties.put("mail.smtp.ssl.enable", "true");
-//	     //   properties.put("mail.smtp.ssl.socketFactory", sf);
-//		} catch (GeneralSecurityException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+        MailSSLSocketFactory sf;
+		try {
+			sf = new MailSSLSocketFactory();
+	        sf.setTrustAllHosts(true);
+	        properties.put("mail.smtp.ssl.enable", "true");
+	        properties.put("mail.smtp.ssl.socketFactory", sf);
+		} catch (GeneralSecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         // 获取默认session对象
         Session session = Session.getDefaultInstance(properties,new Authenticator(){

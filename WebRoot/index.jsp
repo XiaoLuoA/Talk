@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>颜色转换</title>
+    <title>Talk A Talk</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -21,17 +21,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+ 
+  <s:if test="#session.user.name!=null">
+  	 <a href="userinfoPage"><s:property value="#session.user.name"/></a>
+  </s:if>
+  
     <div id="app">
+    
      <!--   <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
         <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
         <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
 	-->  
 	
-	<a href="page/java/java.jsp"  target="_blank">java交流</a>
-	<a href="page/master/master.jsp"  target="_blank">考研交流</a>
-	<a href="page/found/found.jsp"  target="_blank">招领启事</a>
-	
+	<a href="talkjava.action"  target="_blank">java交流</a>
+	<a href="talkmaster.action"  target="_blank">考研交流</a>
+	<a href="talkfound.action"  target="_blank">招领启事</a>
+	<a href="userloginPage.action">登录</a>
     </div>
-
 </body>
 </html>

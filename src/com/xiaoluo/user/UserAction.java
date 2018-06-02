@@ -1,9 +1,16 @@
 package com.xiaoluo.user;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
+import org.tio.utils.json.Json;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.MailUtils;
+import com.xiaoluo.utils.ResponseUtils;
+import com.xiaoluo.utils.Ret;
+
 
 public class UserAction extends ActionSupport implements ModelDriven<User>{
 
@@ -14,53 +21,158 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return user;
 	}
 	
+	public String loginPage(){
+		return "loginPage";
+	}
+	
+	public String regPage(){
+		return "regPage";
+	}
+	
+	public String findPage(){
+		return "findPage";
+	}
+	
+	public String infoPage(){
+		return "infoPage";
+	}
+	
+	public String changePage(){
+		return "changePage";
+	}
 	
 	/*
 	 * 注册用户
 	 * 用户初始化：状态为2(正常);角色为1(普通用户);举报数为0;
 	 */
-	public String regist(){	
+	public void regist(){	
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		Ret ret = Ret.ok();
 		try {
-			user.setStatus("2").setCreateTime(System.currentTimeMillis()).setPic("")
-			.setRoles("1").setTel(user.getTel()).setEmail(user.getEmail()).setReportNum(0)
-			.setPassword(user.getPassword()).setName(user.getName());
-			return "registSuccess";	
+			UserService.me.regist(user);
+			response.getWriter().write(ret.toJson());
 		} catch (Exception e) {
 			System.out.println("UserAction regist 方法："+e);
-			return "registFail";
 		}
-			
+	}
+	
+	public void checkName(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		if(user.getName()==null||user.getName().equals("")){
+			try {
+				response.getWriter().write(Ret.fail().set("msg", "用户名不能为空").toJson());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return ;
+		}
+		User loginUser = LoginService.me.findUser(user.getName());
+		Ret ret = Ret.ok();
+		if(loginUser!=null)
+		{
+			ret = ret.setFail().set("msg", "用户名已存在");
+		}
+		try 
+		{
+			response.getWriter().write(ret.toJson());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
-	public String login(){
+	
+	public void login() {
+		ActionContext ac = ActionContext.getContext();
 		
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		User loginUser = LoginService.me.findUser(user.getName());
-		
+		Ret ret = Ret.ok();
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
 			ActionContext.getContext().getSession().put("user", loginUser);
-			return "loginSuccess";
+			ret.set("returnUrl", "index.action");
 		}
-		return "loginFail";			
+		else
+		{
+			ret = ret.setFail().set("msg", "用户名密码不匹配");
+		}
+		try 
+		{
+			response.getWriter().write(ret.toJson());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
-	public String findPass(){
-	   
+	public void findPass(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		User loginUser = LoginService.me.findUser(user.getName());
-		 if(loginUser.getEmail().equals(user.getEmail())){
-			int m=(int)(Math.random()*8999+1000); 					
-			String n="【Talk】您正在修改密码，验证码为："+m;
-			MailUtils.send(n, user.getEmail());					
-			return "findPassSuccess";
+		Ret ret = Ret.ok();
+		 if(loginUser.getEmail().equals(user.getEmail()))
+		{
+			 UserService.me.sendReg(loginUser);
+			 ac.getSession().put("user", loginUser);
+			 ret.set("msg", "邮件发送成功！");
 		}
-			return "findPassFail";				
+		else
+		{
+			ret = ret.setFail().set("msg", "用户名邮件不匹配");
+		}
+		try 
+		{
+			response.getWriter().write(ret.toJson());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public String changePass(){
-		ActionContext request = ActionContext.getContext();
-		return "changeSuccess";
+	
+	public void reg(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		User loginUser = (User) ActionContext.getContext().getSession().get("user");
+		Ret ret = Ret.ok();
+		System.out.println(loginUser.getRegNum());
+		System.out.println(user.getRegNum());
+		System.out.println(user.getRegNum()==loginUser.getRegNum());
+		if(user.getRegNum().intValue()==loginUser.getRegNum().intValue())
+		{
+			
+		}
+		else
+		{
+			ret = ret.setFail().set("msg", "验证码不正确");
+		}
+		try 
+		{
+			System.out.println(ret.toJson());
+			response.getWriter().write(ret.toJson());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void changePass(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		User loginUser = (User) ActionContext.getContext().getSession().get("user");
+		Ret ret = Ret.ok();
+		loginUser.setPassword(user.getPassword());
+		UserService.me.saveOrUpdate(loginUser);
+		try 
+		{
+			response.getWriter().write(ret.toJson());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

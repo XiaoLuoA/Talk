@@ -15,5 +15,9 @@ public class IndexAction extends ActionSupport{
 		return "index";
 	}
 	
+	public String index(){
+		return "indexPage";
+	}
+	
 	
 }

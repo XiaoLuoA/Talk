@@ -14,6 +14,12 @@ public class StartListener implements ServletContextListener{
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
+		try {
+			TalkATalkWebsocketStarter.stop();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

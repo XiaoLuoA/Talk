@@ -61,11 +61,16 @@ public class UserDao {
 		Query query=sess.createQuery(hql);
 		query.setString(0,name);		
 		List<User> userlist = query.list(); 
-		System.out.println(userlist.size());
 		tx.commit();
 		sess.close();
 		sf.close();
-		return userlist.get(0);		
+		
+		if(userlist.size()>0){
+			return userlist.get(0);
+		}
+		
+		return null;	
+		
 	}
 	
 	

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>登录</title>
+    <title>My JSP 'changePsd.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -19,49 +19,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	
-	
-	
-	
+
   </head>
   
   <body>
-    <form action="userlogin.action" id="login_form" method="post">
-       <table>
-          <tr> 
-          <td>用户名：
-          </td>
-            <td>
-         	<input type="text" name="name" >
-            </td>
-          </tr>
-          <tr> 
-          <td>密   码：</td>
-            <td>
-            <input type="password" name="password" >
-            </td>
-          </tr>
-           <tr> 
-          <td></td>
-            <td>
-            &nbsp;<input type="submit" value="登录">
-            </td>
-          </tr>
-          
-       </table>
-       
-    </form>
-    
-    <a href="userregPage.action">立即注册</a>
-    <a href="userfindPage.action">忘记密码</a>
-    
-    <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
+  <form id="changeForm" action="userchangePass.action" method="post">
+  	   密码：<input type="password" name="password" />
+  	  <input type="submit" value="确定" />
+  </form>
+  <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
 	<script type="text/javascript" src="layer/layer/layer.js"></script>
     <script type="text/javascript">
     
 		$(document).ready(function() {
-			$("#login_form").ajaxForm(
+			$("#changeForm").ajaxForm(
 			{
 				dataType: "json"
 				, beforeSubmit: function(formData, jqForm, options)
@@ -73,7 +45,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					// 业务层验证成功
 					if(ret.isOk)
 					{
-						location.href = ret.returnUrl;
+						layer.open({
+							 title: '页面提示'
+							 ,content: '修改成功！',
+							 yes: function(index, layero){
+								   window.location.href="userloginPage.action";
+								    layer.close(index); 
+								  }
+							});     
 						return ;
 					}
 					
