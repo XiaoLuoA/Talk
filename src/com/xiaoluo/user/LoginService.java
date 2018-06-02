@@ -27,7 +27,7 @@ public class LoginService {
 	 * @return User对象
 	 */
 	public User findUser(String name){
-		User user=UserDao.findUser(name);	
+		User user=UserDao.me.findUser(name);	
 		return user;		
 	}
 	

@@ -28,6 +28,6 @@ public class UserService {
 	}
 	
 	public void saveOrUpdate(User user){
-		UserDao.updateUser(user);
+		UserDao.me.updateUser(user);
 	}
 }

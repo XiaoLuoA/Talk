@@ -15,15 +15,15 @@ import com.xiaoluo.model.BlackList;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserItem;
 import com.xiaoluo.model.UserMess;
+import com.xiaoluo.utils.SessionFactoryUtils;
 
 
 public class UserDao {
+	SessionFactory sf = SessionFactoryUtils.sf;
 	
 	public static UserDao me= new UserDao();
 	
 	public static void main(String[] args) {
-
-				
 		System.out.println("success");
 	}
 	
@@ -34,8 +34,6 @@ public class UserDao {
 	 * @return User 添加的对象 
 	 */
 	public User addUser(User user){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(user);
@@ -51,11 +49,9 @@ public class UserDao {
 	 * @param name 用户名
 	 * @return User对象
 	 */
-	public static User findUser(String name){	
+	public User findUser(String name){	
 		System.out.println("findUser"+name);
 		String hql="from User where name=?";
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query=sess.createQuery(hql);
@@ -75,10 +71,8 @@ public class UserDao {
 	
 	
 	/*修改用户信息*/
-	public static List<User> updateUser(String name,String password){		
+	public List<User> updateUser(String name,String password){		
 		String hql="update User SET password = ? WHERE name = ? ";
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query=sess.createQuery(hql);
@@ -90,10 +84,8 @@ public class UserDao {
 	
 	
 	//@drj
-	public static List<User> FindAllUserList(){
+	public List<User> FindAllUserList(){
 		 
-        Configuration conf = new Configuration().configure();
-	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
         User user=new User();
         List<User> userList = null;
@@ -130,10 +122,8 @@ public class UserDao {
 	
 }   
 	//@drj
-	public static User findUser(int id){
+	public  User findUser(int id){
 		
-		Configuration conf = new Configuration().configure();
-	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
 	    User user=new User();
 	    Transaction transaction = session.beginTransaction();
@@ -170,10 +160,8 @@ public class UserDao {
 	
 	
 	//@drj
-	public static  String deleteUser(int id){
+	public  String deleteUser(int id){
 
-		    Configuration conf = new Configuration().configure();
-		    SessionFactory sf = conf.buildSessionFactory();
 		    Session session = sf.openSession();
 	        Transaction transaction = session.beginTransaction();
 	        User user=findUser(id);
@@ -196,13 +184,7 @@ public class UserDao {
 	
 	
 	//@drj
-	public static String updateUser (User user){
-		
-		  
-			
-			
-			Configuration conf = new Configuration().configure();
-			SessionFactory sf = conf.buildSessionFactory();
+	public String updateUser (User user){
 			Session session = sf.openSession();
 			Transaction transaction = session.beginTransaction();
 		try{
@@ -222,9 +204,8 @@ public class UserDao {
 	
 	
 	//增加会话
-	public static void addUserItem(UserItem userItem){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+	public void addUserItem(UserItem userItem){
+	
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(userItem);
@@ -235,9 +216,7 @@ public class UserDao {
 	
 	
 	//删除会话
-	public static void deleteUserItem(UserItem userItem){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+	public void deleteUserItem(UserItem userItem){
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.delete(userItem);
@@ -248,9 +227,7 @@ public class UserDao {
 	
 	
 	//获取用户的所有的会话列表
-	public static List<UserItem> getUserItem(User user){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+	public List<UserItem> getUserItem(User user){
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query = sess.createQuery("from user_item where user_id = ? ");
@@ -264,9 +241,7 @@ public class UserDao {
 	
 	
 	//上线后获取发给某个用户的所有消息
-	public static Map<Integer,UserMess> getMess(User user){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+	public Map<Integer,UserMess> getMess(User user){
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query = sess.createQuery("from user_mess where send_id = ?");
@@ -283,8 +258,6 @@ public class UserDao {
 	}
 	
 	public void saveMess(UserMess userMess){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		sess.save(userMess);

@@ -1,5 +1,4 @@
 package com.xialuo.interceptor;
-import java.util.List;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -7,7 +6,6 @@ import com.xiaoluo.model.User;
 import com.xiaoluo.user.LoginService;
 
 public class MenuAuthInterceptor implements Interceptor {
-	
 	
 
 	@Override

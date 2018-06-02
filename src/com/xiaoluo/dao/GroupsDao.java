@@ -8,14 +8,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.xiaoluo.model.Groups;
+import com.xiaoluo.utils.SessionFactoryUtils;
 
 
 
 
 public class GroupsDao {
 	
+	SessionFactory sf = SessionFactoryUtils.sf;
 	public static void main(String[] args) {
-		findGroups(2);
+		//findGroups(2);
 		
 	}
 	
@@ -32,9 +34,6 @@ public class GroupsDao {
 
 	public List<Groups> getAllGroups(){
 
-		Configuration conf = new Configuration().configure();
-		
-	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
         Groups groups =new Groups();
         Transaction transaction = session.beginTransaction();  
@@ -62,10 +61,8 @@ public class GroupsDao {
 		return groupList;
 	}
 	
-public static Groups findGroups(int id){
+public Groups findGroups(int id){
 		
-		Configuration conf = new Configuration().configure();
-	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
 	    Groups group=new Groups();
 	    Transaction transaction = session.beginTransaction();
@@ -101,24 +98,18 @@ public static Groups findGroups(int id){
 	}
 
 
-    public static void addGroups(Groups group){
-	    Configuration conf = new Configuration().configure();
-	    SessionFactory sf = conf.buildSessionFactory();
+    public void addGroups(Groups group){
 	    Session sess = sf.openSession();
 	    Transaction tx = sess.beginTransaction();					
 		sess.save(group);		
 		tx.commit();
 		sess.close();
 		sf.close();
-
-			
    } 
     
-    public static  String deleteGroups(int id){
+    public String deleteGroups(int id){
 		
 		
-	    Configuration conf = new Configuration().configure();
-	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
         Groups groups=findGroups(id);
@@ -133,10 +124,8 @@ public static Groups findGroups(int id){
 
     
     
-    public static String updateGroups (Groups group){
+    public String updateGroups (Groups group){
 		
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		

@@ -11,19 +11,19 @@ import org.hibernate.cfg.Configuration;
 
 import com.xiaoluo.model.Menu;
 import com.xiaoluo.model.User;
+import com.xiaoluo.utils.SessionFactoryUtils;
 
 
 public class MenuDao {
+	SessionFactory sf = SessionFactoryUtils.sf;
 	
 	public static MenuDao me = new MenuDao();
 	
 	private MenuDao(){
 		
 	}
-
 	public List<Menu> findAll() {
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+		
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query = sess.createQuery("from menu");
@@ -38,8 +38,7 @@ public class MenuDao {
 
 	public List<Menu> findByUser(User user) {
 		// TODO Auto-generated method stub
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+		
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		String roles = user.getRoles();
