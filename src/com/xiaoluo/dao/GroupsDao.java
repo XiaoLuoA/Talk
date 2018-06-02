@@ -114,20 +114,21 @@ public static Groups findGroups(int id){
 			
    } 
     
-    public static  String deleteGroups(Groups group){
+    public static  String deleteGroups(int id){
 		
 		
 	    Configuration conf = new Configuration().configure();
 	    SessionFactory sf = conf.buildSessionFactory();
 	    Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(group);
+        Groups groups=findGroups(id);
+        session.delete(groups);
         transaction.commit(); 
         session.close();
 		sf.close(); 
 	
 	
-	    return "删除"+group.getGroupName()+"成功";
+	    return "删除"+groups.getGroupName()+"成功";
    }
 
     

@@ -19,12 +19,13 @@ public class AdminGroupsService {
 		  GroupsDao.me.addGroups(Groups);
 	  }
 	  
-	  public void  findGroups(int id){
-		  GroupsDao.me.findGroups(id);
+	  public Groups  findGroups(int id){
+		Groups groups=  GroupsDao.me.findGroups(id);
+		  return groups;
 		  
 	  }
-	  public  void deleteGroups(Groups Groups){
-		  GroupsDao.me.deleteGroups(Groups);
+	  public  void deleteGroups(int id){
+		  GroupsDao.me.deleteGroups(id);
 	  }
 	  
 	  public void updateGroups(Groups Groups){
