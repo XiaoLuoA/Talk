@@ -22,6 +22,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	}
 	
 	public String loginPage(){
+		
+		System.out.println("55555555555555"+ServletActionContext.getRequest().getCookies()[0].getName());
 		return "loginPage";
 	}
 	

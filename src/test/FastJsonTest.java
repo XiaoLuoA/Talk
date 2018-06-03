@@ -6,9 +6,7 @@ import com.xiaoluo.model.User;
 
 public class FastJsonTest {
 	public static void main(String[] args) {
-		
 		System.out.println(Json.toBean("{userMessId :1,itemId :1,fromId :2,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',}", Msg.class));
-		
 	}
 	
 	public static void test(){
