@@ -47,7 +47,8 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	public String deleteUser(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		AdminUserService.me.deleteUser(id);
-		return "delete";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public void testAjax(){
@@ -74,14 +75,15 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 	public String addUser(){
 		AdminUserService.me.addUser(user);
-		return "add";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public String updateUser(){
 	
 		AdminUserService.me.updateUser(user);;
-		
-		return "u   ";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public String findUser(){

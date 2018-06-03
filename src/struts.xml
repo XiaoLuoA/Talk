@@ -18,13 +18,7 @@
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
 		</action>
 		
-		<action name="talk*" class="com.xiaoluo.talk.TalkAction" method="{1}">
-			<result name="{1}">/page/{1}/{1}.jsp</result>
-		</action>
 		
-		<action name="index" class="com.xiaoluo.index.IndexAction" method="index">
-			<result name="indexPage">/index.jsp</result>
-		</action>
 
 
 		
@@ -38,17 +32,7 @@
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
-	<action name="action" class="tutorial.Action">
-            <result type="chain">
-             action2
-            </result>
-        </action>
 	
-	  <action name="action2" class="tutorial.Action2">
-            <result>
-             failure.jsp
-            </result>
-        </action>
 	
 
 	
