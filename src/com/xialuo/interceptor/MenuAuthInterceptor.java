@@ -2,6 +2,7 @@ package com.xialuo.interceptor;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.xiaoluo.admin.menu.AdminMenuService;
 import com.xiaoluo.model.User;
 import com.xiaoluo.user.LoginService;
 
@@ -27,7 +28,7 @@ public class MenuAuthInterceptor implements Interceptor {
 		User user = (User) action.getSession().get("user");
 			// 用户菜单
 		action.getSession().put("menuList"
-				, LoginService.me.getUserMenu(user));
+				, AdminMenuService.me.getUserMenu(user));
 		 // 加载完毕，修改标识符
 	     action.getSession().put("menuLoad", false);
 	     return inv.invoke();

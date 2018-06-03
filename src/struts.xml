@@ -32,8 +32,6 @@
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
-	
-	
 
 	
 	<!--  Groups管理//listALL -->

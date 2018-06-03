@@ -1,5 +1,6 @@
 package com.xiaoluo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
@@ -11,7 +12,7 @@ public class Menu {
 	private java.lang.String icon;
 	private java.lang.Integer orderNum;
 	private java.lang.Long createTime;
-	private List<Menu> subMenu;
+	private List<Menu> subMenu = new ArrayList<Menu>();
 	public Menu setId(java.lang.Integer id) {
 		this.id = id;
 		return this;
