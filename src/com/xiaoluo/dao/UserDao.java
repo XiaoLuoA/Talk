@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.jboss.jandex.Main;
 
 import com.xiaoluo.model.BlackList;
 import com.xiaoluo.model.User;
@@ -19,13 +20,16 @@ import com.xiaoluo.utils.SessionFactoryUtils;
 
 
 public class UserDao {
+	
 	SessionFactory sf = SessionFactoryUtils.sf;
 	
 	public static UserDao me= new UserDao();
 	
 	public static void main(String[] args) {
-		System.out.println("success");
+//		sf.openSession();
+//		sf.openSession();
 	}
+	
 	
 	
 	/**
@@ -39,7 +43,7 @@ public class UserDao {
 		sess.save(user);
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 		return user;
 	}
 	
@@ -59,7 +63,7 @@ public class UserDao {
 		List<User> userlist = query.list(); 
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 		
 		if(userlist.size()>0){
 			return userlist.get(0);
@@ -77,7 +81,8 @@ public class UserDao {
 		Transaction tx = sess.beginTransaction();
 		Query query=sess.createQuery(hql);
 		query.setString(0,name);		
-		List<User> userlist = query.list();          		
+		List<User> userlist = query.list();    
+		
 		return userlist;		
 	}
 
@@ -115,7 +120,6 @@ public class UserDao {
                 
         transaction.commit();  
         session.close();
-		sf.close(); 
 		return userList;
 	
 	
@@ -123,7 +127,6 @@ public class UserDao {
 }   
 	//@drj
 	public  User findUser(int id){
-		
 	    Session session = sf.openSession();
 	    User user=new User();
 	    Transaction transaction = session.beginTransaction();
@@ -150,7 +153,7 @@ public class UserDao {
       }
         transaction.commit();  
         session.close();
-		sf.close(); 
+		 
 		
 		
 		return user;
@@ -174,7 +177,7 @@ public class UserDao {
 	    }
 	        transaction.commit(); 
 	        session.close();
-			sf.close(); 
+			 
 		
 		
 		
@@ -195,7 +198,7 @@ public class UserDao {
 		}
 			transaction.commit(); 
 	        session.close();
-			sf.close(); 
+			 
 		
 			return user.getName()+"已更新完成";
 			
@@ -211,7 +214,7 @@ public class UserDao {
 		sess.save(userItem);
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 	}
 	
 	
@@ -222,7 +225,7 @@ public class UserDao {
 		sess.delete(userItem);
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 	}
 	
 	
@@ -235,7 +238,7 @@ public class UserDao {
 		List<UserItem> userItems = query.list();
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 		return userItems;
 	}
 	
@@ -253,7 +256,7 @@ public class UserDao {
 		}
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 		return allMess;
 	}
 	
@@ -263,7 +266,7 @@ public class UserDao {
 		sess.save(userMess);
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 	}
 	
 	
@@ -272,9 +275,7 @@ public class UserDao {
 	 * @param user
 	 * @return
 	 */
-	public static List<BlackList> getBlackList(User user){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+	public List<BlackList> getBlackList(User user){
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query = sess.createQuery("from black_list where user_id = ?");
@@ -282,7 +283,7 @@ public class UserDao {
 		List<BlackList> blackList = query.list();
 		tx.commit();
 		sess.close();
-		sf.close();
+		
 		return blackList;
 	}
 	

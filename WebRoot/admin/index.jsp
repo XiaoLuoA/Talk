@@ -132,8 +132,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#u.reportNum"/></td>
 			<td><s:property value="#u.tel"/></td>
 			<td><s:property value="#u.email"/></td>
-			<td><a href="findUser?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="deleteUser?id=<s:property value="#u.id"/>">删除</a>
+			<td><a href="auser_findUser?id=<s:property value="#u.id"/>">修改</a></td>
+			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>
 			
 				</s:iterator>
 	

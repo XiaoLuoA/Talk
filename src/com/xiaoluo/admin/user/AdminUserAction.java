@@ -1,13 +1,19 @@
 package com.xiaoluo.admin.user;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
+import org.tio.utils.json.Json;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.User;
+import com.xiaoluo.utils.ResponseUtils;
+import com.xiaoluo.utils.Ret;
 
 
 
@@ -33,7 +39,7 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 	
 	public String listAllUser(){
-		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.allUser);
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
 		return "admin";
 		
 	}
@@ -41,27 +47,47 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	public String deleteUser(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		AdminUserService.me.deleteUser(id);
-		return "admin";
+		return "delete";
+	}
+	
+	public void testAjax(){
+		
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		Ret ret = Ret.ok();
+		
+		ret.set("msg","success");
+		
+		ret.setFail();
+		
+		try {
+			
+			response.getWriter().print(Json.toJson(ret));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	public String addUser(){
 		AdminUserService.me.addUser(user);
-		return "listAllUser";
+		return "add";
 	}
 	
 	public String updateUser(){
 	
 		AdminUserService.me.updateUser(user);;
 		
-		return "admin";
+		return "u   ";
 	}
 	
 	public String findUser(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		User user=AdminUserService.me.findUser(id);
-		System.out.println(user.getName());
-		ActionContext.getContext().getValueStack().set("user",user);
-		System.out.println(user.getName()+"111111111111111111111111111");
+		ActionContext.getContext().getValueStack().set("user",user);	
 		return "update";
 	}
 

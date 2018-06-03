@@ -8,10 +8,10 @@ import com.xiaoluo.model.User;
 public class AdminUserService {
 	
 	  public static AdminUserService me = new AdminUserService();
-	  public static List<User> allUser =  UserDao.me.FindAllUserList();
+	//  public static List<User> allUser =  UserDao.me.FindAllUserList();
 	  
 	  public static void main(String[] args) {
-		  System.out.println(allUser.toString());
+	
 	  }
 	  
 	  public  void  addUser(User user){
@@ -28,6 +28,10 @@ public class AdminUserService {
 	  
 	  public void updateUser(User user){
 		  UserDao.me.updateUser(user);
+	  }
+	  public List<User> findAllUsers(){
+	      List<User> allUser = UserDao.me.FindAllUserList();
+		  return allUser;
 	  }
 
 }

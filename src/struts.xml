@@ -6,8 +6,7 @@
 
 
 	<package name="one" extends="struts-default" >
-
-		
+	
 		<action name="user*" class="com.xiaoluo.user.UserAction" method="{1}">
 			<result name="loginSuccess">/index.jsp</result>
 			<result name="registSuccess">/login/login.jsp</result>
@@ -32,17 +31,29 @@
 
 	<!--  User管理// -->
 	
-	<action name="*" class="com.xiaoluo.admin.user.AdminUserAction" method="{1}">
+	<action name="auser_*" class="com.xiaoluo.admin.user.AdminUserAction" method="{1}">
 	  <result name="admin">/admin/index.jsp</result>
 	  <result name="listAllUser">/admin/fail.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
+	<action name="action" class="tutorial.Action">
+            <result type="chain">
+             action2
+            </result>
+        </action>
+	
+	  <action name="action2" class="tutorial.Action2">
+            <result>
+             failure.jsp
+            </result>
+        </action>
+	
 
 	
 	<!--  Groups管理//listALL -->
-	<action name="123" class="com.xiaoluo.admin.group.AdminGroupsAction" method="{1}">
+	<action name="agroups_*" class="com.xiaoluo.admin.group.AdminGroupsAction" method="{1}">
 	  <result name="admin">/admin/group.jsp</result>
 	  <result name="update">/admin/updateGroup.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
