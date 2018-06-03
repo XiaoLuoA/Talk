@@ -1,5 +1,7 @@
 package com.xiaoluo.admin.group;
 
+import java.util.List;
+
 import javax.enterprise.inject.New;
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,7 +36,7 @@ public class AdminGroupsAction extends ActionSupport{
 	}
 
 	public String listAllGroups(){
-		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.allGroups);
+		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 		
 	}
@@ -42,17 +44,19 @@ public class AdminGroupsAction extends ActionSupport{
     public String deleteGroups(){
     	int id =Integer.parseInt(request.getParameter("id"));
 		AdminGroupsService.me.deleteGroups(id);
+		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 	}
 	
 	public String addGroups(Groups Groups){
 		AdminGroupsService.me.addGroups(Groups);
+		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 	}
 	
 	public String updateGroups(Groups Groups){
 		AdminGroupsService.me.updateGroups(Groups);;
-		
+		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 	}
 	
@@ -61,8 +65,14 @@ public class AdminGroupsAction extends ActionSupport{
 		Groups groups=AdminGroupsService.me.findGroups(id);
 		System.out.println(groups.getGroupName());
 		ActionContext.getContext().getValueStack().set("groups",groups);
-		System.out.println(groups.getGroupName()+"111111111111111111111111111");
 		return "update";
+	}
+	
+	public String searchLikeGroupsList(){
+		 String name =request.getParameter("searchName");
+		  List<Groups> searchLikeGroupsList =AdminGroupsService.me.searchLikeGroupsList(name);
+		ActionContext.getContext().getValueStack().set("allGroups",searchLikeGroupsList);	
+		return "admin";
 	}
 
 }

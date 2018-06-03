@@ -28,6 +28,9 @@ public class UserDao {
 	public static void main(String[] args) {
 //		sf.openSession();
 //		sf.openSession();
+		me.SearchLikeUserList("test");
+		
+		
 	}
 	
 	
@@ -87,7 +90,40 @@ public class UserDao {
 	}
 
 	
-	
+	//@drj
+	public List<User> SearchLikeUserList(String name){
+		    Session session = sf.openSession();
+		    User user=new User();
+	        List<User> userList = null;
+	        Transaction transaction = session.beginTransaction();  
+	        
+
+	      
+	        
+	   try{
+	        Query query = session.createQuery("from User  where name like'%"+name+"%'");
+	        
+	        query.setFirstResult(0);
+	        
+	        //使用List方法.
+	        userList = query.list();
+	        //迭代器去迭代.
+	        for(Iterator iter=userList.iterator();iter.hasNext();)
+	        {
+	            user =(User)iter.next();
+	           System.out.println("id="+user.getId() + "name="+user.getName());
+	        }
+	        
+	       }
+	   catch(Exception e){
+		   e.printStackTrace();
+	   }
+	                
+	        transaction.commit();  
+	        session.close();
+			return userList;
+		
+	}
 	//@drj
 	public List<User> FindAllUserList(){
 		 
@@ -125,6 +161,11 @@ public class UserDao {
 	
 	
 }   
+	
+	
+	
+	
+	
 	//@drj
 	public  User findUser(int id){
 	    Session session = sf.openSession();

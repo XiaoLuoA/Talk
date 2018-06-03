@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.xiaoluo.model.Groups;
+import com.xiaoluo.model.User;
 import com.xiaoluo.utils.SessionFactoryUtils;
 
 
@@ -27,19 +28,40 @@ public class GroupsDao {
 		
 	}
 	
-	/**
-	 * 获取所有的Group对象
-	 * @return
-	 */
+	
+	//@drj
+		public List<Groups> SearchLikeGroupsList(String name){
+			   
+			    Session session = sf.openSession();
+		        Groups groups =new Groups();
+		        Transaction transaction = session.beginTransaction();  	           
+		        Query query = session.createQuery("from Group  where groupName like'%"+name+"%'");   
+		        query.setFirstResult(0);
+		        List<Groups> groupList = query.list();
+		        //迭代器去迭代.
+		        for(Iterator iter=groupList.iterator();iter.hasNext();)
+		      {
+		        	groups =(Groups)iter.next();
+		           System.out.println("id="+groups.getId() + "name="+groups.getGroupName());
+		       }
+               
+		        transaction.commit();  
+		        session.close();
+		   
+				return groupList;
+			
+		}
+		
+		/**
+		 * 获取所有的Group对象
+		 * @return
+		 */
 
 	public List<Groups> getAllGroups(){
 
 	    Session session = sf.openSession();
         Groups groups =new Groups();
         Transaction transaction = session.beginTransaction();  
-        
-
-        //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
         Query query = session.createQuery("from Group");
         //从第一个开始查起.可以设置从第几个查起.
         query.setFirstResult(0);

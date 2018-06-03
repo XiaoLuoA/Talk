@@ -1,5 +1,6 @@
 package com.xiaoluo.admin.user;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,6 +92,12 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		User user=AdminUserService.me.findUser(id);
 		ActionContext.getContext().getValueStack().set("user",user);	
 		return "update";
+	}
+	public String searchLikeUserList(){
+		String name =request.getParameter("searchName");
+		  List<User> searchLikeUserList =AdminUserService.me.searchLikeUserList(name);
+		ActionContext.getContext().getValueStack().set("allUser",searchLikeUserList);	
+		return "admin";
 	}
 
 
