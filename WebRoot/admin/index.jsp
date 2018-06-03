@@ -104,6 +104,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <i class="fa fa-penil" title="修改"></i>
              <i class="fa fa-trash" title="删除"></i>
           <div class="addUser" ><a href="admin/addUser.jsp">增加</a></div>
+          
+          
+          
+          
+          
+          <s:form action="auser_searchLikeGroupsList">
+           <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
+       
+        
+            <s:submit value="确定"></s:submit>
+          
+            </s:form>
+            
+            
+            
+            
+            
+            
+            
+            
                  <table border="1">
                    <tr>
                       <td>Userid</td>

@@ -33,5 +33,9 @@ public class AdminUserService {
 	      List<User> allUser = UserDao.me.FindAllUserList();
 		  return allUser;
 	  }
+	  public List<User> searchLikeUserList(String name){
+	      List<User> searchLikeUserList = UserDao.me.SearchLikeUserList(name);
+		  return searchLikeUserList;
+	  }
 
 }
