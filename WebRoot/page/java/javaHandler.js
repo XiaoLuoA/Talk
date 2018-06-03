@@ -12,6 +12,7 @@ var DemoHandler = function () {
    */
   this.onmessage = function (event, ws) {
     var data = event.data
+    
     document.getElementById('contentId').innerHTML += data + '<br>'
   }
 

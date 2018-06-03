@@ -30,7 +30,6 @@ public class MenuDao {
 		List<Menu> allMenu = query.list();
 		tx.commit();
 		sess.close();
-		sf.close();
 		return allMenu;
 	}
 	
@@ -54,7 +53,6 @@ public class MenuDao {
 		
 		tx.commit();
 		sess.close();
-		sf.close();
 		return allMenu;
 	}
 	

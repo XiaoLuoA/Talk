@@ -57,7 +57,6 @@ public class GroupsDao {
                 
         transaction.commit();  
         session.close();
-		sf.close(); 
 		return groupList;
 	}
 	
@@ -90,7 +89,6 @@ public Groups findGroups(int id){
                 
         transaction.commit();  
         session.close();
-		sf.close(); 
 		
 		
 		return group;
@@ -104,7 +102,6 @@ public Groups findGroups(int id){
 		sess.save(group);		
 		tx.commit();
 		sess.close();
-		sf.close();
    } 
     
     public String deleteGroups(int id){
@@ -116,7 +113,6 @@ public Groups findGroups(int id){
         session.delete(groups);
         transaction.commit(); 
         session.close();
-		sf.close(); 
 	
 	
 	    return "删除"+groups.getGroupName()+"成功";
@@ -132,7 +128,6 @@ public Groups findGroups(int id){
 		session.saveOrUpdate(group);
 		transaction.commit(); 
         session.close();
-		sf.close(); 
 	
 		return group.getGroupName()+"已更新完成";
 		
