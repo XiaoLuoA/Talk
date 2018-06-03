@@ -12,7 +12,7 @@ public class ComeTest {
 	public ComeTest(){
 	}
 	//lxy已经进去、、
-	//fjryijingjinqu
+	//fjryijingjinqukk
 	//lxy test01
 	//wyh test01		
 	public static void main(String[] args) {
