@@ -38,17 +38,6 @@
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
-	<action name="action" class="tutorial.Action">
-            <result type="chain">
-             action2
-            </result>
-        </action>
-	
-	  <action name="action2" class="tutorial.Action2">
-            <result>
-             failure.jsp
-            </result>
-        </action>
 	
 
 	
