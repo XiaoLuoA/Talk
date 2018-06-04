@@ -1,29 +1,26 @@
 package com.xiaoluo.admin.group;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.enterprise.inject.New;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.xiaoluo.admin.user.AdminUserService;
+import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.model.Groups;
-import com.xiaoluo.model.User;
 
 
 
-public class AdminGroupsAction extends ActionSupport{
+
+public class AdminGroupsAction extends ActionSupport  implements ModelDriven<Groups>{
 	
 	
     private Groups groups = new Groups() ;
     ActionContext context = ActionContext.getContext();
     HttpServletRequest request = ServletActionContext.getRequest();	
-	
+    @Override
     public Groups getModel() {
-		
 		return groups;
 	}
     
@@ -48,14 +45,14 @@ public class AdminGroupsAction extends ActionSupport{
 		return "admin";
 	}
 	
-	public String addGroups(Groups Groups){
-		AdminGroupsService.me.addGroups(Groups);
+	public String addGroups(){
+		AdminGroupsService.me.addGroups(groups);
 		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 	}
 	
-	public String updateGroups(Groups Groups){
-		AdminGroupsService.me.updateGroups(Groups);;
+	public String updateGroups(){
+		AdminGroupsService.me.updateGroups(groups);;
 		ActionContext.getContext().getValueStack().set("allGroups",AdminGroupsService.me.findAllGroups());
 		return "admin";
 	}
@@ -63,16 +60,17 @@ public class AdminGroupsAction extends ActionSupport{
 	public String findGroups(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		Groups groups=AdminGroupsService.me.findGroups(id);
-		System.out.println(groups.getGroupName());
 		ActionContext.getContext().getValueStack().set("groups",groups);
 		return "update";
 	}
 	
-	public String searchLikeGroupsList(){
-		 String name =request.getParameter("searchName");
+	public String searchLikeGroupsList() throws UnsupportedEncodingException{
+		 
+		  request.setCharacterEncoding("utf-8");
+		  String name =request.getParameter("searchName");
 		  List<Groups> searchLikeGroupsList =AdminGroupsService.me.searchLikeGroupsList(name);
-		ActionContext.getContext().getValueStack().set("allGroups",searchLikeGroupsList);	
-		return "admin";
+		  ActionContext.getContext().getValueStack().set("allGroups",searchLikeGroupsList);	
+		  return "admin";
 	}
 
 }

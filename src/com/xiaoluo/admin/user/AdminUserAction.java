@@ -1,7 +1,9 @@
 package com.xiaoluo.admin.user;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +13,7 @@ import org.tio.utils.json.Json;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.inject.Context;
 import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.ResponseUtils;
@@ -24,6 +27,7 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 	 ActionContext context = ActionContext.getContext();
      HttpServletRequest request = ServletActionContext.getRequest();
+    
      
     
 	@Override
@@ -93,7 +97,8 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		ActionContext.getContext().getValueStack().set("user",user);	
 		return "update";
 	}
-	public String searchLikeUserList(){
+	public String searchLikeUserList() throws UnsupportedEncodingException{
+		 
 		String name =request.getParameter("searchName");
 		  List<User> searchLikeUserList =AdminUserService.me.searchLikeUserList(name);
 		ActionContext.getContext().getValueStack().set("allUser",searchLikeUserList);	

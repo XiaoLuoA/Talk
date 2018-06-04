@@ -14,5 +14,10 @@
 		<property name="icon" />
 		<property name="orderNum" column="order_num"/>
 		<property name="createTime" column="create_time"></property>
+		
+		<!--  <set name="roles" table="role_menu">  
+           <key column="id"></key>  
+           <many-to-many column="id" class="Role"></many-to-many>  
+        </set>   -->
 	</class>
 </hibernate-mapping>

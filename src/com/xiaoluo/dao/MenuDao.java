@@ -19,6 +19,79 @@ public class MenuDao {
 	private MenuDao(){
 		
 	}
+	public static void main(String[] args) {
+
+		System.out.println(me.findMenuById(1));
+
+	}
+	
+	//@drj
+		public List<Menu> SearchLikeMenuList(String name){
+			    Session session = sf.openSession();
+		        List<Menu> menuList = null;
+		        Transaction transaction = session.beginTransaction();  
+		        
+		   try{
+		        Query query = session.createQuery("from Menu  where menuName like'%"+name+"%'");		
+		        menuList = query.list();
+		         		        
+		       }
+		   catch(Exception e){
+			   e.printStackTrace();
+		   }
+		                
+		        transaction.commit();  
+		        session.close();
+				return menuList;
+			
+		}
+	
+	//@drj
+	public void addMenu(Menu menu){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+	    sess.save(menu);
+        tx.commit();
+		sess.close();
+		
+		
+	}
+	
+	//@drj
+	public void deleteMenu(int id){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Menu menu=me.findMenuById(id);
+	    sess.delete(menu);
+        tx.commit();
+		sess.close();
+	}
+	//@drj
+	public void updateMenu(Menu menu){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+	    sess.saveOrUpdate(menu);
+        tx.commit();
+		sess.close();
+	}
+	
+	//@drj
+	public Menu findMenuById(int id){	
+		String hql="from Menu where id=? ";
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query=sess.createQuery(hql);
+		query.setInteger(0, id);		
+		List<Menu> menulist = query.list(); 
+		tx.commit();
+		sess.close();
+		if(menulist.size()>0){
+			return menulist.get(0);
+		}
+		return null;	
+	}
+	
+	
 	
 	/**
 	 * 从数据库获取所有菜单，并没有任何处理
