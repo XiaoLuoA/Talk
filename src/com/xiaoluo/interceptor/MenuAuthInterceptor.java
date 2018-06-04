@@ -1,4 +1,4 @@
-package com.xialuo.interceptor;
+package com.xiaoluo.interceptor;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;

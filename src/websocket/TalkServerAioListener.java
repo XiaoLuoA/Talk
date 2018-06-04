@@ -1,13 +1,20 @@
 
 package websocket;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
 import org.tio.websocket.server.WsServerAioListener;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.xiaoluo.model.User;
+import com.xiaoluo.model.UserMess;
+import com.xiaoluo.user.LoginService;
+import com.xiaoluo.user.UserService;
 
 
 public class TalkServerAioListener extends WsServerAioListener {
@@ -24,10 +31,10 @@ public class TalkServerAioListener extends WsServerAioListener {
 	@Override
 	public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) throws Exception {
 		super.onAfterConnected(channelContext, isConnected, isReconnect);
-		System.out.println("Afterconnected");
-		User user = new User();
-		user.setId((int)(Math.random()*10));
+		User user = (User)ActionContext.getContext().getSession().get("user");
 		channelContext.setUserid(user.getId()+"");
+		//Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(user);
+		
 	}
 
 	@Override
