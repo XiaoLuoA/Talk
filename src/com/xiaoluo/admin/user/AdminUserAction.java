@@ -1,5 +1,6 @@
 package com.xiaoluo.admin.user;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,8 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	public String deleteUser(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		AdminUserService.me.deleteUser(id);
-		return "delete";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public void testAjax(){
@@ -74,14 +76,15 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 	public String addUser(){
 		AdminUserService.me.addUser(user);
-		return "add";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public String updateUser(){
 	
 		AdminUserService.me.updateUser(user);;
-		
-		return "u   ";
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "admin";
 	}
 	
 	public String findUser(){
@@ -89,6 +92,12 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		User user=AdminUserService.me.findUser(id);
 		ActionContext.getContext().getValueStack().set("user",user);	
 		return "update";
+	}
+	public String searchLikeUserList(){
+		String name =request.getParameter("searchName");
+		  List<User> searchLikeUserList =AdminUserService.me.searchLikeUserList(name);
+		ActionContext.getContext().getValueStack().set("allUser",searchLikeUserList);	
+		return "admin";
 	}
 
 

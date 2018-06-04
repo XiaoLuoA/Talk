@@ -37,13 +37,7 @@
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
 		</action>
 		
-		<action name="talk*" class="com.xiaoluo.talk.TalkAction" method="{1}">
-			<result name="{1}">/page/{1}/{1}.jsp</result>
-		</action>
 		
-		<action name="index" class="com.xiaoluo.index.IndexAction" method="index">
-			<result name="indexPage">/index.jsp</result>
-		</action>
 
 
 		
@@ -57,6 +51,7 @@
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
+
 	
 	<!--  Groups管理//listALL -->
 	<action name="agroups_*" class="com.xiaoluo.admin.group.AdminGroupsAction" method="{1}">
