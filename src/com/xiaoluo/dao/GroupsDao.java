@@ -6,9 +6,8 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import com.xiaoluo.model.Groups;
-import com.xiaoluo.model.User;
+import com.xiaoluo.model.Menu;
 import com.xiaoluo.utils.SessionFactoryUtils;
 
 
@@ -18,7 +17,9 @@ public class GroupsDao {
 	
 	SessionFactory sf = SessionFactoryUtils.sf;
 	public static void main(String[] args) {
-		//findGroups(2);
+		
+		
+		
 		
 	}
 	
@@ -35,7 +36,7 @@ public class GroupsDao {
 			    Session session = sf.openSession();
 		        Groups groups =new Groups();
 		        Transaction transaction = session.beginTransaction();  	           
-		        Query query = session.createQuery("from Group  where groupName like'%"+name+"%'");   
+		        Query query = session.createQuery("from Groups  where groupName like'%"+name+"%'");   
 		        query.setFirstResult(0);
 		        List<Groups> groupList = query.list();
 		        //迭代器去迭代.
@@ -62,7 +63,7 @@ public class GroupsDao {
 	    Session session = sf.openSession();
         Groups groups =new Groups();
         Transaction transaction = session.beginTransaction();  
-        Query query = session.createQuery("from Group");
+        Query query = session.createQuery("from Groups");
         //从第一个开始查起.可以设置从第几个查起.
         query.setFirstResult(0);
         
@@ -84,50 +85,40 @@ public class GroupsDao {
 	
 public Groups findGroups(int id){
 		
-	    Session session = sf.openSession();
-	    Groups group=new Groups();
-	    Transaction transaction = session.beginTransaction();
-		
-
-		  //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
-        SQLQuery query = session.createSQLQuery("select * from group where id = ?");
-        //从第一个开始查起.可以设置从第几个查起.
-        query.setInteger(0, id);
-        
-        //使用List方法.
-
-        
-
-        List<Groups> groupList = query.list();
-
-        //迭代器去迭代.
-        for(Iterator iter=groupList.iterator();iter.hasNext();)
-        {
-            group =(Groups)iter.next();
-           System.out.println("id="+group.getId() + "name="+group.getGroupName());
-        }
-        
-        
-                
-        transaction.commit();  
-        session.close();
-		
-		
-		return group;
-		
+		String hql="from Groups where id=? ";
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query=sess.createQuery(hql);
+		query.setInteger(0, id);		
+		List<Groups> groupslist = query.list(); 
+		tx.commit();
+		sess.close();
+		if(groupslist.size()>0){
+			return groupslist.get(0);
+		}
+		return null;	
 	}
+		
+
+		
+
+        
+
+     
+		
+	
 
 
-    public void addGroups(Groups group){
+    public String addGroups(Groups group){
 	    Session sess = sf.openSession();
 	    Transaction tx = sess.beginTransaction();					
 		sess.save(group);		
 		tx.commit();
 		sess.close();
+		return group.getGroupName()+"增加成功";
    } 
     
     public String deleteGroups(int id){
-		
 		
 	    Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();

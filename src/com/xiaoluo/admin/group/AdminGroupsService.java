@@ -13,9 +13,7 @@ public class AdminGroupsService {
 	 public static AdminGroupsService me = new AdminGroupsService();
 	 
 	  
-	  public static void main(String[] args) {
-		 
-	  }
+	 
 	  
 	  public  void  addGroups(Groups Groups){
 		  GroupsDao.me.addGroups(Groups);

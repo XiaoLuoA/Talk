@@ -1,15 +1,14 @@
 package com.xiaoluo.user;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts2.ServletActionContext;
-import org.tio.utils.json.Json;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.xiaoluo.common.StatusConst;
 import com.xiaoluo.model.User;
-import com.xiaoluo.utils.MailUtils;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
+import com.xiaoluo.utils.StrKit;
 
 
 public class UserAction extends ActionSupport implements ModelDriven<User>{
@@ -21,48 +20,84 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return user;
 	}
 	
+	
+	/**
+	 * 跳转到登录页面
+	 * @return
+	 */
 	public String loginPage(){
-		
-		System.out.println("55555555555555"+ServletActionContext.getRequest().getCookies()[0].getName());
 		return "loginPage";
 	}
 	
+	
+	/**
+	 * 跳转到注册页面
+	 * @return
+	 */
 	public String regPage(){
 		return "regPage";
 	}
 	
+	
+	/**
+	 * 跳转到找回密码页面
+	 * @return
+	 */
 	public String findPage(){
 		return "findPage";
 	}
 	
+	
+	/**
+	 * 跳转到个人信息页面
+	 * @return
+	 */
 	public String infoPage(){
 		return "infoPage";
 	}
 	
+	
+	/**
+	 * 跳转到重置密码页面
+	 * @return
+	 */
 	public String changePage(){
 		return "changePage";
 	}
 	
-	/*
-	 * 注册用户
-	 * 用户初始化：状态为2(正常);角色为1(普通用户);举报数为0;
+
+	/**
+	 * 注册用户;
+	 * 校验密码用户名一定不能为空；
 	 */
 	public void regist(){	
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		Ret ret = Ret.ok();
-		try {
-			UserService.me.regist(user);
+		try{
+		boolean flag =StrKit.isBlank(user.getName())||StrKit.isBlank(user.getPassword());
+		if(flag){
+			ret.setFail();
+			ret.set("msg", "用户名和密码一定不能为空！");
 			response.getWriter().write(ret.toJson());
+			return;
+		}
+		UserService.me.regist(user);
+		response.getWriter().write(ret.toJson());
 		} catch (Exception e) {
 			System.out.println("UserAction regist 方法："+e);
 		}
 	}
 	
+	
+	/**
+	 * 检查name是否存在;
+	 * 且用户名不能为空;
+	 */
 	public void checkName(){
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
-		if(user.getName()==null||user.getName().equals("")){
+		if(StrKit.isBlank(user.getName())){
 			try {
 				response.getWriter().write(Ret.fail().set("msg", "用户名不能为空").toJson());
 			} catch (IOException e) {
@@ -70,6 +105,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			}
 			return ;
 		}
+		
 		User loginUser = LoginService.me.findUser(user.getName());
 		Ret ret = Ret.ok();
 		if(loginUser!=null)
@@ -85,16 +121,29 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	}
 	
 	
-	
+	/**
+	 * 登录；用户名、密码不能为空；
+	 */
 	public void login() {
 		ActionContext ac = ActionContext.getContext();
-		
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
-		User loginUser = LoginService.me.findUser(user.getName());
 		Ret ret = Ret.ok();
+		if(StrKit.isBlank(user.getName())||StrKit.isBlank(user.getPassword())){
+			try {
+				ret.setFail().set("msg", "用户名/密码不能为空");
+				response.getWriter().write(ret.toJson());
+				return;
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+		
+		User loginUser = LoginService.me.findUser(user.getName(),StatusConst.OK);
+		
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
 			ActionContext.getContext().getSession().put("user", loginUser);
+			
 			ret.set("returnUrl", "index.action");
 		}
 		else

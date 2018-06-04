@@ -34,7 +34,10 @@
    		
    		<mapping resource="com/xiaoluo/model/User.hbm.xml"/>
    		<mapping resource="com/xiaoluo/model/Groups.hbm.xml"/>
+   		<mapping resource="com/xiaoluo/model/Role.hbm.xml"/>
    		<mapping resource="com/xiaoluo/model/Menu.hbm.xml"/>
+   		<mapping resource="com/xiaoluo/model/UserMess.hbm.xml"/>
+   		<mapping resource="com/xiaoluo/model/RoleMenu.hbm.xml"/>
    	</session-factory>
 
 </hibernate-configuration>

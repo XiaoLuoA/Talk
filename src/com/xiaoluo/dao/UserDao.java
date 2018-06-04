@@ -26,11 +26,9 @@ public class UserDao {
 	public static UserDao me= new UserDao();
 	
 	public static void main(String[] args) {
-//		sf.openSession();
-//		sf.openSession();
+
 		me.SearchLikeUserList("test");
-		
-		
+
 	}
 	
 	
@@ -46,7 +44,6 @@ public class UserDao {
 		sess.save(user);
 		tx.commit();
 		sess.close();
-		
 		return user;
 	}
 	
@@ -57,8 +54,7 @@ public class UserDao {
 	 * @return User对象
 	 */
 	public User findUser(String name){	
-		System.out.println("findUser"+name);
-		String hql="from User where name=?";
+		String hql="from User where name=? ";
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query=sess.createQuery(hql);
@@ -66,14 +62,31 @@ public class UserDao {
 		List<User> userlist = query.list(); 
 		tx.commit();
 		sess.close();
-		
-		
 		if(userlist.size()>0){
 			return userlist.get(0);
 		}
-		
 		return null;	
-		
+	}
+	
+	/**
+	 * 根据用户名和状态查询User对象
+	 * @param name 用户名
+	 * @return User对象
+	 */
+	public User findUser(String name,Integer status){	
+		String hql="from User where name=? and status = ?";
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query=sess.createQuery(hql);
+		query.setString(0,name);		
+		query.setInteger(1, status);
+		List<User> userlist = query.list(); 
+		tx.commit();
+		sess.close();
+		if(userlist.size()>0){
+			return userlist.get(0);
+		}
+		return null;	
 	}
 	
 	
@@ -85,7 +98,6 @@ public class UserDao {
 		Query query=sess.createQuery(hql);
 		query.setString(0,name);		
 		List<User> userlist = query.list();    
-		
 		return userlist;		
 	}
 
@@ -279,26 +291,26 @@ public class UserDao {
 		List<UserItem> userItems = query.list();
 		tx.commit();
 		sess.close();
-		
 		return userItems;
 	}
 	
 	
-	//上线后获取发给某个用户的所有消息
-	public Map<Integer,UserMess> getMess(User user){
+	/**
+	 * 发给某个用户的所有消息
+	 * @param user
+	 * @return List<UserMess> 
+	 */
+	public List<UserMess> getMess(User user){
+		Configuration conf = new Configuration().configure();
+		SessionFactory sf = conf.buildSessionFactory();
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		Query query = sess.createQuery("from user_mess where send_id = ?");
+		Query query = sess.createQuery("from UserMess where to_id = ?");
 		query.setInteger(0, user.getId());
 		List<UserMess> userMessList = query.list();
-		Map<Integer,UserMess> allMess = new HashMap<Integer,UserMess>();
-		for(UserMess mess: userMessList){
-			allMess.put(mess.getFromId(), mess);
-		}
 		tx.commit();
 		sess.close();
-		
-		return allMess;
+		return userMessList;
 	}
 	
 	public void saveMess(UserMess userMess){

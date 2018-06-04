@@ -9,6 +9,9 @@ public class UserService {
 	
 	private UserService(){}
 	
+	/**
+	 * 用户初始化：状态为2(正常);角色为1(普通用户);举报数为0;
+	 */
 	public User regist(User user){
 		user.setStatus("2").setCreateTime(System.currentTimeMillis()).setPic("")
 		.setRoles("1").setTel(user.getTel()).setReportNum(0);
@@ -21,7 +24,7 @@ public class UserService {
 		 String n="【Talk】您正在修改密码，验证码为："+m;
 		 user.setRegNum(m);
 		 
-		 Thread t =new Thread(new SendMsg(n,user));
+		 Thread t =new Thread(new SendMsgThread(n,user));
 		 t.start();
 		 
 		 return user;
