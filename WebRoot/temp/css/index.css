@@ -1,0 +1,130 @@
+body
+{
+	background: #ffffcc;
+	/*overflow: hidden;*/
+}
+
+/*蒙版*/
+.overlay
+{
+	z-index: 3;
+	position: fixed;
+	top:0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: transparent;
+}
+.overlay .overlay-showarea
+{
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overlay .chat-area,.overlay .group-chat-area
+{
+	display: flex;
+	flex-direction:row;
+	
+	overflow: hidden;
+	border-radius:7px;
+	box-shadow: 6px 7px 5px rgba(0,0,0,0.2);
+}
+#MessageArea .detail-item:not(.active),
+#GroupMessageArea .detail-item:not(.active)
+{
+	display:none;
+}
+
+
+
+
+.page-moment
+{
+	min-width: 100%;
+	min-height: 100%;
+	
+}
+
+.chose-list ,
+.group-chose-list
+{
+    width: 200px;
+    height: 520px;
+    background: #d9d9d9;
+    
+    
+    padding:5px;
+}
+
+.detail-list
+{
+	width: 600px;
+	height: 520px;
+	background: gray;
+	
+}
+
+.item
+{
+	width: 200px;
+	height: 520px;
+    
+}
+.item-list
+{
+	width: 100%;
+	height: 420px; 
+    padding: 5px;
+    background: #fbfbfb;
+    font-size:0.4em;
+}
+
+.chose-item ,
+.group-chose-item
+{
+	border-radius: 5px;
+}
+.chose-item.active,
+.group-chose-item.active
+{
+	background: rgb(243,243,243);
+}
+
+
+.item .item-top
+{
+	width: 100%;
+	height: 100px;
+	background: #d6d6d6;
+}
+.item-item .head-img,
+#GroupMessageArea .head-img
+{
+	width: 40px;
+	height:40px;
+	border-radius: 4px;
+	overflow: hidden;
+	float: left;
+}
+.item-item .head-img img,
+#GroupMessageArea .head-img img
+{
+	width: 100%;height:100%;
+	vertical-align: top;
+}
+.item-item .ietm-item-detail
+{
+	/*float: left;*/
+}
+/*
+ * 开始群聊的css
+ */
+#GroupMessageArea
+{
+	background:gray;
+}
+
+
