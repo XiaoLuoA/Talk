@@ -68,7 +68,5 @@ public class LoginService {
 		return allMess;
 	}
 	
-	public static void main(String[] args) {
 	
-	}
 }
