@@ -17,10 +17,33 @@ var itemMap = new Map();
 //请求初始数据
 function askforData()
 {
-	//初始条件不存在，或者初始条件不足
-	if(false)
+	var flag;
+	//用户已经登录，则加载数据
+	if(sessionId&&sessioId.trim()!='')
 	{
+		//唯一一次请求服务器，使用ajax
+		var message = {sessionId:sessionId};
+		$.ajax({
+			url :'',
+			data :message,
+			success :function(res){
+				items = res.teems;
+				flag = true;
+			},
+			failed :function(res)
+			{
+				alert(res.message)
+			},
+			setTimeOut:8000,
+			
+		});
 		//请求初始数据或者到本地加载
+		
+	}
+	
+	if(flag)
+	{
+		init();
 	}
 }
 //渲染数据

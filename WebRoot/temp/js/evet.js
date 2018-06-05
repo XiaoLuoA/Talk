@@ -130,19 +130,26 @@ function bindEvent()
 	GroupChatTab.madeMap('data-groupid');
 	GroupChatTab.addSelect('.cls-btn')
 	//添加点击事件
+	//点击创建新会话
+	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);
+	//点击关闭对话
 	$choseList.on('click','.cls-btn',closeTalkBtn);
+	//点击创建新群聊
+	//点击关闭当前群聊
+	
 	//准备响应tio
 	tioReady();
 }
 
 function init()
 {
-	//请求数据
+	
 	askforData();
 	// 渲染页面
 	render();
 	//事件绑定
 	bindEvent();
 }
-init();
+
+askforData();
