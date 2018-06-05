@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="com.xiaoluo.model.UserItem" table="user_item">
+		<id name="userItemId">
+			<generator class="identity"/>
+		</id>
+		<property name="userName" column="user_name"/>
+		<property name="userId" column="user_id"/>
+		<property name="talkerId" column="talker_id"/>
+		<property name="talkerName" column="talker_name"/>
+		<property name="newNum" column="newNum"/>
+		<property name="lastTime" column="lastTime"/>
+		<property name="isBlack" column="isBlack"/>
+		<property name="talkerPic" column="talkerPic"/>
+	</class>
+</hibernate-mapping>

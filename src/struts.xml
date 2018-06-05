@@ -37,8 +37,9 @@
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
 		</action>
 		
-		<action name="index" class="com.xiaoluo.index.IndexAction" >
+		<action name="index*" class="com.xiaoluo.index.IndexAction" method="{1}">
 			<result name="index">temp/index.jsp</result>
+			
 		</action>
 		
 		<action name="chat*" class="com.xiaoluo.talk.TalkAction" method="{1}">

@@ -9,9 +9,11 @@ import java.util.Map;
 import com.xiaoluo.common.MyQueue;
 import com.xiaoluo.dao.GroupsDao;
 import com.xiaoluo.dao.UserDao;
+import com.xiaoluo.dao.UserItemDao;
 import com.xiaoluo.model.Groups;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
+import com.xiaoluo.model.UserItem;
 import com.xiaoluo.model.UserMess;
 import com.xiaoluo.utils.MessComparator;
 
@@ -20,7 +22,7 @@ public class IndexService {
 	
 	public static IndexService me = new IndexService();
 	
-	public static List<Groups> allGroup = GroupsDao.me.getAllGroups();
+	public List<Groups> allGroup = GroupsDao.me.getAllGroups();
 
 	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = new HashMap<Integer,MyQueue<GroupsMess>>();
 	
@@ -40,16 +42,22 @@ public class IndexService {
 		return allGroupMess.get(groupId);
 	}
 	
+	
 	/**
-	 * 发给某个用户user的所有消息
+	 * 某个用户的所有会话;
 	 * @param user
-	 * @return Map<Integer, List<UserMess>> Integer为发送者id,
-	 * List<UserMess>为id对应的消息列表
+	 * @return List<UserItem> 
 	 */
-	public Map<Integer, List<UserMess>> getAllMsg(User user){
-		List<UserMess> userMessList = UserDao.me.getMess(user);
+	public List<UserItem> getAllItem(User user){
+		
+		List<UserItem> userItemList  = UserItemDao.me.getAllUserItem(user);
+		
+		List<UserMess> userMessList  = UserDao.me.getMess(user);
+		
 		Collections.sort(userMessList,new MessComparator());
+		
 		Map<Integer,List<UserMess>> allMess = new HashMap<Integer,List<UserMess>>();
+		
 		for(UserMess mess: userMessList){
 			List<UserMess> userMess = allMess.get(mess.getFromId());
 			if(userMess==null){
@@ -58,7 +66,12 @@ public class IndexService {
 			userMess.add(mess);
 			allMess.put(mess.getFromId(), userMess);
 		}
-		return allMess;
+		
+		for(UserItem userItem:userItemList){
+			userItem.setMessages(allMess.get(userItem.getTalkerId()));
+		}
+		
+		return userItemList;
 	}
 	
 	

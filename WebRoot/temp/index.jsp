@@ -10,8 +10,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta charset="utf-8" />
 		<title>个人聊天页面</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-		<link rel="stylesheet" href="css/reset.css" />
-		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="temp/css/reset.css" />
+		<link rel="stylesheet" href="temp/css/index.css" />
 	</head>
 	<body>
 		<div class="page-moment">
@@ -79,12 +79,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="../page/tio/tiows.js"></script>
-		<%="<script>var queryString = 'sessionId="%><s:property value="#session.sessionId"/><%="'</script>" %>
-		<%="<script>var sessionId= '"%><s:property value="#session.sessionId"/><%="'</script>" %>
-				<script type="text/javascript" src="../page/DemoHandler.js"></script>
-		<script type="text/javascript" src="../page/demo.js"></script>
+		<script src="temp/js/jquery-3.2.1.min.js"></script>
+		<!--<script type="text/javascript" src="page/tio/tiows.js"></script>-->
+		<% 
+		String sess = (String)request.getSession().getAttribute("sessionId");
+		out.print("<script>var queryString = 'sessionId="+sess+"';");
+		out.print("var sessionId= '"+sess+"';</script>");
+		%>
+		<s:property value="#session.sessionId"/>
+		
+	
+				<!--<script type="text/javascript" src="page/DemoHandler.js"></script>
+		<script type="text/javascript" src="page/demo.js"></script>-->
 		<script>
 			var items =	[
 				{
@@ -130,9 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},],
 				},];
 		</script>
-		<script type="text/javascript" src="js/tool.js" ></script>
-		<script type="text/javascript" src="js/index.js" ></script>
-		<script type="text/javascript" src="js/evet.js"></script>
+		<script type="text/javascript" src="temp/js/tool.js" ></script>
+		<script type="text/javascript" src="temp/js/index.js" ></script>
+		<script type="text/javascript" src="temp/js/evet.js"></script>
 		
 		
 	</body>

@@ -1,9 +1,11 @@
 package com.xiaoluo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserItem {
 
 	private java.lang.Integer userItemId;
-	private java.lang.Integer talkerItemId;
 	private java.lang.Integer userId;
 	private java.lang.String userName;
 	private java.lang.Integer talkerId;
@@ -12,6 +14,15 @@ public class UserItem {
 	private java.lang.Long lastTime;
 	private java.lang.Integer isBlack;
 	private java.lang.String talkerPic;
+	private List<UserMess> messages = new ArrayList<UserMess>();
+	public List<UserMess> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<UserMess> messages) {
+		this.messages = messages;
+	}
+
 	public UserItem setUserItemId(java.lang.Integer userItemId) {
 		this.userItemId = userItemId;
 		return this;
@@ -19,15 +30,6 @@ public class UserItem {
 
 	public java.lang.Integer getUserItemId() {
 		return this.userItemId;
-	}
-
-	public UserItem setTalkerItemId(java.lang.Integer talkerItemId) {
-		this.talkerItemId = talkerItemId;
-		return this;
-	}
-
-	public java.lang.Integer getTalkerItemId() {
-		return this.talkerItemId;
 	}
 
 	public UserItem setUserId(java.lang.Integer userId) {

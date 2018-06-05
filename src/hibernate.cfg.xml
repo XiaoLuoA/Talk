@@ -38,6 +38,7 @@
    		<mapping resource="com/xiaoluo/model/Menu.hbm.xml"/>
    		<mapping resource="com/xiaoluo/model/UserMess.hbm.xml"/>
    		 <mapping resource="com/xiaoluo/model/RoleMenu.hbm.xml"/>
+   		 <mapping resource="com/xiaoluo/model/UserItem.hbm.xml"/>
    	</session-factory>
 
 </hibernate-configuration>

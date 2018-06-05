@@ -57,7 +57,6 @@ public class GroupsDao {
 		 * 获取所有的Group对象
 		 * @return
 		 */
-
 	public List<Groups> getAllGroups(){
 
 	    Session session = sf.openSession();

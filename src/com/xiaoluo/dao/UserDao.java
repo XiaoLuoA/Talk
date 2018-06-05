@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.jboss.jandex.Main;
+import org.tio.utils.json.Json;
 
 import com.xiaoluo.model.BlackList;
 import com.xiaoluo.model.User;
@@ -282,32 +283,26 @@ public class UserDao {
 	}
 	
 	
-	//获取用户的所有的会话列表
-	public List<UserItem> getUserItem(User user){
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		Query query = sess.createQuery("from user_item where user_id = ? ");
-		query.setInteger(0, user.getId());
-		List<UserItem> userItems = query.list();
-		tx.commit();
-		sess.close();
-		return userItems;
-	}
-	
-	
 	/**
 	 * 发给某个用户的所有消息
 	 * @param user
 	 * @return List<UserMess> 
 	 */
 	public List<UserMess> getMess(User user){
-		Configuration conf = new Configuration().configure();
-		SessionFactory sf = conf.buildSessionFactory();
+		
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Query query = sess.createQuery("from UserMess where to_id = ?");
 		query.setInteger(0, user.getId());
+		
 		List<UserMess> userMessList = query.list();
+		try{
+			System.out.println(userMessList.size());
+			System.out.println(Json.toJson(userMessList));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		tx.commit();
 		sess.close();
 		return userMessList;

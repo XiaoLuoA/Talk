@@ -157,7 +157,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", loginUser);
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
 			CommonData.loginUser.set(sessionId, loginUser);
-			ret.set("returnUrl", "index.action");
+			ret.set("returnUrl", "indexindex.action");
 		}
 		else
 		{
