@@ -1,6 +1,6 @@
 var protocol = 'ws'; // ws 或 wss
 var ip = '127.0.0.1'
-var port = 9326
+var port = 8080
 
 var heartbeatTimeout = 5000; // 心跳超时时间，单位：毫秒
 var reconnInterval = 1000; // 重连间隔时间，单位：毫秒

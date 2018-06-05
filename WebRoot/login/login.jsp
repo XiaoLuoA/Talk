@@ -58,6 +58,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
 	<script type="text/javascript" src="layer/layer/layer.js"></script>
+   <!-- 组件js，和业务不相关的 -->
+<script src="page/tio/tiows.js"></script>
+
+
+<!-- 和业务相关的js，业务需要修改 -->
+<script src="page/demo.js"></script>
+<script src="page/DemoHandler.js"></script>
+
     <script type="text/javascript">
     
 		$(document).ready(function() {
@@ -74,6 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(ret.isOk)
 					{
 						location.href = ret.returnUrl;
+						//initWs();
 						return ;
 					}
 					

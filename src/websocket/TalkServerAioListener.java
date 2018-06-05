@@ -31,23 +31,34 @@ public class TalkServerAioListener extends WsServerAioListener {
 	@Override
 	public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) throws Exception {
 		super.onAfterConnected(channelContext, isConnected, isReconnect);
-		User user = (User)ActionContext.getContext().getSession().get("user");
-		channelContext.setUserid(user.getId()+"");
-		//Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(user);
+	
+		System.out.println("connect");
+		System.out.println("kkkk");
+		try{
+			System.out.println(ActionContext.getContext().getSession());
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		
+		System.out.println("jjj");
+		
+		System.out.println(ActionContext.getContext().getSession().isEmpty());
+		User user = (User)ActionContext.getContext().getSession().get("user");
+		System.out.println("5555555555"+user.getId());
+		System.out.println(user.getId()+"  "+user.getName());
 	}
 
 	@Override
 	public void onAfterSent(ChannelContext channelContext, Packet packet, boolean isSentSuccess) throws Exception {
 		super.onAfterSent(channelContext, packet, isSentSuccess);
-		System.out.println("aftersent");
+		//System.out.println("aftersent");
 		
 	}
 
 	@Override
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String remark, boolean isRemove) throws Exception {
 		super.onBeforeClose(channelContext, throwable, remark, isRemove);
-		
+		System.out.println("close list");
 	}
 
 	@Override
