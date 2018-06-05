@@ -33,9 +33,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <iframe src="./demo.html" style="width:600px; height:600px;"></iframe>
 	-->  
 	
-	<a href="talkjava.action"  target="_blank">java交流</a>
-	<a href="talkmaster.action"  target="_blank">考研交流</a>
-	<a href="talkfound.action"  target="_blank">招领启事</a>
+	<a href="chatjava.action"  target="_blank">java交流</a>
+	<a href="chatmaster.action"  >考研交流</a>
+	<a href="chatfound.action"  target="_blank">招领启事</a>
 	<a href="userloginPage.action">登录</a>
     </div>
 </body>

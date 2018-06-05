@@ -1,11 +1,21 @@
 package com.xiaoluo.user;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.tio.utils.json.Json;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.StatusConst;
 import com.xiaoluo.model.User;
+import com.xiaoluo.model.UserMess;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
 import com.xiaoluo.utils.StrKit;
@@ -143,8 +153,13 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
 			ActionContext.getContext().getSession().put("user", loginUser);
-			
+			System.out.println(ServletActionContext.getRequest().getSession().getId());
+			String sessionId = ServletActionContext.getRequest().getSession().getId();
+			CommonData.loginUser.set(sessionId	, loginUser);
+			ret.set("sessionId", sessionId);
 			ret.set("returnUrl", "index.action");
+			Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(loginUser);
+			ret.set("allMsg",allMsg);
 		}
 		else
 		{
