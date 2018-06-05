@@ -29,6 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="n3"><a href="">消息中心</a></div>
           <div class="n4"><a href="">首页</a></div>
       </div>
+      <div class="index">
+          <div class="left"></div>
+          <div class="myinformation">
+          
+          </div>
+      </div>
     <%@include file="foot.html" %>  
     </div>
   </body>
