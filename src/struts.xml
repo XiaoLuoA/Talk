@@ -47,21 +47,27 @@
 
 		
 
-	<!--  User管理// -->
-	
+	<!--  User管理// -->	
 	<action name="auser_*" class="com.xiaoluo.admin.user.AdminUserAction" method="{1}">
 	  <result name="admin">/admin/index.jsp</result>
-	  <result name="listAllUser">/admin/fail.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	
-
 	
 	<!--  Groups管理//listALL -->
 	<action name="agroups_*" class="com.xiaoluo.admin.group.AdminGroupsAction" method="{1}">
 	  <result name="admin">/admin/group.jsp</result>
 	  <result name="update">/admin/updateGroup.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	</action>
+	
+	
+	
+	<!--  Menu管理//listALL -->
+	<action name="amenu_*" class="com.xiaoluo.admin.menu.AdminMenuAction" method="{1}">
+	  <result name="admin">/admin/menu.jsp</result>
+	  <result name="update">/admin/updateMenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	</package>

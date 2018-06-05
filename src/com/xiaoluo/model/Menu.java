@@ -1,7 +1,9 @@
 package com.xiaoluo.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Menu {
 
@@ -12,13 +14,22 @@ public class Menu {
 	private java.lang.String icon;
 	private java.lang.Integer orderNum;
 	private java.lang.Long createTime;
+	/*private Set<Role> roles=new HashSet<Role>();*/  
 	private List<Menu> subMenu = new ArrayList<Menu>();
+	/*public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}*/
+
 	public Menu setId(java.lang.Integer id) {
 		this.id = id;
 		return this;
 	}
 
-	public java.lang.Integer getId() {
+	public  java.lang.Integer getId() {
 		return this.id;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import com.xiaoluo.dao.MenuDao;
+import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.model.Menu;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.MenuComparator;
@@ -15,6 +16,50 @@ public class AdminMenuService {
 	private AdminMenuService(){
 		
 	}
+	
+	
+	 public  void  addMenu(Menu menu){
+		  MenuDao.me.addMenu(menu);
+	  }
+	  
+	  public Menu  findMenu(int id){
+		 Menu Menu= MenuDao.me.findMenuById(id);
+		  return Menu;
+	  }
+	  public  void deleteMenu(int id){
+		 Menu menu=  MenuDao.me.findMenuById(id);
+		 //二级菜单直接删除
+		 if(menu.getParentId()!=0){
+		  MenuDao.me.deleteMenu(id);
+		  System.out.println("删除"+menu.getMenuName()+"成功");
+		}else
+		 {
+			//一级菜单删除与其关联的二级菜单
+			List<Menu> menuList=MenuDao.me.findAll();
+			for(int i = 0;i<menuList.size();i++){
+				if(menuList.get(i).getParentId()==id){
+					MenuDao.me.deleteMenu(menuList.get(i).getId());
+					System.out.println("删除"+menuList.get(i).getMenuName()+"成功");
+				}
+			}
+			MenuDao.me.deleteMenu(id);
+			System.out.println("删除"+menu.getMenuName()+"成功");
+			
+			 
+		 }
+	  }
+	  
+	  public void updateMenu(Menu Menu){
+		  MenuDao.me.updateMenu(Menu);
+	  }
+	  public List<Menu> findAllMenus(){
+	      List<Menu> allMenu = MenuDao.me.findAll();
+		  return allMenu;
+	  }
+	  public List<Menu> searchLikeMenuList(String name){
+	      List<Menu> searchLikeMenuList = MenuDao.me.SearchLikeMenuList(name);
+		  return searchLikeMenuList;
+	  }
 	
 	
 	/**
