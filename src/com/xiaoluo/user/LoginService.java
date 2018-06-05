@@ -47,26 +47,5 @@ public class LoginService {
 		return user;		
 	}
 	
-	/**
-	 * 发给某个用户user的所有消息
-	 * @param user
-	 * @return Map<Integer, List<UserMess>> Integer为发送者id,
-	 * List<UserMess>为id对应的消息列表
-	 */
-	public Map<Integer, List<UserMess>> getAllMsg(User user){
-		List<UserMess> userMessList = UserDao.me.getMess(user);
-		Collections.sort(userMessList,new MessComparator());
-		Map<Integer,List<UserMess>> allMess = new HashMap<Integer,List<UserMess>>();
-		for(UserMess mess: userMessList){
-			List<UserMess> userMess = allMess.get(mess.getFromId());
-			if(userMess==null){
-				userMess = new ArrayList<UserMess>();
-			}
-			userMess.add(mess);
-			allMess.put(mess.getFromId(), userMess);
-		}
-		return allMess;
-	}
-	
 	
 }

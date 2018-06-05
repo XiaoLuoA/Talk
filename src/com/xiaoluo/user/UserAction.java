@@ -133,6 +133,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	
 	/**
 	 * 登录；用户名、密码不能为空；
+	 * session中存放user和sessionId
 	 */
 	public void login() {
 		ActionContext ac = ActionContext.getContext();
@@ -155,11 +156,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			String sessionId = ServletActionContext.getRequest().getSession().getId();
 			ActionContext.getContext().getSession().put("user", loginUser);
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
-			System.out.println(sessionId);
 			CommonData.loginUser.set(sessionId, loginUser);
-			ret.set("returnUrl", "temp/index.jsp");
-//			Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(loginUser);
-//			ret.set("allMsg",allMsg);
+			ret.set("returnUrl", "index.action");
 		}
 		else
 		{

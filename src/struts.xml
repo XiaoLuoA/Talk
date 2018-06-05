@@ -37,6 +37,10 @@
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
 		</action>
 		
+		<action name="index" class="com.xiaoluo.index.IndexAction" >
+			<result name="index">temp/index.jsp</result>
+		</action>
+		
 		<action name="chat*" class="com.xiaoluo.talk.TalkAction" method="{1}">
 			<result name="java">/page/java/java.jsp</result>
 			<result name="master">/page/master/master.jsp</result>
