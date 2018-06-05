@@ -1,0 +1,101 @@
+@CHARSET "UTF-8";
+
+body{
+   background-image:url(../image/background/b2.JPG); 
+   background-repeat:no-repeat; 
+   background-position: center;
+   background-size:cover;
+   margin:0 auto;
+   width:500px; 
+   text-align:center;
+   text-align: center; /*IE*/
+   text-align: -moz-center; /*Firefox*/
+   text-align: -webkit-center; /*Chrome*/
+}
+
+.top{  /*最顶端空盒子*/
+	height:200px;	
+}
+.text{
+	padding-top:20px;
+	font-size:30px;
+	height:50px;
+}
+.login2{
+	font-size:30px;
+}
+.login{
+	height:350px;
+	width:400px;
+	background-color:white;
+	font-size:30px;
+	opacity:0.8;
+	border-radius:5px;    /*边框圆角*/
+    background:rgba(255,255,255,0.8);
+}
+.input1{ 
+	font-size:30px;
+	height:50px;
+	border-radius:5px;
+	width:300px;  /*输入框class*/	
+	color:black;	
+}  
+.input2{ 
+	font-size:30px;
+	height:50px;
+	border-radius:5px;
+	width:300px;  /*输入框class*/
+	
+	color:black;
+}  
+.td{
+	height:70px;
+}
+.td1{
+	height:55px;
+}
+.loginbutton{  /*登录按钮*/
+    font-size:30px;
+    width:300px;
+    height:50px;
+    border-radius:5px;
+    background-color:#40E0D0;   	
+}
+a{
+	text-decoration:none;
+	color:black;
+	font-size:20px;
+}
+.link1{
+	height:40px;
+	float:left;
+	padding-left:70px;
+	
+}
+.link2{
+	height:40px;
+	float:left;
+	padding-left:100px;
+	
+}
+.zhanghaosize
+{  
+	padding-left:2em;
+	background-repeat:no-repeat;
+	background-size:1.5em 1.5em;
+}
+.zhanghao
+{    /*登录页面账号*/	
+background-image:url(../image/svg/zhanghao.svg)	
+}
+
+.mimasize
+{   
+	padding-left:2em;
+	background-repeat:no-repeat;
+	background-size:1.5em 1.5em;
+	background-position:1em 0 0 0; 
+}
+.mima{  /*登录页面密码*/
+background-image:url(../image/svg/mima.svg)	
+}

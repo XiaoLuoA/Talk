@@ -16,9 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" type="text/css" href="css/login.css">	
+	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
 	
 	
 	
@@ -26,35 +26,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <form action="userlogin.action" id="login_form" method="post">
-       <table>
-          <tr> 
-          <td>用户名：
-          </td>
-            <td>
-         	<input type="text" name="name" >
-            </td>
-          </tr>
-          <tr> 
-          <td>密   码：</td>
-            <td>
-            <input type="password" name="password" >
-            </td>
-          </tr>
-           <tr> 
-          <td></td>
-            <td>
-            &nbsp;<input type="submit" value="登录">
-            </td>
-          </tr>
-          
-       </table>
-       
-    </form>
-    
-    <a href="userregPage.action">立即注册</a>
-    <a href="userfindPage.action">忘记密码</a>
-    
+  <div class="top">
+          </div>      
+          <div class="login">
+            <div class="login1">
+            <div class="text">欢 迎 登 录</div>
+             <form action="userlogin.action" id="login_form" method="post">  
+               <table class="login2">   
+               <tr>
+                 <td>
+                  <div class="td">
+                   <input class="input1 zhanghao zhanghaosize" type="text" placeholder="账号" required="required"  name="name">
+                   </div>
+                 </td>
+               </tr>                                                  
+               <tr>
+                 <td>
+                 <div class="td1">
+                   <input class="input2 mima mimasize" type="password" placeholder="密码" required="required"  name="password">
+                   </div> 
+                 </td>
+               </tr>   
+                                                                       
+               </table> 
+               <div class="link1">
+                <a href="userregPage.action">立即注册</a> 
+            </div>   
+               <div class="link2">
+                <a href="userfindPage.action">忘记密码</a>
+             </div>
+               <input  class="loginbutton" type="submit" value="登 录">                
+              </form>
+            </div>        
+      </div>    
     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
 	<script type="text/javascript" src="layer/layer/layer.js"></script>

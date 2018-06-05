@@ -16,67 +16,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/register.css">
 
   </head>
   
   <body>
+  <div class="top"></div>
+  
+   <div class="register">
+   <div class="text">
+     欢迎注册TalkTalk！
+   </div>
     <form id="reg_form" action="userregist.action" method="post">
-        <table>
-          <tr>
-          <td>
-           	用户名：
-          </td>
-            <td>
-                 <input type="text" name="name" id="uname">
-            </td>
-          
+    <table class="register1">      	     
+          <tr> 
+          <div class="tr">       
+                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名" required="required"  name="name" id="uname">
+           </div>
+          </tr>      
+           <tr> 
+           <div class="tr">                                           
+                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" required="required">    
+            </div>               
           </tr>
-           <tr>
-           <td>
-         	  密   码：
-          </td>
-            <td>
-                <input type="password" name="password" >
-            </td> 
-                       
-          </tr>
-           <tr>
-           <td>
-         	 重复密码：
-          </td>
-            <td>
-                <input type="password" name="password2" required="required">
-            </td> 
-                       
+           <tr>             
+            <div class="tr">   
+                密   码： <input type="password" class="input" name="password2" placeholder="请再一次输入密码" required="required">
+             </div>       
           </tr>
           <tr>
-          <td>
-         	 性   别：
-          </td>
-      	      <td> 
-      	         <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	             
-             </td>
+      	      <div class="tr">   
+      	        性   别： <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	 
+      	        </div>
       	   </tr>
       	   <tr>
-      	    <td>
-         	邮   箱：
-          </td>
-      	      <td>
-      	           <input type="email" name="email" required="required">
-      	      </td>       	    
-      	   </tr>  
-      	    <tr>
-      	    <td>
-          </td>
-      	      <td>
-      	          <input type="submit" value="注册">
-      	      </td>       	    
-      	   </tr>  
+      	     <div class="tr">   
+      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" required="required">
+      	        </div>      	    
+      	   </tr>   
+      	   <tr>
+      	      <div class="tr">   
+      	           头     像： <input type="file" class="input"  name="pic" required="required">
+      	        </div>      	    
+      	   </tr>     	                  
       	  </table>
+        <input class="registerbutton" type="submit" value="确  定">
     </form>
+    </div>>
+    <!-- 
      <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
     
@@ -206,6 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	);
      	
      	
-     </script>
+     </script>  -->
   </body>
 </html>
+         
