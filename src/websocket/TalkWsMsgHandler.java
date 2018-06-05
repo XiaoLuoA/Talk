@@ -34,24 +34,29 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public HttpResponse handshake(HttpRequest request, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 		System.out.println("handshake");
-		System.out.println(request.getCookieMap());
-		Cookie cook = request.getCookie("JSESSIONID");
-		System.out.println(cook.getValue());
+		//System.out.println(request.getCookieMap());
+		//Cookie cook = request.getCookie("JSESSIONID");
+		//System.out.println(cook.getValue());
 //		User user = (User) request.getHttpSession();
 //		39A706AE208E9FACF78185D8D64F1E51
 //		System.out.println(user.getEmail());
 //		System.out.println(user.getName());
 		
 		
-		String groupId = request.getParam("groupId");
-		String JSESSIONID = request.getParam("JSESSIONID");
-		User user = (User) CommonData.loginGroup.get(JSESSIONID);
+		//String groupId = request.getParam("groupId");
+		String JSESSIONID = request.getParam("sessionId");
+		System.out.println("sessionId是"+JSESSIONID);
+		User user = (User) CommonData.loginUser.get(JSESSIONID);
+		
 		if(user!=null){
-			String userId = request.getParam("userId");
+			//String userId = request.getParam("userId");
+			;
+			System.out.println(user.getId()+"建链成功！");
 			//channelContext.getGroupContext()
 			//Aio.sendToUser(channelContext.getGroupContext(), userId, "");
 		}else{
-			
+			System.out.println("建链成功个屁！");
+			return null;
 		}
 //		String userId = request.getParam("userId");
 //		
@@ -95,7 +100,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	public Object onText(WsRequest wsRequest, String text, ChannelContext channelContext) throws Exception {
 		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
 		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();//获取websocket握手包
-
+		
 		
 //		String groupId = request.getParam("groupId");
 //		String userId = request.getParam("userId");

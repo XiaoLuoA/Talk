@@ -152,14 +152,14 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
-			ActionContext.getContext().getSession().put("user", loginUser);
-			System.out.println(ServletActionContext.getRequest().getSession().getId());
 			String sessionId = ServletActionContext.getRequest().getSession().getId();
-			CommonData.loginUser.set(sessionId	, loginUser);
-			ret.set("sessionId", sessionId);
-			ret.set("returnUrl", "index.action");
-			Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(loginUser);
-			ret.set("allMsg",allMsg);
+			ActionContext.getContext().getSession().put("user", loginUser);
+			ActionContext.getContext().getSession().put("sessionId", sessionId);
+			System.out.println(sessionId);
+			CommonData.loginUser.set(sessionId, loginUser);
+			ret.set("returnUrl", "temp/index.jsp");
+//			Map<Integer, List<UserMess>> allMsg = LoginService.me.getAllMsg(loginUser);
+//			ret.set("allMsg",allMsg);
 		}
 		else
 		{

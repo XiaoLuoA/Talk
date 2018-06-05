@@ -81,7 +81,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
     
     <script type="text/javascript" src="layer/layer/layer.js"></script>
+    
      <script type="text/javascript">
+     
 		$(document).ready(function() {
 			$("#reg_form").ajaxForm(
 			{

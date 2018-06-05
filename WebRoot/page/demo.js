@@ -10,8 +10,8 @@ var handler = new DemoHandler()
 
 var tiows
 
-function initWs () {
-  var queryString = 'name=科比&name=科比&name=库里'
+function initWs (queryString) {
+  
   var param = null
   tiows = new tio.ws(protocol, ip, port, queryString, param, handler, heartbeatTimeout, reconnInterval, binaryType)
   tiows.connect()

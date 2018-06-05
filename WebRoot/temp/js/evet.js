@@ -77,7 +77,8 @@ function tioReady(flag)
 }
 function tioReady()
 {
-	
+	console.log(initWs,queryString);
+	initWs(queryString.trim());
 }
 function BieginListener()
 {

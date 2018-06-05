@@ -32,20 +32,12 @@ public class TalkServerAioListener extends WsServerAioListener {
 	public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) throws Exception {
 		super.onAfterConnected(channelContext, isConnected, isReconnect);
 	
-		System.out.println("connect");
-		System.out.println("kkkk");
 		try{
-			System.out.println(ActionContext.getContext().getSession());
+			System.out.println("连接成功！");
 		}catch(Exception e){
 			System.out.println(e);
 		}
 		
-		System.out.println("jjj");
-		
-		System.out.println(ActionContext.getContext().getSession().isEmpty());
-		User user = (User)ActionContext.getContext().getSession().get("user");
-		System.out.println("5555555555"+user.getId());
-		System.out.println(user.getId()+"  "+user.getName());
 	}
 
 	@Override

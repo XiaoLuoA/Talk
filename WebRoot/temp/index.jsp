@@ -1,3 +1,9 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -74,6 +80,11 @@
 		
 		
 		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../page/tio/tiows.js"></script>
+		<%="<script>var queryString = 'sessionId="%><s:property value="#session.sessionId"/><%="'</script>" %>
+		<%="<script>var sessionId= '"%><s:property value="#session.sessionId"/><%="'</script>" %>
+				<script type="text/javascript" src="../page/DemoHandler.js"></script>
+		<script type="text/javascript" src="../page/demo.js"></script>
 		<script>
 			var items =	[
 				{
@@ -122,6 +133,8 @@
 		<script type="text/javascript" src="js/tool.js" ></script>
 		<script type="text/javascript" src="js/index.js" ></script>
 		<script type="text/javascript" src="js/evet.js"></script>
+		
+		
 	</body>
 </html>
 <!--
