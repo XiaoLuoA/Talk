@@ -134,7 +134,7 @@ function groupDetailItemTpl(group)
 	htmltext.push('</div>');
 	htmltext.push('<div class="group-users">');
 		htmltext.push('<div class="group-user-top">');
-		htmltext.push('<p>在线人数<span class="num">0</span></p>');
+		htmltext.push('<p>在线人数<span class="num">'+ groupNum +'</span></p>');
 		htmltext.push('</div>');
 		htmltext.push('<div class="group-user scrll-y">');
 			htmltext.push('<ul class="user-list"><!--消息列表-->');
@@ -156,7 +156,10 @@ function groupChoseItemTpl(group)
 	htmltext.push('</div>');
 	return htmltext.join('');
 }
-
+function messageNumChange(num,$DOM)
+{
+	
+}
 function render()
 {
 	var htmlText =[];

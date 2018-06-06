@@ -62,9 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="group-chat-overlay overlay hidden">
 				<div id="GroupMessageArea" class="group-chat-area overlay-showarea"><!--聊天信息-->
 					<div class="group-chose-list scrll-y">
-						<div class="group-chose-item" data-index="1">
+						<!--<div class="group-chose-item" data-index="1">
 							a<span class="cls-btn float-r">关闭</span>
-						</div>
+						</div>-->
 					</div>
 				
 					<div class="group-detail-list">
