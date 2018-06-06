@@ -124,7 +124,7 @@ function tioReady()
 	//tioInit();
 
 	//添加监听事件
-	BieginListener();
+//	BieginListener();
 	//添加ajax发送事件
 	BeginSend();
 	

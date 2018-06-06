@@ -78,7 +78,9 @@ function detailItemTpl(item)
 }
 function ItemItemTpl(item)
 {
-	var message = item.message
+	var meaasgeNUll = {sendTime:'',content:''};
+	var messages = item.messages||[meaasgeNUll];
+	if(messages.length=0){messages=[meaasgeNUll];}
 	var htmltext = [];
 	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkPic);
