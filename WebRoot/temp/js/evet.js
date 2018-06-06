@@ -231,10 +231,11 @@ function sendChatBtn(event)
 function newGroupChat(event)
 {
 	var $DOM = $(event.target);
-	$DOM.hasClass('group')?true:$DOM=$DOM.parents('.group');
+	$DOM.hasClass('group')?true:$DOM=$($DOM.parents('.group'));
 	//从前台获取属性
-	var groupId  = $DOM.attr('data-inex');
-	var groupName= $DOM.find('.group-name');
+	console.log($DOM);
+	var groupId  = $DOM.attr('data-inDex');
+	var groupName= $DOM.find('.group-name').html();
 	//先添加MAP
 	var group =
 	{
@@ -251,13 +252,13 @@ function newGroupChat(event)
 	var $newGroupDetailIte = $(groupDetailItemTpl(group));
 	
 	
-	$$groupChoseList.append($newGroupChoseItem);
+	$groupChoseList.append($newGroupChoseItem);
 	$groupDetailList.append($newGroupDetailIte);
 	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailIte[0]);
 	//渲染完成后 ，开始初始华群消息
 	var data = {groupId:groupId,};
 	$.ajax({
-		url:'',
+		url:'chatgetGroupInfo.action',
 		data:data,
 		success:function(Res){
 			console.log('群聊加入请求成功',Res);
@@ -267,15 +268,15 @@ function newGroupChat(event)
 			console.log('群聊加入请求成功',Res);
 			console.log(JSON.parse(Res));
 		},
+		setTimeOut: 2000,
+		timeOut: 2000,
 	});
 	//发送tio请求
 	var tioData = 
 	{
-		type :4,
-		message: {
-			groupId:groupId
-		},
+		groupId:groupId,
 	};
+	console.log(tioData);
 	sendFunctons.openNewGroupChat(tioData);
 	
 	

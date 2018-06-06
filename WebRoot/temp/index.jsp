@@ -18,9 +18,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			假装这是背景
 			<div class="gruop-area">
 				<!-- 使用strust标签输出群组-->
-				<s:iterator value="groups" id='group'>
-					<div class="group" data-index="<s:property value="group.id"/>" >群聊<span class="group-name"><s:property value="group.name"/></span></div>
+				<s:iterator id="groups" value="allGroup" >
+				
+					
+					<div class="group" data-index="<s:property value="#groups.id"/>" >群聊<span class="group-name"><s:property value="#groups.groupName"/></span></div>
 				</s:iterator>
+				
 				
 			</div>
 			<button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button>

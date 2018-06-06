@@ -28,20 +28,27 @@ public class TalkAction extends ActionSupport{
 	}
 	
 	public void getGroupInfo(){
+		try {
 		String groupId = (String) ActionContext.getContext().get("groupId");
 		MyQueue<GroupsMess> gMess = CommonData.groupsMess.get(groupId);
+		
+		if(gMess == null){
+			 gMess = new MyQueue<GroupsMess>(50);
+		}
+		
 		List<User> users = CommonData.usersInGroup;
 		Ret ret = Ret.ok();
-		ret.set("items",gMess);
-		ret.set("users",Json.toJson(users));
+		ret.set("items",gMess.queue);
+		ret.set("users",users);
+		
 		System.out.println("users"+Json.toJson(users));
-		System.out.println("items"+Json.toJson(gMess.queue));
+		System.out.println("items"+Json.toJson(gMess));
 	
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse resp = ResponseUtils.getResponse(ac);
-		try {
+		
 			resp.getWriter().write(Json.toJson(ret));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

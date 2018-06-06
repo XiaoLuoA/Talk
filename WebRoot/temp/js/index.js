@@ -32,7 +32,7 @@ function askforData()
 			url :'indexgetAllMsg.action',
 			data :message,
 			success :function(Res){
-//				console.log('元数据',Res);
+				console.log('元数据',Res);
 				var res = JSON.parse(Res);
 //				console.log('success',res);
 				items = res.items;
@@ -87,6 +87,8 @@ function detailItemTpl(item)
 function ItemItemTpl(item)
 {
 	var htmltext = [];
+	var messages = item.messsages;
+	if(messages){}else{messages=[]};
 	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkPic);
 		htmltext.push('"></div>')
@@ -94,7 +96,7 @@ function ItemItemTpl(item)
 			htmltext.push('<p><span class="name">'+ item.talkerName +'</span><span class="last-time">'+ (item.lastTime+'') +'</span>' );
 			htmltext.push('</p>');
 //			console.log('你好',messages[messages.length-1].lastTime);
-			htmltext.push('<span class="content">'+(messages[messages.length-1].content||''));
+			htmltext.push('<span class="content">'+(messages.length>0?([messages.length-1].content||''):''));
 			htmltext.push('</span>');
 		htmltext.push('</div>');
 	htmltext.push('</div>')

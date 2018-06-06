@@ -161,7 +161,10 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			CommonData.usersInGroup.add(user);
 			
 			//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
-			
+			//将消息格式化
+			WsResponse wsResponse = WsResponse.fromText("yoghurt", TalkServerConfig.CHARSET);
+			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			System.out.println("46555555555555555555555555555555555");
 		}
 		
 		//普通发群消息 type:2
