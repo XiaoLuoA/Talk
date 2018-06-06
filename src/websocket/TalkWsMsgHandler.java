@@ -39,7 +39,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public HttpResponse handshake(HttpRequest request, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 		System.out.println("handshake");
-		int i = 5/0;
 		String JSESSIONID = request.getParam("sessionId");
 		System.out.println("handshake sessionId是"+JSESSIONID);
 		User user = (User) CommonData.loginUser.get(JSESSIONID);
@@ -92,21 +91,28 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			return null;
 		}
 		//Json.toBean(text,)
+		System.out.println(text);
 		
 		Map maps = (Map) JSON.parse(text);
 		String type = (String) maps.get("type");
+		
 		String groupId="";
 		String userId="";
 		String msg="";
 		
 		if(type.equals("0")){
-			boolean flag = CommonData.loginUser.get(userId)!=null;
-			if(flag){
-				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
-				Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
-			}else{
-				//存数据库 会话，消息
-			}
+			System.out.println(maps.get("message"));
+			UserMess userMess = (UserMess)maps.get("message");
+			System.out.println(user);
+//			boolean flag = CommonData.loginUser.get(user.getId())!=null;
+//			if(flag){
+//				
+//				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
+//				System.out.println();
+//				//Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
+//			}else{
+//				//存数据库 会话，消息
+//			}
 		}
 		
 		if(groupId!=null){

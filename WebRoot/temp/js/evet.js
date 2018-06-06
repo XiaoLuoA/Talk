@@ -115,7 +115,6 @@ function tioInitWs(queryString)
   	console.log('tiows建立连接');
 
 	function send () {
-  	var msg = document.getElementById('textId')
   	tiows.send(msg.value)
 }
 
@@ -124,8 +123,8 @@ function tioInitWs(queryString)
 function tioReady()
 {
 	//tio初始化
-	tioInit(queryString.trim());
-	//	tioInit();
+	tioInitWs(queryString.trim());
+	//tioInit();
 
 	//添加监听事件
 	BieginListener();
@@ -159,7 +158,10 @@ function BeginSend()
 	{
 		openNewChat :function(){},
 		closeChat :function(){},
-		sendChat :function(){},
+		sendChat :function(data){
+			tiows.send(JSON.stringify(data));
+			console.log('tio发送',JSON.stringify(data));
+		},
 		moreChatMessage :function(){},
 		
 		openNewGroupChat :function(){},
@@ -170,10 +172,13 @@ function BeginSend()
 }
 function sendChatBtn(event)
 {
-	var $DetailItem = $(event.target.parents('detail-item'));
+	console.log('目标Dom',$(event.target));
+	var $DetailItem = $($(event.target).parents('.detail-item'));
+	console.log('当前的会话Dom',$DetailItem);
 	var userItemId = $DetailItem.attr('data-index');
 	var item = itemMap.get(userItemId);
-	var messge = {
+	console.log('当前的会话',item);
+	var message = {
 		itemId :userItemId,
 		fromId :sessionId,
 		toId :item.talkerId,
@@ -181,7 +186,10 @@ function sendChatBtn(event)
 		isRead :false,
 		content:'$DetailItem.find("textarea").value',
 	};
-	item.messages.push(message)
+	console.log('将要发送的消息',message);
+	item.messages.push(message);
+	//使用tio发送消息;
+	sendFunctons.sendChat({type:0,message:message});
 }
 function bindEvent()
 {
@@ -206,7 +214,7 @@ function bindEvent()
 	//点击关闭对话
 	$choseList.on('click','.cls-btn',closeTalkBtn);
 	//点击发送私聊消息
-	$detailList.on('click','button',sendChatMessage)
+	$detailList.on('click','button',sendChatBtn);
 	//点击创建新群聊
 	//点击关闭当前群聊
 	
