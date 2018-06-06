@@ -83,16 +83,18 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	 */
 	@Override
 	public Object onText(WsRequest wsRequest, String text, ChannelContext channelContext) throws Exception {
-		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
-		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
-		String JSESSIONID = request.getParam("sessionId");
-		
-		User user = (User) CommonData.loginUser.get(JSESSIONID);
+		try{
+			WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
+			HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
+			String JSESSIONID = request.getParam("sessionId");
+			
+			User user = (User) CommonData.loginUser.get(JSESSIONID);
 		
 		if (Objects.equals("心跳内容", text)) {
 			return null;
 		}
 		
+		System.out.println("       55555555555555555555555555555555555555"+text);
 		JSONObject jsonObject = JSONObject.parseObject(text);
 		String type = jsonObject.getString("type");
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
@@ -105,7 +107,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		if(type.equals("0")){//已经建立连接进行发消息
 			
 			String toId = jsonObject2.getString("toId");
-			boolean flag = CommonData.loginUserID.get(Integer.parseInt(toId))!=null;
+			
+			boolean flag = CommonData.loginUserID.contains(Integer.parseInt(toId)+"");
 			
 			if(flag){
 				
@@ -114,8 +117,9 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				//UserMess u = Json.toBean(jsonObject2.toJSONString(), UserMess.class);
 				
 				WsResponse wsResponse = WsResponse.fromText(text, TalkServerConfig.CHARSET);
-				System.out.println();
-				//Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
+				Aio.sendToUser(channelContext.getGroupContext(), toId, wsResponse);
+				System.out.println("comn3 kiidfnhkjas ");
+				//
 			}else{
 				//存数据库 会话，消息
 				
@@ -143,6 +147,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				Aio.unbindGroup(groupId, channelContext);
 				CommonData.usersInGroup.remove(user);
 			}
+		}}catch(Exception e){
+			e.printStackTrace();
 		}
 		return null;
 	}

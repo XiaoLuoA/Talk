@@ -19,7 +19,7 @@ function newTalk(event)
 			var item = itemMap.get(id+'');
 			//未添加，添加并激活
 			var $newChoseItem = $(createChoseItem(item));
-			var $newDetailItem = $(createDetailItem(item));
+			var $newDetailItem = $(detailItemTpl(item));
 			$choseList.append($newChoseItem);
 			$detailList.append($newDetailItem);
 			Tab.add($newChoseItem[0],$newDetailItem[0]);
@@ -72,7 +72,6 @@ function tioInitWs(queryString)
 		var name = "123";
 		this.onopen = function (event, ws) {
 			console.log('open详情',event,ws);
-    		ws.send(name+'连上了哦');
 		}
 
   		/**
@@ -140,7 +139,7 @@ function BieginListener(event, ws)
 	switch(res.type)
 	{
 		case 0:
-			newChatListener(data);
+			newChatListener(res.message);
 			break;
 		case 1:
 			break;
@@ -164,9 +163,16 @@ function BieginListener(event, ws)
 		//变量操作
 		var message = data;
 		var itemid = message.itemId;
-		itemMap.set(itemid+'',message);
+		
+		var $DetailItem = $(Tab.showAreas[Tab.attrMap.get(itemid)]);
+	
+		itemMap.get(itemid+'').messages = itemMap.get(itemid+'').messages||[];
+		itemMap.get(itemid+'').messages.push(message);
 		//dom操作
-		$($DetailItem.find('.message-list')).append(chatMessageTpl(message));
+
+		console.log($DetailItem,Tab.attrMap.get(itemid),Tab.showAreas);
+		console.log($($DetailItem.find('.message-list')) );
+		$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
 	}
 	function newItemListener(data)
 	{
@@ -201,12 +207,13 @@ function sendChatBtn(event)
 	var $textArea = $DetailItem.find("textarea");
 	console.log('当前的会话Dom',$DetailItem);
 	var userItemId = $DetailItem.attr('data-index');
+	console.log('目标是',userItemId);
 	var item = itemMap.get(userItemId);
 	console.log('当前的会话',item);
 	var message = {
 		itemId :userItemId,
 		fromId :sessionId,
-		toId :item.talkerId,
+		toId :item.userItemId.split('|')[1],
 		sendTime :(new Date().getTime())+'',
 		isRead :false,
 		content:$textArea.val(),
@@ -214,8 +221,8 @@ function sendChatBtn(event)
 	console.log('将要发送的消息',message);
 	
 	//添加本消息并渲染
-	item.messages.set(message.itemId+'',message);
-	$($DetailItem.find('.message-list')).append(detailItemTpl(message));
+	item.messages.push(message);
+	$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
 	//消除本地消息
 	$textArea.val('');
 	//修改itemID方便对方接受
