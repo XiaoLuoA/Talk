@@ -104,7 +104,7 @@ function tioInitWs(queryString)
 	
 	var protocol = 'ws'; // ws 或 wss
 	var ip = '127.0.0.1'
-	var port = 8080
+	var port = 8888
 	var heartbeatTimeout = 5000; // 心跳超时时间，单位：毫秒
 	var reconnInterval = 1000; // 重连间隔时间，单位：毫秒
 	var binaryType = 'blob'; // 'blob' or 'arraybuffer';//arraybuffer是字节
@@ -182,9 +182,9 @@ function sendChatBtn(event)
 		itemId :userItemId,
 		fromId :sessionId,
 		toId :item.talkerId,
-		sendTime :(new Date())+'',
+		sendTime :(new Date().getTime())+'',
 		isRead :false,
-		content:'$DetailItem.find("textarea").value',
+		content:$DetailItem.find("textarea").val(),
 	};
 	console.log('将要发送的消息',message);
 	item.messages.push(message);

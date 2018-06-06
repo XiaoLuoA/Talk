@@ -17,7 +17,7 @@ public abstract class TalkServerConfig {
 	/**
 	 * 监听端口
 	 */
-	public static final int SERVER_PORT = 8080;
+	public static final int SERVER_PORT = 8888;
 
 	/**
 	 * 心跳超时时间，单位：毫秒
