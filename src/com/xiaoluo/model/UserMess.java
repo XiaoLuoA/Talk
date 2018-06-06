@@ -3,7 +3,7 @@ package com.xiaoluo.model;
 public class UserMess {
 
 	private java.lang.Integer userMessId;
-	private java.lang.Integer itemId;
+	private java.lang.String itemId;
 	private java.lang.Integer fromId;
 	private java.lang.Long sendTime;
 	private java.lang.Integer toId;
@@ -18,12 +18,12 @@ public class UserMess {
 		return this.userMessId;
 	}
 
-	public UserMess setItemId(java.lang.Integer itemId) {
+	public UserMess setItemId(java.lang.String itemId) {
 		this.itemId = itemId;
 		return this;
 	}
 
-	public java.lang.Integer getItemId() {
+	public java.lang.String getItemId() {
 		return this.itemId;
 	}
 

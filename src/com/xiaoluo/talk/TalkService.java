@@ -11,9 +11,14 @@ public class TalkService {
 	
 	public static TalkService me = new TalkService();
 	
-	public void addMsgToUser(UserMess userMess,UserItem userItem){
+	public void saveMsgAndUserItem(UserMess userMess,UserItem userItem,UserItem talkerItem){
 		UserItemDao.me.addUserItem(userItem);
+		UserItemDao.me.addUserItem(talkerItem);
 		UserMessDao.me.saveMess(userMess);
+	}
+	
+	public UserItem getUserItem(Integer user,Integer toUser){
+		return UserItemDao.me.getUserItem(user,toUser);
 	}
 	
 	public void getGroupMess(){
@@ -21,5 +26,9 @@ public class TalkService {
 	}
 	public void getGroupUser(){
 		//公共数据区 群组成员
+	}
+
+	public void saveMsg(UserMess userMess) {
+		UserMessDao.me.saveMess(userMess);
 	}
 }

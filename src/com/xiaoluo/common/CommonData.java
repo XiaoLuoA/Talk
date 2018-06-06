@@ -1,7 +1,9 @@
 package com.xiaoluo.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
@@ -12,5 +14,5 @@ public class CommonData {
 	public static List<String> loginUserID = new ArrayList<String>();
 	public static Ret loginGroup = new Ret().set("users", new ArrayList<User>());
 	public static List<User> usersInGroup = new ArrayList<User>();
-	public static MyQueue<GroupsMess> groupsMess = new MyQueue<GroupsMess>(50);
+	public static Map<String,MyQueue<GroupsMess>> groupsMess = new HashMap<String,MyQueue<GroupsMess>>();
 }

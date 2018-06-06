@@ -50,6 +50,7 @@ public class TalkServerAioListener extends WsServerAioListener {
 	@Override
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String remark, boolean isRemove) throws Exception {
 		super.onBeforeClose(channelContext, throwable, remark, isRemove);
+		
 		System.out.println("close list");
 	}
 
