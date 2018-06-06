@@ -21,6 +21,8 @@ public class RoleDao {
 	public static RoleDao me = new RoleDao();
 	
 	public static void main(String[] args) {
+		
+		
 	/*	
 	 * Configuration config = new Configuration().configure() ;        
 	    SessionFactory sf = config.buildSessionFactory() ;  
@@ -30,6 +32,22 @@ public class RoleDao {
 		
 		
 	}
+	
+public List<Role> findAllRole(){
+		
+		Session session = sf.openSession();        
+        List<Role> roleList = null;
+        Transaction transaction = session.beginTransaction();     
+        Query query = session.createQuery("from Role");     
+        roleList = query.list();
+        transaction.commit();  
+        session.close();
+		return roleList;
+	
+		
+	}
+	
+	
 	public Role findRole(int id){
 	
 		String hql="from Role where id=? ";
@@ -66,15 +84,22 @@ public class RoleDao {
 		sess.close();
 		
 	}
-	public void elterRole(){
+	public void updateRole(int roleid ,int menuid,int updateMenuId){			
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
+		RoleMenu rm=RoleMenuDao.me.findRoleMenuByRoleIdByMenuId(roleid, menuid);
+		rm.setMenuId(updateMenuId);
+		sess.saveOrUpdate(rm);
+		tx.commit();
+		sess.close();
+		
+		                         
 		
 	}
 	
 	
 	public void deleteRole(int id){
-		
+		    
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		Role role=me.findRole(id);
