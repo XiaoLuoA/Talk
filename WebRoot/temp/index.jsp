@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<div class="page-moment">
 			假装这是背景
-			<div class="gruop-area">
+			<div class="group-area">
 				<!-- 使用strust标签输出群组-->
 				<s:iterator id="groups" value="allGroup" >
 				
@@ -67,10 +67,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 				
-						<div class="gruop-detail-list">
+					<div class="group-detail-list">
 							<!--<div class="group-detail-item ">
 								<div class="group-message-list scrll-y">
-									<ul class='gruop-message'>
+									<ul class='group-message'>
 										<li>消息1</li>
 									</ul>
 								</div>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class='group-user scrll-y'>
 								<ul class="user-list"><!--消息列表-->
-									<li class="user-item" data-index=''>
+									<!--<li class="user-item" data-index=''>
 										<div class="head-img"><img src="avatar4.png"></div>
 										<span class="name"></span>
 									</li>

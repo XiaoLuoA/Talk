@@ -3,7 +3,33 @@ body
 	background: #ffffcc;
 	/*overflow: hidden;*/
 }
+/*集体添加滚动条*/
+.chose-list,.message-list,.item-list,
+.group-chose-list,.group-message-list,.group-user
+{
+	overflow-y:scroll;
+}
+.message-list,.group-message-list
+{
+	height: 360px;
+}
 
+/*群组层*/
+.group-area
+{
+	width:1000Px;
+	display: flex;
+	flex-direction: row;
+	}
+/*群组的显示*/
+.group
+{
+	width:260px;
+	height:10px;
+	padding:40px;
+	border-radius: 10px;
+	background:deepskyblue;
+}
 /*蒙版*/
 .overlay
 {
@@ -48,6 +74,11 @@ body
 	
 }
 
+.group-detail-item
+{
+	display: flex;
+	flex-direction: row;
+}
 .chose-list ,
 .group-chose-list
 {
@@ -126,5 +157,29 @@ body
 {
 	background:gray;
 }
+.group-detail-list
+{
+	background: white;
+	height: 520px;
+	width: 800px;
+}
 
-
+.group-detail-item
+{
+	height: 100%;
+	width: 100%;
+}
+.group-message
+{
+	width: 600px;
+	height: 100%;
+} 
+.group-users
+{
+	width: 200px;
+	height: 100%;
+}
+.group-user
+{
+	height: auto;
+}

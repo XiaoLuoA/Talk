@@ -25,7 +25,7 @@ function newTalk(event)
 			Tab.add($newChoseItem[0],$newDetailItem[0]);
 		}
 	}
-	event.stopPropagation()
+	event.stopPropagation();
 }
 function newItem(item){}
 function newMessage(){}
@@ -233,15 +233,14 @@ function newGroupChat(event)
 	var $DOM = $(event.target);
 	$DOM.hasClass('group')?true:$DOM=$($DOM.parents('.group'));
 	//从前台获取属性
-	console.log($DOM);
 	var groupId  = $DOM.attr('data-inDex');
+	if(openGroupMap.get(groupId+'')){	event.stopPropagation();;return false;}
 	var groupName= $DOM.find('.group-name').html();
 	//先添加MAP
 	var group =
 	{
 		id :groupId,
 		groupName :groupName,
-		
 		messages:[],
 		users:[],
 	}
@@ -250,8 +249,10 @@ function newGroupChat(event)
 	//然后渲染
 	//生成panels 和showAreas
 	var $newGroupChoseItem = $(groupChoseItemTpl(group));
+
 	var $newGroupDetailItem = $(groupDetailItemTpl(group));
-	
+	console.log('这是生成数据',groupDetailItemTpl(group));
+	console.log('这是生成数据',$groupDetailList);
 	
 	$groupChoseList.append($newGroupChoseItem);
 	$groupDetailList.append($newGroupDetailItem);
@@ -321,10 +322,9 @@ function bindEvent()
 	//添加点击事件
 	
 	//点击打开群聊
-	$('.gruop-area').on('click','.group',newGroupChat);
-	
-	
+	$('.group-area').on('click','.group',newGroupChat);
 	//点击创建新会话
+	
 	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);
 	//点击关闭对话
