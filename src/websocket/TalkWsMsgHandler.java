@@ -15,6 +15,7 @@ import org.tio.websocket.common.WsSessionContext;
 import org.tio.websocket.server.handler.IWsMsgHandler;
 
 import com.xiaoluo.common.CommonData;
+import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
 
 
@@ -34,44 +35,17 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public HttpResponse handshake(HttpRequest request, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 		System.out.println("handshake");
-		//System.out.println(request.getCookieMap());
-		//Cookie cook = request.getCookie("JSESSIONID");
-		//System.out.println(cook.getValue());
-//		User user = (User) request.getHttpSession();
-//		39A706AE208E9FACF78185D8D64F1E51
-//		System.out.println(user.getEmail());
-//		System.out.println(user.getName());
-		
-		
-		//String groupId = request.getParam("groupId");
 		String JSESSIONID = request.getParam("sessionId");
-		System.out.println("sessionId是"+JSESSIONID);
+		System.out.println("handshake sessionId是"+JSESSIONID);
 		User user = (User) CommonData.loginUser.get(JSESSIONID);
-		
 		if(user!=null){
-			//String userId = request.getParam("userId");
-			;
-			System.out.println(user.getId()+"建链成功！");
-			//channelContext.getGroupContext()
-			//Aio.sendToUser(channelContext.getGroupContext(), userId, "");
+			//channelContext.setUserid(user.getId()+"");
+			Aio.bindUser(channelContext, user.getId()+"");
+			System.out.println(user.getId()+"建链成功");
 		}else{
 			System.out.println("建链成功个屁！");
 			return null;
 		}
-//		String userId = request.getParam("userId");
-//		
-//		if(groupId == null && userId == null){
-//			return httpResponse;
-//		}
-//		
-//		if(userId != null){
-//			Aio.bindUser(channelContext, userId);
-//		}
-//		else if(groupId != null)
-//		{
-//			Aio.bindGroup(channelContext, groupId);
-//		}
-		
 		return httpResponse;
 	}
 
@@ -99,21 +73,45 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public Object onText(WsRequest wsRequest, String text, ChannelContext channelContext) throws Exception {
 		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
-		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();//获取websocket握手包
+		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
+		String JSESSIONID = request.getParam("sessionId");
+		System.out.println("handshake sessionId是"+JSESSIONID);
+		User user = (User) CommonData.loginUser.get(JSESSIONID);
 		
+		if (Objects.equals("心跳内容", text)) {
+			return null;
+		}
 		
-//		String groupId = request.getParam("groupId");
-//		String userId = request.getParam("userId");
-//		
-//		if(groupId == null && userId == null){
-//			return null;
-//		}
-//		String msg = "";
-//		
-//		
-//		if (Objects.equals("心跳内容", text)) {
-//			return null;
-//		}
+		String groupId="";
+		String userId="";
+		String msg="";
+		if(userId!=null){
+			boolean flag = CommonData.loginUser.get(userId)!=null;
+			if(flag){
+				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
+				Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
+			}else{
+				//存数据库 会话，消息
+			}
+		}
+		
+		if(groupId!=null){
+			String type="";
+			if(type.equals("0")){
+				Aio.bindGroup(channelContext,groupId);
+				CommonData.usersInGroup.add(user);
+				
+			}else if(type.equals("1")){
+				
+				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
+				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+				CommonData.groupsMess.add(new GroupsMess());
+				
+			}else if(type.equals("2")){
+				Aio.unbindGroup(groupId, channelContext);
+				CommonData.usersInGroup.remove(user);
+			}
+		}
 //		
 //		if(userId != null){
 //			msg = channelContext.getUserid() + " 说：" + text;

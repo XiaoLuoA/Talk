@@ -33,7 +33,7 @@ public class TalkServerAioListener extends WsServerAioListener {
 		super.onAfterConnected(channelContext, isConnected, isReconnect);
 	
 		try{
-			System.out.println("连接成功！");
+			System.out.println("onAfter连接成功！");
 		}catch(Exception e){
 			System.out.println(e);
 		}
