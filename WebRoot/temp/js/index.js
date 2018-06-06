@@ -56,20 +56,27 @@ function createChoseItem(item)
 	return htmlText.join('');
 	
 }
-function createDetailItem(item)
+function chatMessageTpl(message)
+{
+	htmlText =[];
+	htmlText.push('<li class="message-item" data-sendindex="'+ message.fromId +'">'+ message.content +'</li>');
+	return htmlText.join('');
+}
+
+function detailItemTpl(item)
 {
 	var htmlText = [];
 	htmlText.push('<div class="detail-item" data-index="'+item.userItemId+'">');
 	htmlText.push('<ul class="message-list">');
 	item.messages.forEach(function(message,index){
-		htmlText.push('<li class="message-item" data-sendindex="'+ message.fromId +'">'+ message.content +'</li>');
+		htmlText.push(chatMessageTpl(message));
 	});
 	htmlText.push('</ul>');
-	htmlText.push('<div><textarea class="chat-btn" type="text" name="text"></textarea><button>发送</button></div>');
+	htmlText.push('<div><textarea class="chat-btn" type="text" name="text"></textarea><button class="btn send-btn active-btn">发送</button></div>');
 	htmlText.push('</div>')
 	return htmlText.join('');
 }
-function createItemItem(item)
+function ItemItemTpl(item)
 {
 	var message = item.message
 	var htmltext = [];
@@ -96,7 +103,7 @@ function render()
 {
 	var htmlText =[];
 	items.forEach(function(item,index){
-		htmlText.push(createItemItem(item));
+		htmlText.push(ItemItemTpl(item));
 	})
 	var html = htmlText.join('');
 	$itemList.append(html) ;
