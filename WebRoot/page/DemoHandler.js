@@ -22,6 +22,7 @@ var DemoHandler = function () {
   }
 
   this.onerror = function (e, ws) {
+	  console.log('报错报错报错报错报错报错报错');
     // error(e, ws)
   }
 

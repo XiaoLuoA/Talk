@@ -224,6 +224,14 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 	}
 	
+	public String exit(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		User loginUser = (User) ActionContext.getContext().getSession().remove("user");
+		CommonData.loginUser.remove(loginUser);
+		return null;
+	}
+	
 	public void changePass(){
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);

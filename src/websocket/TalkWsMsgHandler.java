@@ -1,5 +1,6 @@
 package websocket;
 
+import java.util.Map;
 import java.util.Objects;
 
 import org.slf4j.Logger;
@@ -9,14 +10,17 @@ import org.tio.core.ChannelContext;
 import org.tio.http.common.Cookie;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
+import org.tio.utils.json.Json;
 import org.tio.websocket.common.WsRequest;
 import org.tio.websocket.common.WsResponse;
 import org.tio.websocket.common.WsSessionContext;
 import org.tio.websocket.server.handler.IWsMsgHandler;
 
+import com.alibaba.fastjson.JSON;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
+import com.xiaoluo.model.UserMess;
 
 
 public class TalkWsMsgHandler implements IWsMsgHandler {
@@ -35,6 +39,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public HttpResponse handshake(HttpRequest request, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
 		System.out.println("handshake");
+		int i = 5/0;
 		String JSESSIONID = request.getParam("sessionId");
 		System.out.println("handshake sessionId是"+JSESSIONID);
 		User user = (User) CommonData.loginUser.get(JSESSIONID);
@@ -63,7 +68,11 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public Object onClose(WsRequest wsRequest, byte[] bytes, ChannelContext channelContext) throws Exception {
 		Aio.remove(channelContext, "receive close flag");
-		System.out.println("close");
+		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
+		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
+		String JSESSIONID = request.getParam("sessionId");
+		User user = (User) CommonData.loginUser.get(JSESSIONID);
+		CommonData.loginUser.remove(user);
 		return null;
 	}
 
@@ -82,12 +91,15 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		if (Objects.equals("心跳内容", text)) {
 			return null;
 		}
+		//Json.toBean(text,)
 		
+		Map maps = (Map) JSON.parse(text);
+		String type = (String) maps.get("type");
 		String groupId="";
 		String userId="";
 		String msg="";
 		
-		if(userId!=null){
+		if(type.equals("0")){
 			boolean flag = CommonData.loginUser.get(userId)!=null;
 			if(flag){
 				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
@@ -98,39 +110,22 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		}
 		
 		if(groupId!=null){
-			String type="";
-			if(type.equals("0")){
+			
+			if(type.equals("1")){
 				Aio.bindGroup(channelContext,groupId);
 				CommonData.usersInGroup.add(user);
 				
-			}else if(type.equals("1")){
+			}else if(type.equals("2")){
 				
 				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 				CommonData.groupsMess.add(new GroupsMess());
 				
-			}else if(type.equals("2")){
+			}else if(type.equals("3")){
 				Aio.unbindGroup(groupId, channelContext);
 				CommonData.usersInGroup.remove(user);
 			}
 		}
-//		
-//		if(userId != null){
-//			msg = channelContext.getUserid() + " 说：" + text;
-//			WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
-//			Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
-//		}
-//		else if(groupId != null)
-//		{
-//			msg = channelContext.getUserid() + " 说：" + text;
-//			WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
-//			Aio.sendToGroup(channelContext.getGroupContext(),groupId , wsResponse);
-//		}
-//		
-//		//用tio-websocket，服务器发送到客户端的Packet都是WsResponse
-		//System.out.println("onText");
-		
-		//System.out.println(""+groupId);
 		return null;
 	}
 }

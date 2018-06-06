@@ -1,12 +1,16 @@
 package test;
 
-import org.tio.utils.json.Json;
 
-import com.xiaoluo.model.User;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+
+
 
 public class FastJsonTest {
 	public static void main(String[] args) {
-		System.out.println(Json.toBean("{userMessId :1,itemId :1,fromId :2,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',}", Msg.class));
+		Map maps = (Map)JSON.parse("{userMessId :1,itemId :1,fromId :2,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',}");
+		System.out.println(maps.get("toId"));
 	}
 	
 	public static void test(){

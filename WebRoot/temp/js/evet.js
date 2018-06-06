@@ -65,10 +65,10 @@ function showGruopChat(event)
 	return false;
 }
 
-function tioReady(flag)
+function tioReadyppp(flag)
 {
 	//tio初始化
-	tioInit();
+//	tioInit();
 	//添加监听事件
 	BieginListener();
 	//添加ajax发送事件
@@ -139,16 +139,15 @@ function bindEvent()
 	//点击关闭当前群聊
 	
 	//准备响应tio
-	tioReady();
+	
 }
 
 function init()
 {
-	
 	// 渲染页面
 	render();
 	//事件绑定
 	bindEvent();
 }
-
+tioReady();
 askforData();
