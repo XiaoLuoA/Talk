@@ -17,9 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="page-moment">
 			假装这是背景
 			<div class="gruop-area">
-				<!-- -->
+				<!-- 使用strust标签输出群组-->
 				<s:iterator value="groups" id='group'>
-					<div class="group" data-index="<s:property value="group.id"/>" >群聊<s:property value="group.name"/></div>
+					<div class="group" data-index="<s:property value="group.id"/>" >群聊<span class="group-name"><s:property value="group.name"/></span></div>
 				</s:iterator>
 				
 			</div>
@@ -59,31 +59,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="group-chat-overlay overlay hidden">
 				<div id="GroupMessageArea" class="group-chat-area overlay-showarea"><!--聊天信息-->
 					<div class="group-chose-list scrll-y">
-						<div class="group-chose-item" data-index="1">a<span class="cls-btn float-r">关闭</span></div>
-					</div>
-					<div class="gruop-detail-list">
-						<div class="group-detail-item scrll-y">
-							<ul class='gruop-mess'>
-								<li>消息1</li>
-							</ul>
-							<input type='text' name='text' /><button class='send-btn'>提交</button>
+						<div class="group-chose-item" data-index="1">
+							a<span class="cls-btn float-r">关闭</span>
 						</div>
 					</div>
 				
+						<div class="gruop-detail-list">
+							<div class="group-detail-item ">
+								<div class="group-message-list scrll-y">
+									<ul class='gruop-message'>
+										<li>消息1</li>
+									</ul>
+								</div>
+								<input type='text' name='text' /><button class='send-btn'>提交</button>
+							</div>
+						</div>
 				
-					<div class="group-user">
-						<div class="group-user-top">
-							<p>在线人数1/2</p>
+						<div class="group-user">
+							<div class="group-user-top">
+								<p>在线人数1/2</p>
+							</div>
+							<div class='group-user scrll-y'>
+								<ul class="user-list"><!--消息列表-->
+									<li class="user-item" data-index=''>
+										<div class="head-img"><img src="avatar4.png"></div>
+										<span class="name"></span>
+									</li>
+								</ul>
+							</div>	
 						</div>
-						<div class='group-user scrll-y'>
-							<ul class="user-list"><!--消息列表-->
-								<li class="user-item" data-index=''>
-									<div class="head-img"><img src="avatar4.png"></div>
-									<span class="name"></span>
-								</li>
-							</ul>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			
@@ -125,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				{userItemId :2,talkItemId :12,userId :1,userName :'符文',talkerId :3,talkerName :'三号',talkPic :'avatar5.png',newNum :0,lastTime:'2017-05-45|12:00',lastContent:'你好个P',isBlack :false,messages:[{userMessId :1,itemId :2,fromId :3,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',},],},
 			];
 			
-			var group =[
+			var groups =[
 				{
 					id:'1',
 					groupName:'群A',

@@ -184,12 +184,18 @@ function BeginSend()
 	{
 		openNewChat :function(){},
 		closeChat :function(){},
-		sendChat :function(data){
+		sendChat :function(Data){
+			var data = {type:0,message:Data};
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
 		},
 		moreChatMessage :function(){},
-		openNewGroupChat :function(){},
+		
+		openNewGroupChat :function(Data){
+			var data = {type:1,message:Data};
+			tiows.send(JSON.stringify(data));
+			console.log('tio发送',JSON.stringify(data));
+		},
 		closeGroupChat :function(){},
 		sendGroupChat :function(){},
 		moreGroupChatMessage :function(){},
@@ -219,8 +225,64 @@ function sendChatBtn(event)
 	//修改itemID方便对方接受
 	message.itemId = message.itemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
 	//使用tio发送消息;
-	sendFunctons.sendChat({type:0,message:message});
+	sendFunctons.sendChat(message);
 }
+
+function newGroupChat(event)
+{
+	var $DOM = $(event.target);
+	$DOM.hasClass('group')?true:$DOM=$DOM.parents('.group');
+	//从前台获取属性
+	var groupId  = $DOM.attr('data-inex');
+	var groupName= $DOM.find('.group-name');
+	//先添加MAP
+	var group =
+	{
+		id :groupId,
+		groupName :groupName,
+		
+		messages:[],
+	}
+	groups.push()
+	openGroupMap.set( groupId,group);
+	//然后渲染
+	//生成panels 和showAreas
+	var $newGroupChoseItem = $(groupChoseItemTpl(group));
+	var $newGroupDetailIte = $(groupDetailItemTpl(group));
+	
+	
+	$$groupChoseList.append($newGroupChoseItem);
+	$groupDetailList.append($newGroupDetailIte);
+	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailIte[0]);
+	//渲染完成后 ，开始初始华群消息
+	var data = {groupId:groupId,};
+	$.ajax({
+		url:'',
+		data:data,
+		success:function(Res){
+			console.log('群聊加入请求成功',Res);
+			console.log(JSON.parse(Res));
+		},
+		error:function(Res){
+			console.log('群聊加入请求成功',Res);
+			console.log(JSON.parse(Res));
+		},
+	});
+	//发送tio请求
+	var tioData = 
+	{
+		type :4,
+		message: {
+			groupId:groupId
+		},
+	};
+	sendFunctons.openNewGroupChat(tioData);
+	
+	
+}
+/**
+ * 几乎所有的事件注册都写到这里面了
+ */
 function bindEvent()
 {
 	//启动弹窗操作
@@ -237,7 +299,13 @@ function bindEvent()
 	GroupChatTab = TabByClass('GroupMessageArea','group-chose-item','group-detail-item');
 	GroupChatTab.madeMap('data-groupid');
 	GroupChatTab.addSelect('.cls-btn')
+	
 	//添加点击事件
+	
+	//点击打开群聊
+	$('.gruop-area').on('click','.group',newGroupChat);
+	
+	
 	//点击创建新会话
 	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);

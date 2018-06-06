@@ -2,6 +2,9 @@ var $choseList  = $('.chose-list');
 var $detailList = $('.detail-list'); 
 var $itemList   = $('.item-list');
 
+var $groupChoseList = $('.group-chose-list');
+var $groupDetailList =$('.group-chose-list');
+
 var $chatOverlay= $('.chat-overlay');
 var $GroupChatOverlay= $('.group-chat-overlay');
 
@@ -69,22 +72,20 @@ function detailItemTpl(item)
 {
 	var htmlText = [];
 	htmlText.push('<div class="detail-item" data-index="'+item.userItemId+'">');
-	htmlText.push('<ul class="message-list">');
+	htmlText.push('<div class="message-list">>');
+	htmlText.push('<ul ');
 	if(item.messages){
 	item.messages.forEach(function(message,index){
 		htmlText.push(chatMessageTpl(message));
 	});}
-	htmlText.push('</ul>');
+	htmlText.push('</ul></div>');
 	htmlText.push('<div><textarea class="chat-btn" type="text" name="text"></textarea><button class="btn send-btn active-btn">发送</button></div>');
 	htmlText.push('</div>')
 	return htmlText.join('');
 }
+
 function ItemItemTpl(item)
 {
-	
-	var messages = item.messages||[meaasgeNUll];
-	if(messages.length==0){messages=[meaasgeNUll];}
-//	console.log(messages);
 	var htmltext = [];
 	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkPic);
@@ -97,12 +98,37 @@ function ItemItemTpl(item)
 			htmltext.push('</span>');
 		htmltext.push('</div>');
 	htmltext.push('</div>')
-	itemMap.set(item.userItemId+'',item);
+	
 	return htmltext.join('');
 }
-function createMessage()
+function groupMessageTpl(message)
 {
-	
+	var htmltext = [];
+	htmltext.push('<li>');
+	htmltext.push(message.content);
+	htmltext.push('</li>');
+	return htmltext.join('');
+}
+function groupDetailItemTpl(group)
+{
+	var htmltext = [];
+	htmltext.push('<div class="group-detail-item ">');
+	htmltext.push('<div class="group-message-list scrll-y"><ul class="gruop-message">');
+	    group.messages.forEach(function(message,index){
+	    	htmltext.push(groupMessageTpl(message));
+	    });
+	htmltext.push('</ul></div>');
+	htmltext.push('<textarea type="text" name="text" ></textarea><button class="send-btn">提交</button>');
+	htmltext.push('</div>');
+	return htmltext.join('');
+}
+function groupChoseItemTpl(group)
+{
+	var htmltext = [];
+	htmltext.push('<div class="group-chose-item" data-index='+ group.id +'>');
+		htmltext.push(group.groupName);htmltext.push('<span class="cls-btn float-r">关闭</span>');
+	htmltext.push('</div>');
+	return htmltext.join('');
 }
 
 function render()
@@ -111,7 +137,7 @@ function render()
 	if(items){
 	items.forEach(function(item,index){
 		item.messages = item.messages||[];
-		console.log(item.messages );
+		itemMap.set(item.userItemId+'',item);
 		htmlText.push(ItemItemTpl(item));
 	});}
 	var html = htmlText.join('');
