@@ -61,7 +61,6 @@ public class AdminRolesAction extends ActionSupport implements ModelDriven<Role>
 	
 	public String findRole(){
 		int id =Integer.parseInt(request.getParameter("id"));
-		
 		ActionContext.getContext().getValueStack().set("Role",AdminRolesService.me.findRole(id));
 		return "admin";
 	}
