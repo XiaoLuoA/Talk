@@ -29,9 +29,9 @@ function askforData()
 			url :'indexgetAllMsg.action',
 			data :message,
 			success :function(Res){
-				console.log('元数据',Res);
+//				console.log('元数据',Res);
 				var res = JSON.parse(Res);
-				console.log('success',res);
+//				console.log('success',res);
 				items = res.items;
 				console.log(res);
 				flag = true;
@@ -84,7 +84,7 @@ function ItemItemTpl(item)
 	
 	var messages = item.messages||[meaasgeNUll];
 	if(messages.length==0){messages=[meaasgeNUll];}
-	console.log(messages);
+//	console.log(messages);
 	var htmltext = [];
 	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkPic);
@@ -92,7 +92,7 @@ function ItemItemTpl(item)
 		htmltext.push('<div class="ietm-item-detail">');
 			htmltext.push('<p><span class="name">'+ item.talkerName +'</span><span class="last-time">'+ (item.lastTime+'') +'</span>' );
 			htmltext.push('</p>');
-			console.log('你好',messages[messages.length-1].lastTime);
+//			console.log('你好',messages[messages.length-1].lastTime);
 			htmltext.push('<span class="content">'+(messages[messages.length-1].content||''));
 			htmltext.push('</span>');
 		htmltext.push('</div>');
@@ -110,6 +110,8 @@ function render()
 	var htmlText =[];
 	if(items){
 	items.forEach(function(item,index){
+		item.messages = item.messages||[];
+		console.log(item.messages );
 		htmlText.push(ItemItemTpl(item));
 	});}
 	var html = htmlText.join('');
