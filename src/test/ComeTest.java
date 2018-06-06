@@ -16,8 +16,7 @@ public class ComeTest {
 	//lxy test01
 	//wyh test01		
 	public static void main(String[] args) {
-		;
-		System.out.println(testTryCatch(10,0));//
+		System.out.println("\\\"");
 	}
 	
 	public static int testTryCatch(int a,int b){
