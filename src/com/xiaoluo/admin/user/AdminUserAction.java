@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,8 +12,6 @@ import org.tio.utils.json.Json;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import com.opensymphony.xwork2.inject.Context;
-import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
@@ -36,11 +33,7 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	}
 
 	
-	/*@Override
-	public String execute() throws Exception {
-		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.allUser);
-		return "admin";
-	}*/
+
 	
 	
 	public String listAllUser(){

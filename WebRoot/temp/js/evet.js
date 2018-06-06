@@ -72,7 +72,7 @@ function tioInitWs(queryString)
 		var name = "123";
 		this.onopen = function (event, ws) {
 			console.log('open详情',event,ws);
-    		ws.send(name+'连上了哦')
+    		ws.send(name+'连上了哦');
 		}
 
   		/**
@@ -80,16 +80,13 @@ function tioInitWs(queryString)
    		* @param {*} event 
    		* @param {*} ws 
    		*/
-		this.onmessage = function (event, ws) {
-			console.log('onmessage启动',event);
-			var data = event.data
-		}
+		this.onmessage = BieginListener;
 		this.onclose = function (e, ws) {
 			console.log('onclose启动',e);
-		}
+		};
 		this.onerror = function (e, ws) {
 			console.log('onerror',e);
-		}
+		};
 
 	 	/**
   	 	* 发送心跳，本框架会自动定时调用该方法，请在该方法中发送心跳
@@ -134,22 +131,50 @@ function tioReady()
 }
 
 
-function BieginListener()
+function BieginListener(event, ws)
 {
+	console.log('onmessage启动',event);
+	var data = event.data
+	var res = JSON.parse(data);
+	//json数据格式了
+	switch(res.type)
+	{
+		case 0:
+			newChatListener(data);
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+	}
 	function newGroupMessageListener(data)
 	{
 		//变量操作
 		//dom操作
 	}
-	function newMessageListener(data)
+	/*
+	 * 收到新的个人聊天信息
+	 */
+	function newChatListener(data)
 	{
 		//变量操作
+		var message = data;
+		var itemid = message.itemId;
+		itemMap.set(itemid+'',message);
 		//dom操作
+		$($DetailItem.find('.message-list')).append(chatMessageTpl(message));
 	}
 	function newItemListener(data)
 	{
 		//变量操作
+		var item = data;
+		itemMap.set(item.userItemId,item);
 		//dom操作
+		$itemList.append(ItemItemTpl(item));
 	} 
 }
 function BeginSend()
@@ -163,7 +188,6 @@ function BeginSend()
 			console.log('tio发送',JSON.stringify(data));
 		},
 		moreChatMessage :function(){},
-		
 		openNewGroupChat :function(){},
 		closeGroupChat :function(){},
 		sendGroupChat :function(){},
@@ -174,6 +198,7 @@ function sendChatBtn(event)
 {
 	console.log('目标Dom',$(event.target));
 	var $DetailItem = $($(event.target).parents('.detail-item'));
+	var $textArea = $DetailItem.find("textarea");
 	console.log('当前的会话Dom',$DetailItem);
 	var userItemId = $DetailItem.attr('data-index');
 	var item = itemMap.get(userItemId);
@@ -184,10 +209,17 @@ function sendChatBtn(event)
 		toId :item.talkerId,
 		sendTime :(new Date().getTime())+'',
 		isRead :false,
-		content:$DetailItem.find("textarea").val(),
+		content:$textArea.val(),
 	};
 	console.log('将要发送的消息',message);
-	item.messages.push(message);
+	
+	//添加本消息并渲染
+	item.messages.set(message.itemId+'',message);
+	$($DetailItem.find('.message-list')).append(detailItemTpl(message));
+	//消除本地消息
+	$textArea.val('');
+	//修改itemID方便对方接受
+	message.itemId = message.itemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
 	//使用tio发送消息;
 	sendFunctons.sendChat({type:0,message:message});
 }
