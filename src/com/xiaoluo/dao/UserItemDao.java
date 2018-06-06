@@ -35,13 +35,11 @@ public class UserItemDao {
 	
 	//增加会话
 		public void addUserItem(UserItem userItem){
-		
 			Session sess = sf.openSession();
 			Transaction tx = sess.beginTransaction();
 			sess.saveOrUpdate(userItem);
 			tx.commit();
 			sess.close();
-			
 		}
 		
 		
@@ -53,6 +51,23 @@ public class UserItemDao {
 			tx.commit();
 			sess.close();
 			
+		}
+
+		
+		
+		public UserItem getUserItem(Integer user, Integer toUser) {
+			Session sess = sf.openSession();
+			Transaction tx = sess.beginTransaction();
+			Query query = sess.createQuery("from UserItem where user_id = ? and talker_id = ?");
+			query.setInteger(0, user);
+			query.setInteger(1, toUser);
+			List<UserItem> userItemList = query.list();
+			tx.commit();
+			sess.close();
+			if(userItemList!=null){
+				return userItemList.get(0);
+			}
+			return null;
 		}
 		
 		
