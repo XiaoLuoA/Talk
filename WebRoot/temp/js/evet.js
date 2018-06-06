@@ -65,6 +65,7 @@ function showGruopChat(event)
 	return false;
 }
 
+
 function tioInitWs(queryString)
 {
 	var DemoHandler = function () {
@@ -119,21 +120,18 @@ function tioInitWs(queryString)
 }
 
 }
-function tioReady(flag)
+function tioReady()
 {
 	//tio初始化
-	tioInit();
+	tioInit(queryString.trim());
 	//添加监听事件
 	BieginListener();
 	//添加ajax发送事件
 	BeginSend();
 	
 }
-function tioReady()
-{
-	console.log('建联参数',initWs,queryString);
-	initWs(queryString.trim());
-}
+
+
 function BieginListener()
 {
 	function newGroupMessageListener(data)
