@@ -31,8 +31,6 @@ function newItem(item){}
 function newMessage(){}
 function closeTalkBtn(event)
 {
-	console.log(event.target,'子元素');
-
 	//得到id
 	var $a = $(event.target);
 	var id = $a.parents('.chose-item').attr('data-index');
@@ -51,7 +49,6 @@ function showChat(event)
 }
 function clkOverLayhide(event)
 {
-	console.log(event.target.classList.contains('overlay'));
 	if(event.target.classList.contains('overlay'))
 	{
 		hiddenArea($(event.target));
@@ -69,7 +66,6 @@ function showGruopChat(event)
 function tioInitWs(queryString)
 {
 	var DemoHandler = function () {
-		var name = "123";
 		this.onopen = function (event, ws) {
 			console.log('open详情',event,ws);
 		}
@@ -132,7 +128,7 @@ function tioReady()
 
 function BieginListener(event, ws)
 {
-	console.log('onmessage启动',event);
+//	console.log('onmessage启动',event);
 	var data = event.data
 	var res = JSON.parse(data);
 	//json数据格式了
@@ -170,8 +166,7 @@ function BieginListener(event, ws)
 		itemMap.get(itemid+'').messages.push(message);
 		//dom操作
 
-		console.log($DetailItem,Tab.attrMap.get(itemid),Tab.showAreas);
-		console.log($($DetailItem.find('.message-list')) );
+
 		$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
 	}
 	function newItemListener(data)
@@ -202,14 +197,10 @@ function BeginSend()
 }
 function sendChatBtn(event)
 {
-	console.log('目标Dom',$(event.target));
 	var $DetailItem = $($(event.target).parents('.detail-item'));
 	var $textArea = $DetailItem.find("textarea");
-	console.log('当前的会话Dom',$DetailItem);
 	var userItemId = $DetailItem.attr('data-index');
-	console.log('目标是',userItemId);
 	var item = itemMap.get(userItemId);
-	console.log('当前的会话',item);
 	var message = {
 		itemId :userItemId,
 		fromId :sessionId,
