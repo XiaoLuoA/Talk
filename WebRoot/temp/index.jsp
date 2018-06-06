@@ -15,16 +15,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<body>
 		<div class="page-moment">
-			假装这是背景<div data-groupId='1'>群聊1</div><button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button>
+			假装这是背景
+			<div class="gruop-area">
+				<!-- -->
+				<s:iterator value="groups" id='group'>
+					<div class="group" data-index="<s:property value="group.id"/>" >群聊<s:property value="group.name"/></div>
+				</s:iterator>
+				
+			</div>
+			<button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button>
+			
 			<div class="chat-overlay overlay hidden">
 				<div id="MessageArea" class="chat-area overlay-showarea"><!--聊天信息-->
-					<div class="chose-list">
+					<div class="chose-list scrll-y">
 						<div class="chose-item" data-index="a">a<span class="cls-btn float-r">关闭</span></div>
 						<div class="chose-item" data-index="v">v<span class="cls-btn float-r">关闭</span></div>
 					</div>
 					<div class="detail-list">
-						<div class="detail-item">c</div>
-						<div class="detail-item">s</div>
+						<div class="detail-item scrll-y">c</div>
+						<div class="detail-item scrll-y">s</div>
 					</div>
 				
 				
@@ -33,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<p>文字</p>
 						<span>消息</span> <span>新消息</span>
 					</div>
-					<div class="item-list"><!--消息列表-->
+					<div class="item-list scrll-y"><!--消息列表-->
 						<div class="item-item">
 							<div class="head-img"><img src="avatar4.png"></div>
 							<div class="ietm-item-detail">
@@ -49,11 +58,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div class="group-chat-overlay overlay hidden">
 				<div id="GroupMessageArea" class="group-chat-area overlay-showarea"><!--聊天信息-->
-					<div class="group-chose-list">
+					<div class="group-chose-list scrll-y">
 						<div class="group-chose-item" data-index="1">a<span class="cls-btn float-r">关闭</span></div>
 					</div>
 					<div class="gruop-detail-list">
-						<div class="group-detail-item">
+						<div class="group-detail-item scrll-y">
 							<ul class='gruop-mess'>
 								<li>消息1</li>
 							</ul>
@@ -66,12 +75,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="group-user-top">
 							<p>在线人数1/2</p>
 						</div>
-						<ul class="user-list"><!--消息列表-->
-							<li class="user-item" data-index=''>
-								<div class="head-img"><img src="avatar4.png"></div>
-								<span class="name"></span>
-							</li>
-						</ul>
+						<div class='group-user scrll-y'>
+							<ul class="user-list"><!--消息列表-->
+								<li class="user-item" data-index=''>
+									<div class="head-img"><img src="avatar4.png"></div>
+									<span class="name"></span>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
