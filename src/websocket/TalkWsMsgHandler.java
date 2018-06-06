@@ -92,7 +92,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		}
 		//Json.toBean(text,)
 		System.out.println(text);
-		
+		String str = text.replaceAll("\"", "\\\"");
+		System.out.println(str);
 		Map maps = (Map) JSON.parse(text);
 		String type = (String) maps.get("type");
 		
