@@ -17,10 +17,12 @@ import org.tio.websocket.common.WsSessionContext;
 import org.tio.websocket.server.handler.IWsMsgHandler;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserMess;
+
 
 
 public class TalkWsMsgHandler implements IWsMsgHandler {
@@ -90,30 +92,39 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		if (Objects.equals("心跳内容", text)) {
 			return null;
 		}
-		//Json.toBean(text,)
-		System.out.println(text);
-		String str = text.replaceAll("\"", "\\\"");
-		System.out.println(str);
-		Map maps = (Map) JSON.parse(text);
-		String type = (String) maps.get("type");
+		
+		JSONObject jsonObject = JSONObject.parseObject(text);
+		String type = jsonObject.getString("type");
+		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
+		
 		
 		String groupId="";
 		String userId="";
 		String msg="";
 		
-		if(type.equals("0")){
-			System.out.println(maps.get("message"));
-			UserMess userMess = (UserMess)maps.get("message");
-			System.out.println(user);
-//			boolean flag = CommonData.loginUser.get(user.getId())!=null;
-//			if(flag){
-//				
-//				WsResponse wsResponse = WsResponse.fromText(msg, TalkServerConfig.CHARSET);
-//				System.out.println();
-//				//Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
-//			}else{
-//				//存数据库 会话，消息
-//			}
+		if(type.equals("0")){//已经建立连接进行发消息
+			
+			String toId = jsonObject2.getString("toId");
+			boolean flag = CommonData.loginUserID.get(Integer.parseInt(toId))!=null;
+			
+			if(flag){
+				
+				jsonObject2.put("fromId", user.getId());
+				
+				//UserMess u = Json.toBean(jsonObject2.toJSONString(), UserMess.class);
+				
+				WsResponse wsResponse = WsResponse.fromText(text, TalkServerConfig.CHARSET);
+				System.out.println();
+				//Aio.sendToUser(channelContext.getGroupContext(), userId, wsResponse);
+			}else{
+				//存数据库 会话，消息
+				
+			}
+			
+			
+			
+			
+			
 		}
 		
 		if(groupId!=null){

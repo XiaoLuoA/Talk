@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UserItem {
 
-	private java.lang.Integer userItemId;
+	private java.lang.String userItemId;
 	private java.lang.Integer userId;
 	private java.lang.String userName;
 	private java.lang.Integer talkerId;
@@ -23,12 +23,12 @@ public class UserItem {
 		this.messages = messages;
 	}
 
-	public UserItem setUserItemId(java.lang.Integer userItemId) {
+	public UserItem setUserItemId(java.lang.String userItemId) {
 		this.userItemId = userItemId;
 		return this;
 	}
 
-	public java.lang.Integer getUserItemId() {
+	public java.lang.String getUserItemId() {
 		return this.userItemId;
 	}
 

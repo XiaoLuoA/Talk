@@ -9,6 +9,7 @@ import com.xiaoluo.utils.Ret;
 
 public class CommonData {
 	public static Ret loginUser = new Ret();
+	public static List<Integer> loginUserID = new ArrayList<Integer>();
 	public static Ret loginGroup = new Ret().set("users", new ArrayList<User>());
 	public static List<User> usersInGroup = new ArrayList<User>();
 	public static MyQueue<GroupsMess> groupsMess = new MyQueue<GroupsMess>(50);
