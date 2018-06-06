@@ -65,21 +65,75 @@ function showGruopChat(event)
 	return false;
 }
 
-function tioReady(flag)
+
+function tioInitWs(queryString)
+{
+	var DemoHandler = function () {
+		var name = "123";
+		this.onopen = function (event, ws) {
+			console.log('open详情',event,ws);
+    		ws.send(name+'连上了哦')
+		}
+
+  		/**
+   		* 收到服务器发来的消息
+   		* @param {*} event 
+   		* @param {*} ws 
+   		*/
+		this.onmessage = function (event, ws) {
+			console.log('onmessage启动',event);
+			var data = event.data
+		}
+		this.onclose = function (e, ws) {
+			console.log('onclose启动',e);
+		}
+		this.onerror = function (e, ws) {
+			console.log('onerror',e);
+		}
+
+	 	/**
+  	 	* 发送心跳，本框架会自动定时调用该方法，请在该方法中发送心跳
+   		* @param {*} ws 
+   		*/
+  		this.ping = function (ws) {
+ 			// log("发心跳了")
+ 			ws.send('心跳内容')
+ 		}
+	}
+	
+	
+	var protocol = 'ws'; // ws 或 wss
+	var ip = '127.0.0.1'
+	var port = 8888
+	var heartbeatTimeout = 5000; // 心跳超时时间，单位：毫秒
+	var reconnInterval = 1000; // 重连间隔时间，单位：毫秒
+	var binaryType = 'blob'; // 'blob' or 'arraybuffer';//arraybuffer是字节
+	var handler = new DemoHandler();
+	var param = null;
+	window.tiows = new tio.ws(protocol, ip, port, queryString, param, handler, heartbeatTimeout, reconnInterval, binaryType)
+  	tiows.connect()
+  	console.log('tiows建立连接');
+
+	function send () {
+  	tiows.send(msg.value)
+}
+
+}
+
+function tioReady()
 {
 	//tio初始化
-//	tioInit();
+	tioInitWs(queryString.trim());
+	//tioInit();
+
 	//添加监听事件
 	BieginListener();
 	//添加ajax发送事件
 	BeginSend();
 	
 }
-function tioReady()
-{
-//	console.log(initWs,queryString);
-//	initWs(queryString.trim());
-}
+
+
 function BieginListener()
 {
 	function newGroupMessageListener(data)
@@ -104,7 +158,10 @@ function BeginSend()
 	{
 		openNewChat :function(){},
 		closeChat :function(){},
-		sendChat :function(){},
+		sendChat :function(data){
+			tiows.send(JSON.stringify(data));
+			console.log('tio发送',JSON.stringify(data));
+		},
 		moreChatMessage :function(){},
 		
 		openNewGroupChat :function(){},
@@ -112,6 +169,27 @@ function BeginSend()
 		sendGroupChat :function(){},
 		moreGroupChatMessage :function(){},
 	};
+}
+function sendChatBtn(event)
+{
+	console.log('目标Dom',$(event.target));
+	var $DetailItem = $($(event.target).parents('.detail-item'));
+	console.log('当前的会话Dom',$DetailItem);
+	var userItemId = $DetailItem.attr('data-index');
+	var item = itemMap.get(userItemId);
+	console.log('当前的会话',item);
+	var message = {
+		itemId :userItemId,
+		fromId :sessionId,
+		toId :item.talkerId,
+		sendTime :(new Date().getTime())+'',
+		isRead :false,
+		content:$DetailItem.find("textarea").val(),
+	};
+	console.log('将要发送的消息',message);
+	item.messages.push(message);
+	//使用tio发送消息;
+	sendFunctons.sendChat({type:0,message:message});
 }
 function bindEvent()
 {
@@ -135,20 +213,22 @@ function bindEvent()
 	$itemList.on('click','.item-item',newTalk);
 	//点击关闭对话
 	$choseList.on('click','.cls-btn',closeTalkBtn);
+	//点击发送私聊消息
+	$detailList.on('click','button',sendChatBtn);
 	//点击创建新群聊
 	//点击关闭当前群聊
 	
-	//准备响应tio
-	tioReady();
+
+
 }
 
 function init()
 {
-	
 	// 渲染页面
 	render();
 	//事件绑定
 	bindEvent();
 }
 
+tioReady();
 askforData();

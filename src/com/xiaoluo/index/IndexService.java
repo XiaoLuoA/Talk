@@ -10,6 +10,7 @@ import com.xiaoluo.common.MyQueue;
 import com.xiaoluo.dao.GroupsDao;
 import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.dao.UserItemDao;
+import com.xiaoluo.dao.UserMessDao;
 import com.xiaoluo.model.Groups;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
@@ -52,7 +53,7 @@ public class IndexService {
 		
 		List<UserItem> userItemList  = UserItemDao.me.getAllUserItem(user);
 		
-		List<UserMess> userMessList  = UserDao.me.getMess(user);
+		List<UserMess> userMessList  = UserMessDao.me.getMess(user);
 		
 		Collections.sort(userMessList,new MessComparator());
 		

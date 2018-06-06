@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+
+body{
+   background-image:url(../image/background/b2.JPG); 
+   background-repeat:no-repeat; 
+   background-position: center;
+   background-size:cover;
+   margin:0 auto;
+   width:500px; 
+   text-align:center;
+   text-align: center; /*IE*/
+   text-align: -moz-center; /*Firefox*/
+   text-align: -webkit-center; /*Chrome*/
+}
+
+.top{  /*最顶端空盒子*/
+	height:200px;	
+}
+
+.text{   /*修改密码标题*/
+	padding-top:20px;
+	font-size:30px;
+	height:50px;
+}
+
+.form{   /*表单盒子*/
+	height:340px;
+	width:400px;
+	background-color:white;
+	font-size:30px;
+	opacity:0.8;
+	border-radius:5px;    /*边框圆角*/
+    background:rgba(255,255,255,0.8);
+}
+.input{ 
+	font-size:30px;
+	height:50px;
+	border-radius:5px;
+	width:300px;  /*输入框class*/	
+	color:black;	
+}  
+.button{  /*按钮*/
+    font-size:30px;
+    width:300px;
+    height:50px;
+    border-radius:5px;
+    background-color:#40E0D0;   	
+}
+.td{  /*单元格盒子*/
+	height:70px;
+}

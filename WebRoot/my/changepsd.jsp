@@ -9,24 +9,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'changePsd.jsp' starting page</title>
+    <title>填写密码</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" type="text/css" href="css/changepsd.css">
+	
 
   </head>
   
   <body>
+  <div class="top"></div>   
+    <div class="form">
+     <div class="text">修 改 密 码</div>
   <form id="changeForm" action="userchangePass.action" method="post">
-  	   密码：<input type="password" name="password" />
-  	  <input type="submit" value="确定" />
+    <table>
+      <tr>
+       <td>
+         <div class="td">
+          <input type="password" class="input" name="password" required="required"placeholder="密码" />
+         </div>
+       </td>
+      </tr>
+      <tr>
+       <td>
+         <div class="td">
+          <input type="password" class="input" name="password" required="required"placeholder="重复密码" />
+         </div>
+       </td>
+      </tr>
+    </table>  	   
+  	  <input  class="button" type="submit" value="确定" />
   </form>
+  </div>
   <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
 	<script type="text/javascript" src="layer/layer/layer.js"></script>
@@ -90,3 +109,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </body>
 </html>
+      

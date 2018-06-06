@@ -16,30 +16,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" type="text/css" href="css/findpsd.css">
+	
 
   </head>
   
   <body>
+   <div class="top"></div>
+   
+    <div class="form">
+     <div class="text">修 改 密 码</div>
     <form id="find_form" action="userfindPass.action" method="post">
-       <table class="l2">
+       <table>
          <tr>                       
            <td>
-                <input type="text"  placeholder="账号" required="required" name="name">
+              <div class="td">
+                <input type="text" class="input" placeholder="账号" required="required" name="name">
+              </div>
            </td>              
          </tr> 
          <tr>
       	   <td>
       	      <div class="td">
-      	         <input    type="email"   name="email" placeholder="邮箱" required="required">
+      	         <input    type="email"  class="input" name="email" placeholder="邮箱" required="required">
       	       </div>
       	   </td> 
       	 </tr> 
       	<tr>
-      	    <td>      	       
-                 <input type="submit" value="发送验证码"> 
+      	    <td>   
+      	    <div class="td">   	       
+                 <input type="submit" class="button" value="发送验证码"> 
+             </div>
             </td>
          </tr>       
        </table>
@@ -50,18 +58,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <table class="l2">
             <tr>
               <td>
-                <div class="td1">
-      	         <input class="num" type="text" name="regNum" placeholder="验证码" required="required">
+                <div class="td">
+      	         <input class="input" type="text" name="regNum" placeholder="验证码" required="required">
       	         </div>
-                 <div class="td2">
-                    <input class="mbutton" type="submit"  value="确定" >
+                 <div class="td">
+                    <input class="button" type="submit"  value="确定" >
                  </div>
               </td>           
             </tr>
                 
          </table>
         </form>
-        
+      </div>  
        
          <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
@@ -183,3 +191,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
 </html>
 
+      

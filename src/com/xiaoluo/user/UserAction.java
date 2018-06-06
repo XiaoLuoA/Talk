@@ -157,6 +157,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", loginUser);
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
 			CommonData.loginUser.set(sessionId, loginUser);
+			
 			ret.set("returnUrl", "indexindex.action");
 		}
 		else
@@ -221,6 +222,14 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String exit(){
+		ActionContext ac = ActionContext.getContext();
+		HttpServletResponse response = ResponseUtils.getResponse(ac);
+		User loginUser = (User) ActionContext.getContext().getSession().remove("user");
+		CommonData.loginUser.remove(loginUser);
+		return null;
 	}
 	
 	public void changePass(){

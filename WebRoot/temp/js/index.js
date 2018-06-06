@@ -65,7 +65,7 @@ function createDetailItem(item)
 		htmlText.push('<li class="message-item" data-sendindex="'+ message.fromId +'">'+ message.content +'</li>');
 	});
 	htmlText.push('</ul>');
-	htmlText.push('<div><textarea type="text" name="text"></textarea><button>发送</button></div>');
+	htmlText.push('<div><textarea class="chat-btn" type="text" name="text"></textarea><button>发送</button></div>');
 	htmlText.push('</div>')
 	return htmlText.join('');
 }

@@ -37,12 +37,19 @@ tio.ws = function (protocol, ip, port, paramStr, param, handler, heartbeatTimeou
   this.heartbeatSendInterval = heartbeatTimeout / 2
 
   this.connect = function () {
+	  
+	  
     var ws = new WebSocket(this.url)
+    
+    console.log('连接',this.url)
+    
     this.ws = ws
 
     ws.binaryType = this.binaryType; // 'arraybuffer'; // 'blob' or 'arraybuffer';//arraybuffer是字节
     var self = this
+    
     ws.onopen = function (event) {
+    	console.log('onopen',ws,self.handler)
       self.handler.onopen.call(self.handler, event, ws)
       self.lastInteractionTime(new Date().getTime())
 

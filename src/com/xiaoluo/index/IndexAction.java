@@ -33,6 +33,7 @@ public class IndexAction extends ActionSupport{
 		Ret ret = Ret.ok();
 		ret.set("items",allMsg);
 		System.out.println("items"+Json.toJson(allMsg));
+	
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse resp = ResponseUtils.getResponse(ac);
 		try {

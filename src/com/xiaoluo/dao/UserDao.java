@@ -257,62 +257,10 @@ public class UserDao {
 	}
 	
 	
-	//增加会话
-	public void addUserItem(UserItem userItem){
-	
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		sess.save(userItem);
-		tx.commit();
-		sess.close();
-		
-	}
 	
 	
-	//删除会话
-	public void deleteUserItem(UserItem userItem){
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		sess.delete(userItem);
-		tx.commit();
-		sess.close();
-		
-	}
 	
 	
-	/**
-	 * 发给某个用户的所有消息
-	 * @param user
-	 * @return List<UserMess> 
-	 */
-	public List<UserMess> getMess(User user){
-		
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		Query query = sess.createQuery("from UserMess where to_id = ?");
-		query.setInteger(0, user.getId());
-		
-		List<UserMess> userMessList = query.list();
-		try{
-			System.out.println(userMessList.size());
-			System.out.println(Json.toJson(userMessList));
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		tx.commit();
-		sess.close();
-		return userMessList;
-	}
-	
-	public void saveMess(UserMess userMess){
-		Session sess = sf.openSession();
-		Transaction tx = sess.beginTransaction();
-		sess.save(userMess);
-		tx.commit();
-		sess.close();
-		
-	}
 	
 	
 	/**

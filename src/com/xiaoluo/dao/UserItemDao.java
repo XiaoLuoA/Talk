@@ -33,5 +33,29 @@ public class UserItemDao {
 		return userItemList;
 	}
 	
+	//增加会话
+		public void addUserItem(UserItem userItem){
+		
+			Session sess = sf.openSession();
+			Transaction tx = sess.beginTransaction();
+			sess.saveOrUpdate(userItem);
+			tx.commit();
+			sess.close();
+			
+		}
+		
+		
+		//删除会话
+		public void deleteUserItem(UserItem userItem){
+			Session sess = sf.openSession();
+			Transaction tx = sess.beginTransaction();
+			sess.delete(userItem);
+			tx.commit();
+			sess.close();
+			
+		}
+		
+		
+	
 	
 }
