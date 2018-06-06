@@ -89,8 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<s:property value="#session.sessionId"/>
 		
 	
-		<script type="text/javascript" src="page/DemoHandler.js"></script>
-		<script type="text/javascript" src="page/demo.js"></script>
+		<!--<script type="text/javascript" src="page/DemoHandler.js"></script>-->
+		<!--<script type="text/javascript" src="page/demo.js"></script>-->
 		<script>
 			var items =	[
 				{
