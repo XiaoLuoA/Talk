@@ -64,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
-    </div>>
-    <!-- 
+    </div>
+
      <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
     
@@ -195,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	);
      	
      	
-     </script>  -->
+     </script> 
   </body>
 </html>
          

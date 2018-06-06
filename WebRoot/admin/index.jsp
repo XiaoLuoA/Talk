@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           
           
           
-          <s:form action="auser_searchLikeGroupsList">
+          <s:form action="auser_searchLikeUserList">
            <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
        
         
