@@ -243,18 +243,19 @@ function newGroupChat(event)
 		groupName :groupName,
 		
 		messages:[],
+		users:[],
 	}
-	groups.push()
+	groups.push(group);
 	openGroupMap.set( groupId,group);
 	//然后渲染
 	//生成panels 和showAreas
 	var $newGroupChoseItem = $(groupChoseItemTpl(group));
-	var $newGroupDetailIte = $(groupDetailItemTpl(group));
+	var $newGroupDetailItem = $(groupDetailItemTpl(group));
 	
 	
 	$groupChoseList.append($newGroupChoseItem);
-	$groupDetailList.append($newGroupDetailIte);
-	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailIte[0]);
+	$groupDetailList.append($newGroupDetailItem);
+	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailItem[0]);
 	//渲染完成后 ，开始初始华群消息
 	var data = {groupId:groupId,};
 	$.ajax({
@@ -262,7 +263,23 @@ function newGroupChat(event)
 		data:data,
 		success:function(Res){
 			console.log('群聊加入请求成功',Res);
-			console.log(JSON.parse(Res));
+			var res = JSON.parse(Res);
+			console.log(res);
+			//调用渲染操作
+			group.messages = res.items;
+			group.users = res.users;
+			
+			var newMessageHtml = [];
+			var newUserHtml = [];
+			group.messages.forEach(function(message,index){
+				newMessageHtml.push(message);
+			});
+			group.users.forEach(function(user,index){
+				newUserHtml.push(newUserHtml);
+			});
+			$($groupDetailList.find('.group-message-list')).append($(newMessageHtml));
+			$($groupDetailList.find('.user-list')).append($(newUserHtml));
+			
 		},
 		error:function(Res){
 			console.log('群聊加入请求成功',Res);

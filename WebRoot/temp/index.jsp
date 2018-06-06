@@ -68,17 +68,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				
 						<div class="gruop-detail-list">
-							<div class="group-detail-item ">
+							<!--<div class="group-detail-item ">
 								<div class="group-message-list scrll-y">
 									<ul class='gruop-message'>
 										<li>消息1</li>
 									</ul>
 								</div>
 								<input type='text' name='text' /><button class='send-btn'>提交</button>
-							</div>
+							</div>-->
 						</div>
 				
-						<div class="group-user">
+						<!--<div class="group-user">
 							<div class="group-user-top">
 								<p>在线人数1/2</p>
 							</div>
@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</li>
 								</ul>
 							</div>	
-						</div>
+						</div>-->
 					
 				</div>
 			</div>

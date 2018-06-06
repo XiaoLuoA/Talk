@@ -111,16 +111,40 @@ function groupMessageTpl(message)
 	htmltext.push('</li>');
 	return htmltext.join('');
 }
+function groupUserTpl(user)
+{
+	var htmltext = [];
+	htmltext.push('<li class="user-item" data-index="'+ user.id +'">');
+	htmltext.push('<div class="head-img"><img src="'+ user.pic +'"></div>');
+	htmltext.push('<span class="name">'+ user.name +'</span>');
+	htmltext.push('</li>');
+	return htmltext.join('');
+}
 function groupDetailItemTpl(group)
 {
 	var htmltext = [];
 	htmltext.push('<div class="group-detail-item ">');
+	htmltext.push('<div class="group-message ">');
 	htmltext.push('<div class="group-message-list scrll-y"><ul class="gruop-message">');
 	    group.messages.forEach(function(message,index){
 	    	htmltext.push(groupMessageTpl(message));
 	    });
 	htmltext.push('</ul></div>');
 	htmltext.push('<textarea type="text" name="text" ></textarea><button class="send-btn">提交</button>');
+	htmltext.push('</div>');
+	htmltext.push('<div class="group-user">');
+		htmltext.push('<div class="group-user-top">');
+		htmltext.push('<p>在线人数<span class="num">0</span></p>');
+		htmltext.push('</div>');
+		htmltext.push('<div class="group-user scrll-y">');
+			htmltext.push('<ul class="user-list"><!--消息列表-->');
+			group.users.forEach(function(user,index){
+				htmltext.push(groupUserTpl(user));
+			});
+			htmltext.push('</ul>');
+		htmltext.push('</div>');
+	htmltext.push('</div>');
+	
 	htmltext.push('</div>');
 	return htmltext.join('');
 }
