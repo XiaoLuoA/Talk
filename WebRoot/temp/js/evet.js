@@ -120,10 +120,13 @@ function tioInitWs(queryString)
 }
 
 }
+
 function tioReady()
 {
 	//tio初始化
 	tioInit(queryString.trim());
+	//	tioInit();
+
 	//添加监听事件
 	BieginListener();
 	//添加ajax发送事件
@@ -208,16 +211,16 @@ function bindEvent()
 	//点击关闭当前群聊
 	
 
+
 }
 
 function init()
 {
-	
 	// 渲染页面
 	render();
 	//事件绑定
 	bindEvent();
 }
-//准备响应tio
+
 tioReady();
 askforData();
