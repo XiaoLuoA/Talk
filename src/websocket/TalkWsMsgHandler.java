@@ -67,6 +67,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		return null;
 	}
 
+	
 	/*
 	 * 字符消息（binaryType = blob）过来后会走这个方法
 	 */
@@ -75,7 +76,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
 		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
 		String JSESSIONID = request.getParam("sessionId");
-		System.out.println("handshake sessionId是"+JSESSIONID);
+		
 		User user = (User) CommonData.loginUser.get(JSESSIONID);
 		
 		if (Objects.equals("心跳内容", text)) {
@@ -85,6 +86,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		String groupId="";
 		String userId="";
 		String msg="";
+		
 		if(userId!=null){
 			boolean flag = CommonData.loginUser.get(userId)!=null;
 			if(flag){

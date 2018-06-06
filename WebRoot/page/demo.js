@@ -15,6 +15,7 @@ function initWs (queryString) {
   var param = null
   tiows = new tio.ws(protocol, ip, port, queryString, param, handler, heartbeatTimeout, reconnInterval, binaryType)
   tiows.connect()
+  console.log('tiows建立连接');
 }
 
 

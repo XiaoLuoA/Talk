@@ -68,7 +68,7 @@ function showGruopChat(event)
 function tioReady(flag)
 {
 	//tio初始化
-//	tioInit();
+	tioInit();
 	//添加监听事件
 	BieginListener();
 	//添加ajax发送事件
@@ -77,8 +77,8 @@ function tioReady(flag)
 }
 function tioReady()
 {
-//	console.log(initWs,queryString);
-//	initWs(queryString.trim());
+	console.log('建联参数',initWs,queryString);
+	initWs(queryString.trim());
 }
 function BieginListener()
 {

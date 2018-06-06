@@ -1,8 +1,9 @@
 var DemoHandler = function () {
 	var name = "123";
   this.onopen = function (event, ws) {
+	  console.log('open详情',event,ws);
     ws.send(name+'连上了哦')
-    document.getElementById('contentId').innerHTML += '你连上了哦<br>';
+    //document.getElementById('contentId').innerHTML += '你连上了哦<br>';
   }
 
   /**
