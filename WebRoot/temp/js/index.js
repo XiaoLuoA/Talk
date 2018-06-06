@@ -14,6 +14,8 @@ var showGroupMap = new Map();
 var openGroupMap = new Map();
 var itemMap = new Map();
 
+
+var meaasgeNUll = {sendTime:'',content:''};
 //请求初始数据
 function askforData()
 {
@@ -68,9 +70,10 @@ function detailItemTpl(item)
 	var htmlText = [];
 	htmlText.push('<div class="detail-item" data-index="'+item.userItemId+'">');
 	htmlText.push('<ul class="message-list">');
+	if(item.messages){
 	item.messages.forEach(function(message,index){
 		htmlText.push(chatMessageTpl(message));
-	});
+	});}
 	htmlText.push('</ul>');
 	htmlText.push('<div><textarea class="chat-btn" type="text" name="text"></textarea><button class="btn send-btn active-btn">发送</button></div>');
 	htmlText.push('</div>')
@@ -78,9 +81,10 @@ function detailItemTpl(item)
 }
 function ItemItemTpl(item)
 {
-	var meaasgeNUll = {sendTime:'',content:''};
+	
 	var messages = item.messages||[meaasgeNUll];
-	if(messages.length=0){messages=[meaasgeNUll];}
+	if(messages.length==0){messages=[meaasgeNUll];}
+	console.log(messages);
 	var htmltext = [];
 	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkPic);
@@ -88,8 +92,8 @@ function ItemItemTpl(item)
 		htmltext.push('<div class="ietm-item-detail">');
 			htmltext.push('<p><span class="name">'+ item.talkerName +'</span><span class="last-time">'+ (item.lastTime+'') +'</span>' );
 			htmltext.push('</p>');
-			console.log('你好',item.messages[item.messages.length-1].content);
-			htmltext.push('<span class="content">'+(item.messages[item.messages.length-1].content||''));
+			console.log('你好',messages[messages.length-1].lastTime);
+			htmltext.push('<span class="content">'+(messages[messages.length-1].content||''));
 			htmltext.push('</span>');
 		htmltext.push('</div>');
 	htmltext.push('</div>')
@@ -104,9 +108,10 @@ function createMessage()
 function render()
 {
 	var htmlText =[];
+	if(items){
 	items.forEach(function(item,index){
 		htmlText.push(ItemItemTpl(item));
-	})
+	});}
 	var html = htmlText.join('');
 	$itemList.append(html) ;
 }
