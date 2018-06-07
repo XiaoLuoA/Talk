@@ -284,18 +284,19 @@ function newGroupChat(event)
 	{
 		id :groupId,
 		groupName :groupName,
+		groupNum:1,
 		messages:[],
 		users:[],
 	}
 	groups.push(group);
 	openGroupMap.set( groupId,group);
+	console.log('插入的值',groupId,group);
 	//然后渲染
 	//生成panels 和showAreas
 	var $newGroupChoseItem = $(groupChoseItemTpl(group));
 
 	var $newGroupDetailItem = $(groupDetailItemTpl(group));
-	console.log('这是生成数据',groupDetailItemTpl(group));
-	console.log('这是生成数据',$groupDetailList);
+
 	
 	$groupChoseList.append($newGroupChoseItem);
 	$groupDetailList.append($newGroupDetailItem);
@@ -308,9 +309,9 @@ function newGroupChat(event)
 		success:function(Res){
 			console.log('群聊加入请求成功',Res);
 			var res = JSON.parse(Res);
-			console.log(res);
 			//调用渲染操作
-			group.messages = res.items;
+			console.log('接收到的数据',res,res.items);
+			group.messages = res.items||[];
 			group.users = res.users;
 			group.groupNum = group.users.length+1;
 
@@ -344,10 +345,12 @@ function newGroupChat(event)
 
 function sendGroupChatBtn(event)
 {
+	console.log('点击事件',$(event.target),$($(event.target).parents('.group-detail-item')));
 	var $GroupDetailItem = $($(event.target).parents('.group-detail-item'));
 	var $textArea = $GroupDetailItem.find("textarea");
 	var groupId = $GroupDetailItem.attr('data-index');
 	var group = openGroupMap.get(groupId+'');
+	console.log('发信息的group',groupId,group);
 	var message = {
 		groupId :groupId,
 		content :$textArea.val(),
@@ -357,7 +360,7 @@ function sendGroupChatBtn(event)
 	};
 	group.messages.push(message);
 	//渲染
-	$($GroupDetailItem.find('.group-message')).append($(groupMessageTpl(message)));
+	$($GroupDetailItem.find('.group-messages')).append($(groupMessageTpl(message)));
 	//恢复
 	$textArea.val(''),
 	//发送

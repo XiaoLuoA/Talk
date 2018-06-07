@@ -123,9 +123,9 @@ function groupUserTpl(user)
 function groupDetailItemTpl(group)
 {
 	var htmltext = [];
-	htmltext.push('<div class="group-detail-item ">');
+	htmltext.push('<div class="group-detail-item " data-index='+ group.id +'>');
 	htmltext.push('<div class="group-message ">');
-	htmltext.push('<div class="group-message-list scrll-y"><ul class="group-message">');
+	htmltext.push('<div class="group-message-list scrll-y"><ul class="group-messages">');
 	    group.messages.forEach(function(message,index){
 	    	htmltext.push(groupMessageTpl(message));
 	    });
@@ -134,7 +134,7 @@ function groupDetailItemTpl(group)
 	htmltext.push('</div>');
 	htmltext.push('<div class="group-users">');
 		htmltext.push('<div class="group-user-top">');
-		htmltext.push('<p>在线人数<span class="num">'+ groupNum +'</span></p>');
+		htmltext.push('<p>在线人数<span class="num">'+ group.groupNum +'</span></p>');
 		htmltext.push('</div>');
 		htmltext.push('<div class="group-user scrll-y">');
 			htmltext.push('<ul class="user-list"><!--消息列表-->');
