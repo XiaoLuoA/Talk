@@ -93,10 +93,11 @@ TAb.prototype.add = function(panle,showArea,isActive){
 TAb.prototype.remove = function(num,isClear){
 	
 	if(this.attrMap)
-	{
+	{ console.log('存在map',this.attrMap,num);
 		var a = this.attrMap.get(num);
 		this.attrMap.delete(num);
 		num = a;
+		console.log('当前的num',a);
 	}
 	var start = num;
 	var panle = this.panles[num];

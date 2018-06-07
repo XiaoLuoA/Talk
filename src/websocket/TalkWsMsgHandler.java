@@ -124,17 +124,42 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		
 		//发给私人的消息;并且对方已经和自己建立连接
 		if(type.equals("0")){
+			
+			
 		
 			//获取接受者的id
 			String toId = jsonObject2.getString("toId");
 			Integer toIdInt = Integer.parseInt(toId);
 			
+			
+			
+			
+			
 			//判断接收者是否在线
 			boolean flag = CommonData.loginUserID.contains(toId);
 			
+			boolean isConn = false;
+			
 			//发消息前判断是否黑名单
 			
 			//发消息前判断是否黑名单
+			
+			
+			if(!isConn){
+				//获取接受者的id
+//				String toId = jsonObject2.getString("toId");
+//				Integer toIdInt = Integer.parseInt(toId);
+				
+				UserItem userItem = new UserItem();
+//				userItem.setUserItemId(toId+"|"+user.getId())
+//				.setIsBlack(0).setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(user.getId())
+//				.setTalkerName(user.getName()).setTalkerPic(user.getPic())
+//				.setUserId(toIdInt).setUserName(userMess.get);
+			}
+			
+			
+			
+			
 			
 			if(flag){
 				//接收者在线,只需要将消息发给目标用户
@@ -167,11 +192,12 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				//测试
 				
 				
-				JSONObject ret = new JSONObject();
-				ret.put("type", 1);
-				ret.put("num", CommonData.usersInGroup.size()+1);
-				ret.put("groupId", groupId);
-				ret.put("user", user);
+				//JSONObject ret = new JSONObject();
+				jsonObject2.put("num", CommonData.usersInGroup.size()+1);
+				jsonObject2.put("groupId", groupId);
+				jsonObject2.put("user", user);
+				
+				jsonObject.put("message", jsonObject2);
 				
 				//将此用户绑定到groupId
 				Aio.bindGroup(channelContext,groupId);
@@ -183,7 +209,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				//将消息格式化
 				
-				WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), TalkServerConfig.CHARSET);
+				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), TalkServerConfig.CHARSET);
 				
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 				
@@ -208,24 +234,32 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			String groupId = jsonObject2.getString("groupId");
 			
 			//将takerId(SessionId)换为当前用户的id
-			jsonObject2.put("talkerId", user.getId());
 			
+			jsonObject2.put("talkerId", user.getId());
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
-			System.out.println(jsonObject2);
+			jsonObject.put("message", jsonObject2);
 			
+			//jsonObject2.put(key, value)
+			
+			//JSONObject ret = new JSONObject();
+			//ret.put("type", 2);
+			//jsonObject2.put("message", userMess);
 			//将消息格式化
-			WsResponse wsResponse = WsResponse.fromText(Json.toJson(userMess), TalkServerConfig.CHARSET);
+			WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), TalkServerConfig.CHARSET);
 		
 			//发送到群组
-			//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse, new ChannelContextFilter() {
-				@Override
-				public boolean filter(ChannelContext arg0) {
-					// TODO Auto-generated method stub
-					return false;
-				}
-			});
+			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+//			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse, new ChannelContextFilter() {
+//
+//				@Override
+//				public boolean filter(ChannelContext arg0) {
+//					// TODO Auto-generated method stub
+//					return false;
+//				}
+//				
+//				
+//			});
 			
 			//向某个群组中加入消息
 			
@@ -253,6 +287,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		{
 			try{
 				//获取groupId
+				System.out.println("type3");
 				String groupId = jsonObject2.getString("groupId");
 				Aio.unbindGroup(groupId, channelContext);
 				CommonData.usersInGroup.remove(user);
@@ -264,15 +299,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		
 		//发给私人的消息;对方暂时未和自己建立连接
 		else if(type.equals("4")){
-			//获取接受者的id
-			String toId = jsonObject2.getString("toId");
-			Integer toIdInt = Integer.parseInt(toId);
 			
-			UserItem userItem = new UserItem();
-//			userItem.setUserItemId(toId+"|"+user.getId())
-//			.setIsBlack(0).setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(user.getId())
-//			.setTalkerName(user.getName()).setTalkerPic(user.getPic())
-//			.setUserId(toIdInt).setUserName(userMess.get);
 			
 		}
 		

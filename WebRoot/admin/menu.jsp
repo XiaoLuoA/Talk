@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>菜单</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -79,41 +79,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <a href="">权限管理</a>
                      </li>
                   
-                  </ul>
-                              
-            
-             </div>
-            
-          
-          </div>
-    
-    
-    
-    
-    
-    
+                  </ul>                                          
+             </div>                     
+          </div>      
           <div class="jfa-right-box">
           
              <div class="jfa-header-box" id="jfa-header-box"></div>
-             
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-             <a> <i class="fa fa-penil" title="修改">::before</i></a>
-             <a> <i class="fa fa-trash" title="删除">::before</i></a>
-             <i class="fa fa-penil" title="修改"></i>
-             <i class="fa fa-trash" title="删除"></i>
-          <div class="addMenu" ><a href="admin/addMenu.jsp">增加</a></div>
-                   
-          <s:form action="amenu_searchLikeMenuList">
-           <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
-       
-        
-            <s:submit value="确定"></s:submit>
+            <div class="jfa-content-box">
+       <div class="menu">                 
+          <form action="amenu_searchLikeMenuList">
           
-            </s:form>
-                          
-                 <table border="1">
+          <table class="table1"> 
+             <tr>
+               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">               
+             </tr>                    
+            </table>          
+            </form>   
+           </div>
+              <div class="table2">                     
+                 <table border="1" class="table3">
                    <tr>
                       <td>Menuid</td>
                       <td>菜单名字</td>
@@ -138,31 +122,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#u.createTime"/></td>
 			<td><s:property value="#u.subMenu"/></td>
 			<td><a href="amenu_findMenu?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="amenu_deleteMenu?id=<s:property value="#u.id"/>">删除</a>
-			
-				</s:iterator>
-	
-		
-		
-		 
-  </table>
-  
- 
-  
-             
-             
-             
-             
+			<td><a href="amenu_deleteMenu?id=<s:property value="#u.id"/>">删除</a>			
+				</s:iterator>	 
+              </table> 
+            </div>  
+              <div class="addMenu" ><a href="admin/addMenu.jsp">添加菜单</a></div>    
            
-
-
-  
-
-          
-          
-           </div>
-    
-    
+       </div>   
     </div>
   </body>
 </html>
