@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>添加群聊</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -77,65 +77,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </li>
                      <li>
                          <a href="">权限管理</a>
-                     </li>
-                  
-                  </ul>
-                              
-            
-             </div>
-            
-          
-          </div>
-    
-    
-    
-    
-    
-    
-          <div class="jfa-right-box">
-          
+                     </li>                  
+                  </ul>                                         
+             </div>                    
+          </div>    
+          <div class="jfa-right-box">         
              <div class="jfa-header-box" id="jfa-header-box"></div>
-             
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-           
-          
-                
+                        
+             <div class="jfa-content-box" id="jfa-content-box">
+              
     <!-- 推荐使用Struts2的标签库 -->
-    <s:form action="agroups_addGroups" > 
-        
-        <s:textfield name="groupName"   label="群主名字" ></s:textfield>
-        <s:textfield name="groupNum"    label="人员数量" ></s:textfield>
-        <s:textfield name="groupDetail" label="群组描述" ></s:textfield>
-        <s:textfield name="groupPic"    label="群组头像"></s:textfield>
-        <s:textfield name="createTime"  label="创建日期：yyyy-MM-dd"></s:textfield>
-       
-        
-        <s:submit value="确定"></s:submit>
-        
+    <div class="addGroup">
+     <s:form action="agroups_addGroups" >  
+      <table class="addGroup1">
+       <tr>
+        <td>
+         <s:textfield name="groupName"   label="群主名字" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="groupNum"    label="人员数量" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="groupDetail" label="群组描述" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="groupPic"    label="群组头像"></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="createTime"  label="创建日期：yyyy-MM-dd"></s:textfield>
+        </td>
+       </tr>  
+       <tr>
+        <td>
+        </td>
+       </tr>                   
+        <s:submit value="确定"></s:submit>   
+        </table>    
     </s:form>
-    <br/>
-    
-  
-
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
-          
-          
-           </div>
-    
-    
+    </div>
+    <br/>     
+        </div>        
     </div>
   </body>
 </html>
+        

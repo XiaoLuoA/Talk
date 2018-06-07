@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>首页</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -63,11 +63,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
                     </i>
                                                         分组管理
-                    <i class="right-icon fa fa-lg fa-angle-down">
-                    
-                    </i>
-                  
-                  </a>
+                    <i class="right-icon fa fa-lg fa-angle-down">                   
+                    </i>                
+                 </a>
                   <ul class="jfa-sub-menu" style="display: block;">
                      <li>
                          <a href="">账户管理</a>
@@ -77,56 +75,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </li>
                      <li>
                          <a href="">权限管理</a>
-                     </li>
-                  
-                  </ul>
-                              
-            
-             </div>
-            
-          
-          </div>
-    
-    
-    
-    
-    
-    
-          <div class="jfa-right-box">
-          
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+                     </li>                  
+                  </ul>                                          
+             </div>                     
+          </div>   
+          <div class="jfa-right-box">          
+             <div class="jfa-header-box" id="jfa-header-box"></div>                         
+             <div class="jfa-content-box" >                     
              
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-             <a> <i class="fa fa-penil" title="修改">::before</i></a>
-             <a> <i class="fa fa-trash" title="删除">::before</i></a>
-             <i class="fa fa-penil" title="修改"></i>
-             <i class="fa fa-trash" title="删除"></i>
-          <div class="addUser" ><a href="admin/addUser.jsp">增加</a></div>
-          
-          
-          
-          
-          
-          <s:form action="auser_searchLikeUserList">
-           <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
-       
-        
-            <s:submit value="确定"></s:submit>
-          
-            </s:form>
-            
-            
-            
-            
-            
-            
-            
-            
-                 <table border="1">
+           
+         <div class="select">                 
+          <form action="auser_searchLikeGroupsList">
+            <table class="table1"> 
+             <tr>
+ 
+               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">
+               
+             </tr>                    
+            </table>        
+            </form> 
+          </div>  
+              <div class="table2">                                  
+                 <table border="1" class="table3">
                    <tr>
-                      <td>Userid</td>
+                      <td>编号</td>
                       <td>账户</td>
                       <td>密码</td>
                       <td>状态</td>
@@ -137,11 +109,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <td>电话号码</td>
                       <td>邮箱地址</td>
                       <td>操作1</td>
-                      <td>操作2</td>
-  
+                      <td>操作2</td>  
                   </tr>
 		<s:iterator  value="allUser" var="u" >
-	      <tr >
+	      <tr>
 	       <td><s:property value="#u.id"/></td>
 	       <td><s:property value="#u.name"/></td>
 	       <td><s:property value="#u.password"/></td>
@@ -153,31 +124,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#u.tel"/></td>
 			<td><s:property value="#u.email"/></td>
 			<td><a href="auser_findUser?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>
-			
-				</s:iterator>
-	
-		
-		
-		 
-  </table>
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
-          
-          
-           </div>
-    
-    
+			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>			
+				</s:iterator>						 
+          </table>
+        </div> `
+          <div class="addUser" >
+            <a href="admin/addUser.jsp">添加用户</a>
+          </div>
+           </div>       
     </div>
+   </div>
   </body>
 </html>
+            
