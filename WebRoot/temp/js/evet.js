@@ -132,6 +132,7 @@ function BieginListener(event, ws)
 //	console.log('onmessage启动',event);
 	var data = event.data
 	var res = JSON.parse(data);
+	console.log('收到数据',res.type,res);
 	//json数据格式了
 	switch(res.type)
 	{
@@ -180,7 +181,6 @@ function BieginListener(event, ws)
 		group.groupNum++;
 		$groupDetailItem.find('group-user-top .num').html(group.groupNum);
 		$($groupDetailItem.find('.user-list')).append($(groupUserTpl(user)));
-		//还要修改数量
 	}
 	
 	function newGroupMessageListener(data)
@@ -235,10 +235,11 @@ function BeginSend()
 		},
 		closeGroupChat :function(Data){
 			var data ={type:3,message:Data};
-			JSON.stringify(data)
+			tiows.send(JSON.stringify(data));
 		},
 		sendGroupChat :function(Data){
 			var data = {type:2,message:Data};
+			console.log('tio发送GroupChat',JSON.stringify(data));
 			JSON.stringify(data)
 		},
 		moreGroupChatMessage :function(){},
@@ -258,7 +259,7 @@ function sendChatBtn(event)
 		isRead :false,
 		content:$textArea.val(),
 	};
-	console.log('将要发送的消息',message);
+//	console.log('将要发送的消息',message);
 	
 	//添加本消息并渲染
 	item.messages.push(message);
@@ -290,7 +291,7 @@ function newGroupChat(event)
 	}
 	groups.push(group);
 	openGroupMap.set( groupId,group);
-	console.log('插入的值',groupId,group);
+//	console.log('插入的值',groupId,group);
 	//然后渲染
 	//生成panels 和showAreas
 	var $newGroupChoseItem = $(groupChoseItemTpl(group));
@@ -318,18 +319,20 @@ function newGroupChat(event)
 			var newMessageHtml = [];
 			var newUserHtml = [];
 			group.messages.forEach(function(message,index){
-				newMessageHtml.push(message);
+				newMessageHtml.push(groupMessageTpl(message));
 			});
 			group.users.forEach(function(user,index){
-				newUserHtml.push(newUserHtml);
+				newUserHtml.push(groupUserTpl(user));
 			});
-			$($groupDetailList.find('.group-message-list')).append($(newMessageHtml));
-			$($groupDetailList.find('.user-list')).append($(newUserHtml));
+			$newGroupDetailItem.find('.group-user-top .num').html(group.groupNum);
+			console.log(newMessageHtml.join(''));
+			console.log(newUserHtml.join(''));
+			$($groupDetailList.find('.group-message-list')).append($(newMessageHtml.join('')));
+			$($groupDetailList.find('.user-list')).append($(newUserHtml.join('')));
 			
 		},
 		error:function(Res){
-			console.log('群聊加入请求成功',Res);
-			console.log(JSON.parse(Res));
+			console.log('群聊加入请求失败',Res,JSON.parse(Res));
 		},
 		setTimeOut: 2000,
 		timeOut: 2000,
@@ -339,13 +342,11 @@ function newGroupChat(event)
 	{
 		groupId:groupId,
 	};
-	console.log(tioData);
 	sendFunctons.openNewGroupChat(tioData);
 }
 
 function sendGroupChatBtn(event)
 {
-	console.log('点击事件',$(event.target),$($(event.target).parents('.group-detail-item')));
 	var $GroupDetailItem = $($(event.target).parents('.group-detail-item'));
 	var $textArea = $GroupDetailItem.find("textarea");
 	var groupId = $GroupDetailItem.attr('data-index');

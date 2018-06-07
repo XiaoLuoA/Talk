@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>修改用户</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -79,59 +79,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <a href="">权限管理</a>
                      </li>
                   
-                  </ul>
-                              
-            
+                  </ul>           
+             </div> 
              </div>
-            
-          
-          </div>
-    
-    
-    
-    
-    
-    
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"></div>
              
              
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-       
-          
-                
-                   
-                    
-                      
-                    
-                      
-                      
-                      
-                      
-                    
-                   
-  
-              <s:debug>    
-         <s:form action="auser_updateUser" method="post">
-        
-		
-	      <tr >
-	      
-
-	    <td>账户<input type="text"    name="name" value="<s:property value="user.name"/>"></td></tr>
-	    <td>密码<input type="text"    name="password" value="<s:property value="user.password"/>"></td>   </tr>
-	    <td>状态<input type="text"    name="status" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <td>角色<input type="text"    name="roles" value="<s:property value="user.roles"/>"/></td></tr>
-	    <td>头像<input type="text"    name="pic" value="<s:property value="user.pic"/>"/></td>     </tr>
-	    <td>性别<input type="text"    name="sex" value="<s:property value="user.sex"/>"/></td></tr>   
-	    <td>创建时间<input type="text" name="createTime" value="<s:property value="user.createTime"/>"/></td></tr>   
-	    <td>举报人数<input type="text" name="reportNum" value="<s:property value="user.reportNum"/>"/></td>   </tr>
-	    <td>电话号码<input type="text" name="tel" value="<s:property value="user.tel"/>"/></td>  </tr> 
-	    <td>邮箱<input type="text"    name="email" value="<s:property value="user.email"/>"/></td>  </tr> 
-	       
-	      
+             <div class="jfa-content-box">                    
+              <s:debug>  
+            <div class="updateUserform"> 
+         <s:form action="auser_updateUser" method="post">        		
+	      <table class="updateUser1">
+	    <tr><td>账户：</td><td><input type="text"    name="name" value="<s:property value="user.name"/>"></td></tr>
+	    <tr><td>密码：</td><td><input type="text"    name="password" value="<s:property value="user.password"/>"></td>   </tr>
+	    <tr><td>状态：</td><td><input type="text"    name="status" value="<s:property value="user.status"/>"/></td>  </tr> 
+	    <tr><td>角色：</td><td><input type="text"    name="roles" value="<s:property value="user.roles"/>"/></td></tr>
+	    <tr><td>头像：</td><td><input type="text"    name="pic" value="<s:property value="user.pic"/>"/></td></tr>
+	    <tr><td>性别：</td><td><input type="text"    name="sex" value="<s:property value="user.sex"/>"/></td></tr>   
+	    <tr><td>创建时间：</td><td><input type="text" name="createTime" value="<s:property value="user.createTime"/>"/></td></tr>   
+	    <tr><td>举报人数：</td><td><input type="text" name="reportNum" value="<s:property value="user.reportNum"/>"/></td>   </tr>
+	    <tr><td>电话号码：</td><td><input type="text" name="tel" value="<s:property value="user.tel"/>"/></td>  </tr> 
+	    <tr><td>邮箱：</td><td><input type="text"    name="email" value="<s:property value="user.email"/>"/></td>  </tr> 
+	       	      
 			<%-- <td><s:property value="#u.status"/></td>
 			<td><s:property value="#u.roles"/></td>
 			<td><s:property value="#u.sex"/></td>
@@ -140,32 +111,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#u.tel"/></td>
 			<td><s:property value="#u.email"/></td>
 			<td><a href="findUser?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="deleteUser?id=<s:property value="#u.id"/>">删除</a>
-			
- --%>				
-	      <s:submit action="auser_updateUser" name=" " value="提交"></s:submit>
-	      
-		</s:form>
-		
-		 
-  </s:debug>
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
-          
-          
-           </div>
-    
-    
+			<td><a href="deleteUser?id=<s:property value="#u.id"/>">删除</a>						
+ --%>
+          <s:submit value="提交"></s:submit>	
+ 		</table>		
+	            
+		</s:form>	
+		</div>	 
+  </s:debug>       
+           </div>    
     </div>
   </body>
 </html>

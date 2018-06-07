@@ -1,6 +1,5 @@
 package com.xiaoluo.talk;
 
-import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.tio.utils.json.Json;

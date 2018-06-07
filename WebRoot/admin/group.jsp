@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>群聊</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -97,28 +97,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="jfa-header-box" id="jfa-header-box"></div>
              
              
-             <div class="jfa-contnt-box" id="jfa-content-box">
+             <div class="jfa-content-box" >
              
-             <a> <i class="fa fa-penil" title="修改">::before</i></a>
-             <a> <i class="fa fa-trash" title="删除">::before</i></a>
-             <i class="fa fa-penil" title="修改"></i>
-             <i class="fa fa-trash" title="删除"></i>
-          <div class="addGroup" ><a href="admin/addGroup.jsp">增加</a></div>
-          
-            
-          <s:form action="agroups_searchLikeGroupsList">
-           <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
-       
-        
-            <s:submit value="确定"></s:submit>
-          
-            </s:form>
+             
           
           
-          
-          
-          
-                 <table border="1">
+         <div class="group">  
+          <form action="agroups_searchLikeGroupsList">        
+           <table class="table1"> 
+             <tr>
+               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">               
+             </tr>                    
+            </table>                  
+            </form>  
+           </div>  
+            <div class="table2">   
+                 <table border="1" class="table3">
                    <tr>
                       <td>Groupsid</td>
                       <td>群组名字</td>
@@ -127,8 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <td>创建时间</td>
                       <td>群聊头像</td>
                       <td>操作1</td>
-                      <td>操作2</td>
-  
+                      <td>操作2</td>  
                   </tr>
 		<s:iterator  value="allGroups" var="g" >
 	      <tr >
@@ -140,31 +133,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#g.groupPic"/></td>
 
 			<td><a href="agroups_findGroups?id=<s:property value="#g.id"/>">修改</a></td>
-			<td><a href="agroups_deleteGroups?id=<s:property value="#g.id"/>">删除</a>
-			
-				</s:iterator>
-	
-		
-		
-		 
-  </table>
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
-          
-          
-           </div>
+			<td><a href="agroups_deleteGroups?id=<s:property value="#g.id"/>">删除</a>			
+				</s:iterator>			 
+  </table> 
+    </div>   
+    <div class="addGroup" ><a href="admin/addGroup.jsp">添加群聊</a></div>
+        </div>           
+    </div>        
     
-    
-    </div>
   </body>
 </html>

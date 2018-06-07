@@ -1,7 +1,5 @@
 @CHARSET "UTF-8";
 
-@charset "UTF-8";
-
 .margin-top-0 {margin-top: 0;}
 .margin-top-5 {margin-top: 5px;}
 .margin-top-10 {margin-top: 10px;}
@@ -80,18 +78,215 @@
 
 /* 内容容器 */
 .jfa-content-box {
-	position: absolute;
-	overflow-y: scroll;
-	top: 50px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #f0f0f0;
-	// padding:22px 22px 22px 22px;
-	padding: 20px;
-
-	// border-bottom: 1px solid red;
+    padding-top:50px;
+    padding-left:100px;
+	height:800px;
+	width:1000px;
 }
+.select{  /*查询框*/
+	width:500px;
+	height:80px;
+	font-size:20px;
+	text-align:left;
+}
+.table1{ 
+	font-size:20px;
+	
+}
+
+.table3 td{   /*显示表格*/
+	padding:10px;
+}
+.table3{
+	font-size:20px;
+	width:1200px;
+	
+}
+.table3 a{
+	color:black;
+
+}
+.table3 a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+.addUser{  /*添加用户*/
+	height:40px;
+	font-size:20px;
+}
+.addUser a{
+	color:black;
+}
+.addUser a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+
+/*添加用户页面*/
+.addUserform{
+	padding-left:300px;
+}
+.addUser1{
+	font-size:20px;
+}
+.addUser1 label{
+	font-size:20px;
+}
+.addUser1 td{
+	height:25px;
+}
+/*添加群聊*/
+.addGroup{
+	padding-left:300px;
+}
+.addGroup1{
+	font-size:20px;
+}
+.addGroup1 label{
+	font-size:20px;
+}
+.addGroup1 td{
+	height:25px;
+}
+
+/*添加菜单*/
+.addMenu{
+	padding-left:300px;
+}
+.addMenu{
+	padding-left:300px;
+}
+.addMenu1{
+	font-size:20px;
+}
+.addMenu1 label{
+	font-size:20px;
+}
+.addMenu1 td{
+	height:25px;
+}
+
+/*群聊页面*/
+
+.group{  /*查询框*/
+	width:500px;
+	height:80px;
+	font-size:20px;
+	text-align:left;
+}
+.table1{ 
+	font-size:20px;
+	
+}
+
+.table3 td{   /*显示表格*/
+	padding:10px;
+}
+.table3{
+	font-size:20px;
+	width:1200px;
+	
+}
+.table3 a{
+	color:black;
+
+}
+.table3 a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+.addGroup{  /*添加群聊*/
+    
+	height:50px;
+	font-size:20px;
+}
+.addGroup a{
+	color:black;
+}
+.addGroup a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+
+
+/*菜单页面*/
+
+.menu{  /*查询框*/
+	width:500px;
+	height:80px;
+	font-size:20px;
+	text-align:left;
+}
+.table1{ 
+	font-size:20px;
+	
+}
+
+.table3 td{   /*显示表格*/
+	padding:10px;
+}
+.table3{
+	font-size:20px;
+	width:1200px;
+	
+}
+.table3 a{
+	color:black;
+
+}
+.table3 a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+.addMenu{  /*添加群聊*/
+    
+	height:50px;
+	font-size:20px;
+}
+.addMenu a{
+	color:black;
+}
+.addMenu a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+
+/*修改用户*/
+
+/*修改用户页面*/
+.updateUserform{
+	padding-left:300px;
+}
+.updateUser1{
+	font-size:20px;
+}
+.updateUser1 label{
+	font-size:20px;
+}
+.updateUser1 td{
+	height:25px;
+}
+.updateUser1 tr{
+	height:60px;
+}
+
+/*修改群聊页面*/
+.updateGroupform{
+	padding-left:300px;
+}
+.updateGroup1{
+	font-size:20px;
+}
+.updateGroup1 label{
+	font-size:20px;
+}
+.updateGroup1 td{
+	height:25px;
+}
+.updateGroup1 tr{
+	height:60px;
+}
+
 
 .jfa-logo {
 	height: 50px;

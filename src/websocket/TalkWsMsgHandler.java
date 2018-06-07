@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
+import org.tio.core.ChannelContextFilter;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
 import org.tio.utils.json.Json;
@@ -109,6 +110,12 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//获取message对象(JSONObject类型)
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
 		
+		
+		//测试
+		System.out.println("come in type"+type);
+		System.out.println("come int message"+jsonObject2);
+		//测试
+		
 		//将fromId(SessionId)换为当前用户的id
 		jsonObject2.put("fromId", user.getId());
 		
@@ -150,26 +157,53 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//加入群组的消息 type:1 groupId
 		if(type.equals("1"))
 		{
+			try{
+				//获取groupId
+				String groupId = jsonObject2.getString("groupId");
+				
+				//测试
+				System.out.println("type1");
+				System.out.println("groupId "+groupId+", userID "+user.getId());
+				//测试
+				
+				
+				JSONObject ret = new JSONObject();
+				ret.put("type", 1);
+				ret.put("num", CommonData.usersInGroup.size()+1);
+				ret.put("groupId", groupId);
+				ret.put("user", user);
+				
+				//将此用户绑定到groupId
+				Aio.bindGroup(channelContext,groupId);
+				
+				//将用户加入到Group中
+				CommonData.usersInGroup.add(user);
+				
+				//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
+				
+				//将消息格式化
+				
+				WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), TalkServerConfig.CHARSET);
+				
+				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+				
+				System.out.println("type1执行完毕");
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			
-			//获取groupId
-			String groupId = jsonObject2.getString("groupId");
 			
-			//将此用户绑定到groupId
-			Aio.bindGroup(channelContext,groupId);
-			
-			//将用户加入到Group中
-			CommonData.usersInGroup.add(user);
-			
-			//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
-			//将消息格式化
-			WsResponse wsResponse = WsResponse.fromText("yoghurt", TalkServerConfig.CHARSET);
-			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-			System.out.println("46555555555555555555555555555555555");
 		}
 		
 		//普通发群消息 type:2
 		else if(type.equals("2"))
 		{
+			
+			try{
+				
+			System.out.println("come in type2");
+			
 			//获取groupId
 			String groupId = jsonObject2.getString("groupId");
 			
@@ -178,12 +212,20 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
+			System.out.println(jsonObject2);
 			
 			//将消息格式化
 			WsResponse wsResponse = WsResponse.fromText(Json.toJson(userMess), TalkServerConfig.CHARSET);
 		
 			//发送到群组
-			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse, new ChannelContextFilter() {
+				@Override
+				public boolean filter(ChannelContext arg0) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
 			
 			//向某个群组中加入消息
 			
@@ -201,15 +243,23 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			//将队列放在群组消息中
 			CommonData.groupsMess.put(groupId, myQueue);
 			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		//退出群聊 type:3
 		else if(type.equals("3"))
 		{
-			//获取groupId
-			String groupId = jsonObject2.getString("groupId");
-			Aio.unbindGroup(groupId, channelContext);
-			CommonData.usersInGroup.remove(user);
+			try{
+				//获取groupId
+				String groupId = jsonObject2.getString("groupId");
+				Aio.unbindGroup(groupId, channelContext);
+				CommonData.usersInGroup.remove(user);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 		
 		//发给私人的消息;对方暂时未和自己建立连接
@@ -223,7 +273,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 //			.setIsBlack(0).setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(user.getId())
 //			.setTalkerName(user.getName()).setTalkerPic(user.getPic())
 //			.setUserId(toIdInt).setUserName(userMess.get);
-			
 			
 		}
 		
