@@ -173,13 +173,14 @@ function BieginListener(event, ws)
 	
 	function newGroupMemberListener(data)
 	{
+		var groupNum = data.num;
 		var groupId = data.groupId;
 		var user = data.user;
 		
 		var group = openGroupMap.get(groupId);
 		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
-		group.groupNum++;
-		$groupDetailItem.find('group-user-top .num').html(group.groupNum);
+		group.groupNum = groupNum;
+		$groupDetailItem.find('.group-user-top .num').html(group.groupNum);
 		$($groupDetailItem.find('.user-list')).append($(groupUserTpl(user)));
 	}
 	
