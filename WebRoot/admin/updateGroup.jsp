@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>修改群聊</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -65,8 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                         分组管理
                     <i class="right-icon fa fa-lg fa-angle-down">
                     
-                    </i>
-                  
+                    </i>                  
                   </a>
                   <ul class="jfa-sub-menu" style="display: block;">
                      <li>
@@ -77,72 +76,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </li>
                      <li>
                          <a href="">权限管理</a>
-                     </li>
-                  
-                  </ul>
-                              
-            
-             </div>
-            
-          
+                     </li>                  
+                  </ul>                                         
+             </div>                      
           </div>
-    
-    
-    
-    
-    
     
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
-             
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-       
-          
-                
+             <div class="jfa-header-box" id="jfa-header-box"></div>             
+             <div class="jfa-content-box">
                    
-                    
-                      
-                    
-                      
-                      
-                      
-                      
-                    
-                   
-  
-              <s:debug>    
-         <s:form action="agroups_updateGroups" method="post">     
-	      <tr >
-	      
-	 
-	    <td>群组名字<input type="text"    name="groupName" value="<s:property value="user.name"/>"></td></tr>
-	    <td>群组描述<input type="text"    name="groupDetail" value="<s:property value="user.password"/>"></td>   </tr>
-	    <td>成员数量<input type="text"    name="groupNum" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <td>创建时间<input type="text"    name="createTime" value="<s:property value="user.roles"/>"/></td></tr>
-	    <td>群组头像<input type="text"    name="groupPic" value="<s:property value="user.pic"/>"/></td>     </tr>
-	 
-	   				
-	      <s:submit action="agroups_updateGroups" name=" " value="提交"></s:submit>
-	      
-		</s:form>
-		
-		 
+             <s:debug>    
+          <div class="updateGroupform">
+         <s:form action="agroups_updateGroups" method="post">
+         <table class="updateGroup1">       	      	 
+	    <tr><td>群组名字：</td><td><input type="text"    name="groupName" value="<s:property value="user.name"/>"></td></tr>
+	    <tr><td>群组描述：</td><td><input type="text"    name="groupDetail" value="<s:property value="user.password"/>"></td></tr>
+	    <tr><td>成员数量：</td><td><input type="text"    name="groupNum" value="<s:property value="user.status"/>"/></td>  </tr> 
+	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="user.roles"/>"/></td></tr>
+	    <tr><td>群组头像：</td><td><input type="text"    name="groupPic" value="<s:property value="user.pic"/>"/></td>     </tr>	 	   				
+	      <s:submit  value="提交"></s:submit>	
+	      </table>       
+		</s:form>	
+		</div>	 
   </s:debug>
-
-             
-           
-
-
-  
-
-          
-          
-           </div>
-    
-    
+         </div>   
     </div>
   </body>
 </html>
