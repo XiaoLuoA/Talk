@@ -110,6 +110,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//获取message对象(JSONObject类型)
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
 		
+		System.out.println("type"+type);
+		System.out.println("message"+jsonObject2);
 		//将fromId(SessionId)换为当前用户的id
 		jsonObject2.put("fromId", user.getId());
 		
@@ -151,26 +153,36 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//加入群组的消息 type:1 groupId
 		if(type.equals("1"))
 		{
+			try{
+				//获取groupId
+				String groupId = jsonObject2.getString("groupId");
+				System.out.println("type1"+groupId);
+				//将此用户绑定到groupId
+				Aio.bindGroup(channelContext,groupId);
+				
+				//将用户加入到Group中
+				CommonData.usersInGroup.add(user);
+				
+				//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
+				//将消息格式化
+				WsResponse wsResponse = WsResponse.fromText("yoghurt", TalkServerConfig.CHARSET);
+				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+				System.out.println("46555555555555555555555555555555555");
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			
-			//获取groupId
-			String groupId = jsonObject2.getString("groupId");
 			
-			//将此用户绑定到groupId
-			Aio.bindGroup(channelContext,groupId);
-			
-			//将用户加入到Group中
-			CommonData.usersInGroup.add(user);
-			
-			//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
-			//将消息格式化
-			WsResponse wsResponse = WsResponse.fromText("yoghurt", TalkServerConfig.CHARSET);
-			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-			System.out.println("46555555555555555555555555555555555");
 		}
 		
 		//普通发群消息 type:2
 		else if(type.equals("2"))
 		{
+			
+			try{
+				
+			System.out.println("come in type2");
+			
 			//获取groupId
 			String groupId = jsonObject2.getString("groupId");
 			
@@ -179,7 +191,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
-			
+			System.out.println(jsonObject2);
 			//将消息格式化
 			WsResponse wsResponse = WsResponse.fromText(Json.toJson(userMess), TalkServerConfig.CHARSET);
 		
@@ -209,15 +221,23 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			//将队列放在群组消息中
 			CommonData.groupsMess.put(groupId, myQueue);
 			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		//退出群聊 type:3
 		else if(type.equals("3"))
 		{
-			//获取groupId
-			String groupId = jsonObject2.getString("groupId");
-			Aio.unbindGroup(groupId, channelContext);
-			CommonData.usersInGroup.remove(user);
+			try{
+				//获取groupId
+				String groupId = jsonObject2.getString("groupId");
+				Aio.unbindGroup(groupId, channelContext);
+				CommonData.usersInGroup.remove(user);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 		
 		//发给私人的消息;对方暂时未和自己建立连接
