@@ -17,8 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="css/messageCenter.css">
-	
+	<link rel="stylesheet" type="text/css" href="css/myCenter.css">
+	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
 
   </head>
   

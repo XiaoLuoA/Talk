@@ -99,8 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <tr><td>排列大小：</td><td><input type="text"    name="orderNum" value="<s:property value="menu.orderNum"/>"/></td></tr>
 	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="menu.orderNum"/>"/></td></tr>	       	      		
           <s:submit value="提交"></s:submit>	
- 		</table>		
-	            
+ 		</table>			            
 		</s:form>	
 		</div>	 
   </s:debug>       
