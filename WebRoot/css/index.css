@@ -287,6 +287,22 @@
 	height:60px;
 }
 
+/*修改菜单页面*/
+.updateMenuform{
+	padding-left:300px;
+}
+.updateMenu{
+	font-size:20px;
+}
+.updateMenu label{
+	font-size:20px;
+}
+.updateMenu td{
+	height:25px;
+}
+.updateMenu tr{
+	height:60px;
+}
 
 .jfa-logo {
 	height: 50px;
