@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
+import org.tio.core.ChannelContextFilter;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
 import org.tio.utils.json.Json;
@@ -183,7 +184,14 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			WsResponse wsResponse = WsResponse.fromText(Json.toJson(userMess), TalkServerConfig.CHARSET);
 		
 			//发送到群组
-			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse, new ChannelContextFilter() {
+				@Override
+				public boolean filter(ChannelContext arg0) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
 			
 			//向某个群组中加入消息
 			
@@ -223,7 +231,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 //			.setIsBlack(0).setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(user.getId())
 //			.setTalkerName(user.getName()).setTalkerPic(user.getPic())
 //			.setUserId(toIdInt).setUserName(userMess.get);
-			
 			
 		}
 		
