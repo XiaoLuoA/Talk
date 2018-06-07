@@ -104,11 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <i class="fa fa-penil" title="修改"></i>
              <i class="fa fa-trash" title="删除"></i>
           <div class="addMenu" ><a href="admin/addMenu.jsp">增加</a></div>
-          
-          
-          
-          
-          
+                   
           <s:form action="amenu_searchLikeMenuList">
            <s:textfield name="searchName"  label="请输入查询的用户名"></s:textfield>
        
@@ -116,14 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <s:submit value="确定"></s:submit>
           
             </s:form>
-            
-            
-            
-            
-            
-            
-            
-            
+                          
                  <table border="1">
                    <tr>
                       <td>Menuid</td>

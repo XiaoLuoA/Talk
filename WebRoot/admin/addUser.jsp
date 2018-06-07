@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>添加用户</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -80,65 +80,83 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </li>
                   
                   </ul>
-                              
-            
+                                          
              </div>
-            
-          
+                      
           </div>
-    
-    
-    
-    
-    
-    
+       
           <div class="jfa-right-box">
           
              <div class="jfa-header-box" id="jfa-header-box"></div>
-             
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-           
-          
-                
+                         
+             <div class="jfa-content-box">
+                                                  
     <!-- 推荐使用Struts2的标签库 -->
-    <s:form action="auser_addUser" > 
+    <div class="addUserform">
+    <s:form action="auser_addUser" >  
+      <table class="addUser1">  
+       <tr>
+        <td>
+          <s:textfield name="name" label="用户名" ></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:password name="password" label="密码" requiredLabel="true" requiredPosition="left"></s:password>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:select name="sex" list="#{'0':'男','1':'女'}" label="性别" headerKey="" headerValue="请选择性别"></s:select>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:select name="status" list="#{'0':'冻结','1':'正常','2':'未激活'}" label="状态" headerKey="" headerValue="设置状态"></s:select>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:select name="roles" list="#{'1':'普通用户','2':'管理员','3':'超级管理员'}" label="角色" headerKey="" headerValue="设置角色"></s:select>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:textfield name="pic" label="头像"></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:textfield name="createTime" label="创建日期：yyyy-MM-dd"></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:textfield name="reportNum" label="举报数量"></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:textfield name="tel" label="电话"></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
+         <s:textfield name="email" label="邮箱"></s:textfield>
+        </td>
+       </tr>
+        <tr>
+        <td>
         
-        <s:textfield name="name" label="用户名" ></s:textfield>
-        <s:password name="password" label="密码" requiredLabel="true" requiredPosition="left"></s:password>
-        <s:select name="sex" list="#{'0':'男','1':'女'}" label="性别" headerKey="" headerValue="请选择性别"></s:select>
-        <s:select name="status" list="#{'0':'冻结','1':'正常','2':'未激活'}" label="状态" headerKey="" headerValue="设置状态"></s:select> 
-        <s:select name="roles" list="#{'1':'普通用户','2':'管理员','3':'超级管理员'}" label="角色" headerKey="" headerValue="设置角色"></s:select>         
-        <s:textfield name="pic" label="头像"></s:textfield>
-        <s:textfield name="createTime" label="创建日期：yyyy-MM-dd"></s:textfield>
-        <s:textfield name="reportNum" label="举报数量"></s:textfield>
-        <s:textfield name="tel" label="电话"></s:textfield>
-        <s:textfield name="email" label="邮箱"></s:textfield>
-      
-        
-        <s:submit value="确定"></s:submit>
-        
+        </td>
+       </tr>
+              <s:submit class="button" value="确定"></s:submit>     
+       </table> 
+             
     </s:form>
-    <br/>
-    
-  
-
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
-          
-          
-           </div>
+   </div>
+    <br/> 
+        </div>
     
     
     </div>

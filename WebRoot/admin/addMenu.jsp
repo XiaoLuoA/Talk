@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>添加菜单</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -77,46 +77,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </li>
                      <li>
                          <a href="">权限管理</a>
-                     </li>
-                  
-                  </ul>
-                              
-            
-             </div>
-            
-          
-          </div>
-    
-    
-    
-    
-    
-    
-          <div class="jfa-right-box">
-          
-             <div class="jfa-header-box" id="jfa-header-box"></div>
-             
-             
-             <div class="jfa-contnt-box" id="jfa-content-box">
-             
-           
-          
-                
+                     </li>                 
+                  </ul>                                          
+             </div>                     
+          </div>   
+          <div class="jfa-right-box">         
+             <div class="jfa-header-box" id="jfa-header-box"></div>             
+             <div class="jfa-content-box" id="jfa-content-box">
+              
     <!-- 推荐使用Struts2的标签库 -->
+   <div class="addMenu">
     <s:form action="amenu_addMenu" > 
-        
-        <s:textfield name="menuName"   label="菜单名字" ></s:textfield>
-        <s:textfield name="menuUrl"    label="菜单路径" ></s:textfield>
-        <s:textfield name="parentId" label="父类Id" ></s:textfield>
-        <s:textfield name="icon"    label="菜单图标"></s:textfield>
-        <s:textfield name="orderNum"  label="排列大小"></s:textfield>
-        <s:textfield name="createTime"  label="创建时间"></s:textfield>
-        <%-- <s:textfield name="orderNum"  label="子菜单"></s:textfield> ！！！！子菜单获取的是list豪哥你想想怎么用OGNL显示吧，任务多就不给你写了 --%>
-       
-        
+      <table class="addMenu1">
+       <tr>
+        <td>
+          <s:textfield name="menuUrl"  label="菜单路径" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="parentId" label="父类Id" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="icon"    label="菜单图标"></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="orderNum"  label="排列大小"></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="createTime"  label="创建时间"></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         
+        </td>
+       </tr>       
+        <%-- <s:textfield name="orderNum"  label="子菜单"></s:textfield> ！！！！子菜单获取的是list豪哥你想想怎么用OGNL显示吧，任务多就不给你写了 --%>               
         <s:submit value="确定"></s:submit>
-        
+      </table>   
     </s:form>
+    </div>
     <br/>
     
   
