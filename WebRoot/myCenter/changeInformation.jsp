@@ -17,8 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="stylesheet" type="text/css" href="css/changeInformation.css">
-	
+	<link rel="stylesheet" type="text/css" href="css/myCenter.css">
+	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
 
   </head>
   
@@ -67,11 +67,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	      <div class="tr">   
       	           头     像： <input type="file" class="input"  name="pic" required="required">
       	        </div>      	    
-      	   </tr>     	                  
-      	  </table>
-      	 <div class="button">
+      	   </tr>  
+      	    <div class="button">
         <input class="button1" type="submit" value="确  定">
-        </div>
+        </div>   	                  
+      	  </table>
+      	
     </form>    
         </div>                        
       </div>

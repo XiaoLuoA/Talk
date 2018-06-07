@@ -2,42 +2,45 @@
 
 .top{
 	background-image:url(../image/background/m3.PNG); 
-	height:300px;
+	height:250px;
 	background-repeat:no-repeat; 
    background-position: center;
    background-size:cover;
 }
 .navi{
-	color:white;
+   	
 	height:50px;
-	background-color:#3f48cc;
+	background-color:#1053ef;
 }
 .n1{
-	color:white;
+	
 	float:left;
 	width:100px;
 	height:50px;
-	padding-top:10px;
+	padding-top:12px;
 	padding-left:190px;
 }
 .n2{
 	float:left;
 	width:150px;
 	height:50px;
-	padding-top:10px;
+	padding-top:12px;
 	padding-left:190px;
 }
 .n3{
 	float:left;
 	width:150px;
 	height:50px;
-	padding-top:10px;
+	padding-top:12px;
 	padding-left:190px;
 }
 .n4{
 	float:left;
 	width:100px;
 	height:50px;
-	padding-top:10px;
+	padding-top:12px;
 	padding-left:190px;
+}
+a:link{
+	font-color:black;
 }

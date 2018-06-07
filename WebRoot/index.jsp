@@ -15,13 +15,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" type="text/css" href="css/myCenter.css">
+	<link rel="stylesheet" type="text/css" href="css/indexindex.css">
+	
   </head>
   
   <body>
- 
+   
+  
   <s:if test="#session.user.name!=null">
   	 <a href="userinfoPage"><s:property value="#session.user.name"/></a>
   </s:if>
