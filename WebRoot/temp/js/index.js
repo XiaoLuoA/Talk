@@ -3,7 +3,7 @@ var $detailList = $('.detail-list');
 var $itemList   = $('.item-list');
 
 var $groupChoseList = $('.group-chose-list');
-var $groupDetailList =$('.group-chose-list');
+var $groupDetailList =$('.group-detail-list');
 
 var $chatOverlay= $('.chat-overlay');
 var $GroupChatOverlay= $('.group-chat-overlay');
@@ -123,18 +123,18 @@ function groupUserTpl(user)
 function groupDetailItemTpl(group)
 {
 	var htmltext = [];
-	htmltext.push('<div class="group-detail-item ">');
+	htmltext.push('<div class="group-detail-item " data-index='+ group.id +'>');
 	htmltext.push('<div class="group-message ">');
-	htmltext.push('<div class="group-message-list scrll-y"><ul class="gruop-message">');
+	htmltext.push('<div class="group-message-list scrll-y"><ul class="group-messages">');
 	    group.messages.forEach(function(message,index){
 	    	htmltext.push(groupMessageTpl(message));
 	    });
 	htmltext.push('</ul></div>');
 	htmltext.push('<textarea type="text" name="text" ></textarea><button class="send-btn">提交</button>');
 	htmltext.push('</div>');
-	htmltext.push('<div class="group-user">');
+	htmltext.push('<div class="group-users">');
 		htmltext.push('<div class="group-user-top">');
-		htmltext.push('<p>在线人数<span class="num">0</span></p>');
+		htmltext.push('<p>在线人数<span class="num">'+ group.groupNum +'</span></p>');
 		htmltext.push('</div>');
 		htmltext.push('<div class="group-user scrll-y">');
 			htmltext.push('<ul class="user-list"><!--消息列表-->');
@@ -156,7 +156,10 @@ function groupChoseItemTpl(group)
 	htmltext.push('</div>');
 	return htmltext.join('');
 }
-
+function messageNumChange(num,$DOM)
+{
+	
+}
 function render()
 {
 	var htmlText =[];

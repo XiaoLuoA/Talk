@@ -25,7 +25,7 @@ function newTalk(event)
 			Tab.add($newChoseItem[0],$newDetailItem[0]);
 		}
 	}
-	event.stopPropagation()
+	event.stopPropagation();
 }
 function newItem(item){}
 function newMessage(){}
@@ -36,6 +36,7 @@ function closeTalkBtn(event)
 	var id = $a.parents('.chose-item').attr('data-index');
 	Tab.remove(id,true);
 	//remove
+	event.stopPropagation()
 	return false;
 }
 function closeItem(){}
@@ -138,19 +139,18 @@ function BieginListener(event, ws)
 			newChatListener(res.message);
 			break;
 		case 1:
+			newGroupMemberListener(res.message);
 			break;
 		case 2:
+			newGroupMessageListener(res.message);
 			break;
 		case 3:
+			memberOutListener(res.message);
 			break;
 		case 4:
 			break;
 	}
-	function newGroupMessageListener(data)
-	{
-		//变量操作
-		//dom操作
-	}
+
 	/*
 	 * 收到新的个人聊天信息
 	 */
@@ -169,6 +169,43 @@ function BieginListener(event, ws)
 
 		$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
 	}
+	
+	function newGroupMemberListener(data)
+	{
+		var groupId = data.groupId;
+		var user = data.user;
+		
+		var group = openGroupMap.get(groupId);
+		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		group.groupNum++;
+		$groupDetailItem.find('group-user-top .num').html(group.groupNum);
+		$($groupDetailItem.find('.user-list')).append($(groupUserTpl(user)));
+		//还要修改数量
+	}
+	
+	function newGroupMessageListener(data)
+	{
+		//变量操作
+		var message = data;
+		var groupId = data.groupId; 
+		var group = openGroupMap.get(groupId +'');
+		group.messages.push(message);
+		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		//dom操作
+		$($GroupDetailItem.find('.group-message')).append($(groupMessageTpl(message)));
+	}
+	
+	function memberOutListener(data)
+	{
+		var message = data;
+		var groupId = data.groupId; 
+		var group = openGroupMap.get(groupId +'');
+		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		
+		var users = data.users;
+		
+	}
+	
 	function newItemListener(data)
 	{
 		//变量操作
@@ -196,8 +233,14 @@ function BeginSend()
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
 		},
-		closeGroupChat :function(){},
-		sendGroupChat :function(){},
+		closeGroupChat :function(Data){
+			var data ={type:3,message:Data};
+			JSON.stringify(data)
+		},
+		sendGroupChat :function(Data){
+			var data = {type:2,message:Data};
+			JSON.stringify(data)
+		},
 		moreGroupChatMessage :function(){},
 	};
 }
@@ -233,25 +276,27 @@ function newGroupChat(event)
 	var $DOM = $(event.target);
 	$DOM.hasClass('group')?true:$DOM=$($DOM.parents('.group'));
 	//从前台获取属性
-	console.log($DOM);
 	var groupId  = $DOM.attr('data-inDex');
+	if(openGroupMap.get(groupId+'')){	event.stopPropagation();;return false;}
 	var groupName= $DOM.find('.group-name').html();
 	//先添加MAP
 	var group =
 	{
 		id :groupId,
 		groupName :groupName,
-		
+		groupNum:1,
 		messages:[],
 		users:[],
 	}
 	groups.push(group);
 	openGroupMap.set( groupId,group);
+	console.log('插入的值',groupId,group);
 	//然后渲染
 	//生成panels 和showAreas
 	var $newGroupChoseItem = $(groupChoseItemTpl(group));
+
 	var $newGroupDetailItem = $(groupDetailItemTpl(group));
-	
+
 	
 	$groupChoseList.append($newGroupChoseItem);
 	$groupDetailList.append($newGroupDetailItem);
@@ -264,11 +309,12 @@ function newGroupChat(event)
 		success:function(Res){
 			console.log('群聊加入请求成功',Res);
 			var res = JSON.parse(Res);
-			console.log(res);
 			//调用渲染操作
-			group.messages = res.items;
+			console.log('接收到的数据',res,res.items);
+			group.messages = res.items||[];
 			group.users = res.users;
-			
+			group.groupNum = group.users.length+1;
+
 			var newMessageHtml = [];
 			var newUserHtml = [];
 			group.messages.forEach(function(message,index){
@@ -295,8 +341,48 @@ function newGroupChat(event)
 	};
 	console.log(tioData);
 	sendFunctons.openNewGroupChat(tioData);
+}
+
+function sendGroupChatBtn(event)
+{
+	console.log('点击事件',$(event.target),$($(event.target).parents('.group-detail-item')));
+	var $GroupDetailItem = $($(event.target).parents('.group-detail-item'));
+	var $textArea = $GroupDetailItem.find("textarea");
+	var groupId = $GroupDetailItem.attr('data-index');
+	var group = openGroupMap.get(groupId+'');
+	console.log('发信息的group',groupId,group);
+	var message = {
+		groupId :groupId,
+		content :$textArea.val(),
+		talkerId :sessionId,
+		talkerPic: '未知',
+		talkerName:'未知',
+	};
+	group.messages.push(message);
+	//渲染
+	$($GroupDetailItem.find('.group-messages')).append($(groupMessageTpl(message)));
+	//恢复
+	$textArea.val(''),
+	//发送
+	sendFunctons.sendGroupChat(message);
+}
+
+
+function closeGroupBtn(event)
+{
+		//得到id
+	var $Dom = $(event.target);
+	var groupId = $a.parents('.group-chose-item').attr('data-index');
+	//remove
+	Tab.remove(id,true);
+	//从map中移除
+	itemMap.delete(id+'');
 	
-	
+	//前台组件移除完毕，开始向后台发送
+	var tioData = {groupId:groupId};
+	sendFunctons.closeGroupChat(tioData);
+	event.stopPropagation()
+	return false;
 }
 /**
  * 几乎所有的事件注册都写到这里面了
@@ -321,10 +407,9 @@ function bindEvent()
 	//添加点击事件
 	
 	//点击打开群聊
-	$('.gruop-area').on('click','.group',newGroupChat);
+
+
 	
-	
-	//点击创建新会话
 	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);
 	//点击关闭对话
@@ -332,8 +417,11 @@ function bindEvent()
 	//点击发送私聊消息
 	$detailList.on('click','button',sendChatBtn);
 	//点击创建新群聊
+	$('.group-area').on('click','.group',newGroupChat);
+	//点击发送群聊消息
+	$groupDetailList.on('click','button',sendGroupChatBtn);
 	//点击关闭当前群聊
-	
+	$('group-chose-list').on('click','.cls-btn',closeGroupBtn)
 
 
 }
