@@ -177,9 +177,10 @@ function BieginListener(event, ws)
 		var user = data.user;
 		
 		var group = openGroupMap.get(groupId);
-		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		group.groupNum++;
-		$groupDetailItem.find('group-user-top .num').html(group.groupNum);
+		console.log('我要渲染了',$groupDetailItem);
+		$($groupDetailItem.find('.group-user-top .num')).html(group.groupNum);
 		$($groupDetailItem.find('.user-list')).append($(groupUserTpl(user)));
 	}
 	
@@ -190,9 +191,9 @@ function BieginListener(event, ws)
 		var groupId = data.groupId; 
 		var group = openGroupMap.get(groupId +'');
 		group.messages.push(message);
-		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		//dom操作
-		$($GroupDetailItem.find('.group-message')).append($(groupMessageTpl(message)));
+		$($groupDetailItem.find('.group-messages')).append($(groupMessageTpl(message)));
 	}
 	
 	function memberOutListener(data)
@@ -200,7 +201,7 @@ function BieginListener(event, ws)
 		var message = data;
 		var groupId = data.groupId; 
 		var group = openGroupMap.get(groupId +'');
-		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		
 		var users = data.users;
 		
@@ -236,11 +237,12 @@ function BeginSend()
 		closeGroupChat :function(Data){
 			var data ={type:3,message:Data};
 			tiows.send(JSON.stringify(data));
+			console.log('tio发送',JSON.stringify(data));
 		},
 		sendGroupChat :function(Data){
 			var data = {type:2,message:Data};
 			console.log('tio发送GroupChat',JSON.stringify(data));
-			JSON.stringify(data)
+			tiows.send(JSON.stringify(data));
 		},
 		moreGroupChatMessage :function(){},
 	};
@@ -373,11 +375,11 @@ function closeGroupBtn(event)
 {
 		//得到id
 	var $Dom = $(event.target);
-	var groupId = $a.parents('.group-chose-item').attr('data-index');
+	var groupId = $Dom.parents('.group-chose-item').attr('data-index');
 	//remove
-	Tab.remove(id,true);
+	GroupChatTab.remove(groupId,true);
 	//从map中移除
-	itemMap.delete(id+'');
+	itemMap.delete(groupId+'');
 	
 	//前台组件移除完毕，开始向后台发送
 	var tioData = {groupId:groupId};
@@ -402,7 +404,7 @@ function bindEvent()
 	Tab.addSelect('.cls-btn');
 	
 	GroupChatTab = TabByClass('GroupMessageArea','group-chose-item','group-detail-item');
-	GroupChatTab.madeMap('data-groupid');
+	GroupChatTab.madeMap('data-index');
 	GroupChatTab.addSelect('.cls-btn')
 	
 	//添加点击事件
@@ -422,7 +424,7 @@ function bindEvent()
 	//点击发送群聊消息
 	$groupDetailList.on('click','button',sendGroupChatBtn);
 	//点击关闭当前群聊
-	$('group-chose-list').on('click','.cls-btn',closeGroupBtn)
+	$('.group-chose-list').on('click','.cls-btn',closeGroupBtn)
 
 
 }
