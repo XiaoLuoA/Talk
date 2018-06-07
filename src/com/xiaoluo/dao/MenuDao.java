@@ -5,6 +5,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
 import com.xiaoluo.model.Menu;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.SessionFactoryUtils;
@@ -114,6 +116,9 @@ public class MenuDao {
 	 * @return List<Menu> 对应的二级菜单
 	 */
 	public List<Menu> findSubMenu(List<Menu> menus){
+		Configuration config = new Configuration().configure() ;        
+	    SessionFactory sf = config.buildSessionFactory() ;
+	    //
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		String ids = "";
@@ -141,6 +146,9 @@ public class MenuDao {
 	 * @return 一级菜单 List<Menu>
 	 */
 	public List<Menu> findFirstMenu(User user) {
+		Configuration config = new Configuration().configure() ;        
+	    SessionFactory sf = config.buildSessionFactory() ;
+	    //
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		String roles = user.getRoles();

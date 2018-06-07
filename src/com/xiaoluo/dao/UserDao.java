@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
+import org.hibernate.cfg.Configuration;
 import org.tio.utils.json.Json;
 
 import com.xiaoluo.model.BlackList;
@@ -114,15 +114,9 @@ public class UserDao {
 	        Query query = session.createQuery("from User  where name like'%"+name+"%'");
 	        
 	        query.setFirstResult(0);
-	        
-	        //使用List方法.
 	        userList = query.list();
-	        //迭代器去迭代.
-	        for(Iterator iter=userList.iterator();iter.hasNext();)
-	        {
-	            user =(User)iter.next();
-	           System.out.println("id="+user.getId() + "name="+user.getName());
-	        }
+	  
+	       
 	        
 	       }
 	   catch(Exception e){
@@ -152,12 +146,6 @@ public class UserDao {
         
         //使用List方法.
         userList = query.list();
-        //迭代器去迭代.
-        for(Iterator iter=userList.iterator();iter.hasNext();)
-        {
-            user =(User)iter.next();
-           System.out.println("id="+user.getId() + "name="+user.getName());
-        }
         
        }
    catch(Exception e){
@@ -178,6 +166,9 @@ public class UserDao {
 	
 	//@drj
 	public  User findUser(int id){
+		 Configuration config = new Configuration().configure() ;        
+		    SessionFactory sf = config.buildSessionFactory() ;
+		    //
 	    Session session = sf.openSession();
 	    User user=new User();
 	    Transaction transaction = session.beginTransaction();
@@ -196,7 +187,7 @@ public class UserDao {
         for(Iterator iter=userList.iterator();iter.hasNext();)
         {
             user =(User)iter.next();
-           System.out.println("id="+user.getId() + "name="+user.getName());
+          
         }
 	 }
       catch(Exception e){  

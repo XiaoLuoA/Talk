@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   <div class="page-box">
+  
           <div class="jfa-left-box">
              <div class="jfa-logo"></div>
              <div class="jfa-menu-box">
@@ -63,9 +64,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     
                     </i>
                                                         分组管理
-                    <i class="right-icon fa fa-lg fa-angle-down">                   
-                    </i>                
-                 </a>
+                    <i class="right-icon fa fa-lg fa-angle-down">
+                    
+                    </i>
+                  
+                  </a>
                   <ul class="jfa-sub-menu" style="display: block;">
                      <li>
                          <a href="">账户管理</a>
@@ -76,12 +79,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <li>
                          <a href="">权限管理</a>
                      </li>                  
-                  </ul>                                          
-             </div>                     
-          </div>   
-          <div class="jfa-right-box">          
-             <div class="jfa-header-box" id="jfa-header-box"></div>                         
-             <div class="jfa-content-box" >                     
+                  </ul>                                         
+             </div>                    
+          </div>    
+          <div class="jfa-right-box">         
+             <div class="jfa-header-box" id="jfa-header-box"></div>
+                        
+             <div class="jfa-content-box" id="jfa-content-box">                   
              
            
          <div class="select">                 
@@ -127,13 +131,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>			
 				</s:iterator>						 
           </table>
+            
         </div> `
           <div class="addUser" >
             <a href="admin/addUser.jsp">添加用户</a>
+            
+            <s:debug>
+            <s:iterator value="menuList" var="m">
+                <s:property value="#m[0]"/>
+                <s:property value="m[0]"/>
+                <s:property value="#m[1]"/>
+            
+            
+                </s:iterator>
+                
+                
+               </s:debug>
           </div>
-           </div>       
+          
+          
+          <s:iterator value="packagePlateTbls"  id="plateTbls">
+         <tr>
+             <td class='td_date'><s:property value="#plateTbls.plateName"/></td>
+            
+         </tr>
+         <s:iterator value="membershipPackagesTblVOs"  id="VO">
+              <s:if test="#VO.plateId==#plateTbls.plateId">
+                   <tr>
+                     <td class='td_date'></td>
+                     <td class='td_date'><s:property value="#VO.projectName"/></td>
+                     <td class='td_date'><s:property value="#VO.projectNo" /></td>
+                     <td class='td_date'><s:property value="#VO.executionNumber"/></td>
+                     </tr>    
+               </s:if>
+        </s:iterator>    
+ </s:iterator>
+           
+           </div>      
+           
     </div>
+  
    </div>
+    
   </body>
 </html>
             

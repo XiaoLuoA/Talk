@@ -3,6 +3,11 @@ package com.xiaoluo.admin.menu;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.tio.utils.json.Json;
+
 import com.xiaoluo.dao.MenuDao;
 import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.model.Menu;
@@ -12,6 +17,25 @@ import com.xiaoluo.utils.MenuComparator;
 public class AdminMenuService {
 	
 	public static AdminMenuService me = new AdminMenuService();
+	
+	
+	
+	public static void main(String[] args) {
+		 Configuration config = new Configuration().configure() ;        
+		    SessionFactory sf = config.buildSessionFactory() ;
+		User user=UserDao.me.findUser(11);
+		List<Menu> FirstMenuList=me.getUserMenu(user);
+		//System.out.println(Json.toJson(FirstMenuList));
+		for(int i=0;i<FirstMenuList.size();i++){
+			Menu FirstMenu= FirstMenuList.get(i);
+			for(int j=0;j<FirstMenu.getSubMenuList().size();j++){
+				
+				System.out.println(FirstMenu.getSubMenuList().get(j).getMenuName());
+			}
+		}
+		
+		
+	}
 	
 	private AdminMenuService(){
 		
@@ -77,6 +101,7 @@ public class AdminMenuService {
 	 * @return List<Menu> 一级菜单列表（含有二级菜单）
 	 */
 	public List<Menu> getUserMenu(User user) {
+		
 		List<Menu> firstMenuList = MenuDao.me.findFirstMenu(user);
 		List<Menu> subMenuList = MenuDao.me.findSubMenu(firstMenuList);
 		Collections.sort(firstMenuList,new MenuComparator());
