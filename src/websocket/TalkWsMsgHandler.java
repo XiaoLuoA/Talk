@@ -110,8 +110,12 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//获取message对象(JSONObject类型)
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
 		
-		System.out.println("type"+type);
-		System.out.println("message"+jsonObject2);
+		
+		//测试
+		System.out.println("come in type"+type);
+		System.out.println("come int message"+jsonObject2);
+		//测试
+		
 		//将fromId(SessionId)换为当前用户的id
 		jsonObject2.put("fromId", user.getId());
 		
@@ -156,7 +160,19 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			try{
 				//获取groupId
 				String groupId = jsonObject2.getString("groupId");
-				System.out.println("type1"+groupId);
+				
+				//测试
+				System.out.println("type1");
+				System.out.println("groupId "+groupId+", userID "+user.getId());
+				//测试
+				
+				
+				JSONObject ret = new JSONObject();
+				ret.put("type", 1);
+				ret.put("num", CommonData.usersInGroup.size()+1);
+				ret.put("groupId", groupId);
+				ret.put("user", user);
+				
 				//将此用户绑定到groupId
 				Aio.bindGroup(channelContext,groupId);
 				
@@ -164,10 +180,15 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				CommonData.usersInGroup.add(user);
 				
 				//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
+				
 				//将消息格式化
-				WsResponse wsResponse = WsResponse.fromText("yoghurt", TalkServerConfig.CHARSET);
+				
+				WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), TalkServerConfig.CHARSET);
+				
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-				System.out.println("46555555555555555555555555555555555");
+				
+				System.out.println("type1执行完毕");
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -192,6 +213,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
 			System.out.println(jsonObject2);
+			
 			//将消息格式化
 			WsResponse wsResponse = WsResponse.fromText(Json.toJson(userMess), TalkServerConfig.CHARSET);
 		
