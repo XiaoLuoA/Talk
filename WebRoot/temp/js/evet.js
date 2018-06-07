@@ -149,6 +149,7 @@ function BieginListener(event, ws)
 			memberOutListener(res.message);
 			break;
 		case 4:
+			newItemListener(res.message);
 			break;
 	}
 
@@ -176,6 +177,8 @@ function BieginListener(event, ws)
 		var groupNum = data.num;
 		var groupId = data.groupId;
 		var user = data.user;
+		//如果是本人不执行操作
+		if(user.id==UserId){return false;}
 		
 		var group = openGroupMap.get(groupId);
 
@@ -194,6 +197,8 @@ function BieginListener(event, ws)
 	{
 		//变量操作
 		var message = data;
+		//如果是本人就不操作
+		if(message.fromId==UserId){return false;}
 		var groupId = data.groupId; 
 		var group = openGroupMap.get(groupId +'');
 		group.messages.push(message);
@@ -205,11 +210,39 @@ function BieginListener(event, ws)
 	function memberOutListener(data)
 	{
 		var message = data;
-		var groupId = data.groupId; 
+		var groupId = data.groupId;
+		var user = data.user;
+		//如果是本人不执行操作
+		if(user.id==UserId){return false;}
 		var group = openGroupMap.get(groupId +'');
 		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
+		var userItems = $groupDetailItem[0].querySelectAl('li.user-item');
+		//在前台清除dom
+		var userItem;
+		for(let index=userItems.length-1;index>=0;index--)
+		{
+			userItem = userItems[index];
+			if(userItem.getAttribute('data-index')==user.id)
+			{
+				userItem.parentNode.removeChild(userItem);
+				break;
+			}
+		}
+		//在对象中清除储存
+		var GroupUserId;
+		for(let index=group.users.length-1;index>=0;index--)
+		{
+			GroupUserId = group.users[index].id;
+			if(GroupUserId==user.id)
+			{
+				group.users.splice(index,1);
+				break;
+			}
+		}
+		//修改在线人数
+		group.groupNum--;
+		$($groupDetailItem.find('.group-user-top .num')).html(group.groupNum);
 		
-		var users = data.users;
 		
 	}
 	
@@ -217,9 +250,15 @@ function BieginListener(event, ws)
 	{
 		//变量操作
 		var item = data;
+		//添加一个item
 		itemMap.set(item.userItemId,item);
 		//dom操作
 		$itemList.append(ItemItemTpl(item));
+		//硬生生创造出 palen showArea
+		var $newChoseItem = $(createChoseItem(item));
+		var $newDetailItem = $(detailItemTpl(item));
+		Tab.add($newChoseItem[0],$newDetailItem[0]);
+		//已经创建并激活
 	} 
 }
 function BeginSend()
@@ -228,8 +267,8 @@ function BeginSend()
 	{
 		openNewChat :function(){},
 		closeChat :function(){},
-		sendChat :function(Data){
-			var data = {type:0,message:Data};
+		sendChat :function(temp,message){
+			var data = {type:0,temp,message:message};
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
 		},
@@ -253,12 +292,26 @@ function BeginSend()
 		moreGroupChatMessage :function(){},
 	};
 }
+function newItem(vent)
+{
+	
+}
+
 function sendChatBtn(event)
 {
 	var $DetailItem = $($(event.target).parents('.detail-item'));
 	var $textArea = $DetailItem.find("textarea");
 	var userItemId = $DetailItem.attr('data-index');
 	var item = itemMap.get(userItemId);
+	
+	//得到用户临时的信息并封装
+	var tempName = $DetailItem.attr('data-name');
+	var tempPic = $DetailItem.attr('data-pic');
+	var temp = 
+	{
+		tempName :tempName,
+		tempPic :tempPic,
+	}
 	var message = {
 		itemId :userItemId,
 		fromId :sessionId,
@@ -277,7 +330,8 @@ function sendChatBtn(event)
 	//修改itemID方便对方接受
 	message.itemId = message.itemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
 	//使用tio发送消息;
-	sendFunctons.sendChat(message);
+	var data = {temp :temp,message :message,};
+	sendFunctons.sendChat(temp,message);
 }
 
 function newGroupChat(event)
@@ -418,7 +472,8 @@ function bindEvent()
 	//点击打开群聊
 
 
-	
+	//点击创建新会话
+	$groupDetailList.on('click','.item-btn',newItem);
 	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);
 	//点击关闭对话

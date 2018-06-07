@@ -62,36 +62,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="group-chat-overlay overlay hidden">
 				<div id="GroupMessageArea" class="group-chat-area overlay-showarea"><!--聊天信息-->
 					<div class="group-chose-list scrll-y">
-						<!--<div class="group-chose-item" data-index="1">
-							a<span class="cls-btn float-r">关闭</span>
-						</div>-->
+					<!--在这里切换和关闭群聊-->
 					</div>
 				
 					<div class="group-detail-list">
-							<!--<div class="group-detail-item ">
-								<div class="group-message-list scrll-y">
-									<ul class='group-message'>
-										<li>消息1</li>
-									</ul>
-								</div>
-								<input type='text' name='text' /><button class='send-btn'>提交</button>
-							</div>-->
-						</div>
-				
-						<!--<div class="group-user">
-							<div class="group-user-top">
-								<p>在线人数1/2</p>
-							</div>
-							<div class='group-user scrll-y'>
-								<ul class="user-list"><!--消息列表-->
-									<!--<li class="user-item" data-index=''>
-										<div class="head-img"><img src="avatar4.png"></div>
-										<span class="name"></span>
-									</li>
-								</ul>
-							</div>	
-						</div>-->
-					
+					<!--聊天信息的交互页面 -->
+					<!--群聊成员的显示-->
+					</div>
+			
 				</div>
 			</div>
 			
@@ -102,8 +80,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="page/tio/tiows.js"></script>
 		<% 
 		String sess = (String)request.getSession().getAttribute("sessionId");
+		User user = (User)request.getSession().getAttribute("user");
 		out.print("<script>var queryString = 'sessionId="+sess+"';");
-		out.print("var sessionId= '"+sess+"';</script>");
+		out.print("var sessionId= '"+sess+"';");
+		out.print("var UserId= '"+user.getId()+"';</script>");
 		%>
 		<s:property value="#session.sessionId"/>
 		<script>
