@@ -19,6 +19,9 @@ var itemMap = new Map();
 
 
 var meaasgeNUll = {sendTime:'',content:''};
+
+
+
 //请求初始数据
 function askforData()
 {
@@ -32,12 +35,13 @@ function askforData()
 			url :'indexgetAllMsg.action',
 			data :message,
 			success :function(Res){
-				console.log('元数据',Res);
+//				console.log('元数据',Res);
 				var res = JSON.parse(Res);
 //				console.log('success',res);
 				items = res.items;
-				console.log(res);
+//				console.log(res);
 				flag = true;
+				getLocalMessage(items);
 				init();
 			},
 			error :function(Res)
@@ -51,6 +55,51 @@ function askforData()
 		});
 		//请求初始数据或者到本地加载
 	}
+}
+/*
+ *加载本地消息的方法 
+ */
+
+function getLocalMessage(items)
+{
+	if(items)
+	{
+		
+		items.forEach(function(item,index){
+			var messages = readLocal(item.userItemId);
+			messages = messages?messages:[];
+			
+			//两个messages相互拼接
+			messages.push.apply(messages,item.messages);
+			item.messages = messages;
+			
+		});
+		
+	}
+}
+//本地数据的操作
+function setLocal(key,value,isStr)
+{
+	if(isStr)
+	{
+		//保存为字符串
+		localStorage.setItem(key+'',value);
+	}
+	else
+	{
+		//保存为json字符串
+		var json = JSON.stringify(value);
+		localStorage.setItem(key+'',json);
+	}
+	var json = JSON.stringify(value);
+	localStorage.setItem(key+'',json);
+}
+function readLocal(key,isStr)
+{
+	return  isStr?localStorage.getItem(key+''):JSON.parse(localStorage.getItem(key+''));
+}
+function deleteLocal(key){
+	localStorage.deleteItem(key+'');
 }
 //渲染数据
 function createChoseItem(item)

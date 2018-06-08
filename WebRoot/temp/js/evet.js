@@ -391,12 +391,13 @@ function BieginListener(event, ws)
 		var itemid = message.itemId;
 		
 		var $DetailItem = $(Tab.showAreas[Tab.attrMap.get(itemid)]);
+		var item = itemMap.get(itemid+'');
 	
-		itemMap.get(itemid+'').messages = itemMap.get(itemid+'').messages||[];
-		itemMap.get(itemid+'').messages.push(message);
+		item = item.messages||[];
+		item.messages.push(message);
+		//本地化储存
+		setLocal(itemId,item.messages);
 		//dom操作
-
-
 		$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message)));
 	}
 	
@@ -498,11 +499,14 @@ function BeginSend()
 	window.sendFunctons = 
 	{
 		openNewChat :function(){},
-		closeChat :function(){},
+		deleteChat :function(){},
 		sendChat :function(tempName,tempPic,message){
 			var data = {type:0,tempName,tempPic,message:message};
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
+			//保存到本地
+			var itemId = message.itemId.split('|')[1]+'|'+message.itemId.split('|')[0];
+			setLocal(itemId,itemMap.get(itemId).messages);
 		},
 		moreChatMessage :function(){},
 		
