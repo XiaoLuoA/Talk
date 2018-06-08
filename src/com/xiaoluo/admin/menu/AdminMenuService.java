@@ -21,18 +21,8 @@ public class AdminMenuService {
 	
 	
 	public static void main(String[] args) {
-		 Configuration config = new Configuration().configure() ;        
-		    SessionFactory sf = config.buildSessionFactory() ;
-		User user=UserDao.me.findUser(11);
-		List<Menu> FirstMenuList=me.getUserMenu(user);
-		//System.out.println(Json.toJson(FirstMenuList));
-		for(int i=0;i<FirstMenuList.size();i++){
-			Menu FirstMenu= FirstMenuList.get(i);
-			for(int j=0;j<FirstMenu.getSubMenuList().size();j++){
-				
-				System.out.println(FirstMenu.getSubMenuList().get(j).getMenuName());
-			}
-		}
+		 
+		
 		
 		
 	}

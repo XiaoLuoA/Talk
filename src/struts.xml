@@ -78,8 +78,8 @@
 	
 	<!--  Role管理//listALL -->
 	<action name="arole_*" class="com.xiaoluo.admin.roles.AdminRolesAction" method="{1}">
-	  <result name="admin">/admin/menu.jsp</result>
-	  <result name="update">/admin/updateMenu.jsp</result>
+	  <result name="admin">/admin/role.jsp</result>
+	  <result name="update">/admin/updateRole.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
 	</action>
 	</package>

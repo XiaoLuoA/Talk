@@ -1,5 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,6 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="bootstrap/switchery.min.css">
 	
   </head>
+  <%
+         List<Menu> list=(List) session.getAttribute("menuList"); 
+         int i;
+         int j;  
+     %>
   
   <body>
   <div class="page-box">
@@ -34,52 +41,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="jfa-logo"></div>
              <div class="jfa-menu-box">
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
-                    <i class="left-icon fa fa-dashboard">
                     
-                    </i>
                                                      首页
                   </a>
-                  <a class="jfa-main-menu" home="false">
-                    <i class="left-icon fa fa-file-o">
-                    
-                    </i>
-                                                      用户管理
-                    <i class="right-icon fa fa-file-o">
-                    
-                    </i>
-                  </a>
-                  <ul class="jfa-sub-menu" style="display: block;">
-                     <li>
-                         <a href="">项目管理</a>
-                     </li>
-                     <li>
-                         <a href="">分享管理</a>
-                     </li>
-                     <li>
-                         <a href="">反馈管理</a>
-                     </li>
-                  </ul>
-                  <a class="jfa-main-menu" home="false"> 
-                     <i class="left-icon fa fa-user-o">
-                    
-                    </i>
-                                                        分组管理
-                    <i class="right-icon fa fa-lg fa-angle-down">
-                    
-                    </i>
                   
-                  </a>
-                  <ul class="jfa-sub-menu" style="display: block;">
-                     <li>
-                         <a href="">账户管理</a>
-                     </li>
-                     <li>
-                         <a href="">角色管理</a>
-                     </li>
-                     <li>
-                         <a href="">权限管理</a>
-                     </li>                  
-                  </ul>                                         
+                  
+                   <%
+              
+              for( i=0;i<list.size();i++){
+            	 %> 
+            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	 <%
+            	 
+            	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
+            		  %>
+            		  <ul class="jfa-sub-menu" style="display: block;"> 
+            		  <li> <a   href="<%out.print(list.get(i).getSubMenuList().get(j).getMenuUrl());%>"><%out.print(list.get(i).getSubMenuList().get(j).getMenuName());%></a></li>
+                 	   </ul>
+                 	
+                 	 <%
+            	    }
+            	  }
+            	 %>
+                
+                 
+                  
+                                                         
              </div>                    
           </div>    
           <div class="jfa-right-box">         
@@ -117,9 +104,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </tr>
 		<s:iterator  value="allUser" var="u" >
 	      <tr>
-	       <td><s:property value="#u.id"/></td>
-	       <td><s:property value="#u.name"/></td>
-	       <td><s:property value="#u.password"/></td>
+	        <td><s:property value="#u.id"/></td>
+	        <td><s:property value="#u.name"/></td>
+	        <td><s:property value="#u.password"/></td>
 			<td><s:property value="#u.status"/></td>
 			<td><s:property value="#u.roles"/></td>
 			<td><s:property value="#u.sex"/></td>
@@ -131,41 +118,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>			
 				</s:iterator>						 
           </table>
-            
-        </div> `
+             
+        </div> 
           <div class="addUser" >
             <a href="admin/addUser.jsp">添加用户</a>
-            
-            <s:debug>
-            <s:iterator value="menuList" var="m">
-                <s:property value="#m[0]"/>
-                <s:property value="m[0]"/>
-                <s:property value="#m[1]"/>
-            
-            
+           
+          
+             
+              
+             
+              
+               
+               
+               
+               
+               
+              
+             <%--   ${sessionScope.menuList[0].menuName}
+               ${sessionScope.menuList[1].menuName}
+             
+               ${sessionScope.menuList[0].subMenu[1].menuName}
+               ${sessionScope.menuList[1].subMenu[0].menuName}
+               ${sessionScope.menuList[1].subMenu[1].menuName} --%>
+               
+                <%--  <s:debug>
+            <s:iterator value="menuList" var="s">
+          
+           <a href="<s:property value="#s.menuUrl"/>"><s:property value="#s.menuName"></s:property></a>
+          
+            <s:property value="#s.subMenu"></s:property>
+              <s:property value="#s.subMenu[0]"></s:property>    
+                
                 </s:iterator>
+              
                 
-                
-               </s:debug>
+               </s:debug> --%>
           </div>
           
           
-          <s:iterator value="packagePlateTbls"  id="plateTbls">
-         <tr>
-             <td class='td_date'><s:property value="#plateTbls.plateName"/></td>
-            
-         </tr>
-         <s:iterator value="membershipPackagesTblVOs"  id="VO">
-              <s:if test="#VO.plateId==#plateTbls.plateId">
-                   <tr>
-                     <td class='td_date'></td>
-                     <td class='td_date'><s:property value="#VO.projectName"/></td>
-                     <td class='td_date'><s:property value="#VO.projectNo" /></td>
-                     <td class='td_date'><s:property value="#VO.executionNumber"/></td>
-                     </tr>    
-               </s:if>
-        </s:iterator>    
- </s:iterator>
+          
+
            
            </div>      
            
