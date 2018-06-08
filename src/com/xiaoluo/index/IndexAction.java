@@ -29,6 +29,11 @@ public class IndexAction extends ActionSupport{
 		return "index";
 	}
 	
+	@Override
+	public String execute() throws Exception {
+		return "adminPage";
+	}
+	
 	public void getAllMsg(){
 		User loginUser = (User)ActionContext.getContext().getSession().get("user");
 		List<UserItem> allMsg = IndexService.me.getAllItem(loginUser);
