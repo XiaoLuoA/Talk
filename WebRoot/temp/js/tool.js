@@ -59,6 +59,7 @@ TAb.prototype.active = function(Num){
 	var num = Num||0;
 	num = Number(num);
 	num = num>this.panles.length-1?this.panles.length-1:num;
+//	if(num==this.current){return ;}
 	this.panles[this.current].classList.remove("active");
 	this.showAreas[this.current].classList.remove("active");
 	this.panles[num].classList.add("active");
@@ -83,6 +84,7 @@ TAb.prototype.add = function(panle,showArea,isActive){
 //	panle.onclick =(function(event){console.log(event);self.active.call(self,num)});
 	if(this.panles.size==0||isActive)
 	{
+		console.log('为什么不显示呢','isActive',isActive,this.panles.length);
 		this.active(this.panles.length);
 	}
 	else
