@@ -32,7 +32,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <li><a href="myCenter/myCenter.jsp">个人信息</a></li>
                <li><a href="myCenter/messageCenter.jsp">消息中心</a></li>
                <li><a href="myCenter/changeInformation.jsp">修改信息</a></li>
-               
             </ul>
             </div>
         <div class="myInformation">  

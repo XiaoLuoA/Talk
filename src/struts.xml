@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+
+
 <package name="all" extends="struts-default">
+		
         <interceptors>
             <!-- 自定义的拦截器 -->
-            <interceptor name="menuInterceptor" class="com.xiaoluo.interceptor.MenuInterceptor"></interceptor>
+            <interceptor name="menuInterceptor" class="com.xiaoluo.interceptor.MenuAuthInterceptor"></interceptor>
             <!-- 定义拦截器栈 -->
            
             <interceptor-stack name="myinterceptor_stack">
-                <!-- 默认拦截器 -->
-                <interceptor-ref name="defaultStack"></interceptor-ref>
+               
                 <!-- 自定义拦截器 -->
+                 <interceptor-ref name="menuInterceptor"></interceptor-ref>
+                 
+                  <!-- 默认拦截器 -->
+                <interceptor-ref name="defaultStack"></interceptor-ref>
             </interceptor-stack>
             
         </interceptors>
         
         <!-- 默认拦截器 -->
-        <default-interceptor-ref name="myinterceptor_stack"></default-interceptor-ref>
-
+       <!--  <default-interceptor-ref name="myinterceptor_stack"></default-interceptor-ref> -->
+		
+		<!-- <default-action-ref name="index1"></default-action-ref> -->
+		
+		<!-- <default-action-ref name="index1"></default-action-ref> -->
+		
+		
         <!-- 全局结果集 -->
         <global-results>
             <result name="err">/err.jsp</result>
         </global-results>
+      <!--  <action name="index1">
+			<result >temp/index.jsp</result>
+		</action> -->
+       
     </package>
     
 
 	<package name="one" extends="all" >
+	
+	
 		<action name="user*" class="com.xiaoluo.user.UserAction" method="{1}">
 			<result name="loginSuccess">/index.jsp</result>
 			<result name="registSuccess">/login/login.jsp</result>
@@ -39,7 +56,6 @@
 		
 		<action name="index*" class="com.xiaoluo.index.IndexAction" method="{1}">
 			<result name="index">temp/index.jsp</result>
-			
 		</action>
 		
 		<action name="chat*" class="com.xiaoluo.talk.TalkAction" method="{1}">
@@ -47,7 +63,10 @@
 			<result name="master">/page/master/master.jsp</result>
 		</action>
 		
-		
+		<action name="admin" class="com.xiaoluo.index.IndexAction" >
+	 	 <result name="adminPage">/admin/index.jsp</result>
+	 	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	</action>
 
 
 		
@@ -57,6 +76,7 @@
 	  <result name="admin">/admin/index.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	
 	
@@ -65,6 +85,7 @@
 	  <result name="admin">/admin/group.jsp</result>
 	  <result name="update">/admin/updateGroup.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	
 	
@@ -74,6 +95,7 @@
 	  <result name="admin">/admin/menu.jsp</result>
 	  <result name="update">/admin/updateMenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	
 	<!--  Role管理//listALL -->
@@ -81,6 +103,7 @@
 	  <result name="admin">/admin/role.jsp</result>
 	  <result name="update">/admin/updateRole.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	</package>
 	
