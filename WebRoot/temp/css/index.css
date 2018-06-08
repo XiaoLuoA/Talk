@@ -59,9 +59,9 @@ body
 	box-shadow: 6px 7px 5px rgba(0,0,0,0.2);
 }
 #MessageArea .detail-item:not(.active),
-#GroupMessageArea .detail-item:not(.active)
+#GroupMessageArea .group-detail-item:not(.active)
 {
-	display:none;
+	display:none !important;
 }
 
 

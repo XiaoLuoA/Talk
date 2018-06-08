@@ -325,6 +325,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				msg.put("type", 3);
 				msg.put("userId", user.getId());
+				msg.put("groupId", groupId);
 				//将消息格式化
 				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
 				//发送到群组

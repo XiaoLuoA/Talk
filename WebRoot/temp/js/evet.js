@@ -1,32 +1,198 @@
-function newTalk(event)
+/*
+ * 打开itemid对应的item
+ */
+function newTalk(itemId)
+{
+	console.log('激活会话',itemId);
+	var index = Tab.attrMap.get(itemId);
+	//查询是否已经添加
+	if(index)
+	{
+		//已经添加,找到对应索引并激活
+		Tab.active(index);
+	}
+	else
+	{
+		var item = itemMap.get(itemId+'');
+		//未添加，添加并激活
+		var $newChoseItem = $(createChoseItem(item));
+		var $newDetailItem = $(detailItemTpl(item));
+		$choseList.append($newChoseItem);
+		$detailList.append($newDetailItem);
+		console.log('添加成功',$newChoseItem[0],$newDetailItem[0]);
+		Tab.add($newChoseItem[0],$newDetailItem[0],true);
+	}
+}
+function newTalkBtn(event)
 {
 	var itemDom = $(event.target);
 	
 	if(true)
 	{
 		itemDom = itemDom.hasClass('item-item')?itemDom:$(itemDom.parents('.item-item'));
-		var id = itemDom.attr('data-index');//得到id
-		
-		var index = Tab.attrMap.get(id);
-		//查询是否已经添加
-		if(index)
-		{
-			//已经添加,找到对应索引并激活
-			Tab.active(index);
-		}
-		else
-		{
-			var item = itemMap.get(id+'');
-			//未添加，添加并激活
-			var $newChoseItem = $(createChoseItem(item));
-			var $newDetailItem = $(detailItemTpl(item));
-			$choseList.append($newChoseItem);
-			$detailList.append($newDetailItem);
-			Tab.add($newChoseItem[0],$newDetailItem[0]);
-		}
+		var itemId = itemDom.attr('data-index');//得到id
+		newTalk(itemId);
 	}
 	event.stopPropagation();
 }
+
+function newGroupChat($DOM)
+{
+	var groupId  = $DOM.attr('data-inDex');
+	//首先判断是否已经添加
+	console.log('群组查找',groupId,openGroupMap);
+	var group = openGroupMap.get(groupId)
+	if(group)
+	{
+		//已经打开 ，激活就好
+		var index = GroupChatTab.attrMap.get(groupId);
+		GroupChatTab.active(inedx);
+	}
+	else
+	{
+		//未打开 ，先打开再激活
+		var groupName= $DOM.find('.group-name').html();
+		//先添加MAP
+		var group =
+		{
+			id :groupId,
+			groupName :groupName,
+			groupNum:1,
+			messages:[],
+			users:[],
+		}
+		groups.push(group);
+		openGroupMap.set( groupId,group);
+		//创建dom
+		var $newGroupChoseItem = $(groupChoseItemTpl(group));
+		var $newGroupDetailItem = $(groupDetailItemTpl(group));
+		$groupChoseList.append($newGroupChoseItem);
+		$groupDetailList.append($newGroupDetailItem);
+		console.log('群聊渲染完成',$newGroupChoseItem,$newGroupDetailItem)
+		GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailItem[0],true);
+		//渲染成功后开始发建立链接
+		var data = {groupId:groupId,};
+		//先请求数据
+		$.ajax({
+			url:'chatgetGroupInfo.action',
+			data:data,
+			success:function(Res){
+				console.log('群聊加入请求成功',Res);
+				var res = JSON.parse(Res);
+				console.log('接收到的数据',res,res.items);
+				group.messages = res.items||[];
+				group.users = res.users;
+				group.groupNum = group.users.length+1;
+
+				var newMessageHtml = [];
+				var newUserHtml = [];
+				group.messages.forEach(function(message,index){
+					newMessageHtml.push(groupMessageTpl(message));
+				});
+				group.users.forEach(function(user,index){
+					newUserHtml.push(groupUserTpl(user));
+				});
+				$newGroupDetailItem.find('.group-user-top .num').html(group.groupNum);
+				console.log(newMessageHtml.join(''));
+				console.log(newUserHtml.join(''));
+				$($groupDetailList.find('.group-message-list ul')).append($(newMessageHtml.join('')));
+				$($groupDetailList.find('.user-list')).append($(newUserHtml.join('')));
+			
+			},
+			error:function(Res){
+				console.log('群聊加入请求失败',Res,JSON.parse(Res));
+			},
+			setTimeOut: 2000,
+			timeOut: 2000,
+		});
+		//发送tio请求
+		var tioData = 
+		{
+			groupId:groupId,
+		};
+		sendFunctons.openNewGroupChat(tioData);
+	}
+}
+
+function newGroupChatBtn(event)
+{
+	var $DOM = $(event.target);
+	$DOM.hasClass('group')?true:$DOM=$($DOM.parents('.group'));
+	//从前台获取属性
+	newGroupChat($DOM);
+	
+	$chatOverlay.addClass('hidden');
+	$GroupChatOverlay.removeClass('hidden');
+	
+//	var groupId  = $DOM.attr('data-inDex');
+//	if(openGroupMap.get(groupId+'')){	event.stopPropagation();;return false;}
+//	var groupName= $DOM.find('.group-name').html();
+//	
+//	//先添加MAP
+//	var group =
+//	{
+//		id :groupId,
+//		groupName :groupName,
+//		groupNum:1,
+//		messages:[],
+//		users:[],
+//	}
+//	groups.push(group);
+//	openGroupMap.set( groupId,group);
+////	console.log('插入的值',groupId,group);
+//	//然后渲染
+//	//生成panels 和showAreas
+//	var $newGroupChoseItem = $(groupChoseItemTpl(group));
+//
+//	var $newGroupDetailItem = $(groupDetailItemTpl(group));
+//
+//	
+//	$groupChoseList.append($newGroupChoseItem);
+//	$groupDetailList.append($newGroupDetailItem);
+//	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailItem[0]);
+//	//渲染完成后 ，开始初始华群消息
+//	var data = {groupId:groupId,};
+//	$.ajax({
+//		url:'chatgetGroupInfo.action',
+//		data:data,
+//		success:function(Res){
+//			console.log('群聊加入请求成功',Res);
+//			var res = JSON.parse(Res);
+//			//调用渲染操作
+//			console.log('接收到的数据',res,res.items);
+//			group.messages = res.items||[];
+//			group.users = res.users;
+//			group.groupNum = group.users.length+1;
+//
+//			var newMessageHtml = [];
+//			var newUserHtml = [];
+//			group.messages.forEach(function(message,index){
+//				newMessageHtml.push(groupMessageTpl(message));
+//			});
+//			group.users.forEach(function(user,index){
+//				newUserHtml.push(groupUserTpl(user));
+//			});
+//			$newGroupDetailItem.find('.group-user-top .num').html(group.groupNum);
+//			console.log(newMessageHtml.join(''));
+//			console.log(newUserHtml.join(''));
+//			$($groupDetailList.find('.group-message-list')).append($(newMessageHtml.join('')));
+//			$($groupDetailList.find('.user-list')).append($(newUserHtml.join('')));
+//			
+//		},
+//		error:function(Res){
+//			console.log('群聊加入请求失败',Res,JSON.parse(Res));
+//		},
+//		setTimeOut: 2000,
+//		timeOut: 2000,
+//	});
+//	//发送tio请求
+//	var tioData = 
+//	{
+//		groupId:groupId,
+//	};
+//	sendFunctons.openNewGroupChat(tioData);
+}
+
 function newItemBtn(event){
 	var $dom = $(event.target);
 	console.log('点击用户方法出发',$dom);
@@ -67,22 +233,23 @@ function newItemBtn(event){
 		//加入map
 		itemMap.set(newItem.userItemId,newItem);
 		console.log('产生的对象',newItem);
-		console.log('产生的item',item);
 		//渲染吧
 		$itemList.append(ItemItemTpl(newItem));
 		//硬生生创造出 palen showArea
-		var $newChoseItem = $(createChoseItem(newItem));
-		var $newDetailItem = $(detailItemTpl(newItem));
-		$choseList.append($newChoseItem);
-		$detailList.append($newDetailItem);
-		console.log('产生的dom',$newChoseItem,$newDetailItem);
-		Tab.add($newChoseItem[0],$newDetailItem[0]);
+//		var $newChoseItem = $(createChoseItem(newItem));
+//		var $newDetailItem = $(detailItemTpl(newItem));
+//		$choseList.append($newChoseItem);
+//		$detailList.append($newDetailItem);
+//		console.log('产生的dom',$newChoseItem,$newDetailItem);
+//		Tab.add($newChoseItem[0],$newDetailItem[0]);
+		newTalk(newItem.userItemId);
 		$GroupChatOverlay.addClass('hidden');
 		$chatOverlay.removeClass('hidden');
 	}
 	else{
 		console.log('已经点开了','激活',item.getAttribute('data-index'),item);
-		Tab.active(item.getAttribute('data-index'));
+//		Tab.activeByKey(item.getAttribute('data-index'));
+		newTalk(item.getAttribute('data-index'));
 		$GroupChatOverlay.addClass('hidden');
 		$chatOverlay.removeClass('hidden');
 	}
@@ -205,10 +372,12 @@ function BieginListener(event, ws)
 			newGroupMessageListener(res.message);
 			break;
 		case 3:
-			memberOutListener(res.message);
+//			memberOutListener(res.message);
+			memberOutListener(res);
 			break;
 		case 4:
-			newItemListener(res.message);
+//			newItemListener(res.message);
+			newItemListener(res.message)
 			break;
 	}
 
@@ -228,7 +397,7 @@ function BieginListener(event, ws)
 		//dom操作
 
 
-		$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
+		$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message)));
 	}
 	
 	function newGroupMemberListener(data)
@@ -241,7 +410,7 @@ function BieginListener(event, ws)
 		
 		var group = openGroupMap.get(groupId);
 
-		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		group.groupNum = groupNum;
 		$groupDetailItem.find('.group-user-top .num').html(group.groupNum);
 
@@ -269,19 +438,19 @@ function BieginListener(event, ws)
 	function memberOutListener(data)
 	{
 		var message = data;
-		var groupId = data.groupId;
-		var user = data.user;
+		var groupId = message.groupId;
+		var userId = message.userId;
 		//如果是本人不执行操作
-		if(user.id==UserId){return false;}
+		if(userId==UserId){return false;}
 		var group = openGroupMap.get(groupId +'');
 		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
-		var userItems = $groupDetailItem[0].querySelectAl('li.user-item');
+		var userItems = $groupDetailItem[0].querySelectorAll('li.user-item');
 		//在前台清除dom
 		var userItem;
 		for(let index=userItems.length-1;index>=0;index--)
 		{
 			userItem = userItems[index];
-			if(userItem.getAttribute('data-index')==user.id)
+			if(userItem.getAttribute('data-index')==userId)
 			{
 				userItem.parentNode.removeChild(userItem);
 				break;
@@ -292,11 +461,12 @@ function BieginListener(event, ws)
 		for(let index=group.users.length-1;index>=0;index--)
 		{
 			GroupUserId = group.users[index].id;
-			if(GroupUserId==user.id)
+			if(GroupUserId==userId)
 			{
 				group.users.splice(index,1);
 				break;
 			}
+			
 		}
 		//修改在线人数
 		group.groupNum--;
@@ -308,17 +478,18 @@ function BieginListener(event, ws)
 	function newItemListener(data)
 	{
 		//变量操作
-		var item = data;
+		var item = data.items;
 		//添加一个item
+		items.push(items);
 		itemMap.set(item.userItemId,item);
 		//dom操作
 		$itemList.append(ItemItemTpl(item));
 		//硬生生创造出 palen showArea
-		var $newChoseItem = $(createChoseItem(item));
-		var $newDetailItem = $(detailItemTpl(item));
-		$choseList.append($newChoseItem);
-		$detailList.append($newDetailItem);
-		Tab.add($newChoseItem[0],$newDetailItem[0]);
+//		var $newChoseItem = $(createChoseItem(item));
+//		var $newDetailItem = $(detailItemTpl(item));
+//		$choseList.append($newChoseItem);
+//		$detailList.append($newDetailItem);
+//		Tab.add($newChoseItem[0],$newDetailItem[0]);
 		//已经创建并激活
 	} 
 }
@@ -385,7 +556,7 @@ function sendChatBtn(event)
 	
 	//添加本消息并渲染
 	item.messages.push(message);
-	$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
+	$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message)));
 	//消除本地消息
 	$textArea.val('');
 	//修改itemID方便对方接受
@@ -395,78 +566,7 @@ function sendChatBtn(event)
 	sendFunctons.sendChat(tempName,tempPic,message);
 }
 
-function newGroupChat(event)
-{
-	var $DOM = $(event.target);
-	$DOM.hasClass('group')?true:$DOM=$($DOM.parents('.group'));
-	//从前台获取属性
-	var groupId  = $DOM.attr('data-inDex');
-	if(openGroupMap.get(groupId+'')){	event.stopPropagation();;return false;}
-	var groupName= $DOM.find('.group-name').html();
-	//先添加MAP
-	var group =
-	{
-		id :groupId,
-		groupName :groupName,
-		groupNum:1,
-		messages:[],
-		users:[],
-	}
-	groups.push(group);
-	openGroupMap.set( groupId,group);
-//	console.log('插入的值',groupId,group);
-	//然后渲染
-	//生成panels 和showAreas
-	var $newGroupChoseItem = $(groupChoseItemTpl(group));
 
-	var $newGroupDetailItem = $(groupDetailItemTpl(group));
-
-	
-	$groupChoseList.append($newGroupChoseItem);
-	$groupDetailList.append($newGroupDetailItem);
-	GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailItem[0]);
-	//渲染完成后 ，开始初始华群消息
-	var data = {groupId:groupId,};
-	$.ajax({
-		url:'chatgetGroupInfo.action',
-		data:data,
-		success:function(Res){
-			console.log('群聊加入请求成功',Res);
-			var res = JSON.parse(Res);
-			//调用渲染操作
-			console.log('接收到的数据',res,res.items);
-			group.messages = res.items||[];
-			group.users = res.users;
-			group.groupNum = group.users.length+1;
-
-			var newMessageHtml = [];
-			var newUserHtml = [];
-			group.messages.forEach(function(message,index){
-				newMessageHtml.push(groupMessageTpl(message));
-			});
-			group.users.forEach(function(user,index){
-				newUserHtml.push(groupUserTpl(user));
-			});
-			$newGroupDetailItem.find('.group-user-top .num').html(group.groupNum);
-			console.log(newMessageHtml.join(''));
-			console.log(newUserHtml.join(''));
-			$($groupDetailList.find('.group-message-list')).append($(newMessageHtml.join('')));
-			$($groupDetailList.find('.user-list')).append($(newUserHtml.join('')));
-			
-		},
-		error:function(Res){
-			console.log('群聊加入请求失败',Res,JSON.parse(Res));
-		},
-		setTimeOut: 2000,
-		timeOut: 2000,
-	});
-	//发送tio请求
-	var tioData = 
-	{
-		groupId:groupId,
-	};
-	sendFunctons.openNewGroupChat(tioData);
-}
 
 function sendGroupChatBtn(event)
 {
@@ -500,7 +600,7 @@ function closeGroupBtn(event)
 	//remove
 	GroupChatTab.remove(groupId,true);
 	//从map中移除
-	itemMap.delete(groupId+'');
+	openGroupMap.delete(groupId+'');
 	
 	//前台组件移除完毕，开始向后台发送
 	var tioData = {groupId:groupId};
@@ -526,7 +626,7 @@ function bindEvent()
 	
 	GroupChatTab = TabByClass('GroupMessageArea','group-chose-item','group-detail-item');
 	GroupChatTab.madeMap('data-index');
-	GroupChatTab.addSelect('.cls-btn')
+	GroupChatTab.addSelect('.cls-btn');
 	
 	//添加点击事件
 	
@@ -536,13 +636,13 @@ function bindEvent()
 	//点击创建新会话
 	$groupDetailList.on('click','.item-btn',newItemBtn);
 	//点击创建新对话
-	$itemList.on('click','.item-item',newTalk);
+	$itemList.on('click','.item-item',newTalkBtn);
 	//点击关闭对话
 	$choseList.on('click','.cls-btn',closeTalkBtn);
 	//点击发送私聊消息
 	$detailList.on('click','button',sendChatBtn);
 	//点击创建新群聊
-	$('.group-area').on('click','.group',newGroupChat);
+	$('.group-area').on('click','.group',newGroupChatBtn);
 	//点击发送群聊消息
 	$groupDetailList.on('click','button',sendGroupChatBtn);
 	//点击关闭当前群聊

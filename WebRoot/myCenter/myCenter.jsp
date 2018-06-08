@@ -32,16 +32,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <li><a href="myCenter/myCenter.jsp">个人信息</a></li>
                <li><a href="myCenter/messageCenter.jsp">消息中心</a></li>
                <li><a href="myCenter/changeInformation.jsp">修改信息</a></li>
-               <li><a href="">我的消息</a></li>
             </ul>
             </div>
         <div class="myInformation">  
           <ul>
             <li>我的头像：<s:property value="#session.user.pic"/></li>
-            <li>用户名：<s:property value="#user.name"/></li>
-            <li>密    码：<s:property value="#user.password"/></li>
-            <li>性    别：<s:property value="#user.sex"/></li>
-            <li>邮    箱：<s:property value="#user.email"/></li>
+            <li>用户名：<s:property value="#session.user.name"/></li>
+            <li>密    码：<s:property value="#session.user.password"/></li>
+            <li>性    别：<s:property value="#session.user.sex"/></li>
+            <li>邮    箱：<s:property value="#session.user.email"/></li>
           </ul>
         </div>                        
       </div>

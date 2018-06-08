@@ -16,13 +16,13 @@ body{
 
 .text{
 	padding-top:20px;
-	font-size:50px;
+	font-size:40px;
 	height:80px;
 	font-family:黑体;
 }
 
 .register{	
-	height:580px;
+	height:630px;
 	width:500px;
 	background-color:white;
 	font-size:30px;

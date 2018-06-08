@@ -27,19 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     <div class="form">
      <div class="text">修 改 密 码</div>
-    <form id="find_form" action="userfindPass.action" method="post">
+    <form id="find_form" action="userfindPass.action" onsubmit="return validate_form(this)" method="post">
        <table>
          <tr>                       
            <td>
               <div class="td">
-                <input type="text" class="input" placeholder="账号" required="required" name="name">
+                <input type="text" class="input" placeholder="用户名"  name="name">
               </div>
            </td>              
          </tr> 
          <tr>
       	   <td>
       	      <div class="td">
-      	         <input    type="email"  class="input" name="email" placeholder="邮箱" required="required">
+      	         <input    type="text"  class="input" name="email" placeholder="邮箱" >
       	       </div>
       	   </td> 
       	 </tr> 
@@ -54,12 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </form>
     
     
-       <form id="check_form" action="userreg.action" method="post">
+       <form id="check_form"  action="userreg.action" onsubmit="return validate_form1(this)" method="post">
          <table class="l2">
             <tr>
               <td>
                 <div class="td">
-      	         <input class="input" type="text" name="regNum" placeholder="验证码" required="required">
+      	         <input class="input" type="text" name="regNum" placeholder="验证码" >
       	         </div>
                  <div class="td">
                     <input class="button" type="submit"  value="确定" >
@@ -71,123 +71,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </form>
       </div>  
        
-         <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
-	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
-	<script type="text/javascript" src="layer/layer/layer.js"></script>
-    <script type="text/javascript">
+        <script type="text/javascript">
+
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  if (value==null||value=="")
+    {alert(alerttxt);return false}
+  else {return true}
+  }
+}
+
+/*用户名邮箱不能为空*/
+function validate_form(thisform)
+{
+with (thisform)
+  {
+  if (validate_required(name,"用户名不能为空!")==false)
+    {
+    email.focus();return false
+    }if (validate_required(email,"邮箱不能为空!")==false)
+    {email.focus();return false}
     
-		$(document).ready(function() {
-			
-			$("#find_form").ajaxForm(
-			{
-				dataType: "json"
-				, 
-				beforeSubmit: function(formData, jqForm, options)
-				{       // 表单提交之前回调
-					
-				}
-				, success: function(ret) 
-				{
-					// 业务层验证成功
-					if(ret.isOk)
-					{
-						layer.open({
-							 title: '页面提示'
-							 ,content: '邮件发送成功，注意查收！',
-							 yes: function(index, layero){
-								    layer.close(index); 
-								  }
-							});     
-						return ;
-					}
-					
-					// 业务层验证失败
-					if (ret.isFail)
-					{
-						layer.msg(ret.msg,
-								{
-									shift: 6
-									, shade: 0.3
-									, time: 2500
-									, offset: "165px"
-									, closeBtn: 1
-									, shadeClose: true
-								} , 
-								function() 
-								{
-									
-								}
-						);
-						return ;
-					}
-	            }
-					
-				
-				, error: function(ret)
-				{
-					
-				}              // ret.status != 200 时回调
-				, complete: function(ret) 
-				{
-					
-				}       // 无论是 success 还是 error，最终都会被回调
-			});
-		}
-		);
-		
-		$(document).ready(function() {
-			$("#check_form").ajaxForm(
-			{
-				dataType: "json"
-				, beforeSubmit: function(formData, jqForm, options)
-				{       // 表单提交之前回调
-					
-				}
-				, success: function(ret) 
-				{
-					// 业务层验证成功
-					if(ret.isOk)
-					{
-						window.location.href="userchangePage.action";
-						return ;
-					}
-					
-					// 业务层验证失败
-					if (ret.isFail)
-					{
-						layer.msg(ret.msg,
-								{
-									shift: 6
-									, shade: 0.3
-									, time: 2500
-									, offset: "165px"
-									, closeBtn: 1
-									, shadeClose: true
-								} , 
-								function() 
-								{
-									
-								}
-						);
-						return ;
-					}
-					
-				}
-				, error: function(ret)
-				{
-					
-				}              // ret.status != 200 时回调
-				, complete: function(ret) 
-				{
-					
-				}       // 无论是 success 还是 error，最终都会被回调
-			});
-		}
-		
-		);
-		
-		
-	</script>
+  }
+}
+
+/*验证码不能为空*/
+function validate_form1(thisform)
+{
+with (thisform)
+  {
+  if (validate_required(regNum,"验证码不能为空!")==false)
+    {
+    regNum.focus();return false
+    }
+  }
+}
+
+/*邮箱格式*/
+
+function validate_email(field,alerttxt)
+{
+with (field)
+{
+apos=value.indexOf("@")
+dotpos=value.lastIndexOf(".")
+if (apos<1||dotpos-apos<2) 
+  {alert(alerttxt);return false}
+else {return true}
+}
+}
+
+function validate_form(thisform)
+{
+with (thisform)
+{
+if (validate_email(email,"邮箱格式不正确!")==false)
+  {email.focus();return false}
+}
+}
+
+</script>
+        
   </body>
 </html>
 

@@ -33,17 +33,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <table class="register1">      	     
           <tr> 
           <div class="tr">       
-                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名" required="required"  name="name" id="uname">
+                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名"   name="name" id="uname">
            </div>
           </tr>      
            <tr> 
            <div class="tr">                                           
-                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" required="required">    
+                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" >    
             </div>               
           </tr>
            <tr>             
             <div class="tr">   
-                密   码： <input type="password" class="input" name="password2" placeholder="请再一次输入密码" required="required">
+                密   码： <input type="password" class="input" name="password2" placeholder="请再一次输入密码" >
              </div>       
           </tr>
           <tr>
@@ -53,17 +53,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	   </tr>
       	   <tr>
       	     <div class="tr">   
-      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" required="required">
+      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" >
       	        </div>      	    
       	   </tr>   
       	   <tr>
       	      <div class="tr">   
-      	           头     像： <input type="file" class="input"  name="pic" required="required">
+      	           头     像： <input type="file" class="input"  name="pic" >
       	        </div>      	    
       	   </tr>     	                  
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
+    <input type=button class="registerbutton" value="返 回" onclick="window.location.href='login/login.jsp'">
     </div>
 
      <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>

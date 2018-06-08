@@ -19,12 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="css/login.css">	
 	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
-	
-	
-	
-	
-  </head>
-  
+		
+  </head> 
   <body>
   <div class="top">
           </div>      
@@ -36,18 +32,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <tr>
                  <td>
                   <div class="td">
-                   <input class="input1 zhanghao zhanghaosize" type="text" placeholder="账号" required="required"  name="name">
+                   <input class="input1 zhanghao zhanghaosize" type="text" placeholder="账号"   name="name">
                    </div>
                  </td>
                </tr>                                                  
                <tr>
                  <td>
                  <div class="td1">
-                   <input class="input2 mima mimasize" type="password" placeholder="密码" required="required"  name="password">
+                   <input class="input2 mima mimasize" type="password" placeholder="密码"   name="password">
                    </div> 
                  </td>
-               </tr>   
-                                                                       
+               </tr>                                                                          
                </table> 
                <div class="link1">
                 <a href="userregPage.action">立即注册</a> 
@@ -57,6 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>
                <input  class="loginbutton" type="submit" value="登 录">                
               </form>
+              <input type=button class="loginbutton" value="返 回" onclick="window.location.href='../login/login.jsp'">
             </div>        
       </div>    
     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
@@ -69,7 +65,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 和业务相关的js，业务需要修改 -->
 <script src="page/DemoHandler.js"></script>
 <script src="page/demo.js"></script>
-
 
     <script type="text/javascript">
     

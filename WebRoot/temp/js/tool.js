@@ -1,3 +1,4 @@
+
 function TabByClass(id,panleClass,showAreaClass,num)
 {
 	var container = document.getElementById(id);
@@ -5,7 +6,6 @@ function TabByClass(id,panleClass,showAreaClass,num)
 	var showAreas = Array.prototype.slice.call(container.querySelectorAll("."+showAreaClass));
 	return new TAb(panles,showAreas,num||0);
 }
-
 function TAb(panles,showAreas,num)
 {
 	var length = panles.length>showAreas.length?showAreas.length:panles.length;
@@ -44,12 +44,22 @@ TAb.prototype.allHide = function(){
    this.panles.forEach(function(a,b){a.classList.add("hidden");});
    this.showAreas.forEach(function(a,b){a.classList.add("hidden");});
 };
-
+TAb.prototype.activeByKey = function(key){
+	if(this.attrMap)
+	{
+		this.active(this.attrMap.get(key));
+	}
+	else
+	{
+		this.active(key)
+	}
+}
 TAb.prototype.active = function(Num){
 //	console.log(44,Num,this)
 	var num = Num||0;
 	num = Number(num);
 	num = num>this.panles.length-1?this.panles.length-1:num;
+//	if(num==this.current){return ;}
 	this.panles[this.current].classList.remove("active");
 	this.showAreas[this.current].classList.remove("active");
 	this.panles[num].classList.add("active");
@@ -74,6 +84,7 @@ TAb.prototype.add = function(panle,showArea,isActive){
 //	panle.onclick =(function(event){console.log(event);self.active.call(self,num)});
 	if(this.panles.size==0||isActive)
 	{
+		console.log('为什么不显示呢','isActive',isActive,this.panles.length);
 		this.active(this.panles.length);
 	}
 	else
