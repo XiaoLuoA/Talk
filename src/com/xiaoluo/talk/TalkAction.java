@@ -29,6 +29,7 @@ public class TalkAction extends ActionSupport{
 	public void getGroupInfo(){
 		try {
 		String groupId = (String) ActionContext.getContext().get("groupId");
+		System.out.println("ajax"+groupId);
 		MyQueue<GroupsMess> gMess = CommonData.groupsMess.get(groupId);
 		
 		if(gMess == null){

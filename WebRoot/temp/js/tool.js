@@ -67,11 +67,12 @@ TAb.prototype.add = function(panle,showArea,isActive){
 	this.panles.push(panle);
 	this.showAreas.push(showArea);
 	this.panles.size++;
+	if(isActive!=true){isActive=false;}
 	let num = self.panles.length-1
 	panle.target = showArea;
 	panle.addEventListener('click',function(event){if(self.clickFlag.call(self,event)){return;};self.active.call(self,num)});
 //	panle.onclick =(function(event){console.log(event);self.active.call(self,num)});
-	if(this.panles.size==0||isActive||true)
+	if(this.panles.size==0||isActive)
 	{
 		this.active(this.panles.length);
 	}
@@ -93,10 +94,11 @@ TAb.prototype.add = function(panle,showArea,isActive){
 TAb.prototype.remove = function(num,isClear){
 	
 	if(this.attrMap)
-	{
+	{ console.log('存在map',this.attrMap,num);
 		var a = this.attrMap.get(num);
 		this.attrMap.delete(num);
 		num = a;
+		console.log('当前的num',a);
 	}
 	var start = num;
 	var panle = this.panles[num];
