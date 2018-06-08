@@ -1,3 +1,4 @@
+
 function TabByClass(id,panleClass,showAreaClass,num)
 {
 	var container = document.getElementById(id);
@@ -5,7 +6,6 @@ function TabByClass(id,panleClass,showAreaClass,num)
 	var showAreas = Array.prototype.slice.call(container.querySelectorAll("."+showAreaClass));
 	return new TAb(panles,showAreas,num||0);
 }
-
 function TAb(panles,showAreas,num)
 {
 	var length = panles.length>showAreas.length?showAreas.length:panles.length;
@@ -44,7 +44,16 @@ TAb.prototype.allHide = function(){
    this.panles.forEach(function(a,b){a.classList.add("hidden");});
    this.showAreas.forEach(function(a,b){a.classList.add("hidden");});
 };
-
+TAb.prototype.activeByKey = function(key){
+	if(this.attrMap)
+	{
+		this.active(this.attrMap.get(key));
+	}
+	else
+	{
+		this.active(key)
+	}
+}
 TAb.prototype.active = function(Num){
 //	console.log(44,Num,this)
 	var num = Num||0;

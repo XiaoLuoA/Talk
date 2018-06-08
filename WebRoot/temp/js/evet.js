@@ -1,29 +1,54 @@
-function newTalk(event)
+/*
+ * 打开itemid对应的item
+ */
+function newTalk(itemId)
+{
+	console.log('激活会话',itemId);
+	var index = Tab.attrMap.get(itemId);
+	//查询是否已经添加
+	if(index)
+	{
+		//已经添加,找到对应索引并激活
+		Tab.active(index);
+	}
+	else
+	{
+		var item = itemMap.get(itemId+'');
+		//未添加，添加并激活
+		var $newChoseItem = $(createChoseItem(item));
+		var $newDetailItem = $(detailItemTpl(item));
+		$choseList.append($newChoseItem);
+		$detailList.append($newDetailItem);
+		console.log('添加成功',$newChoseItem[0],$newDetailItem[0]);
+		Tab.add($newChoseItem[0],$newDetailItem[0],true);
+	}
+}
+function newTalkBtn(event)
 {
 	var itemDom = $(event.target);
 	
 	if(true)
 	{
 		itemDom = itemDom.hasClass('item-item')?itemDom:$(itemDom.parents('.item-item'));
-		var id = itemDom.attr('data-index');//得到id
-		
-		var index = Tab.attrMap.get(id);
-		//查询是否已经添加
-		if(index)
-		{
-			//已经添加,找到对应索引并激活
-			Tab.active(index);
-		}
-		else
-		{
-			var item = itemMap.get(id+'');
-			//未添加，添加并激活
-			var $newChoseItem = $(createChoseItem(item));
-			var $newDetailItem = $(detailItemTpl(item));
-			$choseList.append($newChoseItem);
-			$detailList.append($newDetailItem);
-			Tab.add($newChoseItem[0],$newDetailItem[0]);
-		}
+		var itemId = itemDom.attr('data-index');//得到id
+		newTalk(itemId);
+//		var index = Tab.attrMap.get(id);
+//		//查询是否已经添加
+//		if(index)
+//		{
+//			//已经添加,找到对应索引并激活
+//			Tab.active(index);
+//		}
+//		else
+//		{
+//			var item = itemMap.get(id+'');
+//			//未添加，添加并激活
+//			var $newChoseItem = $(createChoseItem(item));
+//			var $newDetailItem = $(detailItemTpl(item));
+//			$choseList.append($newChoseItem);
+//			$detailList.append($newDetailItem);
+//			Tab.add($newChoseItem[0],$newDetailItem[0]);
+//		}
 	}
 	event.stopPropagation();
 }
@@ -82,7 +107,8 @@ function newItemBtn(event){
 	}
 	else{
 		console.log('已经点开了','激活',item.getAttribute('data-index'),item);
-		Tab.active(item.getAttribute('data-index'));
+//		Tab.activeByKey(item.getAttribute('data-index'));
+		newTalk(item.getAttribute('data-index'));
 		$GroupChatOverlay.addClass('hidden');
 		$chatOverlay.removeClass('hidden');
 	}
@@ -241,7 +267,7 @@ function BieginListener(event, ws)
 		
 		var group = openGroupMap.get(groupId);
 
-		var $groupDetailItem = GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)];
+		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		group.groupNum = groupNum;
 		$groupDetailItem.find('.group-user-top .num').html(group.groupNum);
 
@@ -385,7 +411,7 @@ function sendChatBtn(event)
 	
 	//添加本消息并渲染
 	item.messages.push(message);
-	$($DetailItem.find('.message-list')).append($(chatMessageTpl(message)));
+	$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message)));
 	//消除本地消息
 	$textArea.val('');
 	//修改itemID方便对方接受
@@ -536,7 +562,7 @@ function bindEvent()
 	//点击创建新会话
 	$groupDetailList.on('click','.item-btn',newItemBtn);
 	//点击创建新对话
-	$itemList.on('click','.item-item',newTalk);
+	$itemList.on('click','.item-item',newTalkBtn);
 	//点击关闭对话
 	$choseList.on('click','.cls-btn',closeTalkBtn);
 	//点击发送私聊消息
