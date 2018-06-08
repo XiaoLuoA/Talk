@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <li><a href="myCenter/myCenter.jsp">个人信息</a></li>
                <li><a href="myCenter/messageCenter.jsp">消息中心</a></li>
                <li><a href="myCenter/changeInformation.jsp">修改信息</a></li>
-               <li><a href="">我的消息</a></li>
+               
             </ul>
             </div>
     <div class="changeInformation">  
@@ -81,5 +81,136 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <%@include file="../index/foot.html"%>
         </div>
      </div> 
+     
+     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
+	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
+    
+    <script type="text/javascript" src="layer/layer/layer.js"></script>
+    
+     <script type="text/javascript">
+     
+		$(document).ready(function() {
+			$("#reg_form").ajaxForm(
+			{
+				dataType: "json"
+				, beforeSubmit: function(formData, jqForm, options)
+				{       // 表单提交之前回调
+					
+				}
+				, success: function(ret) 
+				{
+					// 业务层验证成功
+					if(ret.isOk)
+					{
+						layer.open({
+							 title: '页面提示'
+							 ,content: '注册成功！',
+							 yes: function(index, layero){
+								   window.location.href="userloginPage.action";
+								    layer.close(index); 
+								  }
+							});     
+						return ;
+					}
+					
+					// 业务层验证失败
+					if (ret.isFail)
+					{
+						layer.msg(ret.msg,
+								{
+									shift: 6
+									, shade: 0.3
+									, time: 2500
+									, offset: "165px"
+									, closeBtn: 1
+									, shadeClose: true
+								} , 
+								function() 
+								{
+									
+								}
+						);
+						return ;
+					}
+					
+				}
+				, error: function(ret)
+				{
+					
+				}              // ret.status != 200 时回调
+				, complete: function(ret) 
+				{
+					
+				}       // 无论是 success 还是 error，最终都会被回调
+			});
+		});
+		
+		
+     function checkName()
+     {
+    	
+    	 txt=$("#uname").val();
+    	
+    	  $.post(
+    			 
+    		"usercheckName.action",
+    		
+    	 	{
+    			  name:txt
+    		}
+    		,
+    		
+    		function(ret)
+    		{
+    			if(ret.isOk)
+				{
+					//location.href = ret.returnUrl;
+					layer.msg("Ok",
+							{
+								shift: 6
+								, shade: 0.3
+								, time: 2500
+								, offset: "165px"
+								, closeBtn: 1
+								, shadeClose: true
+							} , 
+							function() 
+							{
+								
+							}
+					);
+					return ;
+				}
+				
+				// 业务层验证失败
+				if (ret.isFail)
+				{
+					layer.msg(ret.msg,
+							{
+								shift: 6
+								, shade: 0.3
+								, time: 2500
+								, offset: "165px"
+								, closeBtn: 1
+								, shadeClose: true
+							} , 
+							function() 
+							{
+								
+							}
+					);
+					return ;
+				}
+    		},
+    		"json");
+     }
+     
+     	$('#uname').blur
+     	(
+     		checkName()
+     	);
+     	
+     	
+     </script> 
   </body>
 </html>

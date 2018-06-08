@@ -64,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
+    <input type=button class="registerbutton" value="返 回" onclick="window.location.href='login/login.jsp'">
     </div>
 
      <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
