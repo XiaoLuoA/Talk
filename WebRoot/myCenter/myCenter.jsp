@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         <div class="myInformation">  
           <ul>
-            <li>我的头像：<s:property value="#user.pic"/></li>
+            <li>我的头像：<s:property value="#session.user.pic"/></li>
             <li>用户名：<s:property value="#user.name"/></li>
             <li>密    码：<s:property value="#user.password"/></li>
             <li>性    别：<s:property value="#user.sex"/></li>
