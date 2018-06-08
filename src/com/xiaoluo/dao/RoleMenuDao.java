@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import com.xiaoluo.model.Role;
 import com.xiaoluo.model.RoleMenu;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.SessionFactoryUtils;
@@ -88,6 +89,26 @@ public class RoleMenuDao {
 			return rolemenulist.get(0);
 		}
 		return null;	
+	}
+	
+	public String findRoleMenuString(Role role){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		String hql="from RoleMenu where roleId=? ";
+		Query query=sess.createQuery(hql);
+		query.setInteger(0, role.getId());
+		List<RoleMenu> rolemenulist = query.list(); 
+		String s = null;
+		for(int i=0;i<rolemenulist.size();i++){
+			if(i!=rolemenulist.size()-1){
+			s=rolemenulist.get(i).getMenuId()+",";
+			}
+			else{
+				s=s+rolemenulist.get(i).getMenuId();
+			}
+		}
+		return s ;
+		
 	}
 
 }
