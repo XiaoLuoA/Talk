@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>修改用户</title>
+    <title>菜单</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <%
+     <%
          List<Menu> list=(List) session.getAttribute("menuList"); 
          int i;
          int j;  
@@ -62,47 +62,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
-            	 %>           
-             </div> 
-             </div>
+            	 %>                                          
+             </div>                     
+          </div>      
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box"></div>
-             
-             
-             <div class="jfa-content-box">                    
-              <s:debug>  
-            <div class="updateUserform"> 
-         <s:form action="auser_updateUser" method="post">        		
-	      <table class="updateUser1">
-	    <tr><td>账户：</td><td><input type="text"    name="name" value="<s:property value="user.name"/>"></td></tr>
-	    <tr><td>密码：</td><td><input type="text"    name="password" value="<s:property value="user.password"/>"></td>   </tr>
-	    <tr><td>状态：</td><td><input type="text"    name="status" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <tr><td>角色：</td><td><input type="text"    name="roles" value="<s:property value="user.roles"/>"/></td></tr>
-	    <tr><td>头像：</td><td><input type="text"    name="pic" value="<s:property value="user.pic"/>"/></td></tr>
-	    <tr><td>性别：</td><td><input type="text"    name="sex" value="<s:property value="user.sex"/>"/></td></tr>   
-	    <tr><td>创建时间：</td><td><input type="text" name="createTime" value="<s:property value="user.createTime"/>"/></td></tr>   
-	    <tr><td>举报人数：</td><td><input type="text" name="reportNum" value="<s:property value="user.reportNum"/>"/></td>   </tr>
-	    <tr><td>电话号码：</td><td><input type="text" name="tel" value="<s:property value="user.tel"/>"/></td>  </tr> 
-	    <tr><td>邮箱：</td><td><input type="text"    name="email" value="<s:property value="user.email"/>"/></td>  </tr> 
-	       	      
-			<%-- <td><s:property value="#u.status"/></td>
-			<td><s:property value="#u.roles"/></td>
-			<td><s:property value="#u.sex"/></td>
-			<td><s:property value="#u.createTime"/></td>
-			<td><s:property value="#u.reportNum"/></td>
-			<td><s:property value="#u.tel"/></td>
-			<td><s:property value="#u.email"/></td>
-			<td><a href="findUser?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="deleteUser?id=<s:property value="#u.id"/>">删除</a>						
- --%>
-          <s:submit value="提交"></s:submit>	
- 		</table>		
-	            
-		</s:form>	
-		</div>	 
-  </s:debug>       
-           </div>    
+             <div class="jfa-header-box" id="jfa-header-box"></div>
+            <div class="jfa-content-box">
+       
+              <div class="table2">                     
+                 <table border="1" class="table3">
+                   <tr>
+                      <td>Roleid</td>
+                      <td>角色名字</td>
+                      <td>创建时间</td> 
+                      <td>操作1</td>
+                      <td>操作2</td>
+  
+                  </tr>
+		<s:iterator  value="allRole" var="r" >
+	      <tr >
+	       <td><s:property value="#r.id"/></td>
+	       <td><s:property value="#r.roleName"/></td>
+		   <td><s:property value="#r.createTime"/></td>
+
+			<td><a href="arole_findRole?id=<s:property value="#r.id"/>">修改</a></td>
+			<td><a href="arole_deleteRole?id=<s:property value="#r.id"/>">删除</a>			
+				</s:iterator>	 
+              </table> 
+            </div>  
+              <div class="" ><a href="admin/addRole.jsp">添加角色</a></div>    
+           
+       </div>   
     </div>
   </body>
 </html>

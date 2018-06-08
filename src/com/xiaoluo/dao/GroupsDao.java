@@ -38,14 +38,7 @@ public class GroupsDao {
 		        Transaction transaction = session.beginTransaction();  	           
 		        Query query = session.createQuery("from Groups  where groupName like'%"+name+"%'");   
 		        query.setFirstResult(0);
-		        List<Groups> groupList = query.list();
-		        //迭代器去迭代.
-		        for(Iterator iter=groupList.iterator();iter.hasNext();)
-		      {
-		        	groups =(Groups)iter.next();
-		           System.out.println("id="+groups.getId() + "name="+groups.getGroupName());
-		       }
-               
+		        List<Groups> groupList = query.list();             
 		        transaction.commit();  
 		        session.close();
 		   
@@ -68,14 +61,7 @@ public class GroupsDao {
         
         //使用List方法.
         List<Groups> groupList = query.list();
-        //迭代器去迭代.
-        for(Iterator iter=groupList.iterator();iter.hasNext();)
-        {
-            groups =(Groups)iter.next();
-           System.out.println("id="+groups.getId() + "name="+groups.getGroupName());
-        }
-        
-        
+
                 
         transaction.commit();  
         session.close();

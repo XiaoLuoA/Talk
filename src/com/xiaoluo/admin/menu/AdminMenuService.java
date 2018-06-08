@@ -3,6 +3,11 @@ package com.xiaoluo.admin.menu;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.tio.utils.json.Json;
+
 import com.xiaoluo.dao.MenuDao;
 import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.model.Menu;
@@ -12,6 +17,15 @@ import com.xiaoluo.utils.MenuComparator;
 public class AdminMenuService {
 	
 	public static AdminMenuService me = new AdminMenuService();
+	
+	
+	
+	public static void main(String[] args) {
+		 
+		
+		
+		
+	}
 	
 	private AdminMenuService(){
 		
@@ -77,6 +91,7 @@ public class AdminMenuService {
 	 * @return List<Menu> 一级菜单列表（含有二级菜单）
 	 */
 	public List<Menu> getUserMenu(User user) {
+		
 		List<Menu> firstMenuList = MenuDao.me.findFirstMenu(user);
 		List<Menu> subMenuList = MenuDao.me.findSubMenu(firstMenuList);
 		Collections.sort(firstMenuList,new MenuComparator());

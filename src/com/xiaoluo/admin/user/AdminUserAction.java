@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.tio.utils.json.Json;
@@ -12,9 +13,13 @@ import org.tio.utils.json.Json;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.xiaoluo.admin.menu.AdminMenuService;
+import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
+
+import cn.hutool.db.Session;
 
 
 
@@ -38,6 +43,10 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	
 	public String listAllUser(){
 		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		User usertest=UserDao.me.findUser(11);
+		/*ActionContext.getContext().getValueStack().set("menuList",AdminMenuService.me.getUserMenu(usertest));*/
+		HttpSession sessionName = request.getSession();
+		sessionName.setAttribute("menuList", AdminMenuService.me.getUserMenu(usertest));
 		return "admin";
 		
 	}

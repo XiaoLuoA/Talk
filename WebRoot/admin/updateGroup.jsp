@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -28,56 +28,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <%
+         List<Menu> list=(List) session.getAttribute("menuList"); 
+         int i;
+         int j;  
+      %>
+  
+  
   <div class="page-box">
+  
           <div class="jfa-left-box">
              <div class="jfa-logo"></div>
              <div class="jfa-menu-box">
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
-                    <i class="left-icon fa fa-dashboard">
                     
-                    </i>
                                                      首页
                   </a>
-                  <a class="jfa-main-menu" home="false">
-                    <i class="left-icon fa fa-file-o">
-                    
-                    </i>
-                                                      用户管理
-                    <i class="right-icon fa fa-file-o">
-                    
-                    </i>
-                  </a>
-                  <ul class="jfa-sub-menu" style="display: block;">
-                     <li>
-                         <a href="">项目管理</a>
-                     </li>
-                     <li>
-                         <a href="">分享管理</a>
-                     </li>
-                     <li>
-                         <a href="">反馈管理</a>
-                     </li>
-                  </ul>
-                  <a class="jfa-main-menu" home="false"> 
-                     <i class="left-icon fa fa-user-o">
-                    
-                    </i>
-                                                        分组管理
-                    <i class="right-icon fa fa-lg fa-angle-down">
-                    
-                    </i>                  
-                  </a>
-                  <ul class="jfa-sub-menu" style="display: block;">
-                     <li>
-                         <a href="">账户管理</a>
-                     </li>
-                     <li>
-                         <a href="">角色管理</a>
-                     </li>
-                     <li>
-                         <a href="">权限管理</a>
-                     </li>                  
-                  </ul>                                         
+                  
+                  
+                   <%
+              
+              for( i=0;i<list.size();i++){
+            	 %> 
+            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	 <%
+            	 
+            	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
+            		  %>
+            		  <ul class="jfa-sub-menu" style="display: block;"> 
+            		  <li> <a   href="<%out.print(list.get(i).getSubMenuList().get(j).getMenuUrl());%>"><%out.print(list.get(i).getSubMenuList().get(j).getMenuName());%></a></li>
+                 	   </ul>
+                 	
+                 	 <%
+            	    }
+            	  }
+            	 %>                                         
              </div>                      
           </div>
     

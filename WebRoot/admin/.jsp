@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'Test.jsp' starting page</title>
+    <title>My JSP '.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -23,23 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  
-
-
-   <div class="jfa-right-box">
-          
-          <iframe class="right-iframe" name="mif" width="680px" height="1300px"></iframe>
-          <a href="me/myinformation.jsp" target="mif">个人信息</a>
-          <a href="me/mymoney.jsp" target="mif">我的钱包</a>
-
-
-
-  
-
-          
-          
-           </div>
-    
-
+    This is my JSP page. <br>
   </body>
 </html>
