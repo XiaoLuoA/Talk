@@ -64,11 +64,13 @@ public class UserItemDao {
 			List<UserItem> userItemList = query.list();
 			tx.commit();
 			sess.close();
-			if(userItemList!=null){
+			if(userItemList.size()>0){
 				return userItemList.get(0);
 			}
 			return null;
 		}
+
+		
 		
 		
 	

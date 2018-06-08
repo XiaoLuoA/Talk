@@ -16,6 +16,7 @@ import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.StatusConst;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserMess;
+import com.xiaoluo.utils.NameUtils;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
 import com.xiaoluo.utils.StrKit;
@@ -154,7 +155,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
 			String sessionId = ServletActionContext.getRequest().getSession().getId();
-			ActionContext.getContext().getSession().put("user", loginUser);
+			ActionContext.getContext().getSession().put("user", loginUser.setName(NameUtils.getNickName()));
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
 			CommonData.loginUser.set(sessionId, loginUser);
 			CommonData.loginUserID.add(loginUser.getId()+"");

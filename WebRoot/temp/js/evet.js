@@ -27,8 +27,67 @@ function newTalk(event)
 	}
 	event.stopPropagation();
 }
-function newItem(item){}
-function newMessage(){}
+function newItemBtn(event){
+	var $dom = $(event.target);
+	console.log('点击用户方法出发',$dom);
+	$dom.hasClass('item-btn')?true:$dom = $dom.parents('.item-btn');
+	console.log('确认的$dom',$dom);
+	//首先得到用户的ID
+	var userId = $dom.attr('data-index');
+	var itemId = UserId+'|'+userId
+	console.log('拿到了用户的id',userId);
+	//判断是不是已有的，没有就创建
+	var items = ($itemList[0]).querySelectorAll('.item-item');
+	var item; var flag=true;
+	for(let index=items.length-1;index>=0;index--)
+	{
+		item = items[index];
+		if(item.getAttribute('data-index')==itemId)
+		{
+			console.log('右匹配',item);
+			flag=false;
+			break;
+		}
+	}
+	//需要新建立item
+	if(flag)
+	{
+		window.$dom = $dom;
+		console.log('还没有点开');
+		//根据前台显示
+		//封装item对象
+		var newItem =
+			{
+				userItemId :UserId+'|'+userId,
+				talkerId :userId,
+				talkPic :$($dom.find('img')).attr('src'),
+				talkerName :$($dom.find('.name')).html(),
+				messages :[],
+			}
+		//加入map
+		itemMap.set(newItem.userItemId,newItem);
+		console.log('产生的对象',newItem);
+		console.log('产生的item',item);
+		//渲染吧
+		$itemList.append(ItemItemTpl(newItem));
+		//硬生生创造出 palen showArea
+		var $newChoseItem = $(createChoseItem(newItem));
+		var $newDetailItem = $(detailItemTpl(newItem));
+		$choseList.append($newChoseItem);
+		$detailList.append($newDetailItem);
+		console.log('产生的dom',$newChoseItem,$newDetailItem);
+		Tab.add($newChoseItem[0],$newDetailItem[0]);
+		$GroupChatOverlay.addClass('hidden');
+		$chatOverlay.removeClass('hidden');
+	}
+	else{
+		console.log('已经点开了','激活',item.getAttribute('data-index'),item);
+		Tab.active(item.getAttribute('data-index'));
+		$GroupChatOverlay.addClass('hidden');
+		$chatOverlay.removeClass('hidden');
+	}
+	
+}
 function closeTalkBtn(event)
 {
 	//得到id
@@ -257,6 +316,8 @@ function BieginListener(event, ws)
 		//硬生生创造出 palen showArea
 		var $newChoseItem = $(createChoseItem(item));
 		var $newDetailItem = $(detailItemTpl(item));
+		$choseList.append($newChoseItem);
+		$detailList.append($newDetailItem);
 		Tab.add($newChoseItem[0],$newDetailItem[0]);
 		//已经创建并激活
 	} 
@@ -267,8 +328,8 @@ function BeginSend()
 	{
 		openNewChat :function(){},
 		closeChat :function(){},
-		sendChat :function(temp,message){
-			var data = {type:0,temp,message:message};
+		sendChat :function(tempName,tempPic,message){
+			var data = {type:0,tempName,tempPic,message:message};
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
 		},
@@ -315,7 +376,7 @@ function sendChatBtn(event)
 	var message = {
 		itemId :userItemId,
 		fromId :sessionId,
-		toId :item.userItemId.split('|')[1],
+		toId :userItemId.split('|')[1],
 		sendTime :(new Date().getTime())+'',
 		isRead :false,
 		content:$textArea.val(),
@@ -331,7 +392,7 @@ function sendChatBtn(event)
 	message.itemId = message.itemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
 	//使用tio发送消息;
 	var data = {temp :temp,message :message,};
-	sendFunctons.sendChat(temp,message);
+	sendFunctons.sendChat(tempName,tempPic,message);
 }
 
 function newGroupChat(event)
@@ -473,7 +534,7 @@ function bindEvent()
 
 
 	//点击创建新会话
-	$groupDetailList.on('click','.item-btn',newItem);
+	$groupDetailList.on('click','.item-btn',newItemBtn);
 	//点击创建新对话
 	$itemList.on('click','.item-item',newTalk);
 	//点击关闭对话

@@ -6,7 +6,7 @@
 <hibernate-mapping>
 	<class name="com.xiaoluo.model.UserItem" table="user_item">
 		<id name="userItemId">
-			<generator class="identity"/>
+			<generator class="assigned"/>
 		</id>
 		<property name="userName" column="user_name"/>
 		<property name="userId" column="user_id"/>
@@ -15,6 +15,6 @@
 		<property name="newNum" column="newNum"/>
 		<property name="lastTime" column="lastTime"/>
 		<property name="isBlack" column="isBlack"/>
-		<property name="talkerPic" column="talkerPic"/>
+		<property name="talkerPic" column="talker_pic"/>
 	</class>
 </hibernate-mapping>

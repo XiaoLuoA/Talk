@@ -1,11 +1,12 @@
 package websocket;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
-import org.tio.core.ChannelContextFilter;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
 import org.tio.utils.json.Json;
@@ -111,9 +112,9 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
 		
 		
+		
 		//测试
-		System.out.println("come in type"+type);
-		System.out.println("come int message"+jsonObject2);
+		
 		//测试
 		
 		//将fromId(SessionId)换为当前用户的id
@@ -122,23 +123,22 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//封装返回的Json字符串
 		jsonObject.put("message", jsonObject2);
 		
-		//发给私人的消息;并且对方已经和自己建立连接
+		//发给私人的消息;
 		if(type.equals("0")){
-			
 			
 		
 			//获取接受者的id
 			String toId = jsonObject2.getString("toId");
 			Integer toIdInt = Integer.parseInt(toId);
 			
-			
-			
-			
-			
 			//判断接收者是否在线
 			boolean flag = CommonData.loginUserID.contains(toId);
 			
-			boolean isConn = false;
+			//判断是否已经连接
+			UserItem userItem = TalkService.me.getUserItem(user.getId(), toIdInt);
+			
+			boolean isConn = userItem != null;
+			
 			
 			//发消息前判断是否黑名单
 			
@@ -146,19 +146,49 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			
 			
 			if(!isConn){
-				//获取接受者的id
-//				String toId = jsonObject2.getString("toId");
-//				Integer toIdInt = Integer.parseInt(toId);
+				String tempName = jsonObject.getString("tempName");
+				String tempPic = jsonObject.getString("tempPic");
 				
-				UserItem userItem = new UserItem();
-//				userItem.setUserItemId(toId+"|"+user.getId())
-//				.setIsBlack(0).setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(user.getId())
-//				.setTalkerName(user.getName()).setTalkerPic(user.getPic())
-//				.setUserId(toIdInt).setUserName(userMess.get);
+				UserItem thisUserItem = new UserItem();
+				UserItem toUserItem = new UserItem();
+				
+				//Id为A发给B;黑名单默认0;最后一次消息的时间;新消息的数量不填;TalkerName;
+				//存在自己的虚拟name
+				thisUserItem.setUserItemId(user.getId()+"|"+toId).setIsBlack(0).
+				setLastTime(System.currentTimeMillis()).setNewNum(0).setTalkerId(toIdInt)
+				.setTalkerName(tempName).setTalkerPic(tempPic+" ")
+				.setUserId(user.getId()).setUserName(user.getName());
+				
+				
+				//
+				toUserItem.setUserItemId(toId+"|"+user.getId())
+				.setIsBlack(0).setLastTime(System.currentTimeMillis())
+				.setNewNum(0).setTalkerId(user.getId())
+				.setTalkerName(user.getName()).setTalkerPic(user.getPic()+" ")
+				.setUserId(toIdInt).setUserName(tempName);
+				
+				UserMess userMess = Json.toBean(jsonObject2.toJSONString(), UserMess.class);
+				
+				List<UserMess> list = new ArrayList<UserMess>();
+				list.add(userMess);
+				
+				
+				if(flag){
+					TalkService.me.saveUserItem(thisUserItem, toUserItem);
+					
+					JSONObject ret = new JSONObject();
+					ret.put("type", 4);
+					toUserItem.setMessages(list);
+					ret.put("items", Json.toJson(toUserItem));
+					
+					WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), TalkServerConfig.CHARSET);
+					Aio.sendToUser(channelContext.getGroupContext(), toId, wsResponse);
+				}
+				else
+				{
+					TalkService.me.saveMsgAndUserItem(userMess, thisUserItem, toUserItem);
+				}
 			}
-			
-			
-			
 			
 			
 			if(flag){
@@ -214,12 +244,11 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 				
 				System.out.println("type1执行完毕");
-				
-			}catch(Exception e){
+			}
+			catch(Exception e)
+			{
 				e.printStackTrace();
 			}
-			
-			
 		}
 		
 		//普通发群消息 type:2
@@ -291,15 +320,19 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				String groupId = jsonObject2.getString("groupId");
 				Aio.unbindGroup(groupId, channelContext);
 				CommonData.usersInGroup.remove(user);
+				
+				JSONObject msg = new JSONObject();
+				
+				msg.put("type", 3);
+				msg.put("userId", user.getId());
+				//将消息格式化
+				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
+				//发送到群组
+				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+			
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			
-		}
-		
-		//发给私人的消息;对方暂时未和自己建立连接
-		else if(type.equals("4")){
-			
 			
 		}
 		

@@ -6,11 +6,15 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
 import org.tio.core.intf.Packet;
+import org.tio.websocket.common.WsResponse;
 import org.tio.websocket.server.WsServerAioListener;
 
+import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionContext;
+import com.xiaoluo.common.CommonData;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserMess;
 import com.xiaoluo.user.LoginService;
@@ -51,7 +55,16 @@ public class TalkServerAioListener extends WsServerAioListener {
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String remark, boolean isRemove) throws Exception {
 		super.onBeforeClose(channelContext, throwable, remark, isRemove);
 		
-		System.out.println("close list");
+		channelContext.getGroupContext().groups.unbind(channelContext);
+		
+		JSONObject msg = new JSONObject();
+		
+		msg.put("type", 5);
+		//msg.put("userId", );
+		//将消息格式化
+		WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
+		//发送到群组
+		//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 	}
 
 	@Override

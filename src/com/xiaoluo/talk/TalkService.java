@@ -31,4 +31,9 @@ public class TalkService {
 	public void saveMsg(UserMess userMess) {
 		UserMessDao.me.saveMess(userMess);
 	}
+
+	public void saveUserItem(UserItem userItem, UserItem talkerItem) {
+		UserItemDao.me.addUserItem(userItem);
+		UserItemDao.me.addUserItem(talkerItem);
+	}
 }

@@ -71,9 +71,9 @@ function chatMessageTpl(message)
 function detailItemTpl(item)
 {
 	var htmlText = [];
-	htmlText.push('<div class="detail-item" data-index="'+item.userItemId+'">');
-	htmlText.push('<div class="message-list">>');
-	htmlText.push('<ul ');
+	htmlText.push('<div class="detail-item" data-index="'+item.userItemId+'" data-name="'+ item.talkerName +'" data-pic="'+ item.talkPic +'">');
+	htmlText.push('<div class="message-list">');
+	htmlText.push('<ul>');
 	if(item.messages){
 	item.messages.forEach(function(message,index){
 		htmlText.push(chatMessageTpl(message));
@@ -114,7 +114,7 @@ function groupMessageTpl(message)
 function groupUserTpl(user)
 {
 	var htmltext = [];
-	htmltext.push('<li class="user-item" data-index="'+ user.id +'">');
+	htmltext.push('<li class="user-item item-btn" data-index="'+ user.id +'">');
 	htmltext.push('<div class="head-img"><img src="'+ user.pic +'"></div>');
 	htmltext.push('<span class="name">'+ user.name +'</span>');
 	htmltext.push('</li>');
