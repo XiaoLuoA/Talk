@@ -40,19 +40,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="jfa-left-box">
              <div class="jfa-logo"></div>
              <div class="jfa-menu-box">
-                  <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
-                    
+                  <a class="jfa-main-menu jfa-cur-menu" href="" home="true">                    
                                                      首页
-                  </a>
-                  
-                  
+                  </a>                                   
                    <%
               
               for( i=0;i<list.size();i++){
             	 %> 
             	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
-            	 <%
-            	 
+            	 <%            	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
             		  %>
             		  <ul class="jfa-sub-menu" style="display: block;"> 
