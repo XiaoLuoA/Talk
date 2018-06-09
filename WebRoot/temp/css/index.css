@@ -10,10 +10,6 @@ body
 {
 	overflow-y:scroll;
 }
-.message-list,.group-message-list
-{
-	height: 360px;
-}
 
 /*群组层*/
 .group-area
@@ -52,6 +48,7 @@ body
 
 .overlay .chat-area,.overlay .group-chat-area
 {
+	height: 540px;
 	display: flex;
 	flex-direction:row;
 	
@@ -84,17 +81,18 @@ body
 .group-chose-list
 {
     width: 230px;
-    height: 520px;
+    height: 100%;
     background: #d9d9d9;
     
     
     padding:5px;
 }
 
+.group-detail-list,
 .detail-list
 {
 	width: 600px;
-	height: 520px;
+	height: 100%;
 	background: gray;
 	
 }
@@ -102,7 +100,7 @@ body
 .item
 {
 	width: 200px;
-	height: 520px;
+	height: 100%;
     
 }
 .item-list
@@ -113,7 +111,40 @@ body
     background: #fbfbfb;
     font-size:0.4em;
 }
-/*集中处理侧边栏*/
+
+
+
+/*
+ * 开始群聊的css
+ */
+#GroupMessageArea
+{
+	background:gray;
+}
+.group-detail-list
+{
+	background: white;
+	height: 100%;
+	width: 800px;
+}
+
+.group-detail-item
+{
+	height: 100%;
+	width: 100%;
+}
+.group-detail-message
+{
+	width: 600px;
+	height: 100%;
+} 
+
+
+/*
+ * 
+ * 集中处理侧边栏
+ * 
+ * */
 .chose-item ,
 .group-chose-item
 {
@@ -125,11 +156,13 @@ body
 	overflow: hidden;
 	/*font-weight: 600;*/
 }
-.chose-item *
+.chose-item *,
+.group-chose-item *
 {
 	vertical-align: middle;
 }
-.chose-item .head-img
+.chose-item .head-img,
+.group-chose-item .head-img
 {
 	margin-right: 3px;
 	width: 40px;
@@ -137,19 +170,14 @@ body
     border-radius: 100%;
 }
 /*限定名字显示长度*/
-.chose-item .talker-name
+.chose-item .talker-name,
+.group-chose-item .group-name
 {
 	display: inline-block;
 	overflow: hidden; 
     text-overflow: ellipsis;
     white-space:nowrap;
     width: 5.9em; 
-    /*line-height:1em;*/
-}
-.middle
-{
-	display: inline-block;
-	text-align: right;
 }
 /*关闭按钮的样式*/
 .cls-btn
@@ -158,11 +186,6 @@ body
 	height: 2em;
 	background-size: 2em 2em;
 	vertical-align: middle;
-	/*height: 1em; width: 1em;
-	font-weight: 600;
-	font-size: 2em;
-	background: #414141;
-	color:white;*/
 	border-radius:50% ;
 	background-image: url("../../pic/blackClsBtn.svg");	
 }
@@ -179,25 +202,143 @@ body
 	padding: 0 4px;
 	background: red;
 }
+/*已激活选项卡的样式*/
 .chose-item.active,
 .group-chose-item.active
 {
 	background: rgb(250,250,250) !important;
 }
+/*鼠标滑过未激活新选项卡的样式*/
 .chose-item:hover,
 .group-chose-item:hover
 {
 	background: rgba(248,248,248,0.55);
 }
+/*
+ *鼠标移动上去显示 关闭按钮
+ */
 
+.chose-item:hover .cls-btn,
+.group-chose-item:hover .cls-btn
+{
+	display: inline-block !important;	
+}
+.chose-item:hover .show-newnum,
+.group-chose-item:hover .show-newnum
+{
+	display: none;
+}
+
+
+/*
+ * 
+ *集中处理中间部分
+ * 
+ * 
+ */
+.group-detail-item,
+.detail-item
+{
+	height: 100%;
+	background-image: url("../../pic/back.jpg");
+}
+.group-detail-item .group-detail-title,
+.detail-item .detail-title
+{
+	height: 80px;
+	background: rgba(245,245,245,0.7);
+	
+	font-size: 0.6em;
+	font-weight: 600;
+}
+
+.group-detail-item .group-detail-title *,
+.detail-item .detail-title *
+{
+	vertical-align: middle;
+}
+.group-detail-item .group-detail-title .head-img,
+.detail-item .detail-title .head-img
+{
+	border-radius:50% ;
+	width: 50px;
+	height: 50px;
+	margin: 15px 25px 15px 10px;
+}
+.group-detail-item .group-message-list,
+.detail-item .message-list
+{
+	height:280px;
+}
+.group-detail-item .tool,
+.detail-item .tool
+{
+	background:gray;
+	font-size:0.5em;
+	height :25px;
+}
+.group-detail-item .message-input,
+.detail-item .message-input
+{
+	margin: 2px;
+	width: 99%;
+	height:100px;
+	background: transparent;
+	border:0px;
+	font-size:0.3em;
+}
+.group-detail-item .button-area,
+.detail-item .button-area
+{
+	font-size: 0.4em;
+	font-weight: 600;
+	text-align: right;
+	height: 50px;
+}
+.group-detail-item .button-area .btn,
+.detail-item .button-area .btn
+{
+	padding: 2px 15px;
+	height: 28px;
+	border-radius:5px; 
+	color:#708090;
+	border:1px solid #708090;
+	background: transparent;
+	cursor: default;
+	
+}
+.group-detail-item .button-area .active-btn,
+.detail-item .button-area .active-btn
+{
+	cursor:pointer;
+	color: white!important;
+	background: #42B00B!important;
+}
+.group-detail-item .button-area .send-btn,
+.detail-item .button-area .send-btn
+{
+	margin: 20px 15px 0px 15px;
+}
+
+
+/*
+ *
+ * 私聊的右侧边栏
+ *  
+ * */
 .item .item-top
 {
 	width: 100%;
-	height: 100px;
+	height: 120px;
 	background: #d6d6d6;
 }
-.item-item .head-img,
-#GroupMessageArea .head-img
+.item .item-item 
+{
+	width: 100%;
+	height:40px;
+	margin: 5px 0;
+}
+.item-item .head-img
 {
 	width: 40px;
 	height:40px;
@@ -206,76 +347,83 @@ body
 	float: left;
 }
 .item-item .head-img img,
-#GroupMessageArea .head-img img
 {
 	width: 100%;height:100%;
 	vertical-align: top;
 }
 
-/*
- *鼠标移动上去显示 关闭按钮
- */
 
-.chose-item:hover .cls-btn
-{
-	display: inline-block !important;	
-}
-.chose-item:hover .show-newnum
-{
-	display: none;
-}
-/*
- * 开始群聊的css
- */
-#GroupMessageArea
-{
-	background:gray;
-}
-.group-detail-list
-{
-	background: white;
-	height: 520px;
-	width: 800px;
-}
 
-.group-detail-item
-{
-	height: 100%;
-	width: 100%;
-}
-.group-message
-{
-	width: 600px;
-	height: 100%;
-} 
+
+
+
+/**
+ * 群聊的右边栏
+ * */
+
 .group-users
 {
+	background: grey;
 	width: 200px;
 	height: 100%;
 }
+.group-user-top
+{
+	width: 100%;
+	height:51px
+}
 .group-user
 {
-	height: auto;
+	font-size:12px;
+	height: 490px;
 }
 
-/*
- *鼠标移动上去显示 关闭按钮
- */
+.group-user .user-list
+{
+	overflow: hidden;
+	width:170px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	
+}
+.group-user .user-item
+{
+	margin: 2px;
+	text-align: center;
+	width: 3.15em;
+	height: 5.3em;
+	overflow: hidden;
+}
+.group-user .user-item-scal
+{
+	text-align: center;
+	width: 4.2em;
+	height: 8em;
+	transform: scale(0.75) translate(-19%, -17%);
+}
+.group-user .user-item .head-img
+{
+	width: 4.02em;
+	height: 4.02em;
+	border-radius: 15px;
+	overflow: hidden;
+}
+.group-user .user-item .name
 
-.group-chose-item:hover .cls-btn
 {
-	display: inline !important;
+	text-align: center;
+	width: 4.02em;
 }
-.group-chose-item:hover .show-newnum
-{
-	display: none;
-}
+
 
 
 
 
 /*手型鼠标*/
-.chose-item:hover
+.item-btn:hover;
+.chose-item:hover,
+.group-chose-item:hover
 {
-	cursor:pointer;
+	cursor:pointer !important;
 }
