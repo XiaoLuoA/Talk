@@ -13,6 +13,7 @@ var $showGroupChatBtn = $('#groupChatBtn');
 
 var chatTab;
 var GroupChatTab;
+var openItemId = [];
 var showGroupMap = new Map();
 var openGroupMap = new Map();
 var itemMap = new Map();
@@ -73,6 +74,7 @@ function getLocalMessage(items)
 			messages.push.apply(messages,item.messages);
 			item.messages = messages;
 			
+			openItemIds = readLocal('openItemIds')||[];
 		});
 		
 	}
@@ -105,8 +107,14 @@ function deleteLocal(key){
 function createChoseItem(item)
 {
 	var htmlText = [];
-	htmlText.push('<div class="chose-item" data-index="'+ item.userItemId +'">'+item.talkerName);
-	htmlText.push('<span class="cls-btn float-r">关闭</span></div>')
+	htmlText.push('<div class="chose-item" data-index="'+ item.userItemId +'">');
+	htmlText.push('<img class="head-img" src="'+item.talkerPic+'">');
+	
+
+	htmlText.push('<span class="talker-name">'+item.talkerName+'</span>');
+//	htmlText.push('<span class="middle"><span class="cls-btn hidden">&times;</span><span class="show-newnum ">new</span></span></div>');
+htmlText.push('<span class="middle"><i class="cls-btn hidden"></i><span class="show-newnum ">new</span></span></div>');
+	
 	return htmlText.join('');
 	
 }
@@ -201,7 +209,7 @@ function groupChoseItemTpl(group)
 {
 	var htmltext = [];
 	htmltext.push('<div class="group-chose-item" data-index='+ group.id +'>');
-		htmltext.push(group.groupName);htmltext.push('<span class="cls-btn float-r">关闭</span>');
+		htmltext.push(group.groupName);htmltext.push('<span class="cls-btn float-r hidden">&times;</span><span class="show-newnum float-r">1条;</span>');
 	htmltext.push('</div>');
 	return htmltext.join('');
 }
@@ -220,5 +228,17 @@ function render()
 	});}
 	var html = htmlText.join('');
 	$itemList.append(html) ;
+	
+	//完善已经添加的消息
+	openItemIds.forEach(function(itemId,index){
+		var item = itemMap.get(itemId);
+		var $newChoseItem = $(createChoseItem(item));
+		var $newDetailItem = $(detailItemTpl(item));
+		$choseList.append($newChoseItem);
+		$detailList.append($newDetailItem);
+		console.log('本地已打开对话添加成功',$newChoseItem[0],$newDetailItem[0]);
+		//Tab创建时会自动加载
+//		Tab.add($newChoseItem[0],$newDetailItem[0],true);
+	});
 }
 

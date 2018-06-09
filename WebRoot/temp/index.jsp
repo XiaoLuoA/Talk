@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="chat-overlay overlay hidden">
 				<div id="MessageArea" class="chat-area overlay-showarea"><!--聊天信息-->
 					<div class="chose-list scrll-y">
-						<div class="chose-item" data-index="a">a<span class="cls-btn float-r">关闭</span></div>
-						<div class="chose-item" data-index="v">v<span class="cls-btn float-r">关闭</span></div>
+						<!--<div class="chose-item" data-index="a">a<span class="cls-btn float-r">关闭</span></div>
+						<div class="chose-item" data-index="v">v<span class="cls-btn float-r">关闭</span></div>-->
 					</div>
 					<div class="detail-list">
 						<div class="detail-item scrll-y">c</div>
@@ -49,13 +49,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span>消息</span> <span>新消息</span>
 					</div>
 					<div class="item-list scrll-y"><!--消息列表-->
-						<div class="item-item">
+						<!--<div class="item-item">
 							<div class="head-img"><img src="avatar4.png"></div>
 							<div class="ietm-item-detail">
 								<p><span class="name">AI</span><span class="last-time">2015-12-12-12-12</span></p>
 								<span class="content">这是一条消息</span>
 							</div>
-						</div>	
+						</div>	-->
 					</div>
 				</div>
 				</div>
@@ -133,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						talkerName:'Ai2',
 					},],
 				},];
+				items = [];groups = [];
 		</script>
 		<script type="text/javascript" src="temp/js/tool.js" ></script>
 		<script type="text/javascript" src="temp/js/index.js" ></script>

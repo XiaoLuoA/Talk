@@ -21,6 +21,9 @@ function newTalk(itemId)
 		$detailList.append($newDetailItem);
 		console.log('添加成功',$newChoseItem[0],$newDetailItem[0]);
 		Tab.add($newChoseItem[0],$newDetailItem[0],true);
+		//修改本地存储
+		openItemIds.push(itemId);
+		setLocal('openItemIds',openItemIds);
 	}
 }
 function newTalkBtn(event)
@@ -259,9 +262,20 @@ function closeTalkBtn(event)
 {
 	//得到id
 	var $a = $(event.target);
-	var id = $a.parents('.chose-item').attr('data-index');
-	Tab.remove(id,true);
+	var itemId = $a.parents('.chose-item').attr('data-index');
+	Tab.remove(itemId,true);
 	//remove
+	//修改本地储存
+	for(let index = openItemIds.length-1;index>=0;index--)
+	{
+		if(itemId==openItemIds[index])
+		{
+			openItemIds.splice(index,1);
+			break;
+		}
+	}
+	setLocal('openItemIds',openItemIds);
+	
 	event.stopPropagation()
 	return false;
 }
@@ -657,6 +671,9 @@ function bindEvent()
 
 function init()
 {
+	console.log('init      ----------------------------');
+	//渲染数据
+//	renderData()
 	// 渲染页面
 	render();
 	//事件绑定
