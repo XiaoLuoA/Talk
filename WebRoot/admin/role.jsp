@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>菜单</title>
+    <title>角色</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           
              <div class="jfa-header-box" id="jfa-header-box"></div>
             <div class="jfa-content-box">
-       
+            
               <div class="table2">                     
                  <table border="1" class="table3">
                    <tr>
@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</s:iterator>	 
               </table> 
             </div>  
-              <div class="" ><a href="admin/addRole.jsp">添加角色</a></div>    
+              <div class="addRole" ><a href="admin/addRole.jsp">添加角色</a></div>    
            
        </div>   
     </div>

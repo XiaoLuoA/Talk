@@ -29,44 +29,123 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div class="text">
      欢迎注册TalkTalk！
    </div>
-    <form id="reg_form" action="userregist.action" method="post">
+    <form id="reg_form" action="userregist.action" onsubmit="return validate_form(this)" method="post">
     <table class="register1">      	     
           <tr> 
-          <div class="tr">       
-                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名"   name="name" id="uname">
-           </div>
+            <td>     
+                用户名：</td><td><input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名"   name="name" id="uname">
+           <td>
           </tr>      
            <tr> 
-           <div class="tr">                                           
-                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" >    
-            </div>               
+           <td>                                           
+                 密      码：</td><td><input type="password" class="input" name="password" placeholder="请输入密码" id="psd1">    
+            </td>             
           </tr>
            <tr>             
-            <div class="tr">   
-                密   码： <input type="password" class="input" name="password2" placeholder="请再一次输入密码" >
-             </div>       
+            <td>   
+             密    码：</td><td> <input type="password" class="input" name="password" placeholder="请再一次输入密码" id="psd2" onblur="check2psd()">
+             </td>       
           </tr>
           <tr>
-      	      <div class="tr">   
-      	        性   别： <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	 
-      	        </div>
+      	      <td>   
+      	        性   别：</td><td> <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	 
+      	        </td>
       	   </tr>
       	   <tr>
-      	     <div class="tr">   
-      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" >
-      	        </div>      	    
+      	     <td>   
+      	           邮     箱：</td><td> <input type="text" class="input" placeholder="请输入邮箱" name="email" >
+      	       </td>      	    
       	   </tr>   
       	   <tr>
-      	      <div class="tr">   
-      	           头     像： <input type="file" class="input"  name="pic" >
-      	        </div>      	    
+      	      <td>   
+      	           头     像</td><td> <input type="file" class="input"  name="pic" >
+      	        </td>     	    
       	   </tr>     	                  
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
     <input type=button class="registerbutton" value="返 回" onclick="window.location.href='login/login.jsp'">
     </div>
+  
+  
+  
+  <script type="text/javascript">
 
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  if (value==null||value=="")
+    {alert(alerttxt);return false}
+  else {return true}
+  }
+}
+
+/*密码不一致*/
+
+ function check2psd(){            	       	
+        	if(psd1.value!=psd2.value){
+        		alert("两次密码不一致");
+        		psd1.value="";
+        		psd2.value="";
+        	}
+         }
+
+function validate_email(field,alerttxt)
+{
+with (field)
+{
+apos=value.indexOf("@")
+dotpos=value.lastIndexOf(".")
+if (apos<1||dotpos-apos<2) 
+  {alert(alerttxt);return false}
+else {return true}
+}
+}
+
+
+/*input不能为空*/
+function validate_form(thisform)
+{
+with (thisform)
+  {
+  if (validate_required(name,"用户名不能为空!")==false)
+    {name.focus();return false}
+    if (validate_required(password,"密码不能为空!")==false)
+    {password.focus();return false}
+    if (validate_required(email,"邮箱不能为空!")==false)
+    {email.focus();return false}
+    if (validate_email(email,"邮箱格式不正确!")==false)
+   {email.focus();return false}
+    if (validate_required(password2,"密码不能为空!")==false)
+    {password2.focus();return false}
+    if (validate_required(pic,"头像不能为空!")==false)
+    {pic.focus();return false}   
+  }
+}
+
+
+
+/*
+function validate_form(thisform)
+{
+with (thisform)
+{
+if (validate_email(email,"邮箱格式不正确!")==false)
+  {email.focus();return false}
+}
+}*/
+
+
+
+</script>
+  
+  
+  
+  
+  
+  
+  <!-- 
      <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
     
@@ -193,10 +272,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	$('#uname').blur
      	(
      		checkName()
-     	);
-     	
-     	
-     </script> 
+     	);     	
+     </script>  -->
+     
   </body>
 </html>
          
