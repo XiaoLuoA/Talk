@@ -71,7 +71,17 @@ public class IndexService {
 		return allGroupMess.get(groupId);
 	}
 	
+	/**
+	 * 删除所有删除我的会话
+	 * @param userid
+	 */
+	public void deleteWhoDelete(Integer userid){
+		UserDao.me.delelteWhoDelete(userid);
+	}
 	
+	public Integer[] getDeleteMe(Integer id){
+		return UserDao.me.getDeleteMe(id);
+	}
 	/**
 	 * 某个用户的所有会话;
 	 * @param user

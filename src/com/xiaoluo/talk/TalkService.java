@@ -1,5 +1,6 @@
 package com.xiaoluo.talk;
 
+import com.xiaoluo.dao.UserDao;
 import com.xiaoluo.dao.UserItemDao;
 import com.xiaoluo.dao.UserMessDao;
 import com.xiaoluo.model.UserItem;
@@ -17,16 +18,16 @@ public class TalkService {
 		UserMessDao.me.saveMess(userMess);
 	}
 	
+	public void deleteUserItem(String itemId){
+		UserItemDao.me.deleteUserItem(itemId);
+	}
+	
+	
+	
 	public UserItem getUserItem(Integer user,Integer toUser){
 		return UserItemDao.me.getUserItem(user,toUser);
 	}
 	
-	public void getGroupMess(){
-		//公共数据区 群组消息
-	}
-	public void getGroupUser(){
-		//公共数据区 群组成员
-	}
 
 	public void saveMsg(UserMess userMess) {
 		UserMessDao.me.saveMess(userMess);

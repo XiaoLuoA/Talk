@@ -55,9 +55,13 @@ public class IndexAction extends ActionSupport{
 	public void getAllMsg(){
 		User loginUser = (User)ActionContext.getContext().getSession().get("user");
 		List<UserItem> allMsg = IndexService.me.getAllItem(loginUser);
+		
 		Ret ret = Ret.ok();
 		ret.set("items",allMsg);
-		//ret.set("deleteIds", );
+		ret.set("deleteIds",IndexService.me.getDeleteMe(loginUser.getId()));
+		
+		IndexService.me.deleteWhoDelete(loginUser.getId());
+		
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse resp = ResponseUtils.getResponse(ac);
 		try {
