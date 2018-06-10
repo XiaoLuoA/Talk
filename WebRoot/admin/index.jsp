@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
            
          <div class="select">                 
-          <form action="auser_searchLikeGroupsList">
+          <form action="auser_searchLikeUserList">
             <table class="table1"> 
              <tr>
  
