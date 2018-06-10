@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"><div class="text">群聊管理</div></div>
              
              
              <div class="jfa-content-box" >
@@ -89,7 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <form action="agroups_searchLikeGroupsList">        
            <table class="table1"> 
              <tr>
-               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">               
+               <td>请输入查询内容：</td><td> <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定"></td>     
+               <div class="addGroup" ><a href="admin/addGroup.jsp">添加群聊</a></div>          
              </tr>                    
             </table>                  
             </form>  
@@ -120,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</s:iterator>			 
   </table> 
     </div>   
-    <div class="addGroup" ><a href="admin/addGroup.jsp">添加群聊</a></div>
+    
         </div>           
     </div>        
     

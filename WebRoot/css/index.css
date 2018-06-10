@@ -74,8 +74,13 @@
 	line-height: 50px;
 	padding: 0 20px;
 	border-bottom: 1px solid #d6d6d6;
+	
 }
-
+.text{
+	margin-left:600px;
+	width:700px;
+	font-size:20px;
+}
 /* 内容容器 */
 .jfa-content-box {
     padding-top:50px;
@@ -84,7 +89,7 @@
 	width:1000px;
 }
 .select{  /*查询框*/
-	width:500px;
+	width:650px;
 	height:80px;
 	font-size:20px;
 	text-align:left;
@@ -111,7 +116,10 @@
 	text-decoration:none;
 }
 .addUser{  /*添加用户*/
-	height:40px;
+    padding-left:50px;
+    float:right;
+    width:150px;
+	height:30px;
 	font-size:20px;
 }
 .addUser a{
@@ -136,7 +144,7 @@
 	height:25px;
 }
 /*添加群聊*/
-.addGroup{
+.addGroupform{
 	padding-left:300px;
 }
 .addGroup1{
@@ -150,10 +158,8 @@
 }
 
 /*添加菜单*/
-.addMenu{
-	padding-left:300px;
-}
-.addMenu{
+
+.addMenuform{
 	padding-left:300px;
 }
 .addMenu1{
@@ -165,11 +171,29 @@
 .addMenu1 td{
 	height:25px;
 }
+/*添加角色*/
+.addRole{
+	padding-left:300px;
+}
+.addRole{
+	padding-left:300px;
+}
+.addRole{
+	font-size:20px;
+}
+.addRole label{
+	font-size:20px;
+}
+.addRole td{
+	height:25px;
+}
 
 /*群聊页面*/
 
+
+
 .group{  /*查询框*/
-	width:500px;
+	width:650px;
 	height:80px;
 	font-size:20px;
 	text-align:left;
@@ -196,8 +220,10 @@
 	text-decoration:none;
 }
 .addGroup{  /*添加群聊*/
-    
-	height:50px;
+    padding-left:50px;
+    float:right;
+    width:150px;
+	height:30px;
 	font-size:20px;
 }
 .addGroup a{
@@ -246,7 +272,7 @@
 /*菜单页面*/
 
 .menu{  /*查询框*/
-	width:500px;
+	width:650px;
 	height:80px;
 	font-size:20px;
 	text-align:left;
@@ -272,9 +298,11 @@
 	color:#2d8cf0;
 	text-decoration:none;
 }
-.addMenu{  /*添加群聊*/
-    
-	height:50px;
+.addMenu{  /*添加菜单*/
+    padding-left:50px;
+    float:right;
+    width:150px;
+	height:30px;
 	font-size:20px;
 }
 .addMenu a{

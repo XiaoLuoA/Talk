@@ -110,7 +110,7 @@ function createChoseItem(item)
 	htmlText.push('<div class="chose-item" data-index="'+ item.userItemId +'">');
 	htmlText.push('<img class="head-img" src="'+item.talkerPic+'">');
 	htmlText.push('<span class="talker-name">'+item.talkerName+'</span>');
-	htmlText.push('<i class="cls-btn hidden"></i><span class="show-newnum ">new</span></div>');
+	htmlText.push('<i class="cls-btn hidden"></i><span class="show-newnum "> new </span></div>');
 	
 	return htmlText.join('');
 	
@@ -173,6 +173,7 @@ function groupMessageTpl(message)
 }
 function groupUserTpl(user)
 {
+	if(UserId==user.Id){return ;}
 	var htmltext = [];
 	htmltext.push('<li class="user-item item-btn" data-index="'+ user.id +'">');
 	htmltext.push('<div class="user-item-scal"><div class="head-img"><img src="'+ user.pic +'"></div>');
@@ -222,13 +223,12 @@ function groupChoseItemTpl(group)
 	htmltext.push('<div class="group-chose-item" data-index='+ group.id +'>');
 	htmltext.push('<img class="head-img" src="'+group.groupPic+'">');
 	htmltext.push('<span class="group-name">'+group.groupName+'</span>');
-	htmltext.push('<i class="cls-btn hidden"></i><span class="show-newnum ">new</span></div>');
+	htmltext.push('<i class="cls-btn hidden"></i><span class="show-newnum "> new </span></div>');
 	return htmltext.join('');
 }
-function messageNumChange(num,$DOM)
-{
-	
-}
+
+
+
 function render()
 {
 	var htmlText =[];

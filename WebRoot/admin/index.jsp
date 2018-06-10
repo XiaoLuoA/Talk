@@ -70,22 +70,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>                    
           </div>    
           <div class="jfa-right-box">         
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"><div class="text">用户管理</div></div>
                         
-             <div class="jfa-content-box" id="jfa-content-box">                   
+             <div class="jfa-content-box">                   
              
-           
+             
          <div class="select">                 
           <form action="auser_searchLikeUserList">
             <table class="table1"> 
              <tr>
- 
-               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">
-               
+               <td>请输入查询内容：</td><td><input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定"></td>     
+               <div class="addUser">
+            <a href="admin/addUser.jsp">添加用户</a>
+           </div>          
              </tr>                    
             </table>        
             </form> 
+            
           </div>  
+           
               <div class="table2">                                  
                  <table border="1" class="table3">
                    <tr>
@@ -120,20 +123,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </table>
              
         </div> 
-          <div class="addUser" >
-            <a href="admin/addUser.jsp">添加用户</a>
-           
-          
-             
-              
-             
-              
-               
-               
-               
-               
-               
-              
+         
+            
              <%--   ${sessionScope.menuList[0].menuName}
                ${sessionScope.menuList[1].menuName}
              
@@ -153,12 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               
                 
                </s:debug> --%>
-          </div>
           
-          
-          
-
-           
+         
            </div>      
            
     </div>
