@@ -18,6 +18,7 @@ var showGroupMap = new Map();
 var openGroupMap = new Map();
 var itemMap = new Map();
 
+var deleteIds = [];
 
 var meaasgeNUll = {sendTime:'',content:''};
 
@@ -40,7 +41,8 @@ function askforData()
 				var res = JSON.parse(Res);
 //				console.log('success',res);
 				items = res.items;
-//				console.log(res);
+				deleteIds = res.deleteIds||[];
+				deleteLocalMessage();
 				flag = true;
 				getLocalMessage(items);
 				init();
@@ -60,7 +62,14 @@ function askforData()
 /*
  *加载本地消息的方法 
  */
-
+function deleteLocalMessage()
+{
+	deleteIds.forEach(function(deleteId,index){
+		var itemId = UserId+'|'+deleteId;
+		//删除本地
+		localStorage.remove(itemId);
+	});
+}
 function getLocalMessage(items)
 {
 	if(items)
@@ -227,6 +236,12 @@ function groupChoseItemTpl(group)
 	return htmltext.join('');
 }
 
+function deteleMessageTpl(item)
+{
+	var htmltext = [];
+	htmltext.push('<p class="message">用户 '+ item.talkerName +' 关闭了和你的对话</P>');
+	return htmltext.join('');
+}
 
 
 function render()
@@ -240,7 +255,6 @@ function render()
 	});}
 	var html = htmlText.join('');
 	$itemList.append(html) ;
-	
 	//从本地完善已经添加的消息
 	openItemIds.forEach(function(itemId,index){
 		var item = itemMap.get(itemId);

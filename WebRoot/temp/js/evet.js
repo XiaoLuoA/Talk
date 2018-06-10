@@ -698,10 +698,13 @@ function bindEvent()
 	Tab = TabByClass('MessageArea','chose-item','detail-item');
 	Tab.madeMap('data-index');
 	Tab.addSelect('.cls-btn');
-	
+	//群聊选项卡
 	GroupChatTab = TabByClass('GroupMessageArea','group-chose-item','group-detail-item');
 	GroupChatTab.madeMap('data-index');
 	GroupChatTab.addSelect('.cls-btn');
+	//会话列表选项卡
+	itemTab = TabByClass('MessageArea','top-panel','list-item');
+	
 	
 	//添加点击事件
 	
