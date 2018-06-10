@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	
-	<!-- <link rel="stylesheet" href="temp/css/reset.css" /> -->
+	<link rel="stylesheet" href="temp/css/reset.css" />
 	<link rel="stylesheet" href="css/indexindex.css" />
 	<link rel="stylesheet" href="temp/css/index.css" />
   </head>
@@ -39,7 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</s:iterator> 
 				</div>  
      	</div>
-     	
      	
         <div class="foot">
          <%@include file="../index/foot.html"%>
