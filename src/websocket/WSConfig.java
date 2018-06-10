@@ -1,18 +1,20 @@
-
 package websocket;
 
-
-public abstract class TalkServerConfig {
-	/**
-	 * 协议名字(可以随便取，主要用于开发人员辨识)
-	 */
+/**
+ * WS配置
+ * @author xiaoluo
+ *
+ */
+public abstract class WSConfig {
+	
 	public static final String PROTOCOL_NAME = "talk";
 	
 	public static final String CHARSET = "utf-8";
+	
 	/**
-	 * 监听的ip
+	 * 监听所有的ip
 	 */
-	public static final String SERVER_IP = null;//null表示监听所有，并不指定ip
+	public static final String SERVER_IP = null;
 
 	/**
 	 * 监听端口

@@ -1,10 +1,7 @@
 
 package websocket;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.Aio;
@@ -27,13 +24,13 @@ import com.xiaoluo.user.LoginService;
 import com.xiaoluo.user.UserService;
 
 
-public class TalkServerAioListener extends WsServerAioListener {
+public class ServerListener extends WsServerAioListener {
 	
-	private static Logger log = LoggerFactory.getLogger(TalkServerAioListener.class);
+	private static Logger log = LoggerFactory.getLogger(ServerListener.class);
 
-	public static final TalkServerAioListener me = new TalkServerAioListener();
+	public static final ServerListener me = new ServerListener();
 
-	private TalkServerAioListener() {
+	private ServerListener() {
 		
 	}
 
@@ -41,49 +38,49 @@ public class TalkServerAioListener extends WsServerAioListener {
 	@Override
 	public void onAfterConnected(ChannelContext channelContext, boolean isConnected, boolean isReconnect) throws Exception {
 		super.onAfterConnected(channelContext, isConnected, isReconnect);
-	
-		try{
-			System.out.println("onAfter连接成功！");
-		}catch(Exception e){
-			System.out.println(e);
-		}
 		
 	}
 
 	@Override
 	public void onAfterSent(ChannelContext channelContext, Packet packet, boolean isSentSuccess) throws Exception {
 		super.onAfterSent(channelContext, packet, isSentSuccess);
-		//System.out.println("aftersent");
 		
 	}
 
+	
+	//断链之前执行
 	@Override
 	public void onBeforeClose(ChannelContext channelContext, Throwable throwable, String remark, boolean isRemove) throws Exception {
 		super.onBeforeClose(channelContext, throwable, remark, isRemove);
 		
-		System.out.println("close");
 		//获取webSocketSessionContext
-				WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
+		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
 				
-				//获取握手包
-				HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
+		//获取握手包
+		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
 				
-				//握手包获取sessionId
-				String JSESSIONID = request.getParam("sessionId");
+		//握手包获取sessionId
+		String JSESSIONID = request.getParam("sessionId");
 				
-				//通过sessionId获取此用户
-				User user = (User) CommonData.loginUser.get(JSESSIONID);
-				System.out.println(Json.toJson(user));
+		//通过sessionId获取此用户
+		User user = (User) CommonData.loginUser.get(JSESSIONID);
 		
+		//将该用户从登录用户中移除
+		CommonData.loginUser.remove(user);
+		//从登录用户id移除
+		CommonData.loginUserID.remove(user.getId());
 		
-		
-		//channelContext.getGroupContext().groups.
+		//得到所有该客户端所在的所有组
 		SetWithLock<String> groups = channelContext.getGroupContext().groups.groups(channelContext);
+		
+		//将该客户端与所有的组解绑
 		channelContext.getGroupContext().groups.unbind(channelContext);
-	
+		
+		//得到客户端所在所有组的id
 		Set<String> groupIds = groups.getObj();
+		
 		for(String groupId:groupIds){
-			System.out.println(groupId);
+			//将该用户从某个Group中移除
 			IndexService.me.removeAUserFromGroup(Integer.parseInt(groupId),user);
 			JSONObject msg = new JSONObject();
 			msg.put("type", 3);
@@ -91,37 +88,30 @@ public class TalkServerAioListener extends WsServerAioListener {
 			msg.put("groupId", groupId);
 			msg.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 			//将消息格式化
-			WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
-			//发送到群组
+			WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), WSConfig.CHARSET);
+			//将该用户退出登录的信息发送到这个群组
 			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 		}
 		
-		//发送到群组
-		//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
+		
 	}
 
 	@Override
 	public void onAfterDecoded(ChannelContext channelContext, Packet packet, int packetSize) throws Exception {
 		super.onAfterDecoded(channelContext, packet, packetSize);
-//		if (log.isInfoEnabled()) {
-//			log.info("onAfterDecoded\r\n{}\r\n{}", packet.logstr(), channelContext);
-//		}
+
 	}
 
 	@Override
 	public void onAfterReceivedBytes(ChannelContext channelContext, int receivedBytes) throws Exception {
 		super.onAfterReceivedBytes(channelContext, receivedBytes);
-//		if (log.isInfoEnabled()) {
-//			log.info("onAfterReceivedBytes\r\n{}", channelContext);
-//		}
+
 	}
 
 	@Override
 	public void onAfterHandled(ChannelContext channelContext, Packet packet, long cost) throws Exception {
 		super.onAfterHandled(channelContext, packet, cost);
-//		if (log.isInfoEnabled()) {
-//			log.info("onAfterHandled\r\n{}\r\n{}", packet.logstr(), channelContext);
-//		}
+
 	}
 
 }

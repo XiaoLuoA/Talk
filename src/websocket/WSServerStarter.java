@@ -19,11 +19,11 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
 /**
  *
  * @author tanyaowu
- * 2017年7月30日 上午9:45:54
+ * 
  */
-public class WsServerStarter {
+public class WSServerStarter {
 	@SuppressWarnings("unused")
-	private static Logger log = LoggerFactory.getLogger(WsServerStarter.class);
+	private static Logger log = LoggerFactory.getLogger(WSServerStarter.class);
 
 	private WsServerConfig wsServerConfig = null;
 
@@ -72,23 +72,23 @@ public class WsServerStarter {
 		return serverGroupContext;
 	}
 
-	public WsServerStarter(int port, IWsMsgHandler wsMsgHandler) throws IOException {
+	public WSServerStarter(int port, IWsMsgHandler wsMsgHandler) throws IOException {
 		this(port, wsMsgHandler, null, null);
 	}
 
-	public WsServerStarter(int port, IWsMsgHandler wsMsgHandler, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
+	public WSServerStarter(int port, IWsMsgHandler wsMsgHandler, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
 		this(new WsServerConfig(port), wsMsgHandler, tioExecutor, groupExecutor);
 	}
 
-	public WsServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler) throws IOException {
+	public WSServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler) throws IOException {
 		this(wsServerConfig, wsMsgHandler, null, null);
 	}
 
-	public WsServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
+	public WSServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
 		this(wsServerConfig, wsMsgHandler, new WsTioUuid(), tioExecutor, groupExecutor);
 	}
 	
-	public WsServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler, TioUuid tioUuid, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
+	public WSServerStarter(WsServerConfig wsServerConfig, IWsMsgHandler wsMsgHandler, TioUuid tioUuid, SynThreadPoolExecutor tioExecutor, ThreadPoolExecutor groupExecutor) throws IOException {
 		if (tioExecutor == null) {
 			tioExecutor = Threads.tioExecutor;
 		}
