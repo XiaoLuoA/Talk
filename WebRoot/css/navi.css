@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .top{
-	background-image:url(../image/background/m3.PNG); 
+	background-image:url(../image/background/m4.png); 
 	height:250px;
 	background-repeat:no-repeat; 
    background-position: center;
@@ -10,7 +10,7 @@
 .navi{
    	
 	height:50px;
-	background-color:#1053ef;
+	background-color:#0674BB;
 }
 .n1{
 	

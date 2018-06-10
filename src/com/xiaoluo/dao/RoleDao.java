@@ -66,30 +66,18 @@ public List<Role> findAllRole(){
 	}
 	
 	
-	public void addRole(Role role, int[] s){
-	    
+	public void addRole(Role role){
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-	    sess.save(role);
-	    
-	    for(int i=0;i<s.length;i++){
-	    RoleMenu rmi=new RoleMenu();
-	    rmi.setRoleId(role.getId());
-	    rmi.setMenuId(s[i]);
-	    rmi.setCreateTime(role.getCreateTime());
-	    RoleMenuDao.me.addRoleMenu(rmi);
-	    
-	    }
+	    sess.save(role);    
         tx.commit();
 		sess.close();
 		
 	}
-	public void updateRole(int roleid ,int menuid,int updateMenuId){			
+	public void updateRole(Role role){			
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
-		RoleMenu rm=RoleMenuDao.me.findRoleMenuByRoleIdByMenuId(roleid, menuid);
-		rm.setMenuId(updateMenuId);
-		sess.saveOrUpdate(rm);
+		sess.saveOrUpdate(role);
 		tx.commit();
 		sess.close();
 		

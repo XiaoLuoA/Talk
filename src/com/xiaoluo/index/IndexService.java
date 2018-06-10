@@ -54,6 +54,10 @@ public class IndexService {
 		users.remove(user);
 	}
 	
+	public Integer getUserSizeFromGroup(Integer groupId){
+		return userInGroup.get(groupId)==null ? 0:userInGroup.get(groupId).size();
+	}
+	
 	public List<User> getUsersFromGroup(Integer groupId){
 		return userInGroup.get(groupId);
 	}

@@ -40,6 +40,7 @@ public class GroupsDao {
 		        query.setFirstResult(0);
 		        List<Groups> groupList = query.list();             
 		        transaction.commit();  
+		        
 		        session.close();
 		   
 				return groupList;
@@ -56,13 +57,8 @@ public class GroupsDao {
         Groups groups =new Groups();
         Transaction transaction = session.beginTransaction();  
         Query query = session.createQuery("from Groups");
-        //从第一个开始查起.可以设置从第几个查起.
-        query.setFirstResult(0);
-        
-        //使用List方法.
-        List<Groups> groupList = query.list();
-
-                
+        query.setFirstResult(0);        
+        List<Groups> groupList = query.list();                
         transaction.commit();  
         session.close();
 		return groupList;

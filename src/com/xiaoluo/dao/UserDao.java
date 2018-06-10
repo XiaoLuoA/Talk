@@ -96,6 +96,7 @@ public class UserDao {
 		Query query=sess.createQuery(hql);
 		query.setString(0,name);		
 		List<User> userlist = query.list();    
+		sess.close();
 		return userlist;		
 	}
 

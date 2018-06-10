@@ -1,6 +1,8 @@
 package test;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 
@@ -16,16 +18,8 @@ public class ComeTest {
 	//lxy test01
 	//wyh test01		
 	public static void main(String[] args) {
-		System.out.println("\\\"");
+		Map<Integer,String> map = new HashMap<Integer,String>();
+		System.out.println(map.get(1));
 	}
-	
-	public static int testTryCatch(int a,int b){
-		try{
-			return a/b;
-		}catch(Exception e){
-			return 100;
-		}
-	}
-	
 
 }

@@ -47,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                      首页
                   </a>
                    <%
+                   if(list.size()>0){
               
               for( i=0;i<list.size();i++){
             	 %> 
@@ -62,6 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
+              }
             	 %>                                                   
              </div>                     
           </div>   
@@ -108,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          
         </td>
        </tr>       
-        <%-- <s:textfield name="orderNum"  label="子菜单"></s:textfield> ！！！！子菜单获取的是list豪哥你想想怎么用OGNL显示吧，任务多就不给你写了 --%>               
+       
         <s:submit value="确定"></s:submit>
       </table>   
     </s:form>

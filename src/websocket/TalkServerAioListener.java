@@ -79,19 +79,23 @@ public class TalkServerAioListener extends WsServerAioListener {
 		
 		//channelContext.getGroupContext().groups.
 		SetWithLock<String> groups = channelContext.getGroupContext().groups.groups(channelContext);
+		channelContext.getGroupContext().groups.unbind(channelContext);
+	
 		Set<String> groupIds = groups.getObj();
-		
 		for(String groupId:groupIds){
 			System.out.println(groupId);
 			IndexService.me.removeAUserFromGroup(Integer.parseInt(groupId),user);
+			JSONObject msg = new JSONObject();
+			msg.put("type", 3);
+			msg.put("userId", user.getId());
+			msg.put("groupId", groupId);
+			msg.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
+			//将消息格式化
+			WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
+			//发送到群组
+			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 		}
-		channelContext.getGroupContext().groups.unbind(channelContext);
-		JSONObject msg = new JSONObject();
 		
-		msg.put("type", 5);
-		//msg.put("userId", );
-		//将消息格式化
-		WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
 		//发送到群组
 		//Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 	}

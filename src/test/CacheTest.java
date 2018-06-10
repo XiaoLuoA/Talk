@@ -12,7 +12,7 @@ public class CacheTest {
         CacheManager cacheManager = CacheManager.create(PathKit.getWebRootPath()+"\\src\\main\\resources\\ehcache.xml");
 
         // 2. 获取缓存对象
-        Cache cache = cacheManager.getCache("HelloWorldCache");
+        Cache cache = cacheManager.getCache("He  lloWorldCache");
 
         // 3. 创建元素
         Element element = new Element("key1", "value1");

@@ -118,9 +118,6 @@ public class MenuDao {
 	 * @return List<Menu> 对应的二级菜单
 	 */
 	public List<Menu> findSubMenu(List<Menu> menus){
-		Configuration config = new Configuration().configure() ;        
-	    SessionFactory sf = config.buildSessionFactory() ;
-	    //
 		Session sess = sf.openSession();
 		Transaction tx = sess.beginTransaction();
 		String ids = "";

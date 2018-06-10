@@ -55,6 +55,15 @@ public class RoleMenuDao {
 		
 		
 	}
+	
+	public void updateRoleMenu(RoleMenu rolemenu){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();  
+		sess.saveOrUpdate(rolemenu);
+		tx.commit();
+		sess.close();
+		
+	}
 	public void deleteRoleMenu (int id){
 		
 		Session sess = sf.openSession();
@@ -98,7 +107,7 @@ public class RoleMenuDao {
 		Query query=sess.createQuery(hql);
 		query.setInteger(0, role.getId());
 		List<RoleMenu> rolemenulist = query.list(); 
-		String s = null;
+		String s = "";
 		for(int i=0;i<rolemenulist.size();i++){
 			if(i!=rolemenulist.size()-1){
 			s=rolemenulist.get(i).getMenuId()+",";
