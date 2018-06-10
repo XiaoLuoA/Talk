@@ -44,16 +44,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="item">
 							<div class="item-top">
 								<p>文字</p>
-								<span>消息</span> <span>新消息</span>
+								<span class="top-panel">消息</span> <span class="top-panel">新消息</span>
 							</div>
-							<div class="item-list scrll-y"><!--消息列表-->
-								<div class="item-item">
-									<div class="head-img"><img src="avatar4.png"></div>
-									<div class="ietm-item-detail">
-										<p><span class="name">AI</span><span class="last-time">2015-12-12-12-12</span></p>
-										<span class="content">这是一条消息</span>
-									</div>
-								</div>	
+							<div class="item-list list-item"><!--消息列表-->
+							<div class="button-area"></div>
+
+							</div>
+							<div class="message-list list-item"><!--消息列表-->
+							<div class="button-area"></div>
 							</div>
 						</div>
 					</div>
@@ -76,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	</div>
 		</div>
 		
+		<script src="temp/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="page/tio/tiows.js"></script>
 		<% 
 		String sess = (String)request.getSession().getAttribute("sessionId");
