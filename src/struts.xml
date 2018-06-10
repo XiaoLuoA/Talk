@@ -109,6 +109,17 @@
 	   <interceptor-ref name="all_stack"></interceptor-ref>
 	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
+	
+	<!--  RoleMenu管理（权限管理）//listALL -->
+	<action name="arolemenu_*" class="com.xiaoluo.admin.RoleMenu.AdminRoleMenuAction" method="{1}">
+	  <result name="admin">/admin/rolemenu.jsp</result>
+	  <result name="update">/admin/updateRolemenu.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	  	  	  
+	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	</action>
+	
+	
 	</package>
 	
 </struts>    

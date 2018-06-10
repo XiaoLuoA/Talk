@@ -9,7 +9,7 @@
 			<generator class="identity"/>
 		</id>
 		<property name="menuName" column="menu_name"/>
-		<property name="menuUrl" column="menu_detail"/>
+		<property name="menuUrl" column="menu_url"/>
 		<property name="parentId" column="parent_id"/>
 		<property name="icon" />
 		<property name="orderNum" column="order_num"/>

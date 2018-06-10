@@ -24,12 +24,12 @@ public class AdminRolesService {
 		RoleDao.me.deleteRole(id);
 		
 	}
-	public void addRole(Role role ,int s[]){
-		RoleDao.me.addRole(role, s);
+	public void addRole(Role role ){
+		RoleDao.me.addRole(role);
 	}
 	
-	public void updateRole(int roleid ,int menuid,int updateMenuId){
-		RoleDao.me.updateRole(roleid, menuid, updateMenuId);
+	public void updateRole(Role role){
+		RoleDao.me.updateRole(role);
 		
 	}
 	public Role findRole(int id){

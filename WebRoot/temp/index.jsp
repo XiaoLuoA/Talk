@@ -84,6 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		out.print("var sessionId= '"+sess+"';");
 		out.print("var UserId= '"+user.getId()+"';</script>");
 		%>
+
 		<script>
 				var items = [];var groups = [];
 		</script>

@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   
                    <%
-              
+                   if(list.size()>0){
               for( i=0;i<list.size();i++){
             	 %> 
             	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
+                   }
             	 %>                                        
              </div>                     
           </div>      
@@ -91,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <td>菜单图标</td>
                       <td>排列大小</td>
                       <td>创建时间</td>
-                      <td>子菜单</td>
+                      
                       <td>操作1</td>
                       <td>操作2</td>
   
@@ -105,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#u.icon"/></td>
 			<td><s:property value="#u.orderNum"/></td>
 			<td><s:property value="#u.createTime"/></td>
-			<td><s:property value="#u.subMenu"/></td>
+		
 			<td><a href="amenu_findMenu?id=<s:property value="#u.id"/>">修改</a></td>
 			<td><a href="amenu_deleteMenu?id=<s:property value="#u.id"/>">删除</a>			
 				</s:iterator>	 

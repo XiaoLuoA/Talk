@@ -14,8 +14,8 @@ public class AuthDao {
 			
 	}
 	
-	public void  listAuthority(User user){
-		MenuDao.me.findFirstMenu(user);
+	public void  listAllUserAuthority(){
+	   
 	}
 	
 	
