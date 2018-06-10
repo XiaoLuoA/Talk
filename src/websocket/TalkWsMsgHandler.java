@@ -17,6 +17,7 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
 import com.alibaba.fastjson.JSONObject;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.MyQueue;
+import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserItem;
@@ -223,7 +224,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				
 				//JSONObject ret = new JSONObject();
-				jsonObject2.put("num", CommonData.usersInGroup.size()+1);
+				
+				jsonObject2.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)+1));
 				jsonObject2.put("groupId", groupId);
 				jsonObject2.put("user", user);
 				
@@ -233,7 +235,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				Aio.bindGroup(channelContext,groupId);
 				
 				//将用户加入到Group中
-				CommonData.usersInGroup.add(user);
+				IndexService.me.addAUserToGroup(Integer.parseInt(groupId), user);
 				
 				//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
 				
@@ -293,18 +295,18 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			//向某个群组中加入消息
 			
 			//获取群组当前消息队列
-			MyQueue<GroupsMess> myQueue = CommonData.groupsMess.get(groupId);
+//			MyQueue<GroupsMess> myQueue = CommonData.groupsMess.get(groupId);
 			
-			//若不存在队列，初始化大小为50的队列
-			if(myQueue==null){
-				myQueue = new MyQueue<GroupsMess>(50);
-			}
-			
-			//向队列中加入消息
-			myQueue.add(userMess);
+//			//若不存在队列，初始化大小为50的队列
+//			if(myQueue==null){
+//				myQueue = new MyQueue<GroupsMess>(50);
+//			}
+//			
+//			//向队列中加入消息
+//			myQueue.add(userMess);
 			
 			//将队列放在群组消息中
-			CommonData.groupsMess.put(groupId, myQueue);
+			IndexService.me.addAMessToGroup(Integer.parseInt(groupId), userMess);
 			
 			}catch(Exception e){
 				e.printStackTrace();
@@ -319,13 +321,15 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				System.out.println("type3");
 				String groupId = jsonObject2.getString("groupId");
 				Aio.unbindGroup(groupId, channelContext);
-				CommonData.usersInGroup.remove(user);
 				
+				//CommonData.usersInGroup.remove(user);
+				IndexService.me.removeAUserFromGroup(Integer.parseInt(groupId),user);
 				JSONObject msg = new JSONObject();
 				
 				msg.put("type", 3);
 				msg.put("userId", user.getId());
 				msg.put("groupId", groupId);
+				msg.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 				//将消息格式化
 				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
 				//发送到群组

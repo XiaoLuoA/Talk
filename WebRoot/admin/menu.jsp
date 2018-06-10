@@ -68,14 +68,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>      
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"><div class="text">菜单管理</div></div>
             <div class="jfa-content-box">
        <div class="menu">                 
           <form action="amenu_searchLikeMenuList">
           
           <table class="table1"> 
              <tr>
-               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">               
+               <td>请输入查询内容：</td><td> <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定"> </td>  
+               <div class="addMenu">
+            <a href="admin/addMenu.jsp">添加菜单</a>           
              </tr>                    
             </table>          
             </form>   
@@ -110,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</s:iterator>	 
               </table> 
             </div>  
-              <div class="addMenu" ><a href="admin/addMenu.jsp">添加菜单</a></div>    
+                  
            
        </div>   
     </div>

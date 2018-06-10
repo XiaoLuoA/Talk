@@ -64,9 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>      
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"><div class="text">角色管理</div></div>
             <div class="jfa-content-box">
-            
+              <div class="addRole" ><a href="admin/addRole.jsp">添加角色</a></div>
               <div class="table2">                     
                  <table border="1" class="table3">
                    <tr>
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</s:iterator>	 
               </table> 
             </div>  
-              <div class="addRole" ><a href="admin/addRole.jsp">添加角色</a></div>    
+                  
            
        </div>   
     </div>

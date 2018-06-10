@@ -64,12 +64,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>                    
           </div>    
           <div class="jfa-right-box">         
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box"><div class="text">添加菜单</div></div>
                         
-             <div class="jfa-content-box" id="jfa-content-box">
+             <div class="jfa-content-box">
               
     <!-- 推荐使用Struts2的标签库 -->
-    <div class="addGroup">
+    <div class="addGroupform">
      <s:form action="agroups_addGroups" >  
       <table class="addGroup1">
        <tr>

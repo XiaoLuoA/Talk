@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>             
+             <div class="jfa-header-box"><div class="text">修改角色</div></div>             
              <div class="jfa-content-box">
                    
              <s:debug>    

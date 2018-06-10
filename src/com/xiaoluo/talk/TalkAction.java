@@ -7,12 +7,22 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.MyQueue;
+import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
 
 public class TalkAction extends ActionSupport{
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	private String groupId;
 	
 	public String java(){
 		return "java";
@@ -28,15 +38,17 @@ public class TalkAction extends ActionSupport{
 	
 	public void getGroupInfo(){
 		try {
-		String groupId = (String) ActionContext.getContext().get("groupId");
+		//String groupId = (String) ActionContext.getContext().get("groupId");
+		
 		System.out.println("ajax"+groupId);
-		MyQueue<GroupsMess> gMess = CommonData.groupsMess.get(groupId);
+		MyQueue<GroupsMess> gMess = IndexService.me.getMessFromGroup(Integer.parseInt(groupId));
 		
 		if(gMess == null){
 			 gMess = new MyQueue<GroupsMess>(50);
 		}
 		
-		List<User> users = CommonData.usersInGroup;
+		List<User> users = IndexService.me.getUsersFromGroup(Integer.parseInt(groupId));
+		
 		Ret ret = Ret.ok();
 		ret.set("items",gMess.queue);
 		ret.set("users",users);

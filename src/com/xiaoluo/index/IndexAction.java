@@ -23,10 +23,13 @@ public class IndexAction extends ActionSupport{
 	
 	
 	public String index() {
-		
-		System.out.println(IndexService.me.allGroup.get(0).getGroupName());
 		ActionContext.getContext().getValueStack().set("allGroup",IndexService.me.allGroup);;
 		return "index";
+	}
+	
+	public String findex(){
+		ActionContext.getContext().getValueStack().set("allGroup",IndexService.me.allGroup);;
+		return "findex";
 	}
 	
 	@Override

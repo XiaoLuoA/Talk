@@ -10,9 +10,10 @@ import com.xiaoluo.model.User;
 import com.xiaoluo.utils.Ret;
 
 public class CommonData {
+	
 	public static Ret loginUser = new Ret();
 	public static List<String> loginUserID = new ArrayList<String>();
-	public static Ret loginGroup = new Ret().set("users", new ArrayList<User>());
-	public static List<User> usersInGroup = new ArrayList<User>();
-	public static Map<String,MyQueue<GroupsMess>> groupsMess = new HashMap<String,MyQueue<GroupsMess>>();
+	public static Map<Integer,MyQueue<GroupsMess>> groupsMess = new HashMap<Integer,MyQueue<GroupsMess>>();
+	public static Map<Integer,List<User>> userInGroup = new HashMap<Integer, List<User>>();
+	
 }
