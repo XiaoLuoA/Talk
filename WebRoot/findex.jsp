@@ -17,6 +17,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" href="temp/css/index.css" />
 	</head>
 	<body>
+	<h1><a href="userloginPage.action">登录</a></h1>
+	<h1><a href="userloginPage.action">登录</a></h1>
+	<h1><a href="userloginPage.action">登录</a></h1>
+	<h1><a href="userloginPage.action">登录</a></h1>
+	<s:if test="#session.user.name!=null">
+		<s:property value="#session.user.name" />
+	</s:if>
+	
 		<div class="page-moment">
 			假装这是背景
 			<div class="group-area">
@@ -31,11 +39,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div class="chat-overlay overlay hidden">
 				<div id="MessageArea" class="chat-area overlay-showarea"><!--聊天信息-->
-					<div class="chose-list">
-						<!--<div class="chose-item" data-index="a">a<span class="cls-btn float-r">关闭</span></div>
-						<div class="chose-item" data-index="v">v<span class="cls-btn float-r">关闭</span></div>-->
+					<div class="chose-list scrll-y">
+						<div class="chose-item" data-index="a">a<span class="cls-btn float-r">关闭</span></div>
+						<div class="chose-item" data-index="v">v<span class="cls-btn float-r">关闭</span></div>
 					</div>
 					<div class="detail-list">
+						<div class="detail-item scrll-y">c</div>
+						<div class="detail-item scrll-y">s</div>
 					</div>
 				
 				
@@ -44,14 +54,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<p>文字</p>
 						<span>消息</span> <span>新消息</span>
 					</div>
-					<div class="item-list"><!--消息列表-->
-						<!--<div class="item-item">
+					<div class="item-list scrll-y"><!--消息列表-->
+						<div class="item-item">
 							<div class="head-img"><img src="avatar4.png"></div>
 							<div class="ietm-item-detail">
 								<p><span class="name">AI</span><span class="last-time">2015-12-12-12-12</span></p>
 								<span class="content">这是一条消息</span>
 							</div>
-						</div>	-->
+						</div>	
 					</div>
 				</div>
 				</div>
@@ -71,71 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 				</div>
 			</div>
-			
 		</div>
-		
-		
-		<script src="temp/js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="page/tio/tiows.js"></script>
-		<% 
-		String sess = (String)request.getSession().getAttribute("sessionId");
-		User user = (User)request.getSession().getAttribute("user");
-		out.print("<script>var queryString = 'sessionId="+sess+"';");
-		out.print("var sessionId= '"+sess+"';");
-		out.print("var UserId= '"+user.getId()+"';</script>");
-		%>
-		<s:property value="#session.sessionId"/>
-		<script>
-			var items =	[
-				{
-					userItemId :1,
-					talkItemId :11,
-					userId :1,
-					userName :'符文',
-					talkerId :2,
-					talkerName :'二号',
-					talkPic :'avatar4.png',
-					newNum :0,
-					lastTime:'2017-05-45|12:00',
-					lastContent:'你好啊',
-					isBlack :false,
-					messages:[{
-						userMessId :1,
-						itemId :1,
-						fromId :2,
-						toId:1,
-						sendTime :'2017-05-45|12:00',
-						isRead:true,
-						content:'这是一条信息',
-					},],
-				},
-				{userItemId :2,talkItemId :12,userId :1,userName :'符文',talkerId :3,talkerName :'三号',talkPic :'avatar5.png',newNum :0,lastTime:'2017-05-45|12:00',lastContent:'你好个P',isBlack :false,messages:[{userMessId :1,itemId :2,fromId :3,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',},],},
-			];
-			
-			var groups =[
-				{
-					id:'1',
-					groupName:'群A',
-					groupDetail:'测试群',
-					groupNum:13,
-					createTime:'2015-03-02',
-					groupPic:'avatar4.png',
-					groupMess:[{
-						id:'1',
-						content:'a',
-						time:'2015-03-02',
-						talkerPic:'avatar4.png',
-						talkerId:'1',
-						talkerName:'Ai2',
-					},],
-				},];
-				items = [];groups = [];
-		</script>
-		<script type="text/javascript" src="temp/js/tool.js" ></script>
-		<script type="text/javascript" src="temp/js/index.js" ></script>
-		<script type="text/javascript" src="temp/js/evet.js"></script>
-		
-		
 	</body>
 </html>
 <!--
@@ -166,3 +112,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 |  isRead  		|   boolean |  是否已读  		|
 |  content  	|   str 	|  具体内容  		|
 -->
+
