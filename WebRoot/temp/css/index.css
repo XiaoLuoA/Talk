@@ -103,9 +103,19 @@ body
 	height: 100%;
     
 }
-.item
+.item .button-area
 {
+	text-align: right;
+	background: white;
+	padding: 2px;
 	height: 20px;	
+}
+.item .button-area .btn
+{
+	height: 16px;
+	font-size: 12px;
+	border-radius: 4px;
+	background: deepskyblue;
 }
 
 .item-list,

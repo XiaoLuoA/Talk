@@ -47,11 +47,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<span class="top-panel">消息</span> <span class="top-panel">新消息</span>
 							</div>
 							<div class="item-list list-item"><!--消息列表-->
-							<div class="button-area"></div>
+							<div class="button-area">
+								<button class="btn">查找</button>
+								<button class="btn">管理</button>
+							</div>
 
 							</div>
 							<div class="message-list list-item"><!--消息列表-->
-							<div class="button-area"></div>
+							<div class="button-area">
+								<button class="btn">管理</button>
+								<button class="btn">清空</button>
+							</div>
 							</div>
 						</div>
 					</div>
