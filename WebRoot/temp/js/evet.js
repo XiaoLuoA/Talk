@@ -402,6 +402,7 @@ function BieginListener(event, ws)
 			break;
 		//有人删除了好友
 		case 5:
+			itemDelete(res.message);
 			break;
 	}
 
@@ -520,6 +521,21 @@ function BieginListener(event, ws)
 //		Tab.add($newChoseItem[0],$newDetailItem[0]);
 		//已经创建并激活
 	} 
+	
+	function itemDelete(data)
+	{
+		var deleteIds = data.deleteIds||[];
+		deleteIds.forEach(function(deleteId,index){
+			var itemId = UserId+'|'+deleteId;
+			//删除本地
+			localStorage.remove(itemId);
+			//清除dom
+			Tab.remove(itemId,true);
+			$itemList.find('li[data-index="itemId"]').remove();
+			//添加提醒
+		});
+
+	}
 }
 function BeginSend()
 {

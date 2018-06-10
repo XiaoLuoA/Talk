@@ -84,52 +84,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		out.print("var sessionId= '"+sess+"';");
 		out.print("var UserId= '"+user.getId()+"';</script>");
 		%>
-		<s:property value="#session.sessionId"/>
 		<script>
-			var items =	[
-				{
-					userItemId :1,
-					talkItemId :11,
-					userId :1,
-					userName :'符文',
-					talkerId :2,
-					talkerName :'二号',
-					talkPic :'avatar4.png',
-					newNum :0,
-					lastTime:'2017-05-45|12:00',
-					lastContent:'你好啊',
-					isBlack :false,
-					messages:[{
-						userMessId :1,
-						itemId :1,
-						fromId :2,
-						toId:1,
-						sendTime :'2017-05-45|12:00',
-						isRead:true,
-						content:'这是一条信息',
-					},],
-				},
-				{userItemId :2,talkItemId :12,userId :1,userName :'符文',talkerId :3,talkerName :'三号',talkPic :'avatar5.png',newNum :0,lastTime:'2017-05-45|12:00',lastContent:'你好个P',isBlack :false,messages:[{userMessId :1,itemId :2,fromId :3,toId:1,sendTime :'2017-05-45|12:00',isRead:true,content:'这是一条信息',},],},
-			];
-			
-			var groups =[
-				{
-					id:'1',
-					groupName:'群A',
-					groupDetail:'测试群',
-					groupNum:13,
-					createTime:'2015-03-02',
-					groupPic:'avatar4.png',
-					groupMess:[{
-						id:'1',
-						content:'a',
-						time:'2015-03-02',
-						talkerPic:'avatar4.png',
-						talkerId:'1',
-						talkerName:'Ai2',
-					},],
-				},];
-				items = [];groups = [];
+				var items = [];var groups = [];
 		</script>
 		<script type="text/javascript" src="temp/js/tool.js" ></script>
 		<script type="text/javascript" src="temp/js/index.js" ></script>
