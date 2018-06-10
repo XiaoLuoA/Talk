@@ -224,7 +224,9 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				
 				//JSONObject ret = new JSONObject();
-				jsonObject2.put("num", IndexService.me.getUsersFromGroup(Integer.parseInt(groupId)+1));
+				System.out.println(IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
+				
+				jsonObject2.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 				jsonObject2.put("groupId", groupId);
 				jsonObject2.put("user", user);
 				
@@ -328,6 +330,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				msg.put("type", 3);
 				msg.put("userId", user.getId());
 				msg.put("groupId", groupId);
+				msg.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 				//将消息格式化
 				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
 				//发送到群组
