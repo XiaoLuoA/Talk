@@ -27,9 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div class="container">    
-    	<%@include file="../index/navi.html"%>
+    	<%@include file="../index/navi1.html"%>
     	
     	<div class="index">
+    	    <div class="group1">
     			<div class="group-area"> 
     				<s:iterator id="groups" value="allGroup" >
     				<div class="g1"> 
@@ -37,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div> 
 					</s:iterator> 
 				</div>  
+			</div>
      	</div>
      	
         <div class="foot">

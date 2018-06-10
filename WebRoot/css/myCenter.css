@@ -61,17 +61,19 @@ body{
 }
 
 .myInformation ul{
-	padding:0px;
-	padding-left:150px;
+	padding-top:20px;	
 	float:left;	
 }
 .myInformation li{	
 	text-align:left;
-	
+	height:80px;
 	font-size:20px;
 	list-style-type:none;
 	padding:20px;
-	
+}
+.mycenter{
+	width:600px;
+	height:450px;	
 }
 
 
@@ -131,4 +133,32 @@ body{
 .myMessage {
 	font-size:20px;
 	padding-top:20px;
+}
+
+
+/*表情*/
+.expression1{
+	float:right;
+	height:200px;
+	width:200px;
+	margin-right:50px;
+	background-size:cover;
+	background-image:url(../image/expression/information.gif); 
+}
+.expression2{
+	float:right;
+	height:200px;
+	width:200px;
+	margin-right:50px;
+	background-size:cover;
+	background-image:url(../image/expression/information.gif); 
+}
+.expression3{
+	float:right;
+	height:200px;
+	width:200px;
+	margin-right:50px;
+	margin-top:470px;
+	background-size:cover;
+	background-image:url(../image/expression/change.gif); 
 }

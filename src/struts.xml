@@ -115,8 +115,8 @@
 	  <result name="admin">/admin/rolemenu.jsp</result>
 	  <result name="update">/admin/updateRolemenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	  	  	  
-	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	  	  	  <interceptor-ref name="all_stack"></interceptor-ref>
+	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 	
 	
