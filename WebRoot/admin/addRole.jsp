@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   
                    <%
-              
+                   if(list.size()>0){
               for( i=0;i<list.size();i++){
             	 %> 
             	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
+                   }
             	 %>                             
              </div>                    
           </div>    
@@ -77,11 +78,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <tr>
         <td>
          <s:textfield name="roleName"   label="角色名字" ></s:textfield>
-        </td>
-       </tr>
-       <tr>
-        <td>
-         <s:textfield name="menu"   label="角色权限" ></s:textfield>
         </td>
        </tr>
        <tr>

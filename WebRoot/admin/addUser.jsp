@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
+<%@ page   contentType="text/html;charset=utf-8"   %>       
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -29,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   <%
+         request.setCharacterEncoding("utf-8");
          List<Menu> list=(List) session.getAttribute("menuList"); 
          int i;
          int j;  
@@ -47,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   
                    <%
-              
+                   if(list.size()>0){
               for( i=0;i<list.size();i++){
             	 %> 
             	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
@@ -62,6 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
+                   }
             	 %>
                                           
              </div>
@@ -90,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        </tr>
         <tr>
         <td>
-         <s:select name="sex" list="#{'0':'男','1':'女'}" label="性别" headerKey="" headerValue="请选择性别"></s:select>
+         <s:select name="sex" list="#{'男':'男','女':'女'}" label="性别" headerKey="" headerValue="请选择性别"></s:select>
         </td>
        </tr>
         <tr>

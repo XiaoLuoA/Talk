@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.admin.menu.AdminMenuService;
 import com.xiaoluo.dao.UserDao;
+import com.xiaoluo.model.Menu;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
@@ -41,24 +42,43 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 
 	
 	
-	public String listAllUser(){
+	public String listAllUser() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+		
 		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
-		User usertest=UserDao.me.findUser(11);
-		/*ActionContext.getContext().getValueStack().set("menuList",AdminMenuService.me.getUserMenu(usertest));*/
 		HttpSession sessionName = request.getSession();
-		sessionName.setAttribute("menuList", AdminMenuService.me.getUserMenu(usertest));
+		User loginUser = (User) ActionContext.getContext().getSession().get("user");
+		sessionName.setAttribute("menuList", AdminMenuService.me.getUserMenu(loginUser));
+		
+		/*List<Menu> list=AdminMenuService.me.getUserMenu(loginUser);
+		  for(int i=0;i<list.size();i++){
+         	
+         System.out.print(list.get(i).getMenuUrl());
+         System.out.print(list.get(i).getMenuName());
+         	
+         	 
+         	  for(int j=0;j<list.get(i).getSubMenuList().size();j++){
+         		  
+         		System. out.print(list.get(i).getSubMenuList().get(j).getMenuUrl());
+         		System. out.print(list.get(i).getSubMenuList().get(j).getMenuName());
+
+         	    }
+         	  }
+         	   */
 		return "admin";
 		
 	}
 	
-	public String deleteUser(){
+	public String deleteUser() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		int id =Integer.parseInt(request.getParameter("id"));
 		AdminUserService.me.deleteUser(id);
 		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
 		return "admin";
 	}
 	
-	public void testAjax(){
+	public void testAjax() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
@@ -80,26 +100,30 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		
 	}
 	
-	public String addUser(){
+	public String addUser() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		AdminUserService.me.addUser(user);
 		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
 		return "admin";
 	}
 	
-	public String updateUser(){
+	public String updateUser() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 	
 		AdminUserService.me.updateUser(user);;
 		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
 		return "admin";
 	}
 	
-	public String findUser(){
+	public String findUser() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		int id =Integer.parseInt(request.getParameter("id"));
 		User user=AdminUserService.me.findUser(id);
 		ActionContext.getContext().getValueStack().set("user",user);	
 		return "update";
 	}
 	public String searchLikeUserList() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
 		 
 		String name =request.getParameter("searchName");
 		  List<User> searchLikeUserList =AdminUserService.me.searchLikeUserList(name);

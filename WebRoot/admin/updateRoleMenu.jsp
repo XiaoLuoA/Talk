@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%> 
+<%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>菜单</title>
+    <title>修改群聊</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -63,56 +63,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	    }
             	  }
                    }
-            	 %>                                        
-             </div>                     
-          </div>      
+            	 %>                                         
+             </div>                      
+          </div>
+    
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box" id="jfa-header-box"></div>
-            <div class="jfa-content-box">
-       <div class="menu">                 
-          <form action="amenu_searchLikeMenuList">
-          
-          <table class="table1"> 
-             <tr>
-               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">               
-             </tr>                    
-            </table>          
-            </form>   
-           </div>
-              <div class="table2">                     
-                 <table border="1" class="table3">
-                   <tr>
-                      <td>Menuid</td>
-                      <td>菜单名字</td>
-                      <td>菜单路径</td>
-                      <td>父类Id</td>
-                      <td>菜单图标</td>
-                      <td>排列大小</td>
-                      <td>创建时间</td>
-                      
-                      <td>操作1</td>
-                      <td>操作2</td>
-  
-                  </tr>
-		<s:iterator  value="allMenu" var="u" >
-	      <tr >
-	       <td><s:property value="#u.id"/></td>
-	       <td><s:property value="#u.menuName"/></td>
-	       <td><s:property value="#u.menuUrl"/></td>
-			<td><s:property value="#u.parentId"/></td>
-			<td><s:property value="#u.icon"/></td>
-			<td><s:property value="#u.orderNum"/></td>
-			<td><s:property value="#u.createTime"/></td>
-		
-			<td><a href="amenu_findMenu?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="amenu_deleteMenu?id=<s:property value="#u.id"/>">删除</a>			
-				</s:iterator>	 
-              </table> 
-            </div>  
-              <div class="addMenu" ><a href="admin/addMenu.jsp">添加菜单</a></div>    
-           
-       </div>   
+             <div class="jfa-header-box" id="jfa-header-box"></div>             
+             <div class="jfa-content-box">
+                   
+             <s:debug>    
+          <div class="updateGroupform">
+         <s:form action="arolemenu_updateRoleMenu" method="post">
+         <table class="updateGroup1">       	      	 
+	    <tr><td>id：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
+	    <tr><td>roleID：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
+	     <tr><td>MenuID：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
+	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
+	     <tr><td>角色名字：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
+	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
+	      <s:submit  value="提交"></s:submit>	
+	      </table>       
+		</s:form>	
+		</div>	 
+  </s:debug>
+         </div>   
     </div>
   </body>
 </html>

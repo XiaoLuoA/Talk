@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   
                   
                    <%
-              
+                   if(list.size()>0){
               for( i=0;i<list.size();i++){
             	 %> 
             	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
+                   }
             	 %>                                         
              </div>                      
           </div>
@@ -77,7 +78,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <table class="updateGroup1">       	      	 
 	    <tr><td>角色名字：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
 	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
-	    <tr><td>角色权限：</td><td><input type="text"    name="menu" value="<s:property value="right"/>"/></td></tr>	   
 	      <s:submit  value="提交"></s:submit>	
 	      </table>       
 		</s:form>	

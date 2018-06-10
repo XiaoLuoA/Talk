@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
            
          <div class="select">                 
-          <form action="auser_searchLikeUserList">
+          <form action="arolemenu_searchLikeRoleMenuList">
             <table class="table1"> 
              <tr>
  
@@ -90,76 +90,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <div class="table2">                                  
                  <table border="1" class="table3">
                    <tr>
-                      <td>编号</td>
-                      <td>账户</td>
-                      <td>密码</td>
-                      <td>状态</td>
-                      <td>角色</td>
-                      <td>性别</td>
+                      <td>RoleMenuID</td>
+                      <td>RoleId</td>
+                      <td>MenuID</td>
                       <td>创建时间</td>
-                      <td>举报人数</td>
-                      <td>电话号码</td>
-                      <td>邮箱地址</td>
                       <td>操作1</td>
                       <td>操作2</td>  
                   </tr>
-		<s:iterator  value="allUser" var="u" >
+		<s:iterator  value="allRoleMenu" var="rm" >
 	      <tr>
-	        <td><s:property value="#u.id"/></td>
-	        <td><s:property value="#u.name"/></td>
-	        <td><s:property value="#u.password"/></td>
-			<td><s:property value="#u.status"/></td>
-			<td><s:property value="#u.roles"/></td>
-			<td><s:property value="#u.sex"/></td>
-			<td><s:property value="#u.createTime"/></td>
-			<td><s:property value="#u.reportNum"/></td>
-			<td><s:property value="#u.tel"/></td>
-			<td><s:property value="#u.email"/></td>
-			<td><a href="auser_findUser?id=<s:property value="#u.id"/>">修改</a></td>
-			<td><a href="auser_deleteUser?id=<s:property value="#u.id"/>">删除</a>			
+	        <td><s:property value="#rm.id"/></td>
+	        <td><s:property value="#rm.roleId"/></td>
+	        <td><s:property value="#rm.menuId"/></td>
+	        <td><s:property value="#rm.createTime"/></td>
+	        
+			<td><a href="arolemenu_findRoleMenu?id=<s:property value="#rm.id"/>">修改</a></td>
+			<td><a href="arolemenu_deleteRoleMenu?id=<s:property value="#rm.id"/>">删除</a>			
 				</s:iterator>						 
           </table>
              
         </div> 
-          <div class="addUser" >
-            <a href="admin/addUser.jsp">添加用户</a>
+          <div class="add" >
+            <a href="admin/addRoleMenu.jsp">添加权限</a>
            
           
              
-              
-             
-              
-               
-               
-               
-               
-               
-              
-             <%--   ${sessionScope.menuList[0].menuName}
-               ${sessionScope.menuList[1].menuName}
-             
-               ${sessionScope.menuList[0].subMenu[1].menuName}
-               ${sessionScope.menuList[1].subMenu[0].menuName}
-               ${sessionScope.menuList[1].subMenu[1].menuName} --%>
-               
-                <%--  <s:debug>
-            <s:iterator value="menuList" var="s">
-          
-           <a href="<s:property value="#s.menuUrl"/>"><s:property value="#s.menuName"></s:property></a>
-          
-            <s:property value="#s.subMenu"></s:property>
-              <s:property value="#s.subMenu[0]"></s:property>    
-                
-                </s:iterator>
-              
-                
-               </s:debug> --%>
-          </div>
-          
-          
-          
-
-           
+   
+          </div>           
            </div>      
            
     </div>
