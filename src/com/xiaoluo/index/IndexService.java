@@ -24,10 +24,13 @@ public class IndexService {
 	
 	public static IndexService me = new IndexService();
 	
+	
+	
 	public List<Groups> allGroup = GroupsDao.me.getAllGroups();
 
 	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = CommonData.groupsMess;
 	public static Map<Integer,ArrayList<User>> userInGroup = new HashMap<Integer, ArrayList<User>>(); 
+	
 	private IndexService(){
 		
 	}

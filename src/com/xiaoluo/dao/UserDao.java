@@ -1,4 +1,5 @@
 package com.xiaoluo.dao;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,9 +25,6 @@ public class UserDao {
 	public static UserDao me= new UserDao();
 	
 	public static void main(String[] args) {
-
-		me.SearchLikeUserList("test");
-
 	}
 	
 	
@@ -272,5 +270,24 @@ public class UserDao {
 	}
 	
 	
+	/**
+	 * 获得删除我的用户的id
+	 * @param id
+	 * @return
+	 */
+	public Integer[] getDeleteMe(Integer id){
+		ArrayList<Integer> arr = new ArrayList<Integer>(); 
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query = sess.createSQLQuery("select talker_id from who_delete where user_id = ?");
+		query.setInteger(0, id);
+		Iterator iter = query.list().iterator();
+		while(iter.hasNext()){
+			arr.add((Integer)iter.next());
+		}
+		tx.commit();
+		sess.close();
+		return arr.toArray(new Integer[0]);
+	}
 	
 }
