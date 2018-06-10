@@ -66,13 +66,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>                     
           </div>   
           <div class="jfa-right-box">         
-             <div class="jfa-header-box" id="jfa-header-box"></div>             
-             <div class="jfa-content-box" id="jfa-content-box">
+             <div class="jfa-header-box"><div class="text">添加菜单</div></div>             
+             <div class="jfa-content-box">
               
     <!-- 推荐使用Struts2的标签库 -->
-   <div class="addMenu">
+   <div class="addMenuform">
     <s:form action="amenu_addMenu" > 
       <table class="addMenu1">
+      <tr>
+        <td>
+          <s:textfield name="menuName"  label="菜单名字" ></s:textfield>
+        </td>
+       </tr>
        <tr>
         <td>
           <s:textfield name="menuUrl"  label="菜单路径" ></s:textfield>
@@ -108,27 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </table>   
     </s:form>
     </div>
-    <br/>
-    
-  
-
-  
- 
-  
-             
-             
-             
-             
-           
-
-
-  
-
           
-          
-           </div>
-    
-    
+           </div>   
     </div>
   </body>
 </html>
