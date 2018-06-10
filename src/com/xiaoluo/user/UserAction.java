@@ -234,6 +234,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return null;
 	}
 	
+	
 	public void changePass(){
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);

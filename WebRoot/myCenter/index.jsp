@@ -1,4 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>Talk A Talk</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -25,43 +27,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div class="container">    
     <%@include file="../index/navi.html"%>
-    <div class="index">   
-        <div class="g1">
+    <div class="index">  
+    <s:iterator id="groups" value="allGroup" >
+     <div class="g1">
+          群聊<span class="group-name"><s:property value="#groups.groupName"/></span>
+        </div>
+	<!-- <div class="group" data-index="<s:property value="#groups.id"/>" ></div> -->
+	</s:iterator> 
+       
           
-        </div>
-          <div class="g1">
-        
-        </div>
-        <div class="g1">
-        
-        </div>
-        <div class="g1">
-        
-        </div>
-        <div class="g1">
-        
-        </div>    
-        <div class="g1">
-        
-        </div> 
-        <div class="g1">
-        
-        </div> 
-        <div class="g1">
-        
-        </div> 
-        <div class="g1">
-        
-        </div>   
-        <div class="g1">
-        
-        </div> 
-        <div class="g1">
-        
-        </div> 
-        <div class="g1">
-        
-        </div>    
                    
       </div>
         <div class="foot">

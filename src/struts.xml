@@ -4,7 +4,6 @@
 
 
 <package name="all" extends="struts-default">
-		
         <interceptors>
             <!-- 自定义的拦截器 -->
             <interceptor name="menuInterceptor" class="com.xiaoluo.interceptor.MenuAuthInterceptor"></interceptor>
@@ -41,7 +40,7 @@
     
 
 	<package name="one" extends="all" >
-	
+	  
 	
 		<action name="user*" class="com.xiaoluo.user.UserAction" method="{1}">
 			<result name="loginSuccess">/index.jsp</result>

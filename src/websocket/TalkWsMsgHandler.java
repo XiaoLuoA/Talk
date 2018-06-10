@@ -224,9 +224,8 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				
 				//JSONObject ret = new JSONObject();
-				System.out.println(IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 				
-				jsonObject2.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
+				jsonObject2.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)+1));
 				jsonObject2.put("groupId", groupId);
 				jsonObject2.put("user", user);
 				
