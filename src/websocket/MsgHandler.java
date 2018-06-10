@@ -26,13 +26,13 @@ import com.xiaoluo.talk.TalkService;
 
 
 
-public class TalkWsMsgHandler implements IWsMsgHandler {
+public class MsgHandler implements IWsMsgHandler {
 	
-	private static Logger log = LoggerFactory.getLogger(TalkWsMsgHandler.class);
+	private static Logger log = LoggerFactory.getLogger(MsgHandler.class);
 
-	public static TalkWsMsgHandler me = new TalkWsMsgHandler();
+	public static MsgHandler me = new MsgHandler();
 
-	private TalkWsMsgHandler() {
+	private MsgHandler() {
 			
 	}
 
@@ -41,14 +41,10 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	 */
 	@Override
 	public HttpResponse handshake(HttpRequest request, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-		System.out.println("handshake");
 		String JSESSIONID = request.getParam("sessionId");
-		System.out.println("handshake sessionId是"+JSESSIONID);
 		User user = (User) CommonData.loginUser.get(JSESSIONID);
 		if(user!=null){
-			//channelContext.setUserid(user.getId()+"");
 			Aio.bindUser(channelContext, user.getId()+"");
-			System.out.println(user.getId()+"建链成功");
 		}else{
 			System.out.println("建链成功个屁！");
 			return null;
@@ -70,11 +66,11 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	@Override
 	public Object onClose(WsRequest wsRequest, byte[] bytes, ChannelContext channelContext) throws Exception {
 		Aio.remove(channelContext, "receive close flag");
-		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
-		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
-		String JSESSIONID = request.getParam("sessionId");
-		User user = (User) CommonData.loginUser.get(JSESSIONID);
-		CommonData.loginUser.remove(user);
+//		WsSessionContext wsSessionContext = (WsSessionContext) channelContext.getAttribute();
+//		HttpRequest request = wsSessionContext.getHandshakeRequestPacket();
+//		String JSESSIONID = request.getParam("sessionId");
+//		User user = (User) CommonData.loginUser.get(JSESSIONID);
+//		CommonData.loginUser.remove(user);
 		return null;
 	}
 
@@ -86,7 +82,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 	public Object onText(WsRequest wsRequest, String text, ChannelContext channelContext) throws Exception {
 		try{
 			
-		//如果发的是心跳；now直接返回null;之后添加相关业务逻辑
+		//如果发的是心跳；直接返回null;之后添加相关业务逻辑
 		if (Objects.equals("心跳内容", text)) {
 			return null;
 		}
@@ -112,12 +108,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		//获取message对象(JSONObject类型)
 		JSONObject jsonObject2 = jsonObject.getJSONObject("message");
 		
-		
-		
-		//测试
-		
-		//测试
-		
 		//将fromId(SessionId)换为当前用户的id
 		jsonObject2.put("fromId", user.getId());
 		
@@ -126,7 +116,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 		
 		//发给私人的消息;
 		if(type.equals("0")){
-			
 		
 			//获取接受者的id
 			String toId = jsonObject2.getString("toId");
@@ -139,12 +128,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			UserItem userItem = TalkService.me.getUserItem(user.getId(), toIdInt);
 			
 			boolean isConn = userItem != null;
-			
-			
-			//发消息前判断是否黑名单
-			
-			//发消息前判断是否黑名单
-			
 			
 			if(!isConn){
 				String tempName = jsonObject.getString("tempName");
@@ -161,7 +144,6 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				.setUserId(user.getId()).setUserName(user.getName());
 				
 				
-				//
 				toUserItem.setUserItemId(toId+"|"+user.getId())
 				.setIsBlack(0).setLastTime(System.currentTimeMillis())
 				.setNewNum(0).setTalkerId(user.getId())
@@ -173,16 +155,13 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				List<UserMess> list = new ArrayList<UserMess>();
 				list.add(userMess);
 				
-				
 				if(flag){
 					TalkService.me.saveUserItem(thisUserItem, toUserItem);
-					
 					JSONObject ret = new JSONObject();
 					ret.put("type", 4);
 					toUserItem.setMessages(list);
 					ret.put("items", Json.toJson(toUserItem));
-					
-					WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), TalkServerConfig.CHARSET);
+					WsResponse wsResponse = WsResponse.fromText(ret.toJSONString(), WSConfig.CHARSET);
 					Aio.sendToUser(channelContext.getGroupContext(), toId, wsResponse);
 				}
 				else
@@ -196,7 +175,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				//接收者在线,只需要将消息发给目标用户
 				
 				//将得到的消息转发给目标用户
-				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), TalkServerConfig.CHARSET);
+				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
 				Aio.sendToUser(channelContext.getGroupContext(), toId, wsResponse);
 			}else{
 				
@@ -241,7 +220,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				
 				//将消息格式化
 				
-				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), TalkServerConfig.CHARSET);
+				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
 				
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 				
@@ -277,7 +256,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 			//ret.put("type", 2);
 			//jsonObject2.put("message", userMess);
 			//将消息格式化
-			WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), TalkServerConfig.CHARSET);
+			WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
 		
 			//发送到群组
 			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
@@ -331,7 +310,7 @@ public class TalkWsMsgHandler implements IWsMsgHandler {
 				msg.put("groupId", groupId);
 				msg.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)));
 				//将消息格式化
-				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), TalkServerConfig.CHARSET);
+				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), WSConfig.CHARSET);
 				//发送到群组
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
 			

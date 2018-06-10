@@ -2,19 +2,13 @@ package com.xiaoluo.dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.tio.utils.json.Json;
-
 import com.xiaoluo.model.BlackList;
 import com.xiaoluo.model.User;
-import com.xiaoluo.model.UserItem;
-import com.xiaoluo.model.UserMess;
 import com.xiaoluo.utils.SessionFactoryUtils;
 
 

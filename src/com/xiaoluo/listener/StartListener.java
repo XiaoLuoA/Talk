@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 
 import com.xiaoluo.utils.SessionFactoryUtils;
 
-import websocket.TalkATalkWebsocketStarter;
+import websocket.WSStarter;
 
 @WebListener
 public class StartListener implements ServletContextListener{
@@ -19,7 +19,7 @@ public class StartListener implements ServletContextListener{
 	public void contextDestroyed(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
 		try {
-			TalkATalkWebsocketStarter.stop();
+			WSStarter.stop();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,7 +30,7 @@ public class StartListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
-			TalkATalkWebsocketStarter.start();
+			WSStarter.start();
 			SessionFactoryUtils.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
