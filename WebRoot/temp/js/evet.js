@@ -84,10 +84,10 @@ function newGroupChat($DOM)
 			success:function(Res){
 				console.log('群聊加入请求成功',Res);
 				var res = JSON.parse(Res);
-				console.log('接收到的数据',res,res.items);
+				console.log('接收到的群聊数据AJAX',res,res.items);
 				group.messages = res.items||[];
 				group.users = res.users;
-				group.groupNum = group.users.length+1;
+				group.groupNum = group.users.length;
 
 				var newMessageHtml = [];
 				var newUserHtml = [];
@@ -378,22 +378,30 @@ function BieginListener(event, ws)
 	//json数据格式了
 	switch(res.type)
 	{
+		//普通消息
 		case 0:
 			newChatListener(res.message);
 			break;
+		//有人加入群聊
 		case 1:
 			newGroupMemberListener(res.message);
 			break;
+		//群聊新消息
 		case 2:
 			newGroupMessageListener(res.message);
 			break;
+		//有人退出群聊
 		case 3:
 //			memberOutListener(res.message);
 			memberOutListener(res);
 			break;
+		//有人新建了群聊
 		case 4:
 //			newItemListener(res.message);
-			newItemListener(res.message)
+			newItemListener(res);
+			break;
+		//有人删除了好友
+		case 5:
 			break;
 	}
 
@@ -419,22 +427,24 @@ function BieginListener(event, ws)
 	
 	function newGroupMemberListener(data)
 	{
+		console.log('新用户进入',UserId,data);
 		var groupNum = data.num;
 		var groupId = data.groupId;
 		var user = data.user;
-		//如果是本人不执行操作
-		if(user.id==UserId){return false;}
 		
-		var group = openGroupMap.get(groupId);
-
 		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
+		var group = openGroupMap.get(groupId);
 		group.groupNum = groupNum;
 		$groupDetailItem.find('.group-user-top .num').html(group.groupNum);
+		//如果是本人不执行操作
+		if(user.id==UserId)
+		{
+			
+			return false;
+		}
 
-		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		group.groupNum++;
 		console.log('我要渲染了',$groupDetailItem);
-		$($groupDetailItem.find('.group-user-top .num')).html(group.groupNum);
 		$($groupDetailItem.find('.user-list')).append($(groupUserTpl(user)));
 	}
 	
@@ -456,9 +466,10 @@ function BieginListener(event, ws)
 	{
 		var message = data;
 		var groupId = message.groupId;
+		var groupNum = message.num;
 		var userId = message.userId;
 		//如果是本人不执行操作
-		if(userId==UserId){return false;}
+		if(userId==UserId){ return false;}
 		var group = openGroupMap.get(groupId +'');
 		var $groupDetailItem = $(GroupChatTab.showAreas[GroupChatTab.attrMap.get(groupId)]);
 		var userItems = $groupDetailItem[0].querySelectorAll('li.user-item');
@@ -486,7 +497,7 @@ function BieginListener(event, ws)
 			
 		}
 		//修改在线人数
-		group.groupNum--;
+		group.groupNum = groupNum;
 		$($groupDetailItem.find('.group-user-top .num')).html(group.groupNum);
 		
 		
@@ -591,7 +602,7 @@ function sendChatBtn(event)
 function sendGroupChatBtn(event)
 {
 	var sendBtnDom = event.target.localName=='button'?event.target:event.target.parentNode;
-	var $DetailItem = $($(sendBtnDom).parents('.group-detail-item'));
+	var $GroupDetailItem = $($(sendBtnDom).parents('.group-detail-item'));
 	var $textArea = $GroupDetailItem.find("textarea");
 	var groupId = $GroupDetailItem.attr('data-index');
 	var group = openGroupMap.get(groupId+'');

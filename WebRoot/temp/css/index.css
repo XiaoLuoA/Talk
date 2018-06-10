@@ -199,7 +199,7 @@ body
 {content: "ads";
 	color:white;
 	border-radius: 80px;
-	padding: 0 4px;
+	padding: 0 0;
 	background: red;
 }
 /*已激活选项卡的样式*/
@@ -421,7 +421,7 @@ body
 
 
 /*手型鼠标*/
-.item-btn:hover;
+.item-btn:hover,
 .chose-item:hover,
 .group-chose-item:hover
 {
