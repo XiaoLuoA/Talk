@@ -28,11 +28,11 @@ body{
 	text-decoration:none;           
 }
 .left{ /*左侧导航栏*/
-    margin-top:5px;
+    margin-top:-5px;
 	height:500px;
 	width:250px;
 	float:left;
-	background-color:#2d8cf0;
+	background-color:#0098E0;
 	
 }
 /*左边导航栏菜单样式*/
@@ -56,7 +56,7 @@ body{
     float:right;
 	height:700px;
 	width:1170px;
-	margin-top:5px;
+	margin-top:-5px;
 	padding-top:20px;
 }
 
@@ -106,7 +106,7 @@ body{
     width:350px;
     height:40px;
     border-radius:5px;
-    background-color:#2d8cf8;   	
+    background-color:#30b7ee;   	
 }
 
 .tr{
@@ -128,16 +128,7 @@ body{
 	width:1170px;
 }
 
-.myMessage ul{
-	padding:0px;
-	padding-left:150px;
-	float:left;	
-}
-.myMessage li{	
-	text-align:left;
-	font-family:黑体;
+.myMessage {
 	font-size:20px;
-	list-style-type:none;
-	padding:20px;
-	
+	padding-top:20px;
 }
