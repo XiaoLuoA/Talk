@@ -8,6 +8,15 @@
             <!-- 自定义的拦截器 -->
             <interceptor name="menuInterceptor" class="com.xiaoluo.interceptor.MenuAuthInterceptor"></interceptor>
             <!-- 定义拦截器栈 -->
+           <interceptor name="authInterceptor" class="com.xiaoluo.interceptor.AuthInterceptor"></interceptor>
+           
+           <interceptor-stack name="all_stack">
+            <!-- 自定义拦截器 -->
+                 <interceptor-ref name="authInterceptor"></interceptor-ref>
+                  <!-- 默认拦截器 -->
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+           </interceptor-stack>
+           
            
             <interceptor-stack name="myinterceptor_stack">
                
@@ -21,7 +30,7 @@
         </interceptors>
         
         <!-- 默认拦截器 -->
-       <!--  <default-interceptor-ref name="myinterceptor_stack"></default-interceptor-ref> -->
+     <default-interceptor-ref name="all_stack"></default-interceptor-ref> 
 		
 		<!-- <default-action-ref name="index1"></default-action-ref> -->
 		
@@ -55,6 +64,7 @@
 		
 		<action name="index*" class="com.xiaoluo.index.IndexAction" method="{1}">
 			<result name="index">temp/index.jsp</result>
+			<result name="findex">findex.jsp</result>
 		</action>
 		
 		<action name="chat*" class="com.xiaoluo.talk.TalkAction" method="{1}">
