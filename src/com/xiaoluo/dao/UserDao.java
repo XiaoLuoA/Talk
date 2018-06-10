@@ -266,6 +266,30 @@ public class UserDao {
 	
 	
 	/**
+	 * 
+	 */
+	public void addWhoDelete(Integer me,Integer deleteMe ){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query = sess.createSQLQuery("insert into who_delete values(?,?)");
+		query.setInteger(0, me);
+		query.setInteger(1, deleteMe);
+		query.executeUpdate();
+		tx.commit();
+		sess.close();
+	}
+	
+	public void delelteWhoDelete(Integer id){
+		Session sess = sf.openSession();
+		Transaction tx = sess.beginTransaction();
+		Query query = sess.createSQLQuery("delete from who_delete where user_id = ?");
+		query.setInteger(0, id);
+		query.executeUpdate();
+		tx.commit();
+		sess.close();
+	}
+	
+	/**
 	 * 获得删除我的用户的id
 	 * @param id
 	 * @return

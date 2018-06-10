@@ -17,6 +17,8 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
 import com.alibaba.fastjson.JSONObject;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.MyQueue;
+import com.xiaoluo.dao.UserDao;
+import com.xiaoluo.dao.UserItemDao;
 import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.GroupsMess;
 import com.xiaoluo.model.User;
@@ -178,16 +180,12 @@ public class MsgHandler implements IWsMsgHandler {
 				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
 				Aio.sendToUser(channelContext.getGroupContext(), toId, wsResponse);
 			}else{
-				
 				//接收者不在线,保存UserMess
 				UserMess userMess = Json.toBean(jsonObject2.toJSONString(), UserMess.class);
-				System.out.println(jsonObject2.toJSONString());
 				TalkService.me.saveMsg(userMess);
-				//UserItem talkerItem = new UserItem();
 			}
 		
 		}
-		
 		
 		//加入群组的消息 type:1 groupId
 		if(type.equals("1"))
@@ -195,19 +193,9 @@ public class MsgHandler implements IWsMsgHandler {
 			try{
 				//获取groupId
 				String groupId = jsonObject2.getString("groupId");
-				
-				//测试
-				System.out.println("type1");
-				System.out.println("groupId "+groupId+", userID "+user.getId());
-				//测试
-				
-				
-				//JSONObject ret = new JSONObject();
-				
 				jsonObject2.put("num", IndexService.me.getUserSizeFromGroup(Integer.parseInt(groupId)+1));
 				jsonObject2.put("groupId", groupId);
 				jsonObject2.put("user", user);
-				
 				jsonObject.put("message", jsonObject2);
 				
 				//将此用户绑定到groupId
@@ -216,15 +204,9 @@ public class MsgHandler implements IWsMsgHandler {
 				//将用户加入到Group中
 				IndexService.me.addAUserToGroup(Integer.parseInt(groupId), user);
 				
-				//向群组中的所有用户发消息，XXX登录,并且将用户信息显示出来
-				
 				//将消息格式化
-				
 				WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
-				
 				Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-				
-				System.out.println("type1执行完毕");
 			}
 			catch(Exception e)
 			{
@@ -237,54 +219,19 @@ public class MsgHandler implements IWsMsgHandler {
 		{
 			
 			try{
-				
-			System.out.println("come in type2");
 			
 			//获取groupId
 			String groupId = jsonObject2.getString("groupId");
-			
-			//将takerId(SessionId)换为当前用户的id
 			
 			jsonObject2.put("talkerId", user.getId());
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
 			jsonObject.put("message", jsonObject2);
-			
-			//jsonObject2.put(key, value)
-			
-			//JSONObject ret = new JSONObject();
-			//ret.put("type", 2);
-			//jsonObject2.put("message", userMess);
 			//将消息格式化
 			WsResponse wsResponse = WsResponse.fromText(jsonObject.toJSONString(), WSConfig.CHARSET);
-		
 			//发送到群组
 			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse);
-//			Aio.sendToGroup(channelContext.getGroupContext(), groupId, wsResponse, new ChannelContextFilter() {
-//
-//				@Override
-//				public boolean filter(ChannelContext arg0) {
-//					// TODO Auto-generated method stub
-//					return false;
-//				}
-//				
-//				
-//			});
-			
 			//向某个群组中加入消息
-			
-			//获取群组当前消息队列
-//			MyQueue<GroupsMess> myQueue = CommonData.groupsMess.get(groupId);
-			
-//			//若不存在队列，初始化大小为50的队列
-//			if(myQueue==null){
-//				myQueue = new MyQueue<GroupsMess>(50);
-//			}
-//			
-//			//向队列中加入消息
-//			myQueue.add(userMess);
-			
-			//将队列放在群组消息中
 			IndexService.me.addAMessToGroup(Integer.parseInt(groupId), userMess);
 			
 			}catch(Exception e){
@@ -297,14 +244,10 @@ public class MsgHandler implements IWsMsgHandler {
 		{
 			try{
 				//获取groupId
-				System.out.println("type3");
 				String groupId = jsonObject2.getString("groupId");
 				Aio.unbindGroup(groupId, channelContext);
-				
-				//CommonData.usersInGroup.remove(user);
 				IndexService.me.removeAUserFromGroup(Integer.parseInt(groupId),user);
 				JSONObject msg = new JSONObject();
-				
 				msg.put("type", 3);
 				msg.put("userId", user.getId());
 				msg.put("groupId", groupId);
@@ -318,8 +261,33 @@ public class MsgHandler implements IWsMsgHandler {
 				e.printStackTrace();
 			}
 			
+		}else if(type.equals("5")){
+			String deleteItemId = (String) jsonObject2.get("deleteItemId");
+			TalkService.me.deleteUserItem(deleteItemId);
+			String[] ids = deleteItemId.split("|");
+			Integer userid = Integer.parseInt(ids[0]);
+			Integer deleteme = Integer.parseInt(ids[1]);
+			TalkService.me.deleteUserItem(deleteme+"|"+userid);
+			boolean isLogin = CommonData.loginUserID.contains(deleteme);
+			
+			JSONObject msg = new JSONObject();
+			msg.put("type", 5);
+			
+			String[] str = new String[1];
+			str[0] = userid+"";
+			JSONObject groupids = new JSONObject();
+			groupids.put("deleteIds", str);
+			
+			msg.put("message", groupids);
+			if(isLogin){
+				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), WSConfig.CHARSET);
+				Aio.sendToUser(channelContext.getGroupContext(), deleteme+"", wsResponse);
+			}else{
+				//增加把我删除的人;直接调用了dao层  （·--·）
+				UserDao.me.addWhoDelete(deleteme, userid);
+			}
 		}
-		
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
