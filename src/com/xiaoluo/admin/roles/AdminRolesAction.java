@@ -8,6 +8,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.admin.user.AdminUserService;
+import com.xiaoluo.dao.RoleDao;
+import com.xiaoluo.dao.RoleMenuDao;
 import com.xiaoluo.model.Role;
 import com.xiaoluo.model.User;
 
@@ -61,8 +63,10 @@ public class AdminRolesAction extends ActionSupport implements ModelDriven<Role>
 	
 	public String findRole(){
 		int id =Integer.parseInt(request.getParameter("id"));
-		ActionContext.getContext().getValueStack().set("Role",AdminRolesService.me.findRole(id));
-		return "admin";
+		Role role=RoleDao.me.findRole(id);
+		ActionContext.getContext().getValueStack().set("role",AdminRolesService.me.findRole(id));
+		ActionContext.getContext().getValueStack().set("right",RoleMenuDao.me.findRoleMenuString(role));
+		return "update";
 	}
 	 
 

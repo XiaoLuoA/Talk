@@ -51,9 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </td>
          </tr>       
        </table>
-    </form>
-    
-    
+    </form>    
        <form id="check_form"  action="userreg.action" onsubmit="return validate_form1(this)" method="post">
          <table class="l2">
             <tr>
@@ -61,14 +59,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="td">
       	         <input class="input" type="text" name="regNum" placeholder="验证码" >
       	         </div>
-                 <div class="td">
+                 <div class="td1">
                     <input class="button" type="submit"  value="确定" >
                  </div>
               </td>           
-            </tr>
-                
+            </tr>                
          </table>
         </form>
+        <input type="button" class="button" value="返 回" onclick="window.location.href='login/login.jsp'">
       </div>  
        
         <script type="text/javascript">
