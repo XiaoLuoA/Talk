@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.MyQueue;
 import com.xiaoluo.dao.GroupsDao;
 import com.xiaoluo.dao.UserDao;
@@ -25,8 +26,8 @@ public class IndexService {
 	
 	public List<Groups> allGroup = GroupsDao.me.getAllGroups();
 
-	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = new HashMap<Integer,MyQueue<GroupsMess>>();
-	
+	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = CommonData.groupsMess;
+	public static Map<Integer,ArrayList<User>> userInGroup = new HashMap<Integer, ArrayList<User>>(); 
 	private IndexService(){
 		
 	}
@@ -34,10 +35,30 @@ public class IndexService {
 	public void addAMessToGroup(Integer groupId,GroupsMess aGroupMess){
 		MyQueue<GroupsMess> messQueue = allGroupMess.get(groupId);
 		if(messQueue==null){
-			messQueue = new MyQueue<GroupsMess>(1000);
+			messQueue = new MyQueue<GroupsMess>(50);
 		}
 		allGroupMess.put(groupId, messQueue.add(aGroupMess));
 	}
+	
+	public void addAUserToGroup(Integer groupId,User user){
+		ArrayList<User> userList = userInGroup.get(groupId);
+		if(userList==null){
+			userList = new ArrayList<User>();
+		}
+		userList.add(user);
+		userInGroup.put(groupId, userList);
+	}
+	
+	public void removeAUserFromGroup(Integer groupId,User user){
+		ArrayList<User> users = userInGroup.get(groupId);
+		users.remove(user);
+	}
+	
+	public List<User> getUsersFromGroup(Integer groupId){
+		return userInGroup.get(groupId);
+	}
+	
+	
 	
 	public MyQueue<GroupsMess> getMessFromGroup(Integer groupId){
 		return allGroupMess.get(groupId);
