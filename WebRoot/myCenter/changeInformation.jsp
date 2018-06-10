@@ -36,21 +36,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
     <div class="changeInformation">  
      <div class="form">
-     <form id="reg_form" action="userregist.action" method="post">
+     <form id="" action="" method="post" onsubmit="return validate_form(this)">
         <table class="table">      	     
           <tr> 
           <div class="tr">       
-                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名" required="required"  name="name" id="uname">
+                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名"   name="name" id="uname">
            </div>
           </tr>      
            <tr> 
            <div class="tr">                                           
-                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" required="required">    
+                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" id="psd1">    
             </div>               
           </tr>
            <tr>             
             <div class="tr">   
-                密   码： <input type="password" class="input" name="password2" placeholder="请再一次输入密码" required="required">
+                密   码： <input type="password" class="input" name="password" placeholder="请再一次输入密码" id="psd2" onblur="check2psd()">
              </div>       
           </tr>
           <tr>
@@ -60,12 +60,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	   </tr>
       	   <tr>
       	     <div class="tr">   
-      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" required="required">
+      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" >
       	        </div>      	    
       	   </tr>   
       	   <tr>
       	      <div class="tr">   
-      	           头     像： <input type="file" class="input"  name="pic" required="required">
+      	           头     像： <input type="file" class="input"  name="pic" >
       	        </div>      	    
       	   </tr>  
       	    <div class="button">
@@ -82,134 +82,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
      </div> 
      
-     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
-	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
-    
-    <script type="text/javascript" src="layer/layer/layer.js"></script>
-    
-     <script type="text/javascript">
      
-		$(document).ready(function() {
-			$("#reg_form").ajaxForm(
-			{
-				dataType: "json"
-				, beforeSubmit: function(formData, jqForm, options)
-				{       // 表单提交之前回调
-					
-				}
-				, success: function(ret) 
-				{
-					// 业务层验证成功
-					if(ret.isOk)
-					{
-						layer.open({
-							 title: '页面提示'
-							 ,content: '注册成功！',
-							 yes: function(index, layero){
-								   window.location.href="userloginPage.action";
-								    layer.close(index); 
-								  }
-							});     
-						return ;
-					}
-					
-					// 业务层验证失败
-					if (ret.isFail)
-					{
-						layer.msg(ret.msg,
-								{
-									shift: 6
-									, shade: 0.3
-									, time: 2500
-									, offset: "165px"
-									, closeBtn: 1
-									, shadeClose: true
-								} , 
-								function() 
-								{
-									
-								}
-						);
-						return ;
-					}
-					
-				}
-				, error: function(ret)
-				{
-					
-				}              // ret.status != 200 时回调
-				, complete: function(ret) 
-				{
-					
-				}       // 无论是 success 还是 error，最终都会被回调
-			});
-		});
-		
-		
-     function checkName()
-     {
-    	
-    	 txt=$("#uname").val();
-    	
-    	  $.post(
-    			 
-    		"usercheckName.action",
-    		
-    	 	{
-    			  name:txt
-    		}
-    		,
-    		
-    		function(ret)
-    		{
-    			if(ret.isOk)
-				{
-					//location.href = ret.returnUrl;
-					layer.msg("Ok",
-							{
-								shift: 6
-								, shade: 0.3
-								, time: 2500
-								, offset: "165px"
-								, closeBtn: 1
-								, shadeClose: true
-							} , 
-							function() 
-							{
-								
-							}
-					);
-					return ;
-				}
-				
-				// 业务层验证失败
-				if (ret.isFail)
-				{
-					layer.msg(ret.msg,
-							{
-								shift: 6
-								, shade: 0.3
-								, time: 2500
-								, offset: "165px"
-								, closeBtn: 1
-								, shadeClose: true
-							} , 
-							function() 
-							{
-								
-							}
-					);
-					return ;
-				}
-    		},
-    		"json");
-     }
-     
-     	$('#uname').blur
-     	(
-     		checkName()
-     	);
-     	
+	<script type="text/javascript">
+
+function validate_required(field,alerttxt)
+{
+with (field)
+  {
+  if (value==null||value=="")
+    {alert(alerttxt);return false}
+  else {return true}
+  }
+}
+
+/*密码不一致*/
+
+ function check2psd(){            	       	
+        	if(psd1.value!=psd2.value){
+        		alert("两次密码不一致");
+        		psd1.value="";
+        		psd2.value="";
+        	}
+         }
+
+function validate_email(field,alerttxt)
+{
+with (field)
+{
+apos=value.indexOf("@")
+dotpos=value.lastIndexOf(".")
+if (apos<1||dotpos-apos<2) 
+  {alert(alerttxt);return false}
+else {return true}
+}
+}
+
+
+/*input不能为空*/
+function validate_form(thisform)
+{
+with (thisform)
+  {
+  if (validate_required(name,"用户名不能为空!")==false)
+    {name.focus();return false}
+    if (validate_required(password,"密码不能为空!")==false)
+    {password.focus();return false}
+    if (validate_required(email,"邮箱不能为空!")==false)
+    {email.focus();return false}
+    if (validate_email(email,"邮箱格式不正确!")==false)
+   {email.focus();return false}
+    if (validate_required(password2,"密码不能为空!")==false)
+    {password2.focus();return false}
+    if (validate_required(pic,"头像不能为空!")==false)
+    {pic.focus();return false}   
+  }
+}
      	
      </script> 
   </body>

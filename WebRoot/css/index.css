@@ -208,6 +208,40 @@
 	text-decoration:none;
 }
 
+/*角色*/
+.table1{ 
+	font-size:20px;
+	
+}
+
+.table3 td{   /*显示表格*/
+	padding:10px;
+}
+.table3{
+	font-size:20px;
+	width:1200px;
+	
+}
+.table3 a{
+	color:black;
+
+}
+.table3 a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+.addRole{  /*添加群聊*/
+    
+	height:50px;
+	font-size:20px;
+}
+.addRole a{
+	color:black;
+}
+.addRole a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
 
 /*菜单页面*/
 
@@ -303,6 +337,9 @@
 .updateMenu tr{
 	height:60px;
 }
+
+
+
 
 .jfa-logo {
 	height: 50px;
