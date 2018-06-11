@@ -76,8 +76,6 @@
 	  <result name="admin">/admin/index.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>	  
-	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
-
 	  <interceptor-ref name="all_stack"></interceptor-ref>
 	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
 
@@ -88,8 +86,6 @@
 	  <result name="admin">/admin/userRight.jsp</result>
 	  <result name="update">/admin/updateRight.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	  
-	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	
 	<!--  Groups管理//listALL -->

@@ -124,10 +124,20 @@ function createChoseItem(item)
 	return htmlText.join('');
 	
 }
-function chatMessageTpl(message)
+function chatMessageTpl(message,isSelf)
 {
-	htmlText =[];
-	htmlText.push('<li class="message-item" data-sendindex="'+ message.fromId +'">'+ message.content +'</li>');
+	if(isSelf){message.fromId = UserId;}
+	var ItemID = message.itemId.split('|')[1]+'|'+message.itemId.split('|')[0];
+	console.log('message打发',message)
+	var htmlText =[];
+	htmlText.push('<li class="message-item '+ (message.fromId==UserId?'self':'') +'" data-sendindex="'+ message.fromId +'">');
+	htmlText.push('<div class="message-title">');
+		htmlText.push('<img class="head-img" src="'+ message.talkerPic +'">');
+		htmlText.push('<span class="message-title"><span>'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerName +'</span>');
+		htmlText.push('<span>'+ message.sendTime +'</span></span>');
+	htmlText.push('</div>');
+	htmlText.push('<div class="message-content">'+ message.content +'</div>');
+	htmlText.push('</li>');
 	return htmlText.join('');
 }
 
@@ -158,13 +168,12 @@ function ItemItemTpl(item)
 	var htmltext = [];
 	var messages = item.messsages;
 	if(messages){}else{messages=[]};
-	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
+	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'"><i class="delete-btn hidden"></i>');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkerPic);
 		htmltext.push('"></div>')
 		htmltext.push('<div class="ietm-item-detail">');
 			htmltext.push('<p><span class="name">'+ item.talkerName +'</span><span class="last-time">'+ (item.lastTime+'') +'</span>' );
 			htmltext.push('</p>');
-//			console.log('你好',messages[messages.length-1].lastTime);
 			htmltext.push('<span class="content">'+(messages.length>0?([messages.length-1].content||''):''));
 			htmltext.push('</span>');
 		htmltext.push('</div>');

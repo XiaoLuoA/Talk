@@ -1,11 +1,6 @@
 @CHARSET "UTF-8";
 body{
-   background-size:cover;
-   margin:0 auto;
-   text-align:center;
-   text-align: center; /*IE*/
-   text-align: -moz-center; /*Firefox*/
-   text-align: -webkit-center; /*Chrome*/
+
    background-color:#e9ebee;
 }
 .container{    /*整体盒子*/
