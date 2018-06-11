@@ -88,7 +88,6 @@
 	  <result name="fail">/admin/fail.jsp</result>
 	    <interceptor-ref name="all_stack"></interceptor-ref>
 	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
-	  
 	</action>
 	
 	<!--  Groups管理//listALL -->

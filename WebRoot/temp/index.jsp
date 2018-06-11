@@ -18,17 +18,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="temp/css/index.css" />
 	</head>
 	<body>	
-		<div class="page-moment">
-		    <%@include file="../index/navi.html"%>
+		<div class="container">
+		    <%@include file="../index/navi1.html"%>
     		<div class="index">
-    			<div class="g1"> 
+    			<div class="group1">
 					<div class="group-area">
 						<!-- 使用strust标签输出群组-->
 						<s:iterator id="groups" value="allGroup" >
 							<div class="group" data-index="<s:property value="#groups.id"/>" >群聊<span class="group-name"><s:property value="#groups.groupName"/></span></div>
 						</s:iterator>
-					</div> 
-				</div>         
+					</div>    
+				<div class="group1">
      		</div>
 
         	
@@ -49,13 +49,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="item-list list-item"><!--消息列表-->
 							<div class="button-area">
 								<button class="btn">查找</button>
-								<button class="btn">管理</button>
+								<button class="btn showDelete-btn">管理</button>
 							</div>
 
 							</div>
 							<div class="message-list list-item"><!--消息列表-->
 							<div class="button-area">
-								<button class="btn">管理</button>
+								<button class="btn showDelete-btn">管理</button>
 								<button class="btn">清空</button>
 							</div>
 							</div>

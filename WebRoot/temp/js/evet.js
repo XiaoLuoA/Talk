@@ -31,7 +31,12 @@ function newTalk(itemId)
 function newTalkBtn(event)
 {
 	var itemDom = $(event.target);
-	
+	if(itemDom.is('i'))
+	{
+		DeleteItemBtn(event);
+		event.stopPropagation();
+		return false;
+	}
 	if(true)
 	{
 		itemDom = itemDom.hasClass('item-item')?itemDom:$(itemDom.parents('.item-item'));
@@ -39,6 +44,8 @@ function newTalkBtn(event)
 		newTalk(itemId);
 	}
 	event.stopPropagation();
+	return false;
+
 }
 
 function newGroupChat($DOM)
@@ -413,12 +420,12 @@ function BieginListener(event, ws)
 	{
 		//变量操作
 		var message = data;
-		var itemid = message.itemId;
+		var itemId = message.itemId;
 		
-		var $DetailItem = $(Tab.showAreas[Tab.attrMap.get(itemid)]);
-		var item = itemMap.get(itemid+'');
+		var $DetailItem = $(Tab.showAreas[Tab.attrMap.get(itemId)]);
+		var item = itemMap.get(itemId+'');
 	
-		item = item.messages||[];
+		item.messages = item.messages||[];
 		item.messages.push(message);
 		//本地化储存
 		setLocal(itemId,item.messages);
@@ -602,20 +609,22 @@ function sendChatBtn(event)
 //	console.log('将要发送的消息',message);
 	
 	//添加本消息并渲染
-	item.messages.push(message);
-	$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message)));
+	
+	$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message,true)));
 	//消除本地消息
 	$textArea.val('');
 	//隐藏按钮
 	hideSendBtn(sendBtnDom);
-	var deletItemId = message.itemId;
+	var ItemId = message.itemId;
 	//修改itemID方便对方接受
-	message.itemId = deletItemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
+	message.itemId = ItemId.split('|')[1]+'|'+ ItemId.split('|')[0]
 	//使用tio发送消息;
 	var data = {temp :temp,message :message,};
 	sendFunctons.sendChat(tempName,tempPic,message);
 	//保存到本地
-	setLocal(deletItemId,itemMap.get(itemId).messages);
+	message.fromId = UserId ;
+	item.messages.push(message);
+	setLocal(ItemId,itemMap.get(ItemId).messages);
 }
 function deleteItem($itemItem)
 {
@@ -683,6 +692,22 @@ function closeGroupBtn(event)
 	return false;
 }
 
+function DeleteItemBtn(event)
+{
+	var flag =confirm('你确定吗，你会彻底失去与此人的联系');
+	if(flag)
+	{
+		var deleteItemId = $(evnet.target).parten().attr('data-index');
+		var tioData = 
+		{
+			deleteItemId:deleteItemId,
+		}
+		sendFunctons.deleteItem(tioData);
+	}
+	return false;
+}
+
+
 function inuputKeyUp(event)
 {
 	
@@ -706,6 +731,22 @@ function hideSendBtn(sendBtnDom)
 {
 	console.log('隐藏按钮',sendBtnDom);
 	sendBtnDom.classList.remove('active-btn');
+}
+
+function showDeletebtnBtn(event)
+{
+	var $dom = $(event.target);
+	if($dom.html()=='管理')
+	{
+		$dom.html('完成');
+		$($dom.parents('.list-item').find('.delete-btn')).removeClass('hidden');
+	}
+	else
+	{
+		$dom.html('管理');
+		$($dom.parents('.list-item').find('.delete-btn')).addClass('hidden');
+	}
+	return false;
 }
 /**
  * 几乎所有的事件注册都写到这里面了
@@ -750,6 +791,12 @@ function bindEvent()
 	$groupDetailList.on('click','.send-btn.active-btn',sendGroupChatBtn);
 	//点击关闭当前群聊
 	$('.group-chose-list').on('click','.cls-btn',closeGroupBtn);
+	
+	
+	//点击管理
+	$('.item').on('click','.showDelete-btn',showDeletebtnBtn);
+	//删除对话
+	$('.item').on('click','i.delete-btn',DeleteItemBtn);
 	
 	//按钮状态事件
 	$detailList.on('keyup','textarea',inuputKeyUp);
