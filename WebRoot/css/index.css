@@ -366,7 +366,43 @@
 	height:60px;
 }
 
+/*权限管理页面*/
 
+.table1{ 
+	font-size:20px;
+	
+}
+
+.table3 td{   /*显示表格*/
+	padding:10px;
+}
+.table3{
+	font-size:20px;
+	width:1200px;
+	
+}
+.table3 a{
+	color:black;
+
+}
+.table3 a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
+.addRolemenu{  /*添加菜单*/
+    
+    float:left;
+    width:150px;
+	height:50px;
+	font-size:20px;
+}
+.addRolemenu a{
+	color:black;
+}
+.addRolemenu a:hover{
+	color:#2d8cf0;
+	text-decoration:none;
+}
 
 
 .jfa-logo {
