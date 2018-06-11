@@ -8,9 +8,10 @@ body{
    background-color:#e9ebee;
 }
 .container{    /*整体盒子*/
+    font-family:宋体;
 	margin:0 auto;
 	width:1440px;
-	 text-align:center;
+	text-align:center;
 }
 .index{
 	height:auto;
