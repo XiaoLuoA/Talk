@@ -65,14 +65,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>                    
           </div>    
           <div class="jfa-right-box">         
-             <div class="jfa-header-box" id="jfa-header-box"></div>
+             <div class="jfa-header-box">
+             <div class="text">权限管理</div>
+             </div>
                         
-             <div class="jfa-content-box" id="jfa-content-box">                   
-             
+             <div class="jfa-content-box">                   
+               <div class="addRolemenu">
+            <a href="admin/addRoleMenu.jsp">添加权限</a></div>
            
-         <div class="select">                 
-          
-          </div>  
+           
               <div class="table2">                                  
                  <table border="1" class="table3">
                    <tr>
@@ -96,18 +97,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </table>
              
         </div> 
-          <div class="add" >
-            <a href="admin/addRoleMenu.jsp">添加权限</a>
-           
-          
-             
-   
+  
           </div>           
            </div>      
            
     </div>
   
-   </div>
+  
     
   </body>
 </html>
