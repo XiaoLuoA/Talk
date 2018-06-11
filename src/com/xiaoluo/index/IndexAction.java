@@ -21,29 +21,47 @@ import com.xiaoluo.utils.Ret;
 
 public class IndexAction extends ActionSupport{
 	
-	
+	/**
+	 * 得到所有的群组的信息；跳转到首页
+	 * @return 
+	 */
 	public String index() {
 		ActionContext.getContext().getValueStack().set("allGroup",IndexService.me.allGroup);;
 		return "index";
 	}
 	
+	
+	/**
+	 * 得到所有的群组的信息；跳转到伪首页
+	 * @return
+	 */
 	public String findex(){
 		ActionContext.getContext().getValueStack().set("allGroup",IndexService.me.allGroup);;
 		return "findex";
 	}
 	
+	/**
+	 * 跳转到管理员首页
+	 */
 	@Override
 	public String execute() throws Exception {
 		return "adminPage";
 	}
 	
+	
+	/**
+	 * 登录后得到离线时收到的信息;以及谁把自己删除的信息
+	 */
 	public void getAllMsg(){
 		User loginUser = (User)ActionContext.getContext().getSession().get("user");
 		List<UserItem> allMsg = IndexService.me.getAllItem(loginUser);
+		
 		Ret ret = Ret.ok();
 		ret.set("items",allMsg);
-		System.out.println("items"+Json.toJson(allMsg));
-	
+		ret.set("deleteIds",IndexService.me.getDeleteMe(loginUser.getId()));
+		
+		IndexService.me.deleteWhoDelete(loginUser.getId());
+		
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse resp = ResponseUtils.getResponse(ac);
 		try {

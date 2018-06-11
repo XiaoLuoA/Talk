@@ -24,10 +24,13 @@ public class IndexService {
 	
 	public static IndexService me = new IndexService();
 	
+	
+	
 	public List<Groups> allGroup = GroupsDao.me.getAllGroups();
 
 	public static Map<Integer, MyQueue<GroupsMess>> allGroupMess = CommonData.groupsMess;
 	public static Map<Integer,ArrayList<User>> userInGroup = new HashMap<Integer, ArrayList<User>>(); 
+	
 	private IndexService(){
 		
 	}
@@ -68,7 +71,17 @@ public class IndexService {
 		return allGroupMess.get(groupId);
 	}
 	
+	/**
+	 * 删除所有删除我的会话
+	 * @param userid
+	 */
+	public void deleteWhoDelete(Integer userid){
+		UserDao.me.delelteWhoDelete(userid);
+	}
 	
+	public Integer[] getDeleteMe(Integer id){
+		return UserDao.me.getDeleteMe(id);
+	}
 	/**
 	 * 某个用户的所有会话;
 	 * @param user

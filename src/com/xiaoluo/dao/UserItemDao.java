@@ -52,6 +52,18 @@ public class UserItemDao {
 			sess.close();
 			
 		}
+		
+		public void deleteUserItem(String itemId){
+			Session sess = sf.openSession();
+			Transaction tx = sess.beginTransaction();
+			Query query = sess.createSQLQuery("delete from user_item where userItemId = ?");
+			query.setString(0, itemId);
+			query.executeUpdate();
+			tx.commit();
+			sess.close();
+		}
+		
+		
 
 		
 		

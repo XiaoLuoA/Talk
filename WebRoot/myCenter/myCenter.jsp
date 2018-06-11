@@ -34,7 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <li><a href="myCenter/changeInformation.jsp">修改信息</a></li>
             </ul>
             </div>
-        <div class="myInformation">  
+        <div class="myInformation"> 
+         <div class="mycenter"> 
           <ul>
             <li>我的头像：<s:property value="#session.user.pic"/></li>
             <li>用户名：<s:property value="#session.user.name"/></li>
@@ -42,6 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li>性    别：<s:property value="#session.user.sex"/></li>
             <li>邮    箱：<s:property value="#session.user.email"/></li>
           </ul>
+          
+         </div>
+         <div class="expression1"></div>
         </div>                        
       </div>
         <div class="foot">

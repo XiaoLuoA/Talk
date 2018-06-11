@@ -402,6 +402,7 @@ function BieginListener(event, ws)
 			break;
 		//有人删除了好友
 		case 5:
+			itemDelete(res.message);
 			break;
 	}
 
@@ -520,20 +521,37 @@ function BieginListener(event, ws)
 //		Tab.add($newChoseItem[0],$newDetailItem[0]);
 		//已经创建并激活
 	} 
+	
+	function itemDelete(data)
+	{
+		var deleteIds = data.deleteIds||[];
+		deleteIds.forEach(function(deleteId,index){
+			var itemId = UserId+'|'+deleteId;
+			//删除本地
+			localStorage.remove(itemId);
+			//清除dom
+			Tab.remove(itemId,true);
+			$itemList.find('li[data-index="itemId"]').remove();
+			//添加提醒
+		});
+
+	}
 }
 function BeginSend()
 {
 	window.sendFunctons = 
 	{
 		openNewChat :function(){},
-		deleteChat :function(){},
+		deleteItem :function(Data){
+			var data = {type:5,message:Data};
+			tiows.send(JSON.stringify(data));
+			console.log('tio发送',JSON.stringify(data));
+		},
 		sendChat :function(tempName,tempPic,message){
 			var data = {type:0,tempName,tempPic,message:message};
 			tiows.send(JSON.stringify(data));
 			console.log('tio发送',JSON.stringify(data));
-			//保存到本地
-			var itemId = message.itemId.split('|')[1]+'|'+message.itemId.split('|')[0];
-			setLocal(itemId,itemMap.get(itemId).messages);
+	
 		},
 		moreChatMessage :function(){},
 		
@@ -590,14 +608,36 @@ function sendChatBtn(event)
 	$textArea.val('');
 	//隐藏按钮
 	hideSendBtn(sendBtnDom);
+	var deletItemId = message.itemId;
 	//修改itemID方便对方接受
-	message.itemId = message.itemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
+	message.itemId = deletItemId.split('|')[1]+'|'+ message.itemId.split('|')[0]
 	//使用tio发送消息;
 	var data = {temp :temp,message :message,};
 	sendFunctons.sendChat(tempName,tempPic,message);
+	//保存到本地
+	setLocal(deletItemId,itemMap.get(itemId).messages);
 }
-
-
+function deleteItem($itemItem)
+{
+	var itemId = $itemItem.attr('data-index');
+	//发送数据
+	var tioData = 
+	{
+		deleteItemId :itemId,
+	}
+	sendFunctons.deleteItem(tioDat);
+	//清除本地记录
+	deleteLocal(itemId);
+	//清除dom
+	$itemItem.remove();
+}
+function deleteItemBtn(event)
+{
+	var $itemItem = $($(event.target).parents('item-item'));
+	deleteItem($itemItem);
+	event.stopPropagation();
+	return false;
+}
 
 function sendGroupChatBtn(event)
 {
@@ -682,10 +722,13 @@ function bindEvent()
 	Tab = TabByClass('MessageArea','chose-item','detail-item');
 	Tab.madeMap('data-index');
 	Tab.addSelect('.cls-btn');
-	
+	//群聊选项卡
 	GroupChatTab = TabByClass('GroupMessageArea','group-chose-item','group-detail-item');
 	GroupChatTab.madeMap('data-index');
 	GroupChatTab.addSelect('.cls-btn');
+	//会话列表选项卡
+	itemTab = TabByClass('MessageArea','top-panel','list-item');
+	
 	
 	//添加点击事件
 	
@@ -700,6 +743,7 @@ function bindEvent()
 	$choseList.on('click','.cls-btn',closeTalkBtn);
 	//点击发送私聊消息
 	$detailList.on('click','.send-btn.active-btn',sendChatBtn);
+	//点击删除会话
 	//点击创建新群聊
 	$('.group-area').on('click','.group',newGroupChatBtn);
 	//点击发送群聊消息

@@ -5,46 +5,34 @@
 
 <package name="all" extends="struts-default">
         <interceptors>
-            <!-- 自定义的拦截器 -->
+        
+        
+            <!-- 菜单拦截器 -->
             <interceptor name="menuInterceptor" class="com.xiaoluo.interceptor.MenuAuthInterceptor"></interceptor>
-            <!-- 定义拦截器栈 -->
+            
+            
+            <!-- 权限拦截器 -->
            <interceptor name="authInterceptor" class="com.xiaoluo.interceptor.AuthInterceptor"></interceptor>
            
+           
+           <!-- 全局拦截器栈  -->
            <interceptor-stack name="all_stack">
-            <!-- 自定义拦截器 -->
+            	 <!-- 权限拦截器 -->
                  <interceptor-ref name="authInterceptor"></interceptor-ref>
                   <!-- 默认拦截器 -->
                 <interceptor-ref name="defaultStack"></interceptor-ref>
            </interceptor-stack>
            
-           
-            <interceptor-stack name="myinterceptor_stack">
-               
-                <!-- 自定义拦截器 -->
-                 <interceptor-ref name="menuInterceptor"></interceptor-ref>
-                 
-                  <!-- 默认拦截器 -->
-                <interceptor-ref name="defaultStack"></interceptor-ref>
-            </interceptor-stack>
-            
         </interceptors>
         
         <!-- 默认拦截器 -->
      <default-interceptor-ref name="all_stack"></default-interceptor-ref> 
 		
-		<!-- <default-action-ref name="index1"></default-action-ref> -->
-		
-		<!-- <default-action-ref name="index1"></default-action-ref> -->
-		
-		
         <!-- 全局结果集 -->
         <global-results>
-            <result name="err">/err.jsp</result>
+            <result name="noAuth">/err.jsp</result>
         </global-results>
-      <!--  <action name="index1">
-			<result >temp/index.jsp</result>
-		</action> -->
-       
+        
     </package>
     
 
@@ -72,9 +60,12 @@
 			<result name="master">/page/master/master.jsp</result>
 		</action>
 		
+		
+		
 		<action name="admin" class="com.xiaoluo.index.IndexAction" >
 	 	 <result name="adminPage">/admin/index.jsp</result>
-	 	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	 	 <interceptor-ref name="all_stack"></interceptor-ref>
+	 	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 
 
@@ -84,9 +75,12 @@
 	<action name="auser_*" class="com.xiaoluo.admin.user.AdminUserAction" method="{1}">
 	  <result name="admin">/admin/index.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
-	  <result name="fail">/admin/fail.jsp</result>
-	  
+	  <result name="fail">/admin/fail.jsp</result>	  
 	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+
+	  <interceptor-ref name="all_stack"></interceptor-ref>
+	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
+
 	</action>
 	
 	<!--  Right管理// -->	
@@ -103,7 +97,8 @@
 	  <result name="admin">/admin/group.jsp</result>
 	  <result name="update">/admin/updateGroup.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	  <interceptor-ref name="all_stack"></interceptor-ref>
+	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 	
 	
@@ -113,7 +108,8 @@
 	  <result name="admin">/admin/menu.jsp</result>
 	  <result name="update">/admin/updateMenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	  <interceptor-ref name="all_stack"></interceptor-ref>
+	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 	
 	<!--  Role管理//listALL -->
@@ -121,7 +117,8 @@
 	  <result name="admin">/admin/role.jsp</result>
 	  <result name="update">/admin/updateRole.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	   <interceptor-ref name="all_stack"></interceptor-ref>
+	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 	
 	<!--  RoleMenu管理（权限管理）//listALL -->
@@ -129,8 +126,8 @@
 	  <result name="admin">/admin/rolemenu.jsp</result>
 	  <result name="update">/admin/updateRoleMenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
-	  	  	  
-	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	  	  	  <interceptor-ref name="all_stack"></interceptor-ref>
+	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	</action>
 	
 	

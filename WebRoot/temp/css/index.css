@@ -5,7 +5,7 @@ body
 }
 
 /*集体添加滚动条*/
-.chose-list,.message-list,.item-list,
+.chose-list,.message-list,.item-list,.message-list,
 .group-chose-list,.group-message-list,.group-user
 {
 	overflow-y:scroll;
@@ -103,10 +103,26 @@ body
 	height: 100%;
     
 }
-.item-list
+.item .button-area
+{
+	text-align: right;
+	background: white;
+	padding: 2px;
+	height: 20px;	
+}
+.item .button-area .btn
+{
+	height: 16px;
+	font-size: 12px;
+	border-radius: 4px;
+	background: deepskyblue;
+}
+
+.item-list,
+.message-list
 {
 	width: 100%;
-	height: 420px; 
+	height: 425px; 
     padding: 5px;
     background: #fbfbfb;
     font-size:0.4em;
@@ -329,7 +345,7 @@ body
 .item .item-top
 {
 	width: 100%;
-	height: 120px;
+	height: 95px;
 	background: #d6d6d6;
 }
 .item .item-item 
@@ -352,8 +368,14 @@ body
 	vertical-align: top;
 }
 
-
-
+.item .top-panel.active
+{
+	background: gold;
+}
+.item .list-item:not(.active)
+{
+	display: none;
+}
 
 
 
