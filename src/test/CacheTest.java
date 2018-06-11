@@ -1,4 +1,6 @@
 package test;
+import com.xiaoluo.model.User;
+import com.xiaoluo.utils.EhCacheUtil;
 import com.xiaoluo.utils.PathKit;
 
 import net.sf.ehcache.Cache;
@@ -6,42 +8,26 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 public class CacheTest {
+	 public  static void TestCahce()  
+	    {  
+	        //string测试  
+	        EhCacheUtil.getInstance().put("ehcache001","userEch","test001");  
+	        String val = (String) EhCacheUtil.getInstance().get("ehcache001", "userEch");  
+	          
+	        //object测试  
+	        User user = new User();  
+	        user.setId(1);  
+	        user.setName("jack");  
+	        EhCacheUtil.getInstance().put("ehcache001","userJack",user);  
+	  
+	        User user2=(User) EhCacheUtil.getInstance().get("ehcache001", "userJack");  
+	        String str="1";  
+	        System.out.print(user2);  
+	    }  
+	 
+	 
 	public static void main(String[] args) {
-
-        // 1. 创建缓存管理器//
-        CacheManager cacheManager = CacheManager.create(PathKit.getWebRootPath()+"\\src\\main\\resources\\ehcache.xml");
-
-        // 2. 获取缓存对象
-        Cache cache = cacheManager.getCache("He  lloWorldCache");
-
-        // 3. 创建元素
-        Element element = new Element("key1", "value1");
-
-        // 4. 将元素添加到缓存
-        cache.put(element);
-
-        // 5. 获取缓存
-        Element value = cache.get("key1");
-        System.out.println(value);
-        System.out.println(value.getObjectValue());
-
-        // 6. 删除元素
-        cache.remove("key1");
-
-        Dog dog = new Dog(1L, "taidi", (short)2);
-        Element element2 = new Element("taidi", dog);
-        cache.put(element2);
-        Element value2 = cache.get("taidi");
-        Dog dog2 = (Dog) value2.getObjectValue();
-        System.out.println(dog2);
-        System.out.println(dog2.str);
-
-        System.out.println(cache.getSize());
-
-        // 7. 刷新缓存
-        cache.flush();
-
-        // 8. 关闭缓存管理器
-        cacheManager.shutdown();
+CacheTest.TestCahce();
+       
     }
 }

@@ -16,6 +16,7 @@ import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.StatusConst;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserMess;
+import com.xiaoluo.utils.EhCacheUtil;
 import com.xiaoluo.utils.NameUtils;
 import com.xiaoluo.utils.ResponseUtils;
 import com.xiaoluo.utils.Ret;
@@ -158,6 +159,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", loginUser.setName(NameUtils.getNickName()));
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
 			CommonData.loginUser.set(sessionId, loginUser);
+			//EhCacheUtil.getInstance().put("ehcache001", sessionId, loginUser);
+			
 			CommonData.loginUserID.add(loginUser.getId()+"");
 			
 			ret.set("returnUrl", "indexindex.action");

@@ -28,21 +28,23 @@ public class MenuAuthInterceptor implements Interceptor {
 		ActionContext action = inv.getInvocationContext();
 		Boolean authLoad = getMenuLoad(action.getSession().get("menuLoad"));
 		User user = (User) action.getSession().get("user");
+		if(!authLoad){
 			// 用户菜单
-		action.getSession().put("menuList"
-				, AdminMenuService.me.getUserMenu(user));
-		// 加载完毕，修改标识符
-	     action.getSession().put("menuLoad", false);
+			action.getSession().put("menuList"
+					, AdminMenuService.me.getUserMenu(user));
+			// 加载完毕，修改标识符
+		    action.getSession().put("menuLoad", true);
+		}
 	     return inv.invoke();
 	}
 	
 	/**
-	 * 没有menuLoad，说明是首次调用设置成true
+	 * 没有menuLoad，说明是首次调用设置成false
 	 * @param sessionAttr
 	 * @return
 	 */
 	private Boolean getMenuLoad(Object sessionAttr) {
-		return sessionAttr == null ? true : Boolean.parseBoolean(sessionAttr.toString());
+		return sessionAttr == null ? false : Boolean.parseBoolean(sessionAttr.toString());
 	}
 
 }
