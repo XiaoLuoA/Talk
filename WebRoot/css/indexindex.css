@@ -2,7 +2,6 @@
 body{
    background-size:cover;
    margin:0 auto;
-   text-align:center;
    text-align: center; /*IE*/
    text-align: -moz-center; /*Firefox*/
    text-align: -webkit-center; /*Chrome*/
@@ -11,9 +10,10 @@ body{
 .container{    /*整体盒子*/
 	margin:0 auto;
 	width:1440px;
+	 text-align:center;
 }
 .index{
-	height:750px;
+	height:auto;
 	background-color:white;
 	visible:auto;
 }
