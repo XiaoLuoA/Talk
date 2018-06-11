@@ -15,6 +15,7 @@ body{
 .index{
 	height:750px;
 	background-color:white;
+	visible:auto;
 }
 .navi a{
 	color:white;
