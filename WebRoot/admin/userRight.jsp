@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*,com.xiaoluo.model.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>修改群聊</title>
+    <title>首页</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -26,15 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="bootstrap/switchery.min.css">
 	
   </head>
-  
-  <body>
   <%
          List<Menu> list=(List) session.getAttribute("menuList"); 
          int i;
          int j;  
-      %>
+     %>
   
-  
+  <body>
   <div class="page-box">
   
           <div class="jfa-left-box">
@@ -62,29 +62,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	  }
                    }
             	 %>                                                   
-             </div>                      
-          </div>
-    
-          <div class="jfa-right-box">
+             </div>                    
+          </div>    
+          <div class="jfa-right-box">         
+             <div class="jfa-header-box"><div class="text">用户管理</div></div>
+                        
+             <div class="jfa-content-box">                   
+             
+             
+         <div class="select">                 
+  
+            
+          </div>  
+           
+              <div class="table2">                                  
+                 <table border="1" class="table3">
+                   <tr>
+                      <td>编号</td>
+                      <td>账户</td>
+                      <td>状态</td>
+                      <td>角色</td>
+                      <td>操作1</td>
+                      <td>操作2</td>  
+                  </tr>
+		<s:iterator  value="allUser" var="u" >
+	      <tr>
+	        <td><s:property value="#u.id"/></td>
+	        <td><s:property value="#u.name"/></td>
+			<td><s:property value="#u.status"/></td>
+			<td><s:property value="#u.roles"/></td>
+	
+			<td><a href="aright_findRight?id=<s:property value="#u.id"/>">修改</a></td>
+			<td><a href="aright_deleteRight?id=<s:property value="#u.id"/>">删除</a>			
+				</s:iterator>						 
+          </table>
+             
+        </div> 
+      
           
-             <div class="jfa-header-box"><div class="text">修改群聊</div></div>             
-             <div class="jfa-content-box">
-                   
-             <s:debug>    
-          <div class="updateGroupform">
-         <s:form action="agroups_updateGroups" method="post">
-         <table class="updateGroup1">       	      	 
-	    <tr><td>群组名字：</td><td><input type="text"    name="groupName" value="<s:property value="user.name"/>"></td></tr>
-	    <tr><td>群组描述：</td><td><input type="text"    name="groupDetail" value="<s:property value="user.password"/>"></td></tr>
-	    <tr><td>成员数量：</td><td><input type="text"    name="groupNum" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="user.roles"/>"/></td></tr>
-	    <tr><td>群组头像：</td><td><input type="text"    name="groupPic" value="<s:property value="user.pic"/>"/></td>     </tr>	 	   				
-	      <s:submit  value="提交"></s:submit>	
-	      </table>       
-		</s:form>	
-		</div>	 
-  </s:debug>
-         </div>   
+         
+           </div>      
+           
     </div>
+  
+   </div>
+    
   </body>
 </html>

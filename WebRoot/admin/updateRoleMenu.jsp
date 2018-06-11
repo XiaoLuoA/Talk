@@ -43,14 +43,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
                     
                                                      首页
-                  </a>
-                  
-                  
+                   </a>
                    <%
                    if(list.size()>0){
               for( i=0;i<list.size();i++){
-            	 %> 
-            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	   %> 
+            	 <ul class="jfa-main-menu" home="false" style="display: block;" ><% out.print(list.get(i).getMenuName());%></ul>
             	 <%
             	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
@@ -63,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	    }
             	  }
                    }
-            	 %>                                         
+            	 %>                                                   
              </div>                      
           </div>
     
@@ -76,12 +74,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="updateGroupform">
          <s:form action="arolemenu_updateRoleMenu" method="post">
          <table class="updateGroup1">       	      	 
-	    <tr><td>id：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
-	    <tr><td>roleID：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
-	     <tr><td>MenuID：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
-	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
-	     <tr><td>角色名字：</td><td><input type="text"    name="roleName" value="<s:property value="role.roleName"/>"></td></tr>  
-	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="role.createTime"/>"/></td></tr>
+	  
+	    <tr><td>roleID：</td><td><input type="text"    name="roleId" value="<s:property value="rolemenu.roleId"/>"/></td></tr>
+	     <tr><td>MenuID：</td><td><input type="text"    name="menuId" value="<s:property value="rolemenu.menuId"/>"></td></tr>  
+	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="rolemenu.createTime"/>"/></td></tr>	   
 	      <s:submit  value="提交"></s:submit>	
 	      </table>       
 		</s:form>	

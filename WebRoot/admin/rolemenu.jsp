@@ -43,14 +43,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
                     
                                                      首页
-                  </a>
-                  
-                  
+                   </a>
                    <%
                    if(list.size()>0){
               for( i=0;i<list.size();i++){
-            	 %> 
-            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	   %> 
+            	 <ul class="jfa-main-menu" home="false" style="display: block;" ><% out.print(list.get(i).getMenuName());%></ul>
             	 <%
             	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
@@ -63,11 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	    }
             	  }
                    }
-            	 %>
-                
-                 
-                  
-                                                         
+            	 %>                                                   
              </div>                    
           </div>    
           <div class="jfa-right-box">         
@@ -77,15 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              
            
          <div class="select">                 
-          <form action="arolemenu_searchLikeRoleMenuList">
-            <table class="table1"> 
-             <tr>
- 
-               请输入查询内容： <input type="text" required="required" name="searchName">&nbsp;&nbsp;<input type="submit" class="button1" value="确定">
-               
-             </tr>                    
-            </table>        
-            </form> 
+          
           </div>  
               <div class="table2">                                  
                  <table border="1" class="table3">

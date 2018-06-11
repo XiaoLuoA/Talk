@@ -77,28 +77,6 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 		return "admin";
 	}
 	
-	public void testAjax() throws UnsupportedEncodingException{
-		request.setCharacterEncoding("utf-8");
-		
-		ActionContext ac = ActionContext.getContext();
-		HttpServletResponse response = ResponseUtils.getResponse(ac);
-		Ret ret = Ret.ok();
-		
-		ret.set("msg","success");
-		
-		ret.setFail();
-		
-		try {
-			
-			response.getWriter().print(Json.toJson(ret));
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
 	
 	public String addUser() throws UnsupportedEncodingException{
 		request.setCharacterEncoding("utf-8");
@@ -148,6 +126,60 @@ public class AdminUserAction extends ActionSupport implements ModelDriven<User> 
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
+	
+	
+	public String listAllRight()  {
+			
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		HttpSession sessionName = request.getSession();
+		User loginUser = (User) ActionContext.getContext().getSession().get("user");
+		sessionName.setAttribute("menuList", AdminMenuService.me.getUserMenu(loginUser));		
+		return "rightadmin";
+		
+	}
+	
+	public String deleteRight() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+		int id =Integer.parseInt(request.getParameter("id"));
+		AdminUserService.me.deleteUser(id);
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "rightadmin";
+	}
+	
+	
+	public String addRight() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+		AdminUserService.me.addUser(user);
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "rightadmin";
+	}
+	
+	public String updateRight() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+	
+		AdminUserService.me.updateUser(user);;
+		ActionContext.getContext().getValueStack().set("allUser",AdminUserService.me.findAllUsers());
+		return "rightadmin";
+	}
+	
+	public String findRight() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+		int id =Integer.parseInt(request.getParameter("id"));
+		User user=AdminUserService.me.findUser(id);
+		ActionContext.getContext().getValueStack().set("user",user);	
+		return "rightupdate";
+	}
+	public String searchLikeRightList() throws UnsupportedEncodingException{
+		request.setCharacterEncoding("utf-8");
+		 
+		String name =request.getParameter("searchName");
+		  List<User> searchLikeUserList =AdminUserService.me.searchLikeUserList(name);
+		ActionContext.getContext().getValueStack().set("allUser",searchLikeUserList);	
+		return "rightadmin";
+	}
+
 
 	
 	

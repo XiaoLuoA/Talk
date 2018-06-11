@@ -45,14 +45,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
                     
                                                      首页
-                  </a>
-                  
-                  
+                   </a>
                    <%
                    if(list.size()>0){
               for( i=0;i<list.size();i++){
-            	 %> 
-            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	   %> 
+            	 <ul class="jfa-main-menu" home="false" style="display: block;" ><% out.print(list.get(i).getMenuName());%></ul>
             	 <%
             	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
@@ -65,8 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	    }
             	  }
                    }
-            	 %>
-                                          
+            	 %>                                                   
              </div>
                       
           </div>
@@ -103,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        </tr>
         <tr>
         <td>
-         <s:select name="roles" list="#{'1':'普通用户','2':'管理员','3':'超级管理员'}" label="角色" headerKey="" headerValue="设置角色"></s:select>
+         <s:select name="roles" list="#{'1':'普通用户'}" label="角色" headerKey="" headerValue="设置角色"></s:select>
         </td>
        </tr>
         <tr>

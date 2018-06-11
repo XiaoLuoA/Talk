@@ -85,9 +85,18 @@
 	  <result name="admin">/admin/index.jsp</result>
 	  <result name="update">/admin/updateUser.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	  
 	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
 	</action>
 	
+	<!--  Right管理// -->	
+	<action name="aright_*" class="com.xiaoluo.admin.user.AdminRightAction" method="{1}">
+	  <result name="admin">/admin/userRight.jsp</result>
+	  <result name="update">/admin/updateRight.jsp</result>
+	  <result name="fail">/admin/fail.jsp</result>
+	  
+	   <interceptor-ref name="myinterceptor_stack"></interceptor-ref>
+	</action>
 	
 	<!--  Groups管理//listALL -->
 	<action name="agroups_*" class="com.xiaoluo.admin.group.AdminGroupsAction" method="{1}">
@@ -118,7 +127,7 @@
 	<!--  RoleMenu管理（权限管理）//listALL -->
 	<action name="arolemenu_*" class="com.xiaoluo.admin.RoleMenu.AdminRoleMenuAction" method="{1}">
 	  <result name="admin">/admin/rolemenu.jsp</result>
-	  <result name="update">/admin/updateRolemenu.jsp</result>
+	  <result name="update">/admin/updateRoleMenu.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
 	  	  	  
 	  <interceptor-ref name="myinterceptor_stack"></interceptor-ref>

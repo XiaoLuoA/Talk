@@ -35,7 +35,7 @@ public class AdminRoleMenuAction extends ActionSupport implements ModelDriven<Ro
 	
 	
 	
-	public String findRuleMenu(){
+	public String findRoleMenu(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		RoleMenu rolemenu=AdminRoleMenuService.me.findRoleMenu(id);		
 		ActionContext.getContext().getValueStack().set("rolemenu",rolemenu);	
@@ -44,7 +44,7 @@ public class AdminRoleMenuAction extends ActionSupport implements ModelDriven<Ro
 	
 	
 	
-	public String deleteRuleMenu(){
+	public String deleteRoleMenu(){
 		int id =Integer.parseInt(request.getParameter("id"));
 		AdminRoleMenuService.me.deleteRoleMenu(id);
 		ActionContext.getContext().getValueStack().set("allRoleMenu",AdminRoleMenuService.me.listAllRoleMenu());
@@ -52,10 +52,16 @@ public class AdminRoleMenuAction extends ActionSupport implements ModelDriven<Ro
 	}
 	
 	
-	public String updateRuleMenu(){
-		AdminRoleMenuService.me.updateRoleMenu(rolemenu);;
+	public String updateRoleMenu(){
+		AdminRoleMenuService.me.updateRoleMenu(rolemenu);
 		ActionContext.getContext().getValueStack().set("allRoleMenu",AdminRoleMenuService.me.listAllRoleMenu());
 		return "admin";
+	}
+	public String addRoleMenu(){
+		AdminRoleMenuService.me.addRoleMenu(rolemenu);
+		ActionContext.getContext().getValueStack().set("allRoleMenu",AdminRoleMenuService.me.listAllRoleMenu());
+		return "admin";
+		
 	}
 	
 	

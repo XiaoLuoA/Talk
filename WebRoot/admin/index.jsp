@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    if(list.size()>0){
               for( i=0;i<list.size();i++){
             	 %> 
-            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	 <ul class="jfa-main-menu" home="false" style="display: block;" ><% out.print(list.get(i).getMenuName());%></ul>
             	 <%
             	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
@@ -96,8 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <td>编号</td>
                       <td>账户</td>
                       <td>密码</td>
-                      <td>状态</td>
-                      <td>角色</td>
+                      <td>状态</td>                    
                       <td>性别</td>
                       <td>创建时间</td>
                       <td>举报人数</td>
@@ -112,7 +111,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <td><s:property value="#u.name"/></td>
 	        <td><s:property value="#u.password"/></td>
 			<td><s:property value="#u.status"/></td>
-			<td><s:property value="#u.roles"/></td>
 			<td><s:property value="#u.sex"/></td>
 			<td><s:property value="#u.createTime"/></td>
 			<td><s:property value="#u.reportNum"/></td>

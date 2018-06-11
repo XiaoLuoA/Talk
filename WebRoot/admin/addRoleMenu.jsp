@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>修改群聊</title>
+    <title>添加菜单</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -28,20 +28,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <%
+ 
+ <%
          List<Menu> list=(List) session.getAttribute("menuList"); 
          int i;
          int j;  
-      %>
+     %>
   
-  
+  <body>
   <div class="page-box">
-  
           <div class="jfa-left-box">
              <div class="jfa-logo"></div>
              <div class="jfa-menu-box">
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
+                    <i class="left-icon fa fa-dashboard">
                     
+                    </i>
                                                      首页
                    </a>
                    <%
@@ -62,29 +64,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	  }
                    }
             	 %>                                                   
-             </div>                      
-          </div>
-    
-          <div class="jfa-right-box">
-          
-             <div class="jfa-header-box"><div class="text">修改群聊</div></div>             
+             </div>                     
+          </div>   
+          <div class="jfa-right-box">         
+             <div class="jfa-header-box"><div class="text">添加菜单</div></div>             
              <div class="jfa-content-box">
-                   
-             <s:debug>    
-          <div class="updateGroupform">
-         <s:form action="agroups_updateGroups" method="post">
-         <table class="updateGroup1">       	      	 
-	    <tr><td>群组名字：</td><td><input type="text"    name="groupName" value="<s:property value="user.name"/>"></td></tr>
-	    <tr><td>群组描述：</td><td><input type="text"    name="groupDetail" value="<s:property value="user.password"/>"></td></tr>
-	    <tr><td>成员数量：</td><td><input type="text"    name="groupNum" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="user.roles"/>"/></td></tr>
-	    <tr><td>群组头像：</td><td><input type="text"    name="groupPic" value="<s:property value="user.pic"/>"/></td>     </tr>	 	   				
-	      <s:submit  value="提交"></s:submit>	
-	      </table>       
-		</s:form>	
-		</div>	 
-  </s:debug>
-         </div>   
+              
+    <!-- 推荐使用Struts2的标签库 -->
+   <div class="addMenuform">
+    <s:form action="arolemenu_addRoleMenu" > 
+      <table class="addMenu1">
+ 
+       <tr>
+        <td>
+          <s:textfield name="roleId"  label="角色id" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="menuId" label="菜单Id" ></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         <s:textfield name="createTime"  label="创建时间"></s:textfield>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         
+        </td>
+       </tr>       
+       
+        <s:submit value="确定"></s:submit>
+      </table>   
+    </s:form>
+    </div>
+          
+           </div>   
     </div>
   </body>
 </html>
+

@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <a class="jfa-main-menu jfa-cur-menu" href="" home="true">
                     
                                                      首页
-                   </a>
+                  </a>
                    <%
                    if(list.size()>0){
               for( i=0;i<list.size();i++){
@@ -67,18 +67,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
           <div class="jfa-right-box">
           
-             <div class="jfa-header-box"><div class="text">修改群聊</div></div>             
+             <div class="jfa-header-box"><div class="text">修改角色</div></div>             
              <div class="jfa-content-box">
                    
              <s:debug>    
           <div class="updateGroupform">
-         <s:form action="agroups_updateGroups" method="post">
+         <s:form action="aright_updateRight" method="post">
          <table class="updateGroup1">       	      	 
-	    <tr><td>群组名字：</td><td><input type="text"    name="groupName" value="<s:property value="user.name"/>"></td></tr>
-	    <tr><td>群组描述：</td><td><input type="text"    name="groupDetail" value="<s:property value="user.password"/>"></td></tr>
-	    <tr><td>成员数量：</td><td><input type="text"    name="groupNum" value="<s:property value="user.status"/>"/></td>  </tr> 
-	    <tr><td>创建时间：</td><td><input type="text"    name="createTime" value="<s:property value="user.roles"/>"/></td></tr>
-	    <tr><td>群组头像：</td><td><input type="text"    name="groupPic" value="<s:property value="user.pic"/>"/></td>     </tr>	 	   				
+	    <tr><td>账户：</td><td><input type="text"    name="name" value="<s:property value="user.name"/>"></td></tr>
+	    <tr><td>状态：</td><td><input type="text"    name="status" value="<s:property value="user.status"/>"></td></tr>	   
+	    <tr><td>角色：</td><td><input type="text"    name="roles" value="<s:property value="user.roles"/>"/></td></tr>
 	      <s:submit  value="提交"></s:submit>	
 	      </table>       
 		</s:form>	

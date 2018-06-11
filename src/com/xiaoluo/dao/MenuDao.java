@@ -5,11 +5,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import com.xiaoluo.model.Menu;
-import com.xiaoluo.model.Role;
-import com.xiaoluo.model.RoleMenu;
 import com.xiaoluo.model.User;
 import com.xiaoluo.utils.SessionFactoryUtils;
 

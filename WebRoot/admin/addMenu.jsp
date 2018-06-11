@@ -48,10 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </a>
                    <%
                    if(list.size()>0){
-              
               for( i=0;i<list.size();i++){
-            	 %> 
-            	 <a class="jfa-main-menu" home="false"  href="<% out.print(list.get(i).getMenuUrl());%>"><% out.print(list.get(i).getMenuName());%></a>
+            	   %> 
+            	 <ul class="jfa-main-menu" home="false" style="display: block;" ><% out.print(list.get(i).getMenuName());%></ul>
             	 <%
             	 
             	  for(j=0;j<list.get(i).getSubMenuList().size();j++){
@@ -63,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  	 <%
             	    }
             	  }
-              }
+                   }
             	 %>                                                   
              </div>                     
           </div>   
