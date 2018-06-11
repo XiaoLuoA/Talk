@@ -264,11 +264,17 @@ public class MsgHandler implements IWsMsgHandler {
 		}else if(type.equals("5")){
 			String deleteItemId = (String) jsonObject2.get("deleteItemId");
 			TalkService.me.deleteUserItem(deleteItemId);
-			String[] ids = deleteItemId.split("|");
+			System.out.println(deleteItemId);
+			String[] ids = deleteItemId.split("\\|");
+			
+		
+			
 			Integer userid = Integer.parseInt(ids[0]);
 			Integer deleteme = Integer.parseInt(ids[1]);
+			
+			
 			TalkService.me.deleteUserItem(deleteme+"|"+userid);
-			boolean isLogin = CommonData.loginUserID.contains(deleteme);
+			boolean isLogin = CommonData.loginUserID.contains(deleteme+"");
 			
 			JSONObject msg = new JSONObject();
 			msg.put("type", 5);
@@ -280,10 +286,12 @@ public class MsgHandler implements IWsMsgHandler {
 			
 			msg.put("message", groupids);
 			if(isLogin){
+				System.out.println("login");
 				WsResponse wsResponse = WsResponse.fromText(msg.toJSONString(), WSConfig.CHARSET);
 				Aio.sendToUser(channelContext.getGroupContext(), deleteme+"", wsResponse);
 			}else{
 				//增加把我删除的人;直接调用了dao层  （·--·）
+				System.out.println("nologin");
 				UserDao.me.addWhoDelete(deleteme, userid);
 			}
 		}

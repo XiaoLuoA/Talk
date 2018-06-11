@@ -535,13 +535,12 @@ function BieginListener(event, ws)
 		deleteIds.forEach(function(deleteId,index){
 			var itemId = UserId+'|'+deleteId;
 			//删除本地
-			localStorage.remove(itemId);
+			deleteLocal(itemId);
 			//清除dom
 			Tab.remove(itemId,true);
-			$itemList.find('li[data-index="itemId"]').remove();
+			$itemList.find('[data-index="'+ itemId +'"]').remove();
 			//添加提醒
 		});
-
 	}
 }
 function BeginSend()
@@ -593,6 +592,7 @@ function sendChatBtn(event)
 	//得到用户临时的信息并封装
 	var tempName = $DetailItem.attr('data-name');
 	var tempPic = $DetailItem.attr('data-pic');
+	
 	var temp = 
 	{
 		tempName :tempName,
@@ -607,7 +607,7 @@ function sendChatBtn(event)
 		content:$textArea.val(),
 	};
 //	console.log('将要发送的消息',message);
-	
+	console.log('发送的message和temp',message,temp);
 	//添加本消息并渲染
 	
 	$($DetailItem.find('.message-list ul')).append($(chatMessageTpl(message,true)));
@@ -635,6 +635,8 @@ function deleteItem($itemItem)
 		deleteItemId :itemId,
 	}
 	sendFunctons.deleteItem(tioDat);
+	//清除打开的对话
+	Tab.remove(itemId,true);
 	//清除本地记录
 	deleteLocal(itemId);
 	//清除dom
@@ -656,22 +658,22 @@ function sendGroupChatBtn(event)
 	var groupId = $GroupDetailItem.attr('data-index');
 	var group = openGroupMap.get(groupId+'');
 	console.log('发信息的group',groupId,group);
-	var message = {
+	var groupMessage = {
 		groupId :groupId,
 		content :$textArea.val(),
 		talkerId :sessionId,
 		talkerPic :$GroupDetailItem.attr('item.talkerPic'),
 		talkerName :$GroupDetailItem.attr('data-name'),
 	};
-	group.messages.push(message);
+	group.messages.push(groupMessage);
 	//渲染
-	$($GroupDetailItem.find('.group-messages')).append($(groupMessageTpl(message)));
+	$($GroupDetailItem.find('.group-messages')).append($(groupMessageTpl(groupMessage,true)));
 	//恢复
 	$textArea.val(''),
 	//隐藏按钮
 	hideSendBtn(sendBtnDom);
 	//发送
-	sendFunctons.sendGroupChat(message);
+	sendFunctons.sendGroupChat(groupMessage);
 }
 
 
@@ -695,15 +697,24 @@ function closeGroupBtn(event)
 function DeleteItemBtn(event)
 {
 	var flag =confirm('你确定吗，你会彻底失去与此人的联系');
+	var $dom =  $(event.target);
+	var deleteItemId = $dom.parent().attr('data-index');
+	
 	if(flag)
 	{
-		var deleteItemId = $(evnet.target).parten().attr('data-index');
 		var tioData = 
 		{
 			deleteItemId:deleteItemId,
 		}
 		sendFunctons.deleteItem(tioData);
 	}
+	console.log('开始删除一个人',$dom);
+	//清除dom
+	$dom.parents('.item-item').remove();
+	//清除map
+	itemMap.delete(deleteItemId);
+	//清除local
+	deleteLocal(deleteItemId);
 	return false;
 }
 

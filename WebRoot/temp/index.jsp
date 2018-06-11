@@ -43,7 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>	
 						<div class="item">
 							<div class="item-top">
-								<p>文字</p>
+								<div>
+									<!--<img />-->
+									<span>我</span>
+								</div>
 								<span class="top-panel">消息</span> <span class="top-panel">新消息</span>
 							</div>
 							<div class="item-list list-item"><!--消息列表-->
