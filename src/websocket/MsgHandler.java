@@ -224,6 +224,8 @@ public class MsgHandler implements IWsMsgHandler {
 			String groupId = jsonObject2.getString("groupId");
 			
 			jsonObject2.put("talkerId", user.getId());
+			jsonObject2.put("talkerPic", user.getPic());
+			jsonObject2.put("talkerName", user.getName());
 			//将jsonObject2对象转化为GroupsMess对象
 			GroupsMess userMess = Json.toBean(jsonObject2.toJSONString(), GroupsMess.class);
 			jsonObject.put("message", jsonObject2);

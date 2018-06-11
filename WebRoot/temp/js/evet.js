@@ -662,7 +662,7 @@ function sendGroupChatBtn(event)
 		groupId :groupId,
 		content :$textArea.val(),
 		talkerId :sessionId,
-		talkerPic :$GroupDetailItem.attr('item.talkerPic'),
+		talkerPic :$GroupDetailItem.attr('data-talkerPic'),
 		talkerName :$GroupDetailItem.attr('data-name'),
 	};
 	group.messages.push(groupMessage);
