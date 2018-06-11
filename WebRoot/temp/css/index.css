@@ -312,13 +312,13 @@ body
 .group-message-item.self
 {
 	text-align: right;
-    padding-right: 60px;
+    padding-right: 30px;
 }
 .message-item:not(.self),
 .group-message-item:not(.self)
 {
 	text-align: left;
-    padding-left: 60px;   
+    padding-left: 30px;   
 }
 /*头像*/
 .message-item .head-img,
@@ -353,13 +353,13 @@ body
 .group-message-item .message-title
 {
 	left: auto;
-	right: 60px;
+	right: 30px;
 	text-align: right;
 } 
 .message-item:not(.self) .message-title,
 .group-message-item .message-title
 {
-    left: 60px;
+    left: 30px;
     text-align: left;
 }
 
