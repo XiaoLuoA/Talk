@@ -1,7 +1,6 @@
 body
 {
-	background: #ffffcc;
-	/*overflow: hidden;*/
+
 }
 
 /*集体添加滚动条*/
@@ -40,6 +39,7 @@ body
 }
 .overlay .overlay-showarea
 {
+	text-align: left;
 	position: absolute;
 	top: 50%;
     left: 50%;
@@ -299,25 +299,30 @@ body
  *开始聊天的部分了
  */
 /*整体聊天的li*/
-.message-item
+
+.message-item,
+.group-message-item
 {
 	position: relative;
 	font-size: 0;
 	margin-bottom: 10px;
 	min-height: 68px;
 }
-.message-item.self
+.message-item.self,
+.group-message-item.self
 {
 	text-align: right;
     padding-right: 60px;
 }
-.message-item:not(.self)
+.message-item:not(.self),
+.group-message-item:not(.self)
 {
 	text-align: left;
     padding-left: 60px;   
 }
 /*头像*/
-.message-item .head-img
+.message-item .head-img,
+.group-message-item .head-img
 {
 	display: inline-block;
 	width: 40px;
@@ -326,10 +331,15 @@ body
 	border: none;
 	vertical-align: middle;
 }
-.message-item.self .head-img{}
-.message-item:not(.self) .head-img{}
+.message-item.self .head-img,
+.group-message-item .head-img
+{}
+.message-item:not(.self) .head-img,
+.group-message-item:not(.self) .head-img
+{}
 /*对话内容小标题*/
-.message-item .message-title
+.message-item .message-title,
+.group-message-item .message-title
 {
 	position: absolute;
 	top: -2px;
@@ -339,20 +349,23 @@ body
     color: #999;
 	font-style: normal;
 }
-.message-item.self .message-title
+.message-item.self .message-title,
+.group-message-item .message-title
 {
 	left: auto;
 	right: 60px;
 	text-align: right;
 } 
-.message-item:not(.self) .message-title
+.message-item:not(.self) .message-title,
+.group-message-item .message-title
 {
     left: 60px;
     text-align: left;
 }
 
 /*对话内容的显示部分*/
-.message-item .message-content
+.message-item .message-content,
+.group-message-item .message-content
 {
 	position: relative;
 	vertical-align: top;
@@ -364,7 +377,8 @@ body
 	margin-top: 25px;
 	line-height: 22px;
 }
-.message-item.self .message-content
+.message-item.self .message-content,
+.group-message-item .message-content
 {
 	right:60px;
     margin-left: 0;
@@ -372,7 +386,8 @@ body
     background-color: #5FB878;
     color: #fff;
 }
-.message-item.self .message-content:after
+.message-item.self .message-content:after,
+.group-message-item .message-content:after
 {
     content: '';
     position: absolute;
@@ -388,13 +403,15 @@ body
     border-top-color: #5FB878;
 }
 
-.message-item:not(.self) .message-content
+.message-item:not(.self) .message-content,
+.group-message-item:not(.self) .message-content
 {
 	left:60px;
     background-color: #e2e2e2;
     color: #333;
 }
-.message-item:not(.self) .message-content:after
+.message-item:not(.self) .message-content:after,
+.group-message-item:not(.self) .message-content:after
 {
 	content: '';
     position: absolute;
@@ -407,6 +424,8 @@ body
     overflow: hidden;
     border-width: 10px;
 }
+
+/*工具栏*/
 .group-detail-item .tool,
 .detail-item .tool
 {

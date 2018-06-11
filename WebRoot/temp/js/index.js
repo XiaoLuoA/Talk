@@ -19,7 +19,7 @@ var openGroupMap = new Map();
 var itemMap = new Map();
 
 var deleteIds = [];
-
+var openItemIds = [];
 var meaasgeNUll = {sendTime:'',content:''};
 
 
@@ -67,7 +67,7 @@ function deleteLocalMessage()
 	deleteIds.forEach(function(deleteId,index){
 		var itemId = UserId+'|'+deleteId;
 		//删除本地
-		localStorage.remove(itemId);
+		deleteLocal(itemId);
 	});
 }
 function getLocalMessage(items)
@@ -110,7 +110,7 @@ function readLocal(key,isStr)
 	return  isStr?localStorage.getItem(key+''):JSON.parse(localStorage.getItem(key+''));
 }
 function deleteLocal(key){
-	localStorage.deleteItem(key+'');
+	localStorage.removeItem(key+'');
 }
 //渲染数据
 function createChoseItem(item)
@@ -132,7 +132,7 @@ function chatMessageTpl(message,isSelf)
 	var htmlText =[];
 	htmlText.push('<li class="message-item '+ (message.fromId==UserId?'self':'') +'" data-sendindex="'+ message.fromId +'">');
 	htmlText.push('<div class="message-title">');
-		htmlText.push('<img class="head-img" src="'+ message.talkerPic +'">');
+		htmlText.push('<img class="head-img" src="'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerPic +'">');
 		htmlText.push('<span class="message-title"><span>'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerName +'</span>');
 		htmlText.push('<span>'+ message.sendTime +'</span></span>');
 	htmlText.push('</div>');
@@ -181,13 +181,19 @@ function ItemItemTpl(item)
 	
 	return htmltext.join('');
 }
-function groupMessageTpl(message)
+function groupMessageTpl(groupMessage,isSelf)
 {
-	var htmltext = [];
-	htmltext.push('<li>');
-	htmltext.push(message.content);
-	htmltext.push('</li>');
-	return htmltext.join('');
+	var htmlText = [];
+	if(isSelf){groupMessage.talkerId = UserId;}
+	htmlText.push('<li class="group-message-item '+ (groupMessage.talkerId==UserId?'self':'') +'" data-sendindex="'+ groupMessage.talkerId +'">');
+	htmlText.push('<div class="message-title">');
+		htmlText.push('<img class="head-img" src="'+ groupMessage.talkerPic +'">');
+		htmlText.push('<span class="message-title"><span>'+ groupMessage.talkerName+'</span>');
+		htmlText.push('<span>'+ groupMessage.sendTime +'</span></span>');
+	htmlText.push('</div>');
+	htmlText.push('<div class="message-content">'+ groupMessage.content +'</div>');
+	htmlText.push('</li>');
+	return htmlText.join('');
 }
 function groupUserTpl(user)
 {
