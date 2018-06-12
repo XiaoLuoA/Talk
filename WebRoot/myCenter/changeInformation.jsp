@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -24,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div class="container">    
-    <%@include file="../index/navi.html"%>
+    <jsp:include page="../index/navi.jsp"/>
     <div class="center">   
           <div class="left">
             <ul>
@@ -40,19 +41,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <table class="table">      	     
           <tr> 
           <div class="tr">       
-                用户名：<input class="input zhanghao zhanghaosize" type="text"  placeholder="请输入用户名"   name="name" id="uname">
+                用户名：<input class="input zhanghao zhanghaosize" type="text" value="<s:property value="#session.user.name"/>"  placeholder="请输入用户名"   name="name" id="uname">
            </div>
           </tr>      
            <tr> 
            <div class="tr">                                           
-                 密      码：         <input type="password" class="input" name="password" placeholder="请输入密码" id="psd1">    
+                 密      码：         <input type="text" class="input" value="<s:property value="#session.user.password"/>" name="password" placeholder="请输入密码" id="psd1">    
             </div>               
           </tr>
-           <tr>             
-            <div class="tr">   
-                密   码： <input type="password" class="input" name="password" placeholder="请再一次输入密码" id="psd2" onblur="check2psd()">
-             </div>       
-          </tr>
+          
           <tr>
       	      <div class="tr">   
       	        性   别： <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	 
@@ -60,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	   </tr>
       	   <tr>
       	     <div class="tr">   
-      	           邮     箱： <input type="email"class="input" placeholder="请输入邮箱" name="email" >
+      	           邮     箱： <input type="text"class="input" value="<s:property value="#session.user.email"/>" placeholder="请输入邮箱" name="email" >
       	        </div>      	    
       	   </tr>   
       	   <tr>

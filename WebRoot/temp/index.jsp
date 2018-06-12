@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<body>	
 		<div class="container">
-		    <%@include file="../index/navi1.html"%>
+		   <jsp:include page="../index/navi1.jsp"/>
     		<div class="index">
     			<div class="group1">
 					<div class="group-area">

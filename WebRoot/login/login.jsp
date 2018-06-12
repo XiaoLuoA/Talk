@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>
                <input  class="loginbutton" type="submit" value="登 录">                
               </form>
-              <input type=button class="loginbutton" value="返 回" onclick="window.location.href='../login/login.jsp'">
+              <input type=button class="loginbutton" value="返 回" onclick="window.location.href='index.jsp'">
             </div>        
       </div>    
     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>

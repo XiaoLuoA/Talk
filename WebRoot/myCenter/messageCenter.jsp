@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div class="container">    
-    <%@include file="../index/navi.html"%>
+    <jsp:include page="../index/navi.jsp"/>
     <div class="center">   
           <div class="left">
             <ul>
