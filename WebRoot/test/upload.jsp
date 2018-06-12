@@ -30,5 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:submit value="上传" />
     
     </s:form>
+    <img src="face/6.jpg" />
   </body>
 </html>

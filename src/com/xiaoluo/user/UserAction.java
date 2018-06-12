@@ -159,7 +159,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", loginUser.setName(NameUtils.getNickName()));
 			ActionContext.getContext().getSession().put("sessionId", sessionId);
 			int pic = (int) (Math.random()*9);
-			loginUser.setPic(pic+".png");
+			loginUser.setPic("face/"+pic+".jpg");
 			CommonData.loginUser.set(sessionId, loginUser);
 			//EhCacheUtil.getInstance().put("ehcache001", sessionId, loginUser);
 			CommonData.loginUserID.add(loginUser.getId()+"");
