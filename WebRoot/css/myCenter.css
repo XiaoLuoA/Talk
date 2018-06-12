@@ -82,11 +82,13 @@ body{
 }
 .pic{	
 	width:130px;
-	height:130px;
-	
+	height:130px;	
 	margin-top:80px;
 }
-
+.pic1{
+	height:100%; 
+	weight:100%;
+}
 
 /*修改个人信息*/
 .changeInformation{ 

@@ -36,7 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         <div class="myInformation"> 
          
-          <div class="pic"><s:property value="#session.user.pic"/></div>
+          <div class="pic">
+          <img class="pic1" src="<s:property value="#session.user.pic"/>"/>
+          
+          </div>
           <div class="information">
            <ul>
             <li> 用户名：<s:property value="#session.user.name"/></li>
