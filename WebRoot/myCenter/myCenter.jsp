@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	
 	<link rel="stylesheet" type="text/css" href="css/myCenter.css">
-	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
+	<!-- <link href="CSS/reset.css" rel="stylesheet" type="text/css"> -->
 
   </head>
   

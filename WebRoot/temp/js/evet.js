@@ -797,7 +797,7 @@ function bindEvent()
 	$detailList.on('click','.send-btn.active-btn',sendChatBtn);
 	//点击删除会话
 	//点击创建新群聊
-	$('.group-area').on('click','.group',newGroupChatBtn);
+	$('.group-area').on('click','.group-btn',newGroupChatBtn);
 	//点击发送群聊消息
 	$groupDetailList.on('click','.send-btn.active-btn',sendGroupChatBtn);
 	//点击关闭当前群聊

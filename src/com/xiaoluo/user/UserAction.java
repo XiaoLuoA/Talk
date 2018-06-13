@@ -50,6 +50,16 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		return "regPage";
 	}
 	
+	/**
+	 * 跳转到个人中心页面
+	 * @return
+	 */
+	public String myCenterPage(){
+		return "myCenterPage";
+	}
+	
+	
+	
 	
 	/**
 	 * 跳转到找回密码页面

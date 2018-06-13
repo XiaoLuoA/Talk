@@ -38,6 +38,11 @@ public class AuthInterceptor implements Interceptor {
 		System.out.println(uri);
 		User user = (User) action.getSession().get("user");
 		if(user==null){
+			
+			if(uri.contains("myCenterPage")){
+				return "noAuth";
+			}
+			
 			if(uri.startsWith("user")||uri.startsWith("index")){
 				inv.invoke();
 			}else{

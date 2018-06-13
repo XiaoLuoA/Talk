@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <div class="text">
      欢迎注册TalkTalk！
    </div>
-    <form id="reg_form" action="userregist.action" onsubmit="return validate_form(this)" method="post">
+    <form id="reg_form" action="userregist.action"  method="post">
     <table class="register1">      	     
           <tr> 
             <td>     
@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </tr>
            <tr>             
             <td>   
-             密    码：</td><td> <input type="password" class="input" name="password" placeholder="请再一次输入密码" id="psd2" onblur="check2psd()">
+             密    码：</td><td> <input type="password" class="input" name="password2" placeholder="请再一次输入密码" id="psd2" onblur="check2psd()">
              </td>       
           </tr>
           <tr>
@@ -56,11 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	           邮     箱：</td><td> <input type="text" class="input" placeholder="请输入邮箱" name="email" >
       	       </td>      	    
       	   </tr>   
-      	   <tr>
-      	      <td>   
-      	           头     像</td><td> <input type="file" class="input"  name="pic" >
-      	        </td>     	    
-      	   </tr>     	                  
+      	                    
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
@@ -74,7 +70,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function validate_required(field,alerttxt)
 {
 with (field)
+
   {
+
+
   if (value==null||value=="")
     {alert(alerttxt);return false}
   else {return true}
@@ -109,6 +108,7 @@ function validate_form(thisform)
 {
 with (thisform)
   {
+
   if (validate_required(name,"用户名不能为空!")==false)
     {name.focus();return false}
     if (validate_required(password,"密码不能为空!")==false)
@@ -125,28 +125,16 @@ with (thisform)
 }
 
 
-
-/*
-function validate_form(thisform)
-{
-with (thisform)
-{
-if (validate_email(email,"邮箱格式不正确!")==false)
-  {email.focus();return false}
-}
-}*/
-
-
-
 </script>
+
   
   
   
   
   
   
-  <!-- 
-     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
+ 
+    <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
     
     <script type="text/javascript" src="layer/layer/layer.js"></script>
@@ -159,7 +147,9 @@ if (validate_email(email,"邮箱格式不正确!")==false)
 				dataType: "json"
 				, beforeSubmit: function(formData, jqForm, options)
 				{       // 表单提交之前回调
-					
+					var regFrom =  document.getElementById('reg_form');
+					var flag = validate_form(regFrom)
+					return flag;
 				}
 				, success: function(ret) 
 				{
@@ -210,15 +200,11 @@ if (validate_email(email,"邮箱格式不正确!")==false)
 		});
 		
 		
-     function checkName()
+     function checkName(event)
      {
-    	
     	 txt=$("#uname").val();
-    	
     	  $.post(
-    			 
     		"usercheckName.action",
-    		
     	 	{
     			  name:txt
     		}
@@ -229,21 +215,7 @@ if (validate_email(email,"邮箱格式不正确!")==false)
     			if(ret.isOk)
 				{
 					//location.href = ret.returnUrl;
-					layer.msg("Ok",
-							{
-								shift: 6
-								, shade: 0.3
-								, time: 2500
-								, offset: "165px"
-								, closeBtn: 1
-								, shadeClose: true
-							} , 
-							function() 
-							{
-								
-							}
-					);
-					return ;
+					
 				}
 				
 				// 业务层验证失败
@@ -269,11 +241,8 @@ if (validate_email(email,"邮箱格式不正确!")==false)
     		"json");
      }
      
-     	$('#uname').blur
-     	(
-     		checkName()
-     	);     	
-     </script>  -->
+     	$('#uname').blur(function(event){checkName(event)} );     	
+     </script>  
      
   </body>
 </html>

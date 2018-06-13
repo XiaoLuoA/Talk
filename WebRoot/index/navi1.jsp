@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="top"></div>
       <div class="navi1">
           <div class="n11"><a href="index.jsp"><span class="span">首页</span></a></div>
-          <div class="n22"><a href="myCenter/myCenter.jsp"><span class="span">个人中心</span></a></div>
+          <div class="n22"><a href="javascript:void(0);" onclick="toOther()"><span class="span">个人中心</span></a></div>
           <div class="n33"><a href="reg/reg.jsp"><span class="span">黑名单</span></a></div>
           <div class="n44">
         <%if(user==null) {%>

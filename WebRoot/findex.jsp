@@ -20,31 +20,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	
-	<link rel="stylesheet" href="temp/css/reset.css" />
+ 	<link rel="stylesheet" href="temp/css/reset.css" />
 	<link rel="stylesheet" href="css/indexindex.css" />
 	<link rel="stylesheet" href="temp/css/index.css" />
+	<style>
+	.layui-layer-btn a{
+		font-weight:400;
+		font-size:14px;}
+	.layui-layer.layui-anim.layui-layer-dialog
+	{
+		width:260px;
+		heoght:154px;
+	} 
+	
+</style>
   </head>
   
   <body>
     <div class="container">    
-    	<%@include file="../index/navi1.html"%>
-    	
+   <%@include file="../index/navi1.html"%> 
+    	<%-- <jsp:include page="../index/navi1.jsp"/> --%>
     	<div class="index">
     	    <div class="group1">
     			<div class="group-area"> 
     				<s:iterator id="groups" value="allGroup" >
     				<div class="g1"> 
-          				<div class="group" data-index="<s:property value="#groups.id"/>" >群聊<span class="group-name"><s:property value="#groups.groupName"/></span></div>
+    				
+          				<div class="group" data-index="<s:property value="#groups.id"/>" >
+          				<img src="#groups.groupPic" />
+          				
+          				<p style="font-size:0.5em;"><span class="group-name"><s:property value="#groups.groupName"/></span>
+          				<br/><s:property value="#groups.groupDetail"/></p>
+          					<button class="group-btn" >加入群聊</button>
+          				</div>
 					</div> 
 					</s:iterator> 
 				</div>  
 			</div>
      	</div>
-     	
         <div class="foot">
          <%@include file="../index/foot.html"%>
         </div>
      </div> 
 		<script src="temp/js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="layer/layer/layer.js"></script>
+		 <script type="text/javascript">
+		 $.('body').on('click',function(event){
+			 var slectors = [".group-btn"];
+			 var $dom = event.target;
+			 var slector;
+			 for(let index=slectors.length-1;index>=0;index--)
+			 {
+				 slector = slectors[index];
+				 $dom.is(slectors)?true:$dom = $dom.parents(selctor);
+				 if($dom.is(slectors))
+				 {
+					 toOther();
+				 }
+			 }
+			 
+		 });
+		 
+		 
+    function toOther(){
+    	<% User user = (User)request.getSession().getAttribute("user");
+    	if(user==null){
+    	%>
+    	//询问框
+
+    	layer.confirm('现在前往登录么？', {
+    	  btn: ['好滴','拒绝'] //按钮
+    	}, function(){
+    		location.href="userloginPage.action"
+    	 // layer.msg('的确很重要', {icon: 1});
+    	}, function(){
+    	});
+    	
+    	<%
+    	}
+    	%>
+    }
+	</script>
   </body>
 </html>
