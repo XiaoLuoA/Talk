@@ -350,14 +350,14 @@ body
 	font-style: normal;
 }
 .message-item.self .message-title,
-.group-message-item .message-title
+.group-message-item.self .message-title
 {
 	left: auto;
 	right: 30px;
 	text-align: right;
 } 
 .message-item:not(.self) .message-title,
-.group-message-item .message-title
+.group-message-item:not(.self) .message-title
 {
     left: 30px;
     text-align: left;
@@ -378,7 +378,7 @@ body
 	line-height: 22px;
 }
 .message-item.self .message-content,
-.group-message-item .message-content
+.group-message-item.self .message-content
 {
 	right:60px;
     margin-left: 0;
@@ -387,7 +387,7 @@ body
     color: #fff;
 }
 .message-item.self .message-content:after,
-.group-message-item .message-content:after
+.group-message-item.self .message-content:after
 {
     content: '';
     position: absolute;

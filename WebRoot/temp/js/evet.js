@@ -269,6 +269,7 @@ function newItemBtn(event){
 }
 function closeTalkBtn(event)
 {
+	console.log('删除');
 	//得到id
 	var $a = $(event.target);
 	var itemId = $a.parents('.chose-item').attr('data-index');
@@ -516,7 +517,7 @@ function BieginListener(event, ws)
 		//变量操作
 		var item = data.items;
 		//添加一个item
-		items.push(items);
+		items.push(item);
 		itemMap.set(item.userItemId,item);
 		//dom操作
 		$itemList.append(ItemItemTpl(item));

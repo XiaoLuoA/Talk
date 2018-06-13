@@ -108,7 +108,7 @@ TAb.prototype.remove = function(num,isClear){
 	{
 		console.log('存在map',this.attrMap,num);
 		var a = this.attrMap.get(num);
-		if(a)
+		if(a!=null)
 		{
 			this.attrMap.delete(num);
 			num = a;
