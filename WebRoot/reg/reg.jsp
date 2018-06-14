@@ -119,8 +119,7 @@ with (thisform)
    {email.focus();return false}
     if (validate_required(password2,"密码不能为空!")==false)
     {password2.focus();return false}
-    if (validate_required(pic,"头像不能为空!")==false)
-    {pic.focus();return false}   
+   
   }
 }
 

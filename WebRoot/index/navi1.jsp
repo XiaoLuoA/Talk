@@ -27,14 +27,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     <div class="top"></div>
       <div class="navi1">
-          <div class="n11"><a href="index.jsp"><span class="span">首页</span></a></div>
-          <div class="n22"><a href="javascript:void(0);" onclick="toOther()"><span class="span">个人中心</span></a></div>
-          <div class="n33"><a href="reg/reg.jsp"><span class="span">黑名单</span></a></div>
+      <%
+      if(user!=null){
+      %>
+          <div class="n11"><a href="indexindex.action"><span class="span">首页</span></a></div>
+       <%}else{ %>
+        <div class="n11"><a href="index.jsp"><span class="span">首页</span></a></div>
+       
+       <%
+       }
+    	   %>
+       
+       
+      <%
+      if(user!=null){
+      %>
+          <div class="n22"><a href="myCenter/myCenter.jsp" ><span class="span">个人中心</span></a></div>	`
+       <%}else{ %>
+        <div class="n11"><a href="index.jsp"><span class="span">首页</span></a></div>
+       
+       <%
+       }
+    	   %>
+          
+          <div class="n33"><a href="userregPage.action"><span class="span">注册</span></a></div>
           <div class="n44">
         <%if(user==null) {%>
           <a href="login/login.jsp"><span class="span">登录</span></a>
           <%}else{ %>
-                <a href="findex.jsp"><span class="span">退出登录</span></a>  <%} %>
+                <a href="userexit.action"><span class="span">退出登录</span></a> 
+                 <%} %>
           </div>
       </div>
   </body>

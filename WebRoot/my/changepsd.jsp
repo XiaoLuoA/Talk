@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <tr>
        <td>
          <div class="td">
-          <input type="password" class="input" name="password" required="required"placeholder="重复密码" />
+          <input type="password" class="input" name="password2" required="required"placeholder="重复密码" />
          </div>
        </td>
       </tr>

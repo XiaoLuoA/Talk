@@ -47,11 +47,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<div class="g1"> 
     				
           				<div class="group" data-index="<s:property value="#groups.id"/>" >
-          				<img src="#groups.groupPic" />
+          				<img src="<s:property value="#groups.groupPic"/>" />
           				
           				<p style="font-size:0.5em;"><span class="group-name"><s:property value="#groups.groupName"/></span>
           				<br/><s:property value="#groups.groupDetail"/></p>
-          					<button class="group-btn" >加入群聊</button>
+          					<button class="group-btn" onclick="toOther()">加入群聊</button>
           				</div>
 					</div> 
 					</s:iterator> 
@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="temp/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="layer/layer/layer.js"></script>
 		 <script type="text/javascript">
-		 $.('body').on('click',function(event){
-			 var slectors = [".group-btn"];
+		/*  $.('body').on('click',function(event){
+			 var slectors = ['.group-btn'];
 			 var $dom = event.target;
 			 var slector;
 			 for(let index=slectors.length-1;index>=0;index--)
@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 }
 			 }
 			 
-		 });
+		 }); */
 		 
 		 
     function toOther(){

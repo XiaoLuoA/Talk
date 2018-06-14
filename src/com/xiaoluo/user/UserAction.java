@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.xiaoluo.common.CommonData;
 import com.xiaoluo.common.StatusConst;
+import com.xiaoluo.index.IndexService;
 import com.xiaoluo.model.User;
 import com.xiaoluo.model.UserMess;
 import com.xiaoluo.utils.EhCacheUtil;
@@ -142,12 +143,38 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 	}
 	
+	public void edit(){
+		try{
+			ActionContext ac = ActionContext.getContext();
+			HttpServletResponse response = ResponseUtils.getResponse(ac);
+			User loginUser = (User) ac.getSession().get("user");
+		
+			loginUser.setEmail(user.getEmail());
+			loginUser.setName(user.getName());
+			loginUser.setSex(user.getSex());
+			System.out.println(loginUser.getId());
+			UserService.me.saveOrUpdate(loginUser);
+			
+			//User loginUser = LoginService.me.findUser(user.getName());
+			Ret ret = Ret.ok();
+			ret = ret.setFail().set("msg", "修改成功！");
+		
+		
+		
+		
+			response.getWriter().write(ret.toJson());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 登录；用户名、密码不能为空；
 	 * session中存放user和sessionId
 	 */
 	public void login() {
+		try{
 		ActionContext ac = ActionContext.getContext();
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		Ret ret = Ret.ok();
@@ -162,7 +189,10 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		}
 		
 		User loginUser = LoginService.me.findUser(user.getName(),StatusConst.OK);
-		
+		if(loginUser==null){
+			ret = ret.setFail().set("msg", "用户名密码不匹配");
+			
+		}else{
 		if(loginUser.getPassword().equals(user.getPassword()))
 		{
 			String sessionId = ServletActionContext.getRequest().getSession().getId();
@@ -179,10 +209,15 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		{
 			ret = ret.setFail().set("msg", "用户名密码不匹配");
 		}
+		}
 		try 
 		{
 			response.getWriter().write(ret.toJson());
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
@@ -218,9 +253,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		User loginUser = (User) ActionContext.getContext().getSession().get("user");
 		Ret ret = Ret.ok();
-		System.out.println(loginUser.getRegNum());
-		System.out.println(user.getRegNum());
-		System.out.println(user.getRegNum()==loginUser.getRegNum());
 		if(user.getRegNum().intValue()==loginUser.getRegNum().intValue())
 		{
 			
@@ -244,7 +276,10 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		User loginUser = (User) ActionContext.getContext().getSession().remove("user");
 		CommonData.loginUser.remove(loginUser);
-		return null;
+		CommonData.loginUserID.remove(loginUser.getId());
+		ac.getSession().remove("user");
+		ac.getSession().remove("authLoad");
+		return "exit";
 	}
 	
 	
@@ -253,6 +288,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 		HttpServletResponse response = ResponseUtils.getResponse(ac);
 		User loginUser = (User) ActionContext.getContext().getSession().get("user");
 		Ret ret = Ret.ok();
+		
 		loginUser.setPassword(user.getPassword());
 		UserService.me.saveOrUpdate(loginUser);
 		try 

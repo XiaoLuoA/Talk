@@ -47,5 +47,10 @@ public class LoginService {
 		return user;		
 	}
 	
+	public User findUser(Integer id){
+		User user=UserDao.me.findUser(id);	
+		return user;	
+	}
+	
 	
 }

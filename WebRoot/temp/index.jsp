@@ -25,7 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="group-area">
 						<!-- 使用strust标签输出群组-->
 						<s:iterator id="groups" value="allGroup" >
+						
 							<div class="group" data-index="<s:property value="#groups.id"/>" >群聊<span class="group-name"><s:property value="#groups.groupName"/></span></div>
+						
 						</s:iterator>
 					</div>    
 				<div class="group1">
@@ -99,6 +101,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="temp/js/tool.js" ></script>
 		<script type="text/javascript" src="temp/js/index.js" ></script>
 		<script type="text/javascript" src="temp/js/evet.js"></script>
+		<script type="text/javascript">
+		 function toOther(){
+    	<% 
+    	if(user!=null){
+    	%>
+    	//询问框
+		location.href="userloginPage.action";
+    	<%
+    	}
+    	%>
+    }
+	</script>
 	</body>
 </html>
 <!--
