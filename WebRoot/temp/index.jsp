@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         	
 			<div class="important"><!-- 千万不要动这个 -->
-				<button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button>
+				<div class="fixed-btn-area"><button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button></div>
 			
 				<div class="chat-overlay overlay hidden">
 					<div id="MessageArea" class="chat-area overlay-showarea"><!--聊天信息-->

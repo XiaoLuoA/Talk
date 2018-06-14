@@ -682,3 +682,16 @@ body
 	/*background: #84b5ff;*/
 	background: #4165ff;
 }
+
+
+.fixed-btn-area
+{
+	z-index: 2;
+	position: fixed;
+	top: 100px;
+	right: 200px;
+	color: white;
+	background: #3E3F45;
+	border: 0;
+	text-align: center;
+}
