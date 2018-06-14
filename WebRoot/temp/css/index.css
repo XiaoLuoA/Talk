@@ -10,22 +10,7 @@ body
 	overflow-y:scroll;
 }
 
-/*群组层*/
-.group-area
-{
-	width:1000Px;
-	display: flex;
-	flex-direction: row;
-	}
-/*群组的显示*/
-.group
-{
-	width:260px;
-	height:10px;
-	padding:40px;
-	border-radius: 10px;
-	background:deepskyblue;
-}
+
 /*蒙版*/
 .overlay
 {
@@ -603,4 +588,97 @@ body
 .group-chose-item:hover
 {
 	cursor:pointer !important;
+}
+
+
+
+/*首页的显示*/
+/*群组层*/
+.group-area
+{
+	width:100%;
+	height: 100%;
+	display: flex;
+	overflow: hidden;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+/*群组的显示*/
+.group
+{
+	width:340px;
+	height:180px;
+	margin: 20px 30px;
+	font-size: 0.5em;
+	border :1px solid darkgray;
+	overflow: hidden;
+	box-shadow: 6px 7px 5px rgba(0,0,0,0.2);
+}
+.group .group-message
+{
+	width: 100%;
+	height: 140px;
+	padding: 20px 25px;
+	background: #f9f9f9;
+}
+.group-message .group-img,
+.group-message .group-name
+{
+	display :inline-block;
+}
+
+.group-message .group-img
+{
+	border-radius: 50%;
+	width:50px;
+	height:50px;
+}
+.group-message .group-name
+{
+	width: 200px;
+	height:auto;
+	margin-left: 10spx;
+	letter-spacing:2px;
+	font-size:1.2em;
+	font-weight: 600;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+.group-message .group-content
+{
+	width: 285px;
+	height: 50px;
+	font-size:0.85em;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+.group .group-button
+{
+	width: 100%;
+	height: 40px;
+	background: #e9e9e9;
+	text-align: right;
+	padding: 3px 8px;
+	
+}
+.group .group-button:hover
+{
+	
+}
+.group-button .group-btn
+{
+	border: 0px;
+	/*background: #8fc0e7;*/
+	background: #84b5ff;
+	border-radius: 4px;
+	color: white;
+}
+.group-button .group-btn:hover
+{
+	/*background: #84b5ff;*/
+	background: #4165ff;
 }

@@ -44,16 +44,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	    <div class="group1">
     			<div class="group-area"> 
     				<s:iterator id="groups" value="allGroup" >
-    				<div class="g1"> 
+    				
     				
           				<div class="group" data-index="<s:property value="#groups.id"/>" >
-          				<img src="#groups.groupPic" />
-          				
-          				<p style="font-size:0.5em;"><span class="group-name"><s:property value="#groups.groupName"/></span>
-          				<br/><s:property value="#groups.groupDetail"/></p>
-          					<button class="group-btn" >加入群聊</button>
+          				<div class="group-message">
+          					<img class="group-img" src="#groups.groupPic" />
+          					<p class="group-name"><s:property value="#groups.groupName"/></p>
+          					<p class="group-content"><s:property value="#groups.groupDetail"/></p>
           				</div>
-					</div> 
+          				<div class="group-button">
+          					<button class="group-btn join-btn" >不感兴趣</button>
+          					<button class="group-btn pass-btn" >加入群聊</button>
+          				</div>
+          				</div>
+				
 					</s:iterator> 
 				</div>  
 			</div>
