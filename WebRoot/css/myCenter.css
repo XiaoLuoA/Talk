@@ -15,6 +15,7 @@ body{
 }
 .center{/*中心盒子*/
 	height:750px;	
+	
 }
 .navi a{
 	color:white;
@@ -52,33 +53,47 @@ body{
 
 }
 .myInformation{ /*右边内容区*/
-    background-color:white;
+    background-size:cover;
+	background-image:url(../image/background/back1.jpg);  
     float:right;
 	height:700px;
 	width:1170px;
 	margin-top:-5px;
 	padding-top:20px;
 }
-
-.myInformation ul{
-	padding-top:20px;	
-	float:left;	
+.information{
+	margin-top:180px;
+	margin-left:90px;
+	float:left;
+	width:230px;
+	height:300px;
+	font-family:黑体；
 }
-.myInformation li{	
+.information ul{		
+	float:left;	
+	padding-left:5px;
+}
+.information li{		
 	text-align:left;
-	height:80px;
+	height:50px;
 	font-size:20px;
 	list-style-type:none;
 	padding:20px;
 }
-.mycenter{
-	width:600px;
-	height:450px;	
+.pic{	
+	width:130px;
+	height:130px;	
+	margin-top:80px;
 }
-
+.pic1{
+	height:100%; 
+	weight:100%;
+}
 
 /*修改个人信息*/
 .changeInformation{ 
+	background-size:cover;
+	background-image:url(../image/background/back1.jpg); 
     background-color:white;
     float:right;
 	height:700px;
@@ -103,7 +118,6 @@ body{
 	color:black;
 }
 .button1{  /*按钮*/
-  
     font-size:20px;
     width:350px;
     height:40px;
@@ -124,7 +138,9 @@ body{
 
 /*消息中心*/
 .myMessage{ /*右边内容区*/
-    background-color:white;
+    background-size:cover;
+	background-image:url(../image/background/back1.jpg); 
+    
     float:right;
 	height:700px;
 	width:1170px;
@@ -134,7 +150,9 @@ body{
 	font-size:20px;
 	padding-top:20px;
 }
-
+.mycenter{
+	margin-top:50px;
+}
 
 /*表情*/
 .expression1{
@@ -142,6 +160,7 @@ body{
 	height:200px;
 	width:200px;
 	margin-right:50px;
+	margin-top:270px;
 	background-size:cover;
 	background-image:url(../image/expression/information.gif); 
 }
@@ -149,6 +168,7 @@ body{
 	float:right;
 	height:200px;
 	width:200px;
+	margin-top:370px;
 	margin-right:50px;
 	background-size:cover;
 	background-image:url(../image/expression/information.gif); 

@@ -52,19 +52,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              </div>
                <input  class="loginbutton" type="submit" value="登 录">                
               </form>
-              <input type=button class="loginbutton" value="返 回" onclick="window.location.href='../login/login.jsp'">
+              <input type=button class="loginbutton" value="返 回" onclick="window.location.href='index.jsp'">
             </div>        
       </div>    
     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
 	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
 	<script type="text/javascript" src="layer/layer/layer.js"></script>
-   <!-- 组件js，和业务不相关的 -->
-<script src="page/tio/tiows.js"></script>
-
-
-<!-- 和业务相关的js，业务需要修改 -->
-<script src="page/DemoHandler.js"></script>
-<script src="page/demo.js"></script>
 
     <script type="text/javascript">
     

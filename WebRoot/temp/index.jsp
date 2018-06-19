@@ -18,22 +18,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="temp/css/index.css" />
 	</head>
 	<body>	
-		<div class="page-moment">
-		    <%@include file="../index/navi.html"%>
+		<div class="container">
+		   <jsp:include page="../index/navi1.jsp"/>
     		<div class="index">
-    			<div class="g1"> 
-					<div class="group-area">
-						<!-- 使用strust标签输出群组-->
-						<s:iterator id="groups" value="allGroup" >
-							<div class="group" data-index="<s:property value="#groups.id"/>" >群聊<span class="group-name"><s:property value="#groups.groupName"/></span></div>
-						</s:iterator>
-					</div> 
-				</div>         
+    	    	<div class="group1">
+    				<div class="group-area"> 
+    					<s:iterator id="groups" value="allGroup" >
+          					<div class="group" data-index="<s:property value="#groups.id"/>" >
+          						<div class="group-message">
+          							<img class="group-img" src="#groups.groupPic" />
+          							<p class="group-name"><s:property value="#groups.groupName"/></p>
+          							<p class="group-content"><s:property value="#groups.groupDetail"/></p>
+          						</div>
+          						<div class="group-button">
+          							<button class="group-btn join-btn" >不感兴趣</button>
+          							<button class="group-btn pass-btn" >加入群聊</button>
+          						</div>
+          					</div>
+						</s:iterator> 
+					</div>  
+				</div>
      		</div>
 
         	
 			<div class="important"><!-- 千万不要动这个 -->
-				<button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button>
+				<div class="fixed-btn-area"><button id="groupChatBtn" class="group-chat-btn btn">群聊</button><button id="chatBtn" class="chat-btn btn">个人聊天</button></div>
 			
 				<div class="chat-overlay overlay hidden">
 					<div id="MessageArea" class="chat-area overlay-showarea"><!--聊天信息-->
@@ -43,19 +52,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>	
 						<div class="item">
 							<div class="item-top">
-								<p>文字</p>
+								<div>
+									<!--<img />-->
+									<span>我</span>
+								</div>
 								<span class="top-panel">消息</span> <span class="top-panel">新消息</span>
 							</div>
 							<div class="item-list list-item"><!--消息列表-->
 							<div class="button-area">
 								<button class="btn">查找</button>
-								<button class="btn">管理</button>
+								<button class="btn showDelete-btn">管理</button>
 							</div>
 
 							</div>
 							<div class="message-list list-item"><!--消息列表-->
 							<div class="button-area">
-								<button class="btn">管理</button>
+								<button class="btn showDelete-btn">管理</button>
 								<button class="btn">清空</button>
 							</div>
 							</div>
@@ -96,6 +108,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="temp/js/tool.js" ></script>
 		<script type="text/javascript" src="temp/js/index.js" ></script>
 		<script type="text/javascript" src="temp/js/evet.js"></script>
+		<script type="text/javascript">
+		 function toOther(){
+    	<% 
+    	if(user!=null){
+    	%>
+    	//询问框
+		location.href="userloginPage.action";
+    	<%
+    	}
+    	%>
+    }
+	</script>
 	</body>
 </html>
 <!--

@@ -1,20 +1,17 @@
 @CHARSET "UTF-8";
 body{
-   background-size:cover;
-   margin:0 auto;
-   text-align:center;
-   text-align: center; /*IE*/
-   text-align: -moz-center; /*Firefox*/
-   text-align: -webkit-center; /*Chrome*/
    background-color:#e9ebee;
 }
 .container{    /*整体盒子*/
+    font-family:宋体;
 	margin:0 auto;
 	width:1440px;
+	
 }
 .index{
-	height:750px;
+	height:auto;
 	background-color:white;
+	visible:auto;
 }
 .navi a{
 	color:white;
@@ -35,4 +32,8 @@ body{
 	margin-top:15px;
 	padding-top:20px;
 	background-color:#e9ebee;
+}
+.group1{
+	width:800px;
+	height:500px;
 }

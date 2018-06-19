@@ -19,13 +19,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	
 	<link rel="stylesheet" type="text/css" href="css/myCenter.css">
-	<link href="CSS/reset.css" rel="stylesheet" type="text/css">
+	<!-- <link href="CSS/reset.css" rel="stylesheet" type="text/css"> -->
 
   </head>
   
   <body>  
    <div class="container">    
-    <%@include file="../index/navi.html"%>
+    <jsp:include page="../index/navi.jsp"/>
     <div class="center">   
           <div class="left">
             <ul>
@@ -35,16 +35,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </ul>
             </div>
         <div class="myInformation"> 
-         <div class="mycenter"> 
-          <ul>
-            <li>我的头像：<s:property value="#session.user.pic"/></li>
-            <li>用户名：<s:property value="#session.user.name"/></li>
-            <li>密    码：<s:property value="#session.user.password"/></li>
-            <li>性    别：<s:property value="#session.user.sex"/></li>
-            <li>邮    箱：<s:property value="#session.user.email"/></li>
-          </ul>
+         
+          <div class="pic">
+          <img class="pic1" src="<s:property value="#session.user.pic"/>"/>
           
-         </div>
+          </div>
+          <div class="information">
+           <ul>
+            <li> 用户名：<s:property value="#session.user.name"/></li>
+            
+            <li> 性    别：<s:property value="#session.user.sex"/></li>
+            <li> 邮    箱：<s:property value="#session.user.email"/></li>
+           </ul>
+        </div>
          <div class="expression1"></div>
         </div>                        
       </div>

@@ -1,7 +1,6 @@
 body
 {
-	background: #ffffcc;
-	/*overflow: hidden;*/
+
 }
 
 /*集体添加滚动条*/
@@ -11,22 +10,7 @@ body
 	overflow-y:scroll;
 }
 
-/*群组层*/
-.group-area
-{
-	width:1000Px;
-	display: flex;
-	flex-direction: row;
-	}
-/*群组的显示*/
-.group
-{
-	width:260px;
-	height:10px;
-	padding:40px;
-	border-radius: 10px;
-	background:deepskyblue;
-}
+
 /*蒙版*/
 .overlay
 {
@@ -40,6 +24,7 @@ body
 }
 .overlay .overlay-showarea
 {
+	text-align: left;
 	position: absolute;
 	top: 50%;
     left: 50%;
@@ -124,8 +109,16 @@ body
 	width: 100%;
 	height: 425px; 
     padding: 5px;
-    background: #fbfbfb;
+    
     font-size:0.4em;
+}
+.item-list
+{
+	background: #fbfbfb;
+}
+.message-list
+{
+	background: transparent;
 }
 
 
@@ -158,7 +151,7 @@ body
 
 /*
  * 
- * 集中处理侧边栏
+ * 集中处理左侧边栏
  * 
  * */
 .chose-item ,
@@ -286,6 +279,138 @@ body
 {
 	height:280px;
 }
+
+/*
+ *开始聊天的部分了
+ */
+/*整体聊天的li*/
+
+.message-item,
+.group-message-item
+{
+	position: relative;
+	font-size: 0;
+	margin-bottom: 10px;
+	min-height: 68px;
+}
+.message-item.self,
+.group-message-item.self
+{
+	text-align: right;
+    padding-right: 30px;
+}
+.message-item:not(.self),
+.group-message-item:not(.self)
+{
+	text-align: left;
+    padding-left: 30px;   
+}
+/*头像*/
+.message-item .head-img,
+.group-message-item .head-img
+{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	border: none;
+	vertical-align: middle;
+}
+.message-item.self .head-img,
+.group-message-item .head-img
+{}
+.message-item:not(.self) .head-img,
+.group-message-item:not(.self) .head-img
+{}
+/*对话内容小标题*/
+.message-item .message-title,
+.group-message-item .message-title
+{
+	position: absolute;
+	top: -2px;
+    line-height: 24px;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #999;
+	font-style: normal;
+}
+.message-item.self .message-title,
+.group-message-item.self .message-title
+{
+	left: auto;
+	right: 30px;
+	text-align: right;
+} 
+.message-item:not(.self) .message-title,
+.group-message-item:not(.self) .message-title
+{
+    left: 30px;
+    text-align: left;
+}
+
+/*对话内容的显示部分*/
+.message-item .message-content,
+.group-message-item .message-content
+{
+	position: relative;
+	vertical-align: top;
+	font-size: 14px;
+	display: inline-block;
+	word-break: break-all;
+	border-radius: 3px;
+	padding: 8px 15px;
+	margin-top: 25px;
+	line-height: 22px;
+}
+.message-item.self .message-content,
+.group-message-item.self .message-content
+{
+	right:60px;
+    margin-left: 0;
+    text-align: left;
+    background-color: #5FB878;
+    color: #fff;
+}
+.message-item.self .message-content:after,
+.group-message-item.self .message-content:after
+{
+    content: '';
+    position: absolute;
+    top: 13px;
+    width: 0;
+    height: 0;
+    border-style: solid dashed dashed;
+    border-color: #e2e2e2 transparent transparent;
+    overflow: hidden;
+    border-width: 10px;
+   	left: auto;
+    right: -10px;
+    border-top-color: #5FB878;
+}
+
+.message-item:not(.self) .message-content,
+.group-message-item:not(.self) .message-content
+{
+	left:60px;
+    background-color: #e2e2e2;
+    color: #333;
+}
+.message-item:not(.self) .message-content:after,
+.group-message-item:not(.self) .message-content:after
+{
+	content: '';
+    position: absolute;
+    left:-10px;
+    top: 13px;
+    width: 0;
+    height: 0;
+    border-style: solid dashed dashed;
+    border-color: #e2e2e2 transparent transparent;
+    overflow: hidden;
+    border-width: 10px;
+}
+
+/*工具栏*/
 .group-detail-item .tool,
 .detail-item .tool
 {
@@ -350,6 +475,7 @@ body
 }
 .item .item-item 
 {
+	position :relative;
 	width: 100%;
 	height:40px;
 	margin: 5px 0;
@@ -377,8 +503,21 @@ body
 	display: none;
 }
 
+.item-item .delete-btn
+{
+	position: absolute;
+	right :10px;
+	top:5px;
+}
 
-
+.delete-btn
+{
+	width: 15px;
+	height: 15px;
+	background-size: 15px 15px;
+	border-radius:50% ;
+	background-image: url("../../pic/delete.svg");	
+}
 /**
  * 群聊的右边栏
  * */
@@ -443,9 +582,116 @@ body
 
 
 /*手型鼠标*/
+.delete-btn:hover,
 .item-btn:hover,
 .chose-item:hover,
 .group-chose-item:hover
 {
 	cursor:pointer !important;
+}
+
+
+
+/*首页的显示*/
+/*群组层*/
+.group-area
+{
+	width:100%;
+	height: 100%;
+	display: flex;
+	overflow: hidden;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+/*群组的显示*/
+.group
+{
+	width:340px;
+	height:180px;
+	margin: 20px 30px;
+	font-size: 0.5em;
+	border :1px solid darkgray;
+	overflow: hidden;
+	box-shadow: 6px 7px 5px rgba(0,0,0,0.2);
+}
+.group .group-message
+{
+	width: 100%;
+	height: 140px;
+	padding: 20px 25px;
+	background: #f9f9f9;
+}
+.group-message .group-img,
+.group-message .group-name
+{
+	display :inline-block;
+}
+
+.group-message .group-img
+{
+	border-radius: 50%;
+	width:50px;
+	height:50px;
+}
+.group-message .group-name
+{
+	width: 200px;
+	height:auto;
+	margin-left: 10spx;
+	letter-spacing:2px;
+	font-size:1.2em;
+	font-weight: 600;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+.group-message .group-content
+{
+	width: 285px;
+	height: 50px;
+	font-size:0.85em;
+	word-break: break-all;
+	text-overflow: ellipsis;
+}
+
+.group .group-button
+{
+	width: 100%;
+	height: 40px;
+	background: #e9e9e9;
+	text-align: right;
+	padding: 3px 8px;
+	
+}
+.group .group-button:hover
+{
+	
+}
+.group-button .group-btn
+{
+	border: 0px;
+	/*background: #8fc0e7;*/
+	background: #84b5ff;
+	border-radius: 4px;
+	color: white;
+}
+.group-button .group-btn:hover
+{
+	/*background: #84b5ff;*/
+	background: #4165ff;
+}
+
+
+.fixed-btn-area
+{
+	z-index: 2;
+	position: fixed;
+	top: 100px;
+	right: 200px;
+	color: white;
+	background: #3E3F45;
+	border: 0;
+	text-align: center;
 }

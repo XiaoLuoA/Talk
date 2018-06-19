@@ -30,7 +30,9 @@
    		<property name="show_sql">true</property> 
    		<property name="hibernate.format_sql">true</property>  
         <property name="hibernate.use_sql_comments">false</property> 
-   		
+   		<property name="hibernate.cache.provider_class">
+	    org.hibernate.cache.EhCacheProvider
+	    </property>
    		
    		<mapping resource="com/xiaoluo/model/User.hbm.xml"/>
    		<mapping resource="com/xiaoluo/model/Groups.hbm.xml"/>

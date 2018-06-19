@@ -19,7 +19,7 @@ var openGroupMap = new Map();
 var itemMap = new Map();
 
 var deleteIds = [];
-
+var openItemIds = [];
 var meaasgeNUll = {sendTime:'',content:''};
 
 
@@ -67,7 +67,7 @@ function deleteLocalMessage()
 	deleteIds.forEach(function(deleteId,index){
 		var itemId = UserId+'|'+deleteId;
 		//删除本地
-		localStorage.remove(itemId);
+		deleteLocal(itemId);
 	});
 }
 function getLocalMessage(items)
@@ -110,7 +110,7 @@ function readLocal(key,isStr)
 	return  isStr?localStorage.getItem(key+''):JSON.parse(localStorage.getItem(key+''));
 }
 function deleteLocal(key){
-	localStorage.deleteItem(key+'');
+	localStorage.removeItem(key+'');
 }
 //渲染数据
 function createChoseItem(item)
@@ -124,10 +124,20 @@ function createChoseItem(item)
 	return htmlText.join('');
 	
 }
-function chatMessageTpl(message)
+function chatMessageTpl(message,isSelf)
 {
-	htmlText =[];
-	htmlText.push('<li class="message-item" data-sendindex="'+ message.fromId +'">'+ message.content +'</li>');
+	if(isSelf){message.fromId = UserId;}
+	var ItemID = message.itemId.split('|')[1]+'|'+message.itemId.split('|')[0];
+	console.log('message打发',message)
+	var htmlText =[];
+	htmlText.push('<li class="message-item '+ (message.fromId==UserId?'self':'') +'" data-sendindex="'+ message.fromId +'">');
+	htmlText.push('<div class="message-title">');
+		htmlText.push('<img class="head-img" src="'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerPic +'">');
+		htmlText.push('<span class="message-title"><span>'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerName +'</span>');
+		htmlText.push('<span>'+ message.sendTime +'</span></span>');
+	htmlText.push('</div>');
+	htmlText.push('<div class="message-content">'+ message.content +'</div>');
+	htmlText.push('</li>');
 	return htmlText.join('');
 }
 
@@ -158,13 +168,12 @@ function ItemItemTpl(item)
 	var htmltext = [];
 	var messages = item.messsages;
 	if(messages){}else{messages=[]};
-	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'">');
+	htmltext.push('<div class="item-item" data-index="'+ item.userItemId +'"><i class="delete-btn hidden"></i>');
 		htmltext.push('<div class="head-img"><img src="');htmltext.push(item.talkerPic);
 		htmltext.push('"></div>')
 		htmltext.push('<div class="ietm-item-detail">');
 			htmltext.push('<p><span class="name">'+ item.talkerName +'</span><span class="last-time">'+ (item.lastTime+'') +'</span>' );
 			htmltext.push('</p>');
-//			console.log('你好',messages[messages.length-1].lastTime);
 			htmltext.push('<span class="content">'+(messages.length>0?([messages.length-1].content||''):''));
 			htmltext.push('</span>');
 		htmltext.push('</div>');
@@ -172,13 +181,19 @@ function ItemItemTpl(item)
 	
 	return htmltext.join('');
 }
-function groupMessageTpl(message)
+function groupMessageTpl(groupMessage,isSelf)
 {
-	var htmltext = [];
-	htmltext.push('<li>');
-	htmltext.push(message.content);
-	htmltext.push('</li>');
-	return htmltext.join('');
+	var htmlText = [];
+	if(isSelf){groupMessage.talkerId = UserId;}
+	htmlText.push('<li class="group-message-item '+ (groupMessage.talkerId==UserId?'self':'') +'" data-sendindex="'+ groupMessage.talkerId +'">');
+	htmlText.push('<div class="message-title">');
+		htmlText.push('<img class="head-img" src="'+ groupMessage.talkerPic +'">');
+		htmlText.push('<span class="message-title"><span>'+ groupMessage.talkerName+'</span>');
+		htmlText.push('<span>'+ groupMessage.sendTime +'</span></span>');
+	htmlText.push('</div>');
+	htmlText.push('<div class="message-content">'+ groupMessage.content +'</div>');
+	htmlText.push('</li>');
+	return htmlText.join('');
 }
 function groupUserTpl(user)
 {

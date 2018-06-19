@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 body{
-	font-family:宋体;
+	
 }
 
 .top{
@@ -15,10 +15,13 @@ body{
 	height:50px;
 	background-color:#0674BB;
 }
+
 .span{
 	color:white;
 }
-	
+.span1{
+	color:white;
+}
 /*
 .navi1 ul{
 	height:30px;
@@ -38,19 +41,20 @@ body{
 	color:white;
 }
 .n11{
-	color:white !important;
+	
 	font-size:20px;
 	float:left;
 	width:370px;
 	height:50px;
 	padding-top:10px;
-	padding-left:100px;
+	padding-left:210px;
 }
 .n22{
 	float:left;
 	width:350px;
 	height:50px;
 	padding-top:10px;
+	padding-left:140px;
 	
 }
 .n33{
@@ -58,18 +62,19 @@ body{
 	width:350px;
 	height:50px;
 	padding-top:10px;
-	
+	padding-left:140px;
 }
 .n44{
 	float:left;
 	width:350px;
 	height:50px;
 	padding-top:10px;
-	
+	padding-left:140px;
 }
 
 
-.foot{
-	
+.foot{	
+	width:1440px;
+	text-align:center;
 	font-size:20px;
 }

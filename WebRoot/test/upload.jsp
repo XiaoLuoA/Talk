@@ -24,6 +24,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <
+    <s:form action="uploadPro" enctype="multipart/form-data">
+    <s:textfield name="title" label="文件标题"></s:textfield><br/>
+    <s:file name="upload" label="选择文件"></s:file>
+    <s:submit value="上传" />
+    
+    </s:form>
+    <img src="face/6.jpg" />
   </body>
 </html>
