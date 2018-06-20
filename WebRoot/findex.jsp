@@ -49,13 +49,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           				<div class="group" data-index="<s:property value="#groups.id"/>" >
 
           				<div class="group-message">
-          					<img class="group-img" src="#groups.groupPic" />
+          					<img class="group-img" src=" <s:property value="#groups.groupPic"/>" />
           					<p class="group-name"><s:property value="#groups.groupName"/></p>
           					<p class="group-content"><s:property value="#groups.groupDetail"/></p>
           				</div>
           				<div class="group-button">
-          					<button class="group-btn join-btn" >不感兴趣</button>
-          					<button class="group-btn pass-btn" >加入群聊</button>
+          						<button class="group-btn pass-btn" >不感兴趣</button>
+          							<button class="group-btn join-btn" onclick="toOther()">加入群聊</button>
           				</div>
           				</div>
 				

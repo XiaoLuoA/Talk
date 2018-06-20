@@ -69,7 +69,8 @@ function newGroupChat($DOM)
 		{
 			id :groupId,
 			groupName :groupName,
-			groupNum:1,
+			groupNum: 1,
+			groupPic: $DOM.find('.group-img').attr('src'),
 			messages:[],
 			users:[],
 		}
@@ -80,7 +81,7 @@ function newGroupChat($DOM)
 		var $newGroupDetailItem = $(groupDetailItemTpl(group));
 		$groupChoseList.append($newGroupChoseItem);
 		$groupDetailList.append($newGroupDetailItem);
-		console.log('群聊渲染完成',$newGroupChoseItem,$newGroupDetailItem)
+//		console.log('群聊渲染完成',$newGroupChoseItem,$newGroupDetailItem);
 		GroupChatTab.add($newGroupChoseItem[0],$newGroupDetailItem[0],true);
 		//渲染成功后开始发建立链接
 		var data = {groupId:groupId,};
@@ -105,8 +106,8 @@ function newGroupChat($DOM)
 					newUserHtml.push(groupUserTpl(user));
 				});
 				$newGroupDetailItem.find('.group-user-top .num').html(group.groupNum);
-				console.log(newMessageHtml.join(''));
-				console.log(newUserHtml.join(''));
+//				console.log(newMessageHtml.join(''));
+//				console.log(newUserHtml.join(''));
 				$($groupDetailList.find('.group-message-list ul')).append($(newMessageHtml.join('')));
 				$($groupDetailList.find('.user-list')).append($(newUserHtml.join('')));
 			
@@ -798,7 +799,7 @@ function bindEvent()
 	$detailList.on('click','.send-btn.active-btn',sendChatBtn);
 	//点击删除会话
 	//点击创建新群聊
-	$('.group-area').on('click','.group-btn',newGroupChatBtn);
+	$('.group-area').on('click','.join-btn',newGroupChatBtn);
 	//点击发送群聊消息
 	$groupDetailList.on('click','.send-btn.active-btn',sendGroupChatBtn);
 	//点击关闭当前群聊
