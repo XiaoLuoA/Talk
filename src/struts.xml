@@ -88,8 +88,11 @@
 	  <result name="admin">/admin/userRight.jsp</result>
 	  <result name="update">/admin/updateRight.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	   <interceptor-ref name="all_stack"></interceptor-ref>
+	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	    <interceptor-ref name="all_stack"></interceptor-ref>
 	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
+
 	</action>
 	
 	<!--  Groups管理//listALL -->
