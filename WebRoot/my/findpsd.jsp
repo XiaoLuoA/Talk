@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    
     <div class="form">
      <div class="text">修 改 密 码</div>
-    <form id="find_form" action="userfindPass.action" onsubmit="return validate_form(this)" method="post">
+    <form id="find_form" action="userfindPass.action"  method="post">
        <table>
          <tr>                       
            <td>
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          </tr>       
        </table>
     </form>    
-       <form id="check_form"  action="userreg.action" onsubmit="return validate_form1(this)" method="post">
+       <form id="check_form"  action="userreg.action"  method="post">
          <table class="l2">
             <tr>
               <td>
@@ -130,7 +130,145 @@ if (validate_email(email,"邮箱格式不正确!")==false)
 }
 }
 
+
+
 </script>
+
+  
+  
+  
+  
+  
+  
+ 
+    <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
+	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
+    
+    <script type="text/javascript" src="layer/layer/layer.js"></script>
+    
+     <script type="text/javascript">
+     
+		$(document).ready(function() {
+			$("#find_form").ajaxForm(
+			{
+				dataType: "json"
+				, beforeSubmit: function(formData, jqForm, options)
+				{       // 表单提交之前回调
+					var regFrom =  document.getElementById('find_form');
+					var flag = validate_form(regFrom)
+					return flag;
+				}
+				, success: function(ret) 
+				{
+					// 业务层验证成功
+					if(ret.isOk)
+					{
+						layer.open({
+							 title: '页面提示'
+							 ,content: '邮件发送成功！',
+							 yes: function(index, layero){
+								  // window.location.href="userloginPage.action";
+								    layer.close(index); 
+								  }
+							});     
+						return ;
+					}
+					
+					// 业务层验证失败
+					if (ret.isFail)
+					{
+						layer.msg(ret.msg,
+								{
+									shift: 6
+									, shade: 0.3
+									, time: 2500
+									, offset: "165px"
+									, closeBtn: 1
+									, shadeClose: true
+								} , 
+								function() 
+								{
+									
+								}
+						);
+						return ;
+					}
+					
+				}
+				, error: function(ret)
+				{
+					
+				}              // ret.status != 200 时回调
+				, complete: function(ret) 
+				{
+					
+				}       // 无论是 success 还是 error，最终都会被回调
+			});
+		});
+		
+		
+		$(document).ready(function() {
+			$("#check_form").ajaxForm(
+			{
+				dataType: "json"
+				, beforeSubmit: function(formData, jqForm, options)
+				{       // 表单提交之前回调
+					//var regFrom =  document.getElementById('check_form');
+				//	var flag = validate_form(regFrom)
+				//	return flag;
+				}
+				, success: function(ret) 
+				{
+					// 业务层验证成功
+					if(ret.isOk)
+					{
+						/* layer.open({
+							 title: '页面提示'
+							 ,content: '邮件发送成功！',
+							 yes: function(index, layero){
+								  // window.location.href="userloginPage.action";
+								    layer.close(index); 
+								  }
+							});      */
+							
+							window.location.href="userchangePage.action";
+						return ;
+					}
+					
+					// 业务层验证失败
+					if (ret.isFail)
+					{
+						layer.msg(ret.msg,
+								{
+									shift: 6
+									, shade: 0.3
+									, time: 2500
+									, offset: "165px"
+									, closeBtn: 1
+									, shadeClose: true
+								} , 
+								function() 
+								{
+									
+								}
+						);
+						return ;
+					}
+					
+				}
+				, error: function(ret)
+				{
+					
+				}              // ret.status != 200 时回调
+				, complete: function(ret) 
+				{
+					
+				}       // 无论是 success 还是 error，最终都会被回调
+			});
+		});
+		
+     
+     </script>  
         
   </body>
 </html>

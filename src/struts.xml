@@ -46,8 +46,9 @@
 			<result name="regPage">/reg/reg.jsp</result>
 			<result name="findPage">/my/findpsd.jsp</result>
 			<result name="infoPage">/my/myinfo.jsp</result>
-			<result name="changePage">/my/changePsd.jsp</result>
+			<result name="changePage">/my/changepsd.jsp</result>
 			<result name="myCenterPage">/myCenter/myCenter.jsp</result>
+			<result name="exit" type="redirect">/index.jsp</result>
 			<result name="{1}Fail">/{1}/{1}.jsp</result>
 		</action>
 		
@@ -87,8 +88,11 @@
 	  <result name="admin">/admin/userRight.jsp</result>
 	  <result name="update">/admin/updateRight.jsp</result>
 	  <result name="fail">/admin/fail.jsp</result>
+	   <interceptor-ref name="all_stack"></interceptor-ref>
+	   <interceptor-ref name="menuInterceptor"></interceptor-ref>
 	    <interceptor-ref name="all_stack"></interceptor-ref>
 	  <interceptor-ref name="menuInterceptor"></interceptor-ref>
+
 	</action>
 	
 	<!--  Groups管理//listALL -->

@@ -159,9 +159,6 @@ public class UserDao {
 	
 	//@drj
 	public  User findUser(int id){
-		 Configuration config = new Configuration().configure() ;        
-		    SessionFactory sf = config.buildSessionFactory() ;
-		    //
 	    Session session = sf.openSession();
 	    User user=new User();
 	    Transaction transaction = session.beginTransaction();
@@ -169,30 +166,24 @@ public class UserDao {
 
 		  //参数是一个字符串,是HQL的查询语句.注意此时的的UserU为大写,为对象的,而不是表的.
 	    
-	 try{   
-        Query query = session.createQuery(" from User where id = "+id+"");
-        //从第一个开始查起.可以设置从第几个查起.
-        query.setFirstResult(0);
+	 
+        Query query = session.createQuery(" from User where id = '"+id+"'");
+        
         
         //使用List方法.
         List<User> userList = query.list();
         //迭代器去迭代.
-        for(Iterator iter=userList.iterator();iter.hasNext();)
-        {
-            user =(User)iter.next();
-          
-        }
-	 }
-      catch(Exception e){  
-    	  e.printStackTrace();
-      }
+       
+	
         transaction.commit();  
         session.close();
 		 
-		
-		
-		return user;
-		
+		if(userList!=null&&userList.size()>0)
+		{
+			return userList.get(0);
+		}
+	
+		return null;
 	}
 	
 	

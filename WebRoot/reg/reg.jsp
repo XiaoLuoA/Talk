@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	  </table>
         <input class="registerbutton" type="submit" value="确  定">
     </form>
-    <input type=button class="registerbutton" value="返 回" onclick="window.location.href='login/login.jsp'">
+    <input type=button class="registerbutton" value="返 回" onclick="window.location.href='index.jsp'">
     </div>
   
   
@@ -119,8 +119,7 @@ with (thisform)
    {email.focus();return false}
     if (validate_required(password2,"密码不能为空!")==false)
     {password2.focus();return false}
-    if (validate_required(pic,"头像不能为空!")==false)
-    {pic.focus();return false}   
+   
   }
 }
 

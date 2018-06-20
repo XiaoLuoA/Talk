@@ -37,19 +37,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
     <div class="changeInformation">  
      <div class="form">
-     <form id="" action="" method="post" onsubmit="return validate_form(this)">
+     <form id="edit" action="useredit.action" method="post" >
         <table class="table">      	     
           <tr> 
           <div class="tr">       
                 用户名：<input class="input zhanghao zhanghaosize" type="text" value="<s:property value="#session.user.name"/>"  placeholder="请输入用户名"   name="name" id="uname">
            </div>
           </tr>      
-           <tr> 
-           <div class="tr">                                           
-                 密      码：         <input type="text" class="input" value="<s:property value="#session.user.password"/>" name="password" placeholder="请输入密码" id="psd1">    
-            </div>               
-          </tr>
-          
+           
           <tr>
       	      <div class="tr">   
       	        性   别： <input  type="radio"  name="sex" checked="checked" value="男">男 <input  type="radio" name="sex" value="女">女 	 
@@ -60,11 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       	           邮     箱： <input type="text"class="input" value="<s:property value="#session.user.email"/>" placeholder="请输入邮箱" name="email" >
       	        </div>      	    
       	   </tr>   
-      	   <tr>
-      	      <div class="tr">   
-      	           头     像： <input type="file" class="input"  name="pic" >
-      	        </div>      	    
-      	   </tr>  
+      	    
       	    <div class="button">
         <input class="button1" type="submit" value="确  定">
         </div>   	                  
@@ -123,19 +114,88 @@ with (thisform)
   {
   if (validate_required(name,"用户名不能为空!")==false)
     {name.focus();return false}
-    if (validate_required(password,"密码不能为空!")==false)
-    {password.focus();return false}
+   
     if (validate_required(email,"邮箱不能为空!")==false)
     {email.focus();return false}
     if (validate_email(email,"邮箱格式不正确!")==false)
    {email.focus();return false}
-    if (validate_required(password2,"密码不能为空!")==false)
-    {password2.focus();return false}
-    if (validate_required(pic,"头像不能为空!")==false)
-    {pic.focus();return false}   
+   
   }
 }
      	
      </script> 
+     
+     <script type="text/javascript" src="jquery/jquery.min-v1.12.4.js" ></script>
+	<script type="text/javascript" src="jquery/jquery.form.min.js" ></script>
+	<script type="text/javascript" src="layer/layer/layer.js"></script>
+
+    <script type="text/javascript">
+    
+		$(document).ready(function() {
+			$("#edit").ajaxForm(
+			{
+				dataType: "json"
+				, beforeSubmit: function(formData, jqForm, options)
+				{       // 表单提交之前回调
+					var regFrom =  document.getElementById('edit');
+					var flag = validate_form(regFrom)
+					return flag;
+				}
+				, success: function(ret) 
+				{
+					// 业务层验证成功
+					if(ret.isOk)
+					{
+						layer.msg(ret.msg,
+								{
+									shift: 6
+									, shade: 0.3
+									, time: 2500
+									, offset: "165px"
+									, closeBtn: 1
+									, shadeClose: true
+								} , 
+								function() 
+								{
+									location.href="indexindex.action";
+								}
+						);
+						return ;
+					}
+					
+					// 业务层验证失败
+					if (ret.isFail)
+					{
+						layer.msg(ret.msg,
+								{
+									shift: 6
+									, shade: 0.3
+									, time: 2500
+									, offset: "165px"
+									, closeBtn: 1
+									, shadeClose: true
+								} , 
+								function() 
+								{
+									
+								}
+						);
+						return ;
+					}
+					
+				}
+				, error: function(ret)
+				{
+					
+				}              // ret.status != 200 时回调
+				, complete: function(ret) 
+				{
+					
+				}       // 无论是 success 还是 error，最终都会被回调
+			});
+		});
+	</script>
+	
+	
   </body>
 </html>

@@ -90,11 +90,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        </tr>
        <tr>
         <td>
-         <s:textfield name="groupPic"    label="群组头像"></s:textfield>
-        </td>
-       </tr>
-       <tr>
-        <td>
          <s:textfield name="createTime"  label="创建日期：yyyy-MM-dd"></s:textfield>
         </td>
        </tr>  
