@@ -7,6 +7,10 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%		
+	String sess = (String)request.getSession().getAttribute("sessionId");
+	User user = (User)request.getSession().getAttribute("user");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -52,11 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>	
 						<div class="item">
 							<div class="item-top">
-								<div>
-									<!--<img />-->
-									<span>我</span>
+								<div class="user-self">
+									<img class="user-img" src= "<%=user.getPic()%>"/>
+									<span class="user-name"> <%=user.getName()%></span>
 								</div>
-								<span class="top-panel">消息</span> <span class="top-panel">新消息</span>
+								<span class="top-panel"><i class="talk icon"></i></span><span class="top-panel"><i class="message icon"></i></span>
 							</div>
 							<div class="item-list list-item"><!--消息列表-->
 							<div class="button-area">
@@ -95,10 +99,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="temp/js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="page/tio/tiows.js"></script>
 		<% 
-		String sess = (String)request.getSession().getAttribute("sessionId");
-		User user = (User)request.getSession().getAttribute("user");
+
 		out.print("<script>var queryString = 'sessionId="+sess+"';");
 		out.print("var sessionId= '"+sess+"';");
+		out.print("var UserName = '"+user.getName()+"';");
+		out.print("var UserImg = '"+user.getPic()+"';");
 		out.print("var UserId= '"+user.getId()+"';</script>");
 		%>
 
