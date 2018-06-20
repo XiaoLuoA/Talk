@@ -132,8 +132,8 @@ function chatMessageTpl(message,isSelf)
 	var htmlText =[];
 	htmlText.push('<li class="message-item '+ (message.fromId==UserId?'self':'') +'" data-sendindex="'+ message.fromId +'">');
 	htmlText.push('<div class="message-title">');
-		htmlText.push('<img class="head-img" src="'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerPic +'">');
-		htmlText.push('<span class="message-title"><span>'+ (itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerName +'</span>');
+		htmlText.push('<img class="head-img" src="'+ (isSelf?UserPic:(itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerPic) +'">');
+		htmlText.push('<span class="message-title"><span>'+ (isSelf?UserName:(itemMap.get(message.itemId)||itemMap.get(ItemID)).talkerName) +'</span>');
 		htmlText.push('<span>'+ message.sendTime +'</span></span>');
 	htmlText.push('</div>');
 	htmlText.push('<div class="message-content">'+ message.content +'</div>');
