@@ -65,7 +65,15 @@ TAb.prototype.active = function(Num){
 	this.panles[num].classList.add("active");
 	this.showAreas[num].classList.add("active");
 	this.current = num;
+	this.afterClick(this.planes[num],this.showAreas[num],num);
 };
+
+TAb.prototype.afterClick = function(plane,showArea,num){}
+TAb.prototype.setAfterClickFunction(func)
+{
+	this.afterClick = func;
+}
+
 /**
  * 
  * @param {object} panle
